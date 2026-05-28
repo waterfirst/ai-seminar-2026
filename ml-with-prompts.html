@@ -206,7 +206,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 <!-- S5: 상관분석 -->
 <div class="slide">
 <h2 class="anim">Step 1. 상관분석 — 선행지표 발견</h2>
-<p class="anim2" style="margin-bottom:8px">전일 미국 데이터 → 당일 코스피 수익률 (148일 실측 데이터)</p>
+<p class="anim2" style="margin-bottom:8px">전일 미국 데이터 → 당일 코스피 수익률 (484일 실측 데이터, 13개 글로벌 지표)</p>
 <img src="images/chart_correlation.png" class="chart-full anim3" alt="상관분석">
 <div class="sn">5 / 22</div>
 </div>
@@ -440,6 +440,16 @@ subsample = 0.8         # 80%만 샘플링 (배깅 효과)</div>
 <p class="anim3" style="color:var(--text2);text-align:center;margin-top:4px">초록=적중, 빨강=오답 | 아래: 누적 적중률이 50%(랜덤)을 상회하면 모델이 유효</p>
 </div>
 
+<!-- S: 학습곡선 -->
+<div class="slide">
+<h2 class="anim">데이터가 많으면 더 정확한가?</h2>
+<img src="images/chart_learning_curve.png" class="chart-full anim2" alt="학습곡선">
+<div class="card anim3 mt">
+<p>💡 학습 정확도(파란)와 테스트 정확도(초록)의 <span class="highlight">갭이 줄어들면</span> = 과적합이 해소된다.</p>
+<p>현재 484일(2년) 데이터. 1,000일+(5년) 데이터면 더 안정적. <span class="warn">주가 예측에서 데이터 양은 정직하다.</span></p>
+</div>
+</div>
+
 <!-- S15: 전체 타임라인 -->
 <div class="slide">
 <h2 class="anim">전체 타임라인 — 실제로 걸린 시간</h2>
@@ -506,10 +516,10 @@ subsample = 0.8         # 80%만 샘플링 (배깅 효과)</div>
 <div class="anim2">
 <ul style="font-size:1.05rem;line-height:2.2">
 <li><span class="warn">R² 음수</span> — 수익률 크기 예측은 랜덤보다 못함. <strong>방향만</strong> 의미 있음</li>
-<li><span class="warn">148일 샘플</span> — 최소 500일+ 필요. 지금은 "시제품" 수준</li>
-<li><span class="warn">과적합 위험</span> — 피처 44개 vs 샘플 148개 → Lasso 피처 선택 필요</li>
+<li><span class="green">484일(2년) 데이터</span> — 13개 글로벌 지표, 108개 피처. 이상적으로는 5년+ 권장</li>
+<li><span class="warn">과적합 위험</span> — 피처 108개 vs 샘플 222개 → Lasso/SelectKBest 필요</li>
 <li><span class="warn">Regime Change</span> — 시장 구조가 바뀌면 모델이 무용지물 (코로나, 전쟁 등)</li>
-<li><span class="warn">82.5%</span> — 동전(50%)보다 훨씬 낫지만, 실전 수익 보장은 아님</li>
+<li><span class="warn">75% 앙상블</span> — 동전(50%)보다 낫지만, 실전 수익 보장은 아님. 방향 맞혀도 크기가 문제</li>
 </ul>
 </div>
 <div class="card anim3 mt">
