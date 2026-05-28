@@ -61,6 +61,52 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .slide.active .anim{animation:slideUp 0.6s ease-out both}
 .slide.active .anim2{animation:slideUp 0.6s ease-out 0.2s both}
 .slide.active .anim3{animation:slideUp 0.6s ease-out 0.4s both}
+
+/* ━━━ 모바일 최적화 ━━━ */
+@media(max-width:768px){
+  .slide{padding:24px 20px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .slide h1{font-size:1.6rem}
+  .slide h2{font-size:1.3rem;margin-bottom:12px}
+  .slide h3{font-size:1.05rem;margin-bottom:8px}
+  .slide p,.slide li{font-size:0.9rem;line-height:1.7}
+  .subtitle{font-size:1rem;margin-bottom:16px}
+  .two-col{grid-template-columns:1fr;gap:16px;margin-top:12px}
+  .three-col{grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  .code-block{font-size:0.7rem;padding:12px 14px;line-height:1.5;margin:8px 0}
+  .card{padding:14px;margin:8px 0}
+  .big-num{font-size:2.2rem}
+  .tag{font-size:0.7rem;padding:3px 8px;margin:2px}
+  .table{font-size:0.8rem}
+  .table th,.table td{padding:6px 8px}
+  .flow{gap:6px;margin:12px 0}
+  .flow-item{padding:8px 10px;min-width:60px;font-size:0.8rem}
+  .flow-arrow{font-size:1rem}
+  .chart-img{max-height:40vh;margin:8px 0}
+  .chart-full{max-height:50vh;margin:4px 0}
+  .hero-img{opacity:0.1}
+  .emoji{font-size:2rem;margin-bottom:8px}
+  .step-badge{font-size:0.75rem;padding:3px 10px}
+  .nav{bottom:10px;gap:8px}
+  .nav button{padding:8px 14px;font-size:0.8rem}
+  .bar{height:16px}
+  .mt{margin-top:12px}
+  .slide-num{bottom:12px;right:16px;font-size:0.75rem}
+}
+@media(max-width:400px){
+  .slide{padding:16px 14px}
+  .slide h1{font-size:1.3rem}
+  .slide h2{font-size:1.1rem}
+  .three-col{grid-template-columns:1fr}
+  .code-block{font-size:0.65rem;padding:10px}
+  .chart-img{max-height:35vh}
+  .chart-full{max-height:40vh}
+  .big-num{font-size:1.8rem}
+}
+/* 모바일 스크롤 허용 (긴 슬라이드) */
+@media(max-height:700px){
+  body{overflow-y:auto;height:auto}
+  .slide{min-height:100vh;height:auto}
+}
 </style>
 </head>
 <body>
