@@ -563,7 +563,125 @@ GridSearchCV로 최적 파라미터 찾고, 피처 중요도 보여줘."</div>
 <div class="sn">18 / 22</div>
 </div>
 
-<!-- S19: 앙상블 -->
+<!-- S19: OLED vs 코스피 비교 -->
+<div class="slide">
+<h2 class="anim">잠깐 — 이거 어디서 본 구조 아닌가?</h2>
+<p class="subtitle anim2">OLED 수명 예측과 코스피 주가 예측은 같은 문제다</p>
+<div class="two-col">
+<div class="anim2">
+<div class="card" style="border-left:4px solid var(--accent2)">
+<h3>📺 OLED 수명 예측</h3>
+<p style="font-size:0.95rem;margin-top:8px">
+<strong>입력:</strong> 온도, 전류밀도, 듀티비, 재료, 공정조건<br>
+<strong>타겟:</strong> 휘도 50% 도달 시간 (T50)<br>
+<strong>핵심:</strong> Arrhenius 가속 + 외삽<br>
+<strong>데이터:</strong> 가속시험 수백~수천 시간
+</p>
+</div>
+</div>
+<div class="anim3">
+<div class="card" style="border-left:4px solid var(--accent)">
+<h3>📈 코스피 주가 예측</h3>
+<p style="font-size:0.95rem;margin-top:8px">
+<strong>입력:</strong> EWY, VIX, 금리, 환율, 원자재<br>
+<strong>타겟:</strong> 다음날 등락 방향<br>
+<strong>핵심:</strong> 선행지표 상관 + 모멘텀<br>
+<strong>데이터:</strong> 484거래일 (2년)
+</p>
+</div>
+</div>
+</div>
+<div class="card anim3 mt center">
+<p style="font-size:1.1rem">둘 다 <span class="highlight">시계열 + 다변량 입력 → 미래 상태 예측</span> 구조.<br>코드 한 줄도 안 바꾸고 데이터만 바꾸면 된다.</p>
+</div>
+</div>
+
+<!-- S20: 같은 점 / 다른 점 -->
+<div class="slide">
+<h2 class="anim">같은 구조, 다른 성능</h2>
+<div class="two-col">
+<div class="anim2">
+<h3 style="color:var(--green)">✅ 같은 점</h3>
+<ul>
+<li>시계열 → <span class="highlight">TimeSeriesSplit</span> 필수</li>
+<li>다변량 → <span class="highlight">피처 중요도</span>가 핵심</li>
+<li>비선형 → <span class="highlight">RF/GBM</span>이 선형보다 나음</li>
+<li>외삽 예측 → <span class="highlight">과적합</span> 항상 위험</li>
+<li>같은 코드, 같은 프롬프트로 둘 다 가능</li>
+</ul>
+</div>
+<div class="anim3">
+<h3 style="color:var(--accent2)">⚡ 결정적 차이</h3>
+<div class="card">
+<p>📺 OLED: <span class="highlight">물리법칙이 있다</span></p>
+<p style="font-size:0.9rem;color:var(--text2);margin:4px 0">Arrhenius, 활성화 에너지, 확산 방정식</p>
+<p style="font-size:0.9rem">→ 물리 기반 피처 가능 → <span class="green" style="font-weight:900">95%+ 예측 가능</span></p>
+</div>
+<div class="card">
+<p>📈 주가: <span class="warn">물리법칙이 없다</span></p>
+<p style="font-size:0.9rem;color:var(--text2);margin:4px 0">인간 심리, 정치, 돌발 뉴스</p>
+<p style="font-size:0.9rem">→ 순수 통계 → <span class="warn">75%가 한계</span></p>
+</div>
+</div>
+</div>
+<div class="card anim3 mt center">
+<p style="font-size:1.15rem;font-weight:700">💡 <span class="highlight">물리를 아는 엔지니어가 ML을 쓰면, 순수 데이터 사이언티스트보다 강하다.</span></p>
+</div>
+</div>
+
+<!-- S21: 그러면 뭘 할 수 있을까 -->
+<div class="slide">
+<div class="hero-img"><img src="images/ml_factory.png" alt=""></div>
+<div class="z1">
+<h2 class="anim">그러면 우리 팀은 뭘 할 수 있을까?</h2>
+<div class="anim2" style="margin-top:16px">
+<div class="card" style="border-left:4px solid var(--green)">
+<h3>🔬 1. OLED 수명 예측 모델</h3>
+<p style="font-size:0.95rem">가속시험 데이터 + Arrhenius 피처 → T50/T95 예측. <strong>신규 재료 스크리닝에 시험 시간 80% 절감</strong></p>
+<div class="code-block" style="font-size:0.8rem;margin-top:8px">"OLED 가속시험 CSV로 수명 예측 모델 만들어줘. 온도를 Arrhenius 피처(1/kT)로 변환하고."</div>
+</div>
+<div class="card" style="border-left:4px solid var(--accent)">
+<h3>⚡ 2. Vth Shift / STIS 공정 최적화</h3>
+<p style="font-size:0.95rem">CVD 파라미터 → Vth shift 예측. <strong>챔버 호기별 차이 원인을 피처 중요도로 특정</strong></p>
+<div class="code-block" style="font-size:0.8rem;margin-top:8px">"CVD 가스비, 온도, 압력, 챔버 호기별 Vth shift 데이터로 RF 모델 만들어줘. 어떤 파라미터가 원인인지."</div>
+</div>
+<div class="card" style="border-left:4px solid var(--accent2)">
+<h3>🏭 3. 양산 불량 예측 (ORT)</h3>
+<p style="font-size:0.95rem">공정 센서 데이터 → 불량률 예측. <strong>출하 전 선제 차단. 고객 클레임 감소</strong></p>
+<div class="code-block" style="font-size:0.8rem;margin-top:8px">"양산 ORT 데이터에서 불량 예측 모델 만들어줘. 어떤 공정 변수가 불량과 가장 관련 있는지."</div>
+</div>
+<div class="card" style="border-left:4px solid #9C27B0">
+<h3>📊 4. RC Mismatch 실험 설계 최적화</h3>
+<p style="font-size:0.95rem">GI 가스비 vs STIS 관계를 ML로 탐색. <strong>U-shape 최적점을 실험 없이 좁혀감</strong></p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- S22: 핵심 메시지 전환 -->
+<div class="slide">
+<div class="center">
+<div class="emoji anim">💎</div>
+<h2 class="anim" style="font-size:1.8rem">우리 팀의 무기</h2>
+<div class="anim2" style="margin-top:24px">
+<div class="flow" style="justify-content:center">
+<div class="flow-item" style="border-color:var(--accent2)">🔬<br><strong>물리 지식</strong><br><span style="font-size:0.8rem;color:var(--text2)">25년 경험<br>Arrhenius, Maxwell<br>반도체 물리</span></div>
+<div class="flow-arrow" style="font-size:2rem">×</div>
+<div class="flow-item" style="border-color:var(--accent)">🧠<br><strong>AI/ML 도구</strong><br><span style="font-size:0.8rem;color:var(--text2)">프롬프트로<br>RF, GBM, 앙상블<br>30분 구축</span></div>
+<div class="flow-arrow" style="font-size:2rem">=</div>
+<div class="flow-item" style="border-color:var(--green)">🚀<br><strong>경쟁 우위</strong><br><span style="font-size:0.8rem;color:var(--text2)">데이터 사이언티스트는<br>물리를 모르고<br>우리는 둘 다 안다</span></div>
+</div>
+</div>
+<div class="card anim3 mt" style="max-width:600px;margin-left:auto;margin-right:auto">
+<p style="font-size:1.2rem;text-align:center;font-weight:700">
+"물리를 아는 엔지니어가 AI를 쓰면<br>
+<span class="highlight">아무도 못 이긴다</span>"
+</p>
+</div>
+</div>
+</div>
+
+<!-- S23: 앙상블 -->
 <div class="slide">
 <div class="hero-img"><img src="images/ml_ensemble.png" alt=""></div>
 <div class="z1">
