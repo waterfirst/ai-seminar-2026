@@ -53,6 +53,8 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .nav button{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border);padding:10px 20px;border-radius:24px;font-size:0.95rem;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .2s;backdrop-filter:blur(10px)}
 .nav button:hover{background:var(--accent);border-color:var(--accent)}
 .progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .3s;z-index:100}
+.chart-img{width:100%;max-height:55vh;object-fit:contain;border-radius:12px;border:1px solid var(--border);margin:16px 0}
+.chart-full{width:100%;max-height:70vh;object-fit:contain;border-radius:12px;margin:8px 0}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
 .pulse{animation:pulse 2s infinite}
 @keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
@@ -82,7 +84,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 </div>
 <p class="anim3" style="color:var(--text2)">삼성디스플레이 중소형품질팀 · 최낙초<br>2026.05.29</p>
 </div>
-<div class="slide-num">1 / 22</div>
+<div class="sn">1 / 22</div>
 </div>
 
 <!-- S2: 왜 -->
@@ -112,7 +114,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 <p class="mt" style="color:var(--green)">⏱️ 30분</p>
 </div>
 </div>
-<div class="slide-num">2 / 22</div>
+<div class="sn">2 / 22</div>
 </div>
 
 <!-- S3: 실제 대화 1 -->
@@ -131,7 +133,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 <li>결과: <span class="green">6/8 적중 (75%)</span></li>
 </ul>
 </div>
-<div class="slide-num">3 / 22</div>
+<div class="sn">3 / 22</div>
 </div>
 
 <!-- S4: 실제 대화 2 -->
@@ -152,23 +154,23 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 <div class="card" style="padding:14px"><span class="step-badge">6</span><br>오늘 예측<br>앙상블 판단</div>
 </div>
 </div>
-<div class="slide-num">4 / 22</div>
+<div class="sn">4 / 22</div>
 </div>
 
 <!-- S5: 상관분석 -->
 <div class="slide">
 <h2 class="anim">Step 1. 상관분석 — 선행지표 발견</h2>
-<p class="anim2" style="margin-bottom:16px">전일 미국 데이터 → 당일 코스피 수익률</p>
-<table class="table anim3">
-<tr><th>변수</th><th>상관계수</th><th style="width:40%">시각화</th></tr>
-<tr><td><span class="highlight">SOXX (반도체 ETF)</span></td><td class="green" style="font-weight:700">0.499</td><td><div class="bar" style="width:250px;background:var(--accent)"></div> 🏆</td></tr>
-<tr><td>SPY (S&P500)</td><td>0.426</td><td><div class="bar" style="width:213px;background:var(--accent);opacity:0.8"></div></td></tr>
-<tr><td>VIX (공포지수)</td><td style="color:var(--red)">-0.420</td><td><div class="bar" style="width:210px;background:var(--red)"></div></td></tr>
-<tr><td>MU (마이크론)</td><td>0.416</td><td><div class="bar" style="width:208px;background:var(--accent);opacity:0.7"></div></td></tr>
-<tr><td>EWY (한국 ETF)</td><td>0.403</td><td><div class="bar" style="width:202px;background:var(--accent);opacity:0.6"></div></td></tr>
-<tr><td>환율 (USD/KRW)</td><td style="color:var(--text2)">0.088</td><td><div class="bar" style="width:44px;background:var(--text2)"></div></td></tr>
-</table>
-<div class="slide-num">5 / 22</div>
+<p class="anim2" style="margin-bottom:8px">전일 미국 데이터 → 당일 코스피 수익률 (148일 실측 데이터)</p>
+<img src="images/chart_correlation.png" class="chart-full anim3" alt="상관분석">
+<div class="sn">5 / 22</div>
+</div>
+
+<!-- S5b: 코스피 vs EWY 동조화 -->
+<div class="slide">
+<h2 class="anim">코스피 vs EWY — 동조화 시각적 증거</h2>
+<img src="images/chart_kospi_vs_ewy.png" class="chart-full anim2" alt="코스피 vs EWY">
+<p class="anim3" style="color:var(--text2);margin-top:8px;text-align:center">6개월간 두 지수가 거의 동일하게 움직인다 → EWY 전일 수익률이 코스피 예측에 유효한 근거</p>
+<div class="sn">6 / 23</div>
 </div>
 
 <!-- S6: 피처 엔지니어링 -->
@@ -206,7 +208,7 @@ KOSPI_vol5, SPY_vol5_lag1
 dow_mon ~ dow_fri</div>
 </div>
 </div>
-<div class="slide-num">6 / 22</div>
+<div class="sn">6 / 22</div>
 </div>
 
 <!-- S7: 1차 모델 결과 -->
@@ -223,7 +225,7 @@ dow_mon ~ dow_fri</div>
 <div class="code-block" style="font-size:1.1rem;text-align:center;padding:24px;color:var(--accent2)">👤 "전문적이군. 이거 계속 모델 파라미터 수정하면서 정합률 높여라"</div>
 <p style="color:var(--text2);margin-top:12px;text-align:center">→ 이 한 마디가 Part 2를 시작시켰다</p>
 </div>
-<div class="slide-num">7 / 22</div>
+<div class="sn">7 / 22</div>
 </div>
 
 <!-- ═══════ PART 2: 튜닝 (8장) ═══════ -->
@@ -245,7 +247,7 @@ dow_mon ~ dow_fri</div>
 <div class="flow-item" style="border-color:var(--green)"><strong class="green">82.5%</strong><br><span style="font-size:0.8rem;color:var(--green)">GridSearch GBM</span></div>
 </div>
 </div>
-<div class="slide-num">8 / 22</div>
+<div class="sn">8 / 22</div>
 </div>
 
 <!-- S9: 실제 프롬프트 3 -->
@@ -265,7 +267,7 @@ dow_mon ~ dow_fri</div>
 <li>축소 그리드 먼저 → 전체 그리드 백그라운드 실행</li>
 </ul>
 </div>
-<div class="slide-num">9 / 22</div>
+<div class="sn">9 / 22</div>
 </div>
 
 <!-- S10: GridSearch 설명 -->
@@ -297,7 +299,7 @@ dow_mon ~ dow_fri</div>
 </div>
 </div>
 </div>
-<div class="slide-num">10 / 22</div>
+<div class="sn">10 / 22</div>
 </div>
 
 <!-- S11: 피처 확장 결과 -->
@@ -327,19 +329,13 @@ dow_mon ~ dow_fri</div>
 </div>
 </div>
 </div>
-<div class="slide-num">11 / 22</div>
+<div class="sn">11 / 22</div>
 </div>
 
 <!-- S12: GridSearch 결과 -->
 <div class="slide">
-<h2 class="anim">GridSearch 결과 — 모델 비교</h2>
-<table class="table anim2" style="font-size:1.05rem">
-<tr><th>단계</th><th>모델</th><th>CV 적중률</th><th>개선</th></tr>
-<tr><td>1차</td><td>RF (기본 피처 9개)</td><td>70.5%</td><td>—</td></tr>
-<tr><td>2차</td><td>RF (확장 피처 44개)</td><td>77.5%</td><td><span class="green">+7.0%p</span></td></tr>
-<tr><td>3차</td><td>RF + GridSearch</td><td>81.7%</td><td><span class="green">+11.2%p</span></td></tr>
-<tr style="background:rgba(63,185,80,0.1)"><td>최종</td><td><span class="highlight">GBM + GridSearch</span></td><td><span class="green" style="font-size:1.3rem;font-weight:900">82.5%</span></td><td><span class="green" style="font-weight:900">+12.0%p</span></td></tr>
-</table>
+<h2 class="anim">GridSearch 결과 — 단계별 성능 향상</h2>
+<img src="images/chart_model_comparison.png" class="chart-img anim2" alt="모델비교">
 <div class="card anim3 mt">
 <h3>최적 GBM 파라미터</h3>
 <div class="code-block">learning_rate = 0.05    # 느리지만 정확하게
@@ -348,48 +344,17 @@ n_estimators = 300      # 충분한 트리 수
 min_samples_leaf = 5    # 잎 노드 최소 5개
 subsample = 0.8         # 80%만 샘플링 (배깅 효과)</div>
 </div>
-<div class="slide-num">12 / 22</div>
+<div class="sn">12 / 22</div>
 </div>
 
 <!-- S13: 피처 중요도 -->
 <div class="slide">
 <h2 class="anim">피처 중요도 — 뭐가 가장 중요한가</h2>
-<div class="anim2">
-<div style="margin:8px 0;display:flex;align-items:center;gap:12px">
-<span style="min-width:180px;font-size:0.95rem">KOSPI MA5 괴리율</span>
-<div class="bar" style="width:330px;background:linear-gradient(90deg,var(--accent),var(--accent2))"></div>
-<span style="font-weight:700">41.2% 🏆</span>
-</div>
-<div style="margin:8px 0;display:flex;align-items:center;gap:12px">
-<span style="min-width:180px;font-size:0.95rem">SOXX MA5 비율</span>
-<div class="bar" style="width:130px;background:var(--accent);opacity:0.8"></div>
-<span>6.4%</span>
-</div>
-<div style="margin:8px 0;display:flex;align-items:center;gap:12px">
-<span style="min-width:180px;font-size:0.95rem">KOSPI > MA5 여부</span>
-<div class="bar" style="width:120px;background:var(--accent);opacity:0.7"></div>
-<span>6.0%</span>
-</div>
-<div style="margin:8px 0;display:flex;align-items:center;gap:12px">
-<span style="min-width:180px;font-size:0.95rem">SPY MA5 비율</span>
-<div class="bar" style="width:116px;background:var(--accent);opacity:0.6"></div>
-<span>5.8%</span>
-</div>
-<div style="margin:8px 0;display:flex;align-items:center;gap:12px">
-<span style="min-width:180px;font-size:0.95rem">SOXX 전일 수익률</span>
-<div class="bar" style="width:112px;background:var(--accent);opacity:0.55"></div>
-<span>5.6%</span>
-</div>
-<div style="margin:8px 0;display:flex;align-items:center;gap:12px">
-<span style="min-width:180px;font-size:0.95rem">VIX 전일 변화율</span>
-<div class="bar" style="width:107px;background:var(--red);opacity:0.7"></div>
-<span>5.3%</span>
-</div>
-</div>
+<img src="images/chart_feature_importance.png" class="chart-full anim2" alt="피처중요도">
 <div class="card anim3 mt">
 <p>💡 <span class="highlight">"코스피가 5일 이동평균선 위에 있으면 내일도 오른다"</span> — 이 단순한 모멘텀 패턴이 전체 예측력의 41%를 설명한다. 복잡한 피처보다 단순한 추세가 강력.</p>
 </div>
-<div class="slide-num">13 / 22</div>
+<div class="sn">13 / 22</div>
 </div>
 
 <!-- S14: 오늘 예측 -->
@@ -419,7 +384,14 @@ subsample = 0.8         # 80%만 샘플링 (배깅 효과)</div>
 <p class="mt center">🎯 앙상블: <span class="green" style="font-weight:900;font-size:1.2rem">상승 (2/2, 강)</span></p>
 </div>
 </div>
-<div class="slide-num">14 / 22</div>
+<div class="sn">14 / 22</div>
+</div>
+
+<!-- S14b: 예측 vs 실제 차트 -->
+<div class="slide">
+<h2 class="anim">예측 vs 실제 — 최근 30거래일 검증</h2>
+<img src="images/chart_prediction_vs_actual.png" class="chart-full anim2" alt="예측vs실제">
+<p class="anim3" style="color:var(--text2);text-align:center;margin-top:4px">초록=적중, 빨강=오답 | 아래: 누적 적중률이 50%(랜덤)을 상회하면 모델이 유효</p>
 </div>
 
 <!-- S15: 전체 타임라인 -->
@@ -466,25 +438,20 @@ subsample = 0.8         # 80%만 샘플링 (배깅 효과)</div>
 <p><span class="big-num">30분</span></p>
 <p style="color:var(--text2)">프롬프트 3개 · 코드 0줄 작성 · ML 모델 5개 비교 · CV 검증 완료</p>
 </div>
-<div class="slide-num">15 / 22</div>
+<div class="sn">15 / 22</div>
 </div>
 
 <!-- ═══════ PART 3: 적용 (7장) ═══════ -->
 
 <!-- S16: 교차검증 -->
 <div class="slide">
-<h2 class="anim">시계열 교차검증 — 왜 중요한가</h2>
-<p class="anim2" style="margin-bottom:16px">일반 K-Fold는 <span class="warn">미래 데이터 누출</span>. 시계열은 <span class="highlight">TimeSeriesSplit</span> 필수.</p>
-<div class="code-block anim2">Fold 1: [████████░░░░░░░░░░░░] → [██]     과거로 학습 → 미래 예측
-Fold 2: [████████████░░░░░░░░] → [██]     ←
-Fold 3: [████████████████░░░░] → [██]        점점 더 많은 과거로
-Fold 4: [████████████████████] → [██]           학습하며 검증
-Fold 5: [████████████████████████] → [██]   → 가장 현실적 테스트</div>
+<h2 class="anim">시계열 교차검증 — 5-Fold 실측 결과</h2>
+<img src="images/chart_cv_folds.png" class="chart-img anim2" alt="CV Folds">
 <div class="card anim3 mt">
-<p>⚠️ <span class="warn">흔한 실수</span>: random shuffle로 80% 정확도 찍었다고 좋아하면 안 됨.</p>
-<p>→ 미래 데이터가 훈련에 섞이면 누구나 예측 잘함. <span class="highlight">시계열 분할이 진짜 실력</span>.</p>
+<p>⚠️ <span class="warn">흔한 실수</span>: random shuffle로 80% 나왔다고 좋아하면 안 됨 — 미래 데이터 누출.</p>
+<p><span class="highlight">TimeSeriesSplit</span>: 항상 과거→미래 방향으로만 학습. 이게 진짜 실력.</p>
 </div>
-<div class="slide-num">16 / 22</div>
+<div class="sn">16 / 22</div>
 </div>
 
 <!-- S17: 한계 -->
@@ -502,7 +469,7 @@ Fold 5: [███████████████████████�
 <div class="card anim3 mt">
 <p>💡 <span class="highlight">그래도 의미 있는 이유</span>: "어떤 변수가 어떤 방향으로 영향을 주는지" 정량적으로 아는 것 자체가 의사결정 품질을 높인다. 모델이 100% 맞아야만 가치 있는 건 아니다.</p>
 </div>
-<div class="slide-num">17 / 22</div>
+<div class="sn">17 / 22</div>
 </div>
 
 <!-- S18: 품질 적용 -->
@@ -537,7 +504,7 @@ Fold 5: [███████████████████████�
 GridSearchCV로 최적 파라미터 찾고, 피처 중요도 보여줘."</div>
 </div>
 </div>
-<div class="slide-num">18 / 22</div>
+<div class="sn">18 / 22</div>
 </div>
 
 <!-- S19: 앙상블 -->
@@ -571,7 +538,7 @@ GridSearchCV로 최적 파라미터 찾고, 피처 중요도 보여줘."</div>
 <p style="color:var(--text2);font-size:0.9rem;margin-top:8px">오늘: 3/3 동의 = 강한 상승 신호</p>
 </div>
 </div>
-<div class="slide-num">19 / 22</div>
+<div class="sn">19 / 22</div>
 </div>
 
 <!-- S20: 실습 -->
@@ -595,7 +562,7 @@ GridSearchCV로 최적 파라미터 찾고, 피처 중요도 보여줘."</div>
 <p style="color:var(--text2)">도구: Claude Code / ChatGPT / Google Colab 아무거나</p>
 <p style="color:var(--text2)">데이터: CSV 파일 하나 + 위 프롬프트 3개</p>
 </div>
-<div class="slide-num">20 / 22</div>
+<div class="sn">20 / 22</div>
 </div>
 
 <!-- S21: 핵심 교훈 -->
@@ -608,7 +575,7 @@ GridSearchCV로 최적 파라미터 찾고, 피처 중요도 보여줘."</div>
 <p>4️⃣ <span class="highlight">시계열은 TimeSeriesSplit</span> — 미래 누출하면 가짜 정확도</p>
 <p>5️⃣ <span class="highlight">한계를 아는 게 진짜 실력</span> — 82.5%도 완벽하진 않다</p>
 </div>
-<div class="slide-num">21 / 22</div>
+<div class="sn">21 / 22</div>
 </div>
 
 <!-- S22: 마무리 -->
@@ -630,7 +597,7 @@ GridSearchCV로 최적 파라미터 찾고, 피처 중요도 보여줘."</div>
 </p>
 </div>
 </div>
-<div class="slide-num">22 / 22</div>
+<div class="sn">22 / 22</div>
 </div>
 
 <!-- Nav -->
@@ -663,6 +630,15 @@ document.addEventListener('touchend',e=>{
   if(Math.abs(d)>50)d>0?go(cur-1):go(cur+1);
 });
 P.style.width=(1/S.length*100)+'%';
+// 슬라이드 번호 자동 갱신
+document.querySelectorAll('.sn').forEach(el=>el.remove());
+S.forEach((s,i)=>{
+  const d=document.createElement('div');
+  d.className='slide-num';
+  d.textContent=(i+1)+' / '+S.length;
+  d.style.cssText='position:absolute;bottom:24px;right:40px;color:#888;font-size:0.85rem;font-family:JetBrains Mono,monospace';
+  s.appendChild(d);
+});
 </script>
 </body>
 </html>
