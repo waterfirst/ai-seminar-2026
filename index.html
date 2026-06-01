@@ -866,6 +866,145 @@ footer{padding:40px 0;text-align:center;color:var(--text2);font-size:0.85rem;bor
 
 </div>
 
+<!-- BONUS 1: AI로 코스피 예측 & 수명 예측 -->
+<section class="section">
+  <span class="section-label">Bonus 1</span>
+  <h2>
+    <span class="ko">AI 예측의 실전: 코스피 & 수명</span>
+    <span class="en">AI Prediction in Practice: KOSPI & Lifespan</span>
+  </h2>
+  <p class="intro">
+    <span class="ko">AI가 실제로 미래를 예측할 수 있을까? 두 가지 실전 사례로 알아봅니다.</span>
+    <span class="en">Can AI actually predict the future? Two real-world examples.</span>
+  </p>
+
+  <!-- 코스피 예측 -->
+  <h3 style="margin:24px 0 16px">
+    <span class="ko">📈 사례 1: 코스피 방향 예측 시스템</span>
+    <span class="en">📈 Case 1: KOSPI Direction Prediction System</span>
+  </h3>
+
+  <div class="cards">
+    <div class="card" style="border-top:4px solid var(--blue)">
+      <div class="card-icon">🔮</div>
+      <h3><span class="ko">상관분석 기반 예측</span><span class="en">Correlation-Based Prediction</span></h3>
+      <p><span class="ko">매일 새벽 6시, AI가 미국장 마감 데이터(S&P500, VIX, 마이크론, EWY, 환율)를 수집하고, 검증된 상관계수로 오늘 코스피 방향을 예측합니다.</span>
+      <span class="en">Every 6AM, AI collects US market data (S&P500, VIX, Micron, EWY, FX) and predicts today's KOSPI direction using validated correlations.</span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--green)">
+      <div class="card-icon">📊</div>
+      <h3><span class="ko">4가지 신호</span><span class="en">4 Signals</span></h3>
+      <p><span class="ko">• EWY→코스피: 상관 0.364<br>• VIX→코스피: 상관 -0.355<br>• 마이크론→하이닉스: 상관 0.403<br>• 원화강세 시 코스피 +1.13%<br><br>매일 저녁 적중률을 검증하고 기록합니다.</span>
+      <span class="en">• EWY→KOSPI: corr 0.364<br>• VIX→KOSPI: corr -0.355<br>• Micron→Hynix: corr 0.403<br>• KRW strong → KOSPI +1.13%<br><br>Hit rate verified and logged every evening.</span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--red)">
+      <div class="card-icon">⚠️</div>
+      <h3><span class="ko">한계와 교훈</span><span class="en">Limitations & Lessons</span></h3>
+      <p><span class="ko">• AI 예측은 확률이지 확정이 아님<br>• 상관관계 ≠ 인과관계<br>• ADR(등락비율) 60% 이하면 지수가 착시<br>• 데이터로 판단하되, 최종 결정은 사람이</span>
+      <span class="en">• AI prediction = probability, not certainty<br>• Correlation ≠ causation<br>• ADR below 60% = index illusion<br>• Data informs, humans decide</span></p>
+    </div>
+  </div>
+
+  <div class="demo-box">
+    <div class="demo-label"><span class="ko">실제 운영 구조</span><span class="en">Actual Operating System</span></div>
+    <div class="prompt"><span class="ko">📱 텔레그램으로 매일 자동 알림:<br>• 06:00 미국장 마감 + 코스피 예측 (Gemini API, 무료)<br>• 09~15시 장중 급변동 감지 (bash + curl, 무료)<br>• 21:00 저녁 리포트 + 예측 검증 (Gemini API, 무료)<br>• 금요일 18:00 장단기 금리차 주간 점검</span>
+    <span class="en">📱 Daily auto-alerts via Telegram:<br>• 06:00 US market close + KOSPI prediction (Gemini API, free)<br>• 09~15h intraday spike detection (bash + curl, free)<br>• 21:00 Evening report + prediction verification (Gemini API, free)<br>• Fri 18:00 Yield curve weekly check</span></div>
+    <div class="output"><span class="ko">💡 핵심: Claude($100/월)는 분석/보고서에만, 일상 모니터링은 Gemini(무료) + bash 스크립트로 비용 최적화</span>
+    <span class="en">💡 Key: Claude ($100/mo) for analysis only, daily monitoring via Gemini (free) + bash scripts for cost optimization</span></div>
+  </div>
+
+  <!-- 수명 예측 -->
+  <h3 style="margin:32px 0 16px">
+    <span class="ko">🧬 사례 2: AI 수명 예측</span>
+    <span class="en">🧬 Case 2: AI Lifespan Prediction</span>
+  </h3>
+
+  <div class="alert blue">
+    <span>🔬</span>
+    <div>
+      <p><span class="ko"><strong>머신러닝 + 건강 데이터 = 수명 예측</strong><br>혈액검사, 생활습관, 유전자 데이터를 입력하면 AI가 기대수명과 건강 리스크를 분석합니다. 구글 DeepMind의 AlphaFold가 단백질 구조를 예측한 것처럼, 건강 데이터의 패턴도 예측 가능한 영역입니다.<br><br><strong>R&D 적용:</strong> 디스플레이 소자 수명 예측도 같은 원리. LTPS/IGZO/pIGO의 HCI(Hot Carrier Injection) 스트레스 데이터를 AI가 분석하면 가속시험 없이 수명을 추정할 수 있습니다.</span>
+      <span class="en"><strong>ML + Health Data = Lifespan Prediction</strong><br>Input blood tests, lifestyle, and genetic data — AI analyzes life expectancy and health risks. Just as DeepMind's AlphaFold predicts protein structures, health data patterns are also predictable.<br><br><strong>R&D Application:</strong> Display device lifetime prediction works the same way. AI analyzes HCI stress data for LTPS/IGZO/pIGO to estimate lifetime without accelerated testing.</span></p>
+    </div>
+  </div>
+
+  <div class="quote-box">
+    <div class="name"><span class="ko">핵심 인사이트</span><span class="en">Key Insight</span></div>
+    <p><span class="ko">"예측의 본질은 같다. 과거 데이터의 패턴을 찾아 미래를 추정하는 것. 주가든, 수명이든, 소자 신뢰성이든."</span>
+    <span class="en">"The essence of prediction is the same: finding patterns in past data to estimate the future. Whether stocks, lifespan, or device reliability."</span></p>
+  </div>
+</section>
+
+<!-- BONUS 2: ETF 모멘텀 히트맵 — AI 실전 투자 도구 -->
+<section class="section">
+  <span class="section-label">Bonus 2</span>
+  <h2>
+    <span class="ko">실전: AI로 만든 ETF 투자 도구</span>
+    <span class="en">Real Tool: AI-Built ETF Investment Tool</span>
+  </h2>
+  <p class="intro">
+    <span class="ko">"코드를 한 줄도 쓰지 않고" AI와 대화만으로 만든 실전 투자 도구</span>
+    <span class="en">A real investment tool built purely by chatting with AI — "without writing a single line of code"</span>
+  </p>
+
+  <div class="cards">
+    <div class="card" style="border-top:4px solid var(--accent)">
+      <div class="card-icon">🗺️</div>
+      <h3><span class="ko">ETF 모멘텀 히트맵</span><span class="en">ETF Momentum Heatmap</span></h3>
+      <p><span class="ko">공공데이터포털 API로 한국 ETF 100개의 모멘텀을 계산하고, 트리맵으로 시각화합니다.<br><br>• 크기 = 모멘텀 점수<br>• 색상 = 순위 변동 (빨강=상승, 파랑=하락)<br>• 클릭 = 상세 차트 (RSI, MACD, 스토캐스틱)</span>
+      <span class="en">Calculates momentum for 100 Korean ETFs via public API, visualized as a treemap.<br><br>• Size = momentum score<br>• Color = rank change (red=up, blue=down)<br>• Click = detailed chart (RSI, MACD, Stochastic)</span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--purple)">
+      <div class="card-icon">🤖</div>
+      <h3><span class="ko">AI가 만든 것</span><span class="en">What AI Built</span></h3>
+      <p><span class="ko">• HTML 1,300줄 (외부 라이브러리 없음)<br>• Python CORS 프록시 71줄<br>• 모멘텀 계산 알고리즘<br>• 섹터 자동 분류<br>• 백테스트 엔진<br>• K-means 클러스터링<br><br>전부 <strong>Claude Opus 4.8</strong>과 대화로 완성</span>
+      <span class="en">• 1,300 lines HTML (zero dependencies)<br>• 71-line Python CORS proxy<br>• Momentum calculation algorithm<br>• Auto sector classification<br>• Backtest engine<br>• K-means clustering<br><br>All built by chatting with <strong>Claude Opus 4.8</strong></span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--green)">
+      <div class="card-icon">💰</div>
+      <h3><span class="ko">실전 성과</span><span class="en">Real Results</span></h3>
+      <p><span class="ko">• 이 도구로 분석 → 6/1 리밸런싱 실행<br>• 95위(현대차) → 10위(200IT) 교체<br>• 83위(S&P500) → 2위(네트워크인프라) 교체<br>• <strong>2일 만에 +162만원 교체 효과</strong><br>• 모멘텀 등급: D등급 3개 → 0개 제거</span>
+      <span class="en">• Analysis → 6/1 rebalancing executed<br>• Rank 95 → 10 (Hyundai→200IT)<br>• Rank 83 → 2 (S&P500→Network Infra)<br>• <strong>+1.62M KRW swap effect in 2 days</strong><br>• Grade: 3 D-grades → 0 eliminated</span></p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4><span class="ko">아이디어</span><span class="en">Idea</span></h4>
+      <p><span class="ko">"ETF를 한눈에 비교하고 싶다"</span><span class="en">"Want to compare ETFs at a glance"</span></p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4><span class="ko">AI 대화</span><span class="en">AI Chat</span></h4>
+      <p><span class="ko">Claude에게 설명 → 코드 생성</span><span class="en">Explain to Claude → code generated</span></p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4><span class="ko">수정 반복</span><span class="en">Iterate</span></h4>
+      <p><span class="ko">"이거 안 됨" → AI가 수정</span><span class="en">"This doesn't work" → AI fixes</span></p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4><span class="ko">실전 투자</span><span class="en">Real Investment</span></h4>
+      <p><span class="ko">데이터로 판단 → 실행</span><span class="en">Data-driven decision → execute</span></p>
+    </div>
+  </div>
+
+  <div class="alert green">
+    <span>🔗</span>
+    <div>
+      <p><span class="ko"><strong>GitHub:</strong> <a href="https://github.com/waterfirst/etf-heatmap" style="color:var(--accent)" target="_blank">github.com/waterfirst/etf-heatmap</a><br>로컬에서 <code>python etf_server.py</code> 실행 → 브라우저에서 확인<br>서비스키는 암호화되어 코드에 저장 (비밀번호로 복호화)</span>
+      <span class="en"><strong>GitHub:</strong> <a href="https://github.com/waterfirst/etf-heatmap" style="color:var(--accent)" target="_blank">github.com/waterfirst/etf-heatmap</a><br>Run <code>python etf_server.py</code> locally → view in browser<br>Service key encrypted in code (decrypted with password)</span></p>
+    </div>
+  </div>
+
+  <div class="quote-box">
+    <div class="name"><span class="ko">메시지</span><span class="en">Message</span></div>
+    <p><span class="ko">"도메인 전문가 + AI = 실전 도구. 코드를 몰라도 됩니다. 방향만 잡아주면 AI가 만듭니다. 여러분의 25년 경험이 AI의 연료입니다."</span>
+    <span class="en">"Domain expert + AI = real tools. No coding needed. Just give direction, AI builds it. Your 25 years of experience is AI's fuel."</span></p>
+  </div>
+</section>
+
 <!-- 이 발표자료는 어떻게 만들었는가 -->
 <section class="section" style="background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;border-radius:24px;margin:40px 0;padding:48px 32px">
   <h2 style="color:#fff;text-align:center;margin-bottom:8px">
