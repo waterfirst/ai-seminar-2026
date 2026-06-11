@@ -52,6 +52,9 @@ canvas{max-width:100%;display:block;margin:0 auto;border-radius:6px}
 .eqbox{background:var(--code);border:1px solid var(--accent);border-radius:10px;padding:12px 18px;font-family:'JetBrains Mono',monospace;font-size:0.92rem;color:var(--accent);margin:8px 0;text-align:center;letter-spacing:0.5px}
 .snum{position:absolute;bottom:20px;right:32px;color:#444;font-size:0.8rem;font-family:'JetBrains Mono',monospace}
 .badge{display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:#000;font-weight:900;border-radius:50%;width:22px;height:22px;font-size:0.78rem;margin-right:7px;flex-shrink:0}
+.ledger{font-family:'JetBrains Mono',monospace;font-size:0.82rem;line-height:1.95}
+.ledger .id{color:var(--accent)}
+.ledger .warn-id{color:var(--accent2)}
 </style>
 </head>
 <body>
@@ -87,8 +90,8 @@ canvas{max-width:100%;display:block;margin:0 auto;border-radius:6px}
 <ul>
 <li>6/8 코스피 −8.29% <span class="warn">서킷브레이커</span></li>
 <li>사전등록한 9개 가설 실전 판정</li>
-<li><span class="highlight">감쇠진동자 물리 모델</span> 검증 및 기각</li>
-<li>AI 오발동 3회 → 2회 차단</li>
+<li><span class="highlight">감쇠진동자 + 도수 비유</span> 물리 모델 검증 및 기각</li>
+<li>AI 오발동 3회 → 2회 차단 / 오류 16건 적발</li>
 <li>몬테카를로 p=0.01 패턴 검증</li>
 </ul>
 </div>
@@ -99,7 +102,7 @@ canvas{max-width:100%;display:block;margin:0 auto;border-radius:6px}
 </div>
 <div class="card" style="border-color:var(--green);margin-top:6px">
 <p class="green" style="font-weight:700">→ 설계가 모델보다 중요하다</p>
-<p style="font-size:0.85rem;color:var(--text2);margin-top:4px">가설 먼저, 데이터 나중<br>코드가 세고, 모델이 해석</p>
+<p style="font-size:0.85rem;color:var(--text2);margin-top:4px">가설 먼저, 데이터 나중<br>코드가 세고, 모델이 해석<br>검증자도 틀린다 — 확정 데이터가 심판</p>
 </div>
 </div>
 </div>
@@ -142,6 +145,27 @@ canvas{max-width:100%;display:block;margin:0 auto;border-radius:6px}
 </div>
 </div>
 
+<!-- S3b 논문의 물리 모델 -->
+<div class="slide">
+<h2>논문의 물리 모델 — 유체역학과 진동자로 시장을 읽는다</h2>
+<div class="chart-wrap">
+<canvas id="c-physics" width="760" height="288"></canvas>
+</div>
+<div class="two-col" style="margin-top:8px">
+<div class="card" style="border-color:var(--accent)">
+<h3>도수(水跳) 비유</h3>
+<p style="font-size:0.85rem">초임계 흐름(모멘텀 장세)이 장애물을 만나 아임계(평균회귀)로 전환할 때 에너지가 난류로 소산 — 폭락 시 변동성 발산의 물리적 비유. <span class="highlight">시장 유동성 깊이 ≈ 레이놀즈 수</span></p>
+</div>
+<div class="card" style="border-color:var(--accent2)">
+<h3>로지스틱 모델 (AUC 0.927)</h3>
+<p style="font-size:0.85rem">지배 변수는 5일 후행 변동성 σ. 라운드넘버 근접은 <span class="warn">고변동성 조건에서만</span> 확률을 키운다 — 6/8 CB는 라운드에서 먼 곳에서 발동, 모델과 정합.</p>
+</div>
+</div>
+<div class="card" style="border-color:var(--border);padding:10px">
+<p style="font-size:0.85rem;color:var(--text2)">물리 비유는 직관과 검증 가능한 예측을 준다. <strong>검증 가능하다 = 기각될 수 있다.</strong> 다음 슬라이드들에서 실제로 하나가 기각된다 (H8 감쇠진동자).</p>
+</div>
+</div>
+
 <!-- S4 수급 차트 -->
 <div class="slide">
 <h2>수급 흐름 — 외국인·기관·개인</h2>
@@ -163,6 +187,34 @@ canvas{max-width:100%;display:block;margin:0 auto;border-radius:6px}
 <p style="font-size:0.78rem;color:var(--text2)">개인 (6/8~10 합)</p>
 <p style="font-size:1.2rem;font-weight:700;color:#3fb950;font-family:'JetBrains Mono',monospace">+5.7조</p>
 <p style="font-size:0.78rem;color:var(--text2)">패닉 매수 (역추세)</p>
+</div>
+</div>
+<div class="card" style="border-color:var(--accent2);padding:10px;margin-top:8px">
+<p style="font-size:0.88rem"><span class="warn">Scale Inversion</span>: 개별 종목의 라운드넘버 효과는 리테일 현상이지만, <strong>지수 레벨</strong>에서는 ETF·선물·프로그램 매매를 움직이는 기관·외국인이 역전된다. 나흘 내내 <span class="highlight">개인 막대 = 기관+외국인의 거울상</span>. 6/10은 외+기 −5.0조를 개인 +4.9조가 통째로 흡수 — 투자자 보호 관점에서 가장 위험한 그림.</p>
+</div>
+</div>
+
+<!-- NEW: 검증 원장 -->
+<div class="slide">
+<h2>검증 원장 — 한 주간 적발 16건 발췌</h2>
+<div class="card ledger" style="margin-bottom:10px">
+<div><span class="id">#07</span> <strong>요일 라벨 오류</strong> — "6/10 화요일" (실제 수요일). 날짜 추론 실패. 이후 모든 이벤트 카운트 하루씩 밀림</div>
+<div><span class="id">#08</span> <strong>장중 스냅샷 → 종가 사용</strong> — VIX 20.45 (11:31 AM 값) → 매수조건 오판. 확정 데이터 아님</div>
+<div><span class="id">#09</span> <strong>잠정 수급치 혼용</strong> — 외국인 −1.18조 사용 (공식 확정: −2.0조). 15:45 이전 차단 필요</div>
+<div><span class="warn-id">#11 ★</span> <strong>"3연속" 카운트 오류</strong> — 끊긴 스트릭 연결 → <span class="red">매도 트리거 오발동</span> (교차검증 차단)</div>
+<div><span class="id">#12</span> <strong>캐시 혼입</strong> — 전일 리포트 데이터가 당일 보고서에 섞임. 타임스탬프 가드 부재</div>
+<div><span class="warn-id">#13 ★</span> <strong>경보봇 날짜 밀림</strong> — 이틀 전 데이터로 RED 경보 → <span class="red">매도 권고 오발동</span> (교차검증 차단)</div>
+<div><span class="id">#14</span> <strong>검증자(Fable) 본인의 오류</strong> — ETF 수익률 10%p 과소 추정. 실측으로 정정. <span class="warn">검증층도 틀린다</span></div>
+<div><span class="id">#15</span> <strong>본체 미수정</strong> — 새 봇만 고치고 매매 권한 봇의 날짜 버그 방치. 부분 패치의 함정</div>
+</div>
+<div class="two-col">
+<div class="card" style="border-color:var(--red);text-align:center;padding:12px">
+<p style="font-size:2.4rem;font-weight:900;color:var(--red);font-family:'JetBrains Mono',monospace">2</p>
+<p style="font-size:0.85rem">★ 오발동 실행 직전 차단<br>(#11, #13)</p>
+</div>
+<div class="card" style="border-color:var(--accent2);padding:12px">
+<p style="font-size:0.9rem"><span class="warn">⚠️ #14 핵심:</span> 검증자(Fable) 자신이 수익률을 10%p 틀리게 추정했다.</p>
+<p style="font-size:0.85rem;margin-top:6px;color:var(--text2)">→ AI가 AI를 검증해도 같은 맹점을 공유할 수 있다. <strong>최종 심판은 항상 모델 바깥의 확정 데이터</strong>여야 한다.</p>
 </div>
 </div>
 </div>
@@ -197,7 +249,7 @@ A  = 516     (CB일 이탈: 8000 − 7484)
 γ  = 0.46   (감쇠 상수)
 ω  = π rad/day  (1일 반주기)
 φ  = π       (하향에서 출발)</div>
-<p style="font-size:0.88rem">→ 8,000 중심으로 <span class="highlight">진폭 감소하며 수렴</span></p>
+<p style="font-size:0.88rem">→ 8,000 중심으로 <span class="highlight">진폭 감소하며 수렴</span> 예측</p>
 </div>
 <div>
 <h3>예측 vs 실제</h3>
@@ -212,6 +264,7 @@ A  = 516     (CB일 이탈: 8000 − 7484)
 <div class="card" style="border-color:var(--red);margin-top:6px">
 <p style="font-size:0.88rem"><span class="warn">기각 조건 (사전등록)</span>: 진폭이 감소하지 않으면 기각</p>
 <p style="font-size:0.88rem;margin-top:4px">실제: 97 → 269 = <span class="vno">진폭 증가 → ❌ 기각</span></p>
+<p style="font-size:0.83rem;margin-top:4px;color:var(--text2)">8,000은 attractor가 아니라 한 번 뚫린 저항이었다</p>
 </div>
 </div>
 </div>
@@ -253,14 +306,17 @@ A  = 516     (CB일 이탈: 8000 − 7484)
 <h3>교차검증 아키텍처</h3>
 <div class="card">
 <div style="display:flex;flex-direction:column;gap:5px">
-<div class="flow-item" style="border-color:var(--accent2);">🧠 Claude — 분석 + 판단</div>
-<div style="text-align:center;font-size:0.8rem;color:var(--accent)">↓ 독립 검증 요청</div>
-<div class="flow-item" style="border-color:var(--accent)">🤖 Mythos — 독립 교차검증</div>
+<div class="flow-item" style="border-color:var(--accent2);">🧠 Claude Opus — 분석 + 판단</div>
+<div style="text-align:center;font-size:0.8rem;color:var(--accent)">↓ 독립 검증 요청 (별도 세션)</div>
+<div class="flow-item" style="border-color:var(--accent)">🤖 Claude Fable 5 — 교차검증</div>
 <div style="text-align:center;font-size:0.8rem;color:var(--accent)">↓ 불일치 발견 시</div>
 <div class="flow-item" style="border-color:var(--green)">💻 Code — 카운팅 기계 판정</div>
 <div style="text-align:center;font-size:0.8rem;color:var(--accent)">↓ 최종</div>
 <div class="flow-item" style="border-color:#888">👤 인간 — 최종 승인</div>
 </div>
+</div>
+<div class="card" style="border-color:var(--accent2);margin-top:6px;padding:8px">
+<p style="font-size:0.82rem"><span class="warn">⚠️ 핵심:</span> <strong>같은 채팅에서 "검토해줘"는 검증이 아니다.</strong> 생성 세션과 검토 세션은 반드시 분리해야 맹점을 공유하지 않는다.</p>
 </div>
 </div>
 </div>
@@ -300,6 +356,11 @@ AI 행동:
 3단계: 판단 (추론 없음)</div>
 </div>
 </div>
+<div class="card" style="border-color:var(--accent2);margin-top:8px">
+<h3>🔴 자기오염 (Self-Contamination)</h3>
+<p style="font-size:0.85rem">크론잡은 매 실행이 새 컨텍스트 — 기억은 메모리 파일이 전부다. <span class="warn">오류도 교훈처럼 누적된다.</span></p>
+<p style="font-size:0.85rem;margin-top:6px;font-style:italic;color:var(--text)">"한 번 틀린 앵커가 파일에 들어가면, 이후의 모든 추론이 그 위에서 정합적으로 틀린다."</p>
+</div>
 <p class="mt" style="color:var(--text2);font-size:0.86rem">💡 LLM은 날짜를 "계산"하지 않고 "생성"한다. 항상 서버 시간을 먼저 확인시켜야 한다.</p>
 </div>
 
@@ -335,6 +396,7 @@ AI 행동:
 <li>경보 봇과 판단 봇 <span class="highlight">물리적 분리</span> — 경보가 행동을 지시할 수 없다</li>
 <li>트리거 카운팅은 <span class="highlight">코드가 기계 판정</span> — AI 추론으로 카운팅 금지</li>
 <li>매매 권한 <span class="highlight">단일 크론잡에만</span> — 중복 권한 없음</li>
+<li>재귀 루프는 <span class="highlight">인간을 통과해서</span> 돈다 — 개선되는 건 모델 가중치가 아니라 시스템</li>
 </ul>
 </div>
 </div>
@@ -464,19 +526,19 @@ LLM: "3일 연속" 패턴을 완성하려 함
 <div class="slide">
 <h2>AI 재귀적 자기개선 시스템</h2>
 <div class="card" style="border-color:var(--accent);margin-bottom:12px">
-<p>Anthropic 2026-05 데이터:</p>
+<p>Anthropic 2026-05 데이터 (<em>When AI Builds Itself</em> — Favaro &amp; Clark):</p>
 <div class="three-col" style="margin-top:8px">
 <div style="text-align:center">
 <p style="font-size:1.8rem;font-weight:900;color:var(--accent);font-family:'JetBrains Mono',monospace">80%+</p>
 <p style="font-size:0.78rem;color:var(--text2)">AI가 작성한 머지 코드</p>
 </div>
 <div style="text-align:center">
-<p style="font-size:1.8rem;font-weight:900;color:var(--accent2);font-family:'JetBrains Mono',monospace">25%</p>
-<p style="font-size:0.78rem;color:var(--text2)">2025-09 오픈엔드 성공률</p>
+<p style="font-size:1.8rem;font-weight:900;color:var(--accent2);font-family:'JetBrains Mono',monospace">25→76%</p>
+<p style="font-size:0.78rem;color:var(--text2)">오픈엔드 성공률<br>(2025.9 → 2026.5)</p>
 </div>
 <div style="text-align:center">
-<p style="font-size:1.8rem;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace">76%</p>
-<p style="font-size:0.78rem;color:var(--text2)">2026-05 오픈엔드 성공률</p>
+<p style="font-size:1.8rem;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace">×2/4개월</p>
+<p style="font-size:0.78rem;color:var(--text2)">AI가 완수하는<br>작업 길이 더블링</p>
 </div>
 </div>
 </div>
@@ -492,7 +554,7 @@ LLM: "3일 연속" 패턴을 완성하려 함
 <div class="flow-item" style="border-color:var(--accent2);font-size:0.78rem">📝<br>교훈 반영<br>시스템 개선</div>
 </div>
 <div class="card mt">
-<p>⚠️ 진정한 RSI가 아니다 — <span class="highlight">모델 가중치는 변하지 않는다</span>. 개선되는 건 시스템(교훈록, 크론잡 설계, 프로토콜). <strong>인간이 항상 판단층.</strong></p>
+<p>⚠️ 진정한 RSI가 아니다 — <span class="highlight">모델 가중치는 변하지 않는다</span>. 개선되는 건 시스템(교훈록, 크론잡 설계, 프로토콜). 인간은 엔진에서 <strong>감독층(supervisory layer)</strong>으로 이동 중 — 가장 늦게 자동화되는 건 판단.</p>
 </div>
 </div>
 
@@ -508,11 +570,15 @@ LLM: "3일 연속" 패턴을 완성하려 함
 </div>
 <div class="card" style="border-left:4px solid var(--accent2);margin-bottom:10px">
 <h3>⚙️ 공정 최적화 — 몬테카를로 검증</h3>
-<p style="font-size:0.88rem">CVD 파라미터 조합이 "최적처럼 보일 때" — 랜덤 샘플에서도 같은 결과가 나오나? 시뮬레이션으로 p값을 계산하면 우연인지 실제 효과인지 구분 가능.</p>
+<p style="font-size:0.88rem">CVD 파라미터 조합이 "최적처럼 보일 때" — 랜덤 샘플에서도 같은 결과가 나오나? p값 계산으로 우연인지 실제 효과인지 구분.</p>
 </div>
-<div class="card" style="border-left:4px solid var(--green)">
+<div class="card" style="border-left:4px solid var(--green);margin-bottom:10px">
 <h3>🤖 AI 거버넌스 — 경보/판단 분리</h3>
-<p style="font-size:0.88rem">불량 감지 AI는 "이상 감지"만. 실제 라인 정지 결정은 <span class="highlight">반드시 엔지니어</span>가. AI 오발동은 생산 손실로 직결된다. 권한 구조 설계 필수.</p>
+<p style="font-size:0.88rem">불량 감지 AI는 "이상 감지"만. 실제 라인 정지 결정은 <span class="highlight">반드시 엔지니어</span>가. AI 오발동은 생산 손실로 직결된다.</p>
+</div>
+<div class="card" style="border-left:4px solid var(--accent2)">
+<h3>🔄 AI 교차검증 — 세션 분리</h3>
+<p style="font-size:0.88rem">분석 작성 AI와 검토 AI를 반드시 분리. <span class="warn">"같은 채팅에서 검토해줘"는 검증이 아니다</span> — 맹점을 공유하기 때문. <span class="highlight">append-only 원장 CSV</span>: AI가 읽고 쓰되 수정 불가, 보고서는 원장에서만 생성.</p>
 </div>
 </div>
 
@@ -537,9 +603,34 @@ LLM: "3일 연속" 패턴을 완성하려 함
 <p class="mt" style="color:var(--text2);font-size:0.86rem">도구: Claude Code / 노션 / 엑셀 — 중요한 건 <span class="highlight">순서</span>다 (가설 먼저, 데이터 나중)</p>
 </div>
 
+<!-- NEW: 한 주의 성적표 -->
+<div class="slide">
+<h2>한 주의 성적표 — 검은 월요일 사이클</h2>
+<div class="three-col">
+<div class="card" style="text-align:center;border-color:var(--red)">
+<p style="font-size:2.8rem;font-weight:900;color:var(--red);font-family:'JetBrains Mono',monospace">2</p>
+<p style="color:var(--text2);font-size:0.88rem;margin-top:4px">실행 직전 차단된<br>자동 판정 오발동</p>
+</div>
+<div class="card" style="text-align:center;border-color:var(--accent2)">
+<p style="font-size:2.8rem;font-weight:900;color:var(--accent2);font-family:'JetBrains Mono',monospace">16</p>
+<p style="color:var(--text2);font-size:0.88rem;margin-top:4px">검증 원장에 기록된<br>오류 (양방향 적발)</p>
+</div>
+<div class="card" style="text-align:center;border-color:var(--green)">
+<p style="font-size:2.8rem;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace">0</p>
+<p style="color:var(--text2);font-size:0.88rem;margin-top:4px">한 주간 감정으로 내린<br>매매 결정</p>
+</div>
+</div>
+<div class="card mt" style="border-color:var(--accent);padding:18px">
+<p style="font-size:1.1rem;font-weight:700;line-height:1.85;text-align:center">변동성 8%의 한 주 동안<br>시스템의 최다 출력은 <span class="highlight">"행동 없음"</span>이었다.<br><span style="font-size:0.9rem;font-weight:400;color:var(--text2)">무행동도 시스템의 출력이다 — 그리고 이번 주엔 그게 정답이었다.</span></p>
+</div>
+<div class="card" style="border-color:var(--border);margin-top:8px">
+<p style="font-size:0.85rem;color:var(--text2)">⚠️ 모델 간 합의는 강건성의 증거이지 정답의 증거가 아니다. <span class="highlight">같은 계열 모델은 맹점을 공유한다</span> — 연기금 개입 같은 비시장 변수는 어느 모델도 사전에 잡지 못했다.</p>
+</div>
+</div>
+
 <!-- S18 핵심 교훈 -->
 <div class="slide">
-<h2>이번 사이클 — 5가지 교훈</h2>
+<h2>이번 사이클 — 6가지 교훈</h2>
 <div style="font-size:0.96rem;line-height:2.3">
 <p><span style="color:var(--accent);font-weight:900">1.</span> <span class="highlight">데이터에 반응하라, 서사에 반응하지 마라</span><br>
 &nbsp;&nbsp;&nbsp;"분명히 반등할 거야"가 아니라 수급 데이터가 말할 때까지 기다린다</p>
@@ -551,6 +642,8 @@ LLM: "3일 연속" 패턴을 완성하려 함
 &nbsp;&nbsp;&nbsp;H8 감쇠진동자 기각 = 모델이 틀렸다는 걸 확인. 과학적 진전.</p>
 <p><span style="color:var(--accent);font-weight:900">5.</span> <span class="highlight">p=0.01은 관찰이지 행동 지시가 아니다</span><br>
 &nbsp;&nbsp;&nbsp;통계적 유의성 ≠ 충분한 근거. 관찰로 등록, 매매 연결 금지.</p>
+<p><span style="color:var(--accent);font-weight:900">6.</span> <span class="highlight">AI 오류의 3대 패턴은 도메인과 무관하다</span><br>
+&nbsp;&nbsp;&nbsp;날짜·산술 추론 / 패턴 완성 편향 / 잠정·확정 혼용 — 여러분 업무의 크론잡에서도 똑같이 발생한다</p>
 </div>
 </div>
 
@@ -559,7 +652,7 @@ LLM: "3일 연속" 패턴을 완성하려 함
 <div class="center">
 <div style="font-size:2.8rem;margin-bottom:10px">🎯</div>
 <h1>핵심 메시지</h1>
-<div class="card" style="max-width:520px;margin:18px auto;border-color:var(--accent)">
+<div class="card" style="max-width:520px;margin:14px auto;border-color:var(--accent)">
 <p style="font-size:1.15rem;line-height:2;text-align:center">
 "<span class="highlight">좋은 질문</span>과<br>
 <span class="highlight">사전에 쓴 기각 조건</span>이<br>
@@ -580,16 +673,20 @@ AI 연구를 과학으로 만든다"
 <p style="font-size:0.8rem">인간이 판단층<br>AI는 도구</p>
 </div>
 </div>
-<p style="color:var(--text2);margin-top:20px;font-size:0.86rem">
+<div class="card" style="max-width:580px;margin:12px auto;border-color:var(--border);padding:12px">
+<p style="font-size:0.88rem;text-align:center;color:var(--text)">루프의 위험은 모델의 능력이 아니라<br><span class="highlight">검증 관계의 구조</span>에서 나온다.<br>그 구조를 설계하는 것이 아직, 그리고 당분간, 인간의 일이다.</p>
+</div>
+<p style="color:var(--text2);margin-top:12px;font-size:0.86rem">
 github.com/waterfirst/ai-seminar-2026<br>
-삼성디스플레이 중소형품질팀 · 최낙초 | 2026.06.12
+삼성디스플레이 중소형품질팀 · 최낙초 | 2026.06.12<br>
+<span style="font-size:0.78rem">이 자료는 교차검증을 거쳤습니다 (Sonnet 작성 · Fable 검수 · 인간 승인)</span>
 </p>
 </div>
 </div>
 
 <div class="nav">
 <button onclick="go(cur-1)">◀ 이전</button>
-<button id="slideCounter" style="pointer-events:none;opacity:0.6">1 / 19</button>
+<button id="slideCounter" style="pointer-events:none;opacity:0.6">1 / 22</button>
 <button onclick="go(cur+1)">다음 ▶</button>
 </div>
 
@@ -609,7 +706,7 @@ upd();
 
 // ─── CHART RENDERING ───────────────────────────────────────────────
 function renderAll(){
-  const map={2:drawKospi,3:drawFlow,6:drawDamped,11:drawExpFit,12:drawMC};
+  const map={2:drawKospi,3:drawPhysics,4:drawFlow,7:drawDamped,12:drawExpFit,13:drawMC};
   if(map[cur])map[cur]();
 }
 
@@ -619,6 +716,85 @@ function clr(id,W,H){
   const ctx=c.getContext('2d');
   ctx.fillStyle='#12122a';ctx.fillRect(0,0,W,H);
   return ctx;
+}
+
+// ── Chart 0: Physics (hydraulic jump + logistic) ──────────────────
+function drawPhysics(){
+  const ctx=clr('c-physics',760,288);if(!ctx)return;
+  const W=760,H=288;
+  // LEFT: Hydraulic jump
+  const lx=12,ly=38,lw=334,lh=200;
+  ctx.fillStyle='#0e0e1e';ctx.fillRect(lx,ly,lw,lh);
+  ctx.strokeStyle='#58a6ff33';ctx.lineWidth=1;ctx.strokeRect(lx,ly,lw,lh);
+  ctx.fillStyle='#58a6ff';ctx.font='bold 11px Noto Sans KR,sans-serif';ctx.textAlign='center';
+  ctx.fillText('나비에-스토크스 도수(水跳) 비유',lx+lw/2,ly-10);
+  const floor=ly+lh-44;
+  ctx.fillStyle='#1f3a40';ctx.fillRect(lx+10,floor,lw-20,6);
+  const jStart=lx+10+lw*0.33,jEnd=jStart+lw*0.24;
+  const lwh=28;
+  ctx.fillStyle='#6db3c912';ctx.fillRect(lx+10,floor-lwh,jStart-lx-10,lwh);
+  ctx.strokeStyle='#6db3c9';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(lx+10,floor-lwh);ctx.lineTo(jStart,floor-lwh);ctx.stroke();
+  ctx.fillStyle='#6db3c9';ctx.strokeStyle='#6db3c9';ctx.lineWidth=1.2;
+  [0.05,0.14,0.22].forEach(f=>{
+    const ax=lx+10+f*lw,ay=floor-lwh/2;
+    ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(ax+20,ay);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(ax+20,ay-4);ctx.lineTo(ax+25,ay);ctx.lineTo(ax+20,ay+4);ctx.fill();
+  });
+  ctx.fillStyle='#ffb45416';
+  ctx.beginPath();ctx.moveTo(jStart,floor-lwh);
+  [[jStart+8,floor-55],[jStart+16,floor-72],[jStart+24,floor-55],[jStart+32,floor-78],[jStart+42,floor-65],[jEnd,floor-70]].forEach(([x,y])=>ctx.lineTo(x,y));
+  ctx.lineTo(jEnd,floor);ctx.lineTo(jStart,floor);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='#ffb454';ctx.lineWidth=1.8;ctx.beginPath();ctx.moveTo(jStart,floor-lwh);
+  [[jStart+8,floor-55],[jStart+16,floor-72],[jStart+24,floor-55],[jStart+32,floor-78],[jStart+42,floor-65],[jEnd,floor-70]].forEach(([x,y])=>ctx.lineTo(x,y));ctx.stroke();
+  const rwh=70;
+  ctx.fillStyle='#6db3c90a';ctx.fillRect(jEnd,floor-rwh,lx+lw-10-jEnd,rwh);
+  ctx.strokeStyle='#6db3c9';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(jEnd,floor-rwh);ctx.lineTo(lx+lw-10,floor-rwh);ctx.stroke();
+  ctx.fillStyle='#6db3c9';ctx.strokeStyle='#6db3c9';ctx.lineWidth=1.2;
+  const ra=jEnd+16,rb=floor-rwh/2;
+  ctx.beginPath();ctx.moveTo(ra,rb);ctx.lineTo(ra+16,rb);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(ra+16,rb-4);ctx.lineTo(ra+21,rb);ctx.lineTo(ra+16,rb+4);ctx.fill();
+  ctx.fillStyle='#aaa';ctx.font='10px Noto Sans KR,sans-serif';ctx.textAlign='center';
+  ctx.fillText('초임계 (모멘텀 장세)',lx+10+(jStart-lx-10)/2,floor+18);
+  ctx.fillStyle='#ffb454';ctx.fillText('도수·난류 (폭락)',jStart+(jEnd-jStart)/2,floor+18);
+  ctx.fillStyle='#6db3c9';ctx.fillText('아임계 (평균회귀)',jEnd+(lx+lw-10-jEnd)/2,floor+18);
+  ctx.fillStyle='#444';ctx.font='10px JetBrains Mono,monospace';ctx.textAlign='center';
+  ctx.fillText('시장유동성 깊이 ≈ 레이놀즈수',lx+lw/2,ly+lh-4);
+  // RIGHT: Logistic model
+  const rx=414,ry=38,rw=334,rh=200;
+  ctx.fillStyle='#0e0e1e';ctx.fillRect(rx,ry,rw,rh);
+  ctx.strokeStyle='#f7816633';ctx.lineWidth=1;ctx.strokeRect(rx,ry,rw,rh);
+  ctx.fillStyle='#f78166';ctx.font='bold 11px Noto Sans KR,sans-serif';ctx.textAlign='center';
+  ctx.fillText('사이드카 로지스틱 모델  AUC=0.927',rx+rw/2,ry-10);
+  const rml=38,rmr=14,rmt=14,rmb=50;
+  const rcW=rw-rml-rmr,rcH=rh-rmt-rmb;
+  const rxO=rx+rml,ryO=ry+rmt;
+  [0.25,0.5,0.75].forEach(v=>{
+    const y=ryO+rcH*(1-v);
+    ctx.strokeStyle='#1a1a28';ctx.lineWidth=0.5;
+    ctx.beginPath();ctx.moveTo(rxO,y);ctx.lineTo(rxO+rcW,y);ctx.stroke();
+  });
+  ctx.strokeStyle='#30363d';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(rxO,ryO+rcH);ctx.lineTo(rxO+rcW,ryO+rcH);ctx.stroke();
+  ctx.fillStyle='#4a4a6a';ctx.font='9px JetBrains Mono,monospace';ctx.textAlign='center';
+  [0,10,20,30,40,50].forEach(v=>ctx.fillText(v,rxO+v/50*rcW,ryO+rcH+12));
+  ctx.fillStyle='#555';ctx.font='9px Noto Sans KR,sans-serif';
+  ctx.fillText('라운드넘버까지 거리 (pt)',rxO+rcW/2,ryO+rcH+28);
+  ctx.save();ctx.translate(rxO-24,ryO+rcH/2);ctx.rotate(-Math.PI/2);
+  ctx.fillStyle='#555';ctx.font='9px Noto Sans KR,sans-serif';ctx.textAlign='center';
+  ctx.fillText('사이드카 발동확률',0,0);ctx.restore();
+  const maxP=0.12;
+  function pSC(d,s){return Math.min(maxP,s*0.018*Math.exp(-d/(s*7+4)));}
+  [[1,'#63c193','σ=1%'],[2,'#6db3c9','σ=2%'],[3,'#ffb454','σ=3%'],[5,'#e4584b','σ=5%']].forEach(([sigma,col,lbl])=>{
+    ctx.strokeStyle=col;ctx.lineWidth=1.8;ctx.beginPath();
+    let ff=true;
+    for(let d=0;d<=50;d+=0.4){const p=pSC(d,sigma),x=rxO+d/50*rcW,y=ryO+rcH*(1-p/maxP);ff?(ctx.moveTo(x,y),ff=false):ctx.lineTo(x,y);}
+    ctx.stroke();
+    const pe=pSC(50,sigma);
+    ctx.fillStyle=col;ctx.font='9px JetBrains Mono,monospace';ctx.textAlign='left';
+    ctx.fillText(lbl,rxO+rcW+2,ryO+rcH*(1-pe/maxP)+3);
+  });
 }
 
 // ── Chart 1: KOSPI price bars ──────────────────────────────────────
@@ -637,8 +813,6 @@ function drawKospi(){
   const bw=cW/data.length*0.52;
   function cx(i){return ml+(i+0.5)*cW/data.length-bw/2;}
   function cy(v){return mt+(yMax-v)/(yMax-yMin)*cH;}
-
-  // grid & y-labels
   [7200,7400,7600,7800,8000,8200,8400].forEach(v=>{
     const y=cy(v);
     ctx.strokeStyle=v===8000?'#30363d':'#1c1c30';
@@ -651,22 +825,16 @@ function drawKospi(){
   });
   ctx.fillStyle='#30363d';ctx.font='10px JetBrains Mono';ctx.textAlign='left';
   ctx.fillText('──8,000──',ml+4,cy(8000)-4);
-
   data.forEach((d,i)=>{
     const x=cx(i),y=cy(d.p),bh=cy(yMin)-y;
     const col=d.ch>=0?'#3fb950':'#f85149';
-    // bar shadow
     ctx.fillStyle=col+'22';ctx.fillRect(x-2,y-2,bw+4,bh+4);
-    // bar
     ctx.fillStyle=col+'55';ctx.fillRect(x,y,bw,bh);
     ctx.strokeStyle=col;ctx.lineWidth=2;ctx.strokeRect(x,y,bw,bh);
-    // price
     ctx.fillStyle='#e8e8f0';ctx.font='bold 13px JetBrains Mono,monospace';
     ctx.textAlign='center';ctx.fillText(d.p.toLocaleString(),x+bw/2,y-18);
-    // change
     ctx.fillStyle=col;ctx.font='bold 11px JetBrains Mono';
     ctx.fillText((d.ch>=0?'+':'')+d.ch.toFixed(2)+'%',x+bw/2,y-5);
-    // date
     ctx.fillStyle='#888';ctx.font='12px Noto Sans KR,sans-serif';
     ctx.fillText(d.lbl,x+bw/2,H-mb+16);
   });
@@ -688,8 +856,6 @@ function drawFlow(){
   function cy(v){return mt+(yMax-v)/(yMax-yMin)*cH;}
   const cy0=cy(0);
   const gW=cW/4,bw=gW*0.22;
-
-  // grid
   [-30000,-20000,-10000,0,10000,20000,30000,40000,50000].forEach(v=>{
     const y=cy(v);
     ctx.strokeStyle=v===0?'#55556688':'#1c1c30';
@@ -701,7 +867,6 @@ function drawFlow(){
       ctx.fillText(lbl,ml-4,y+4);
     }
   });
-
   const cols=['#58a6ff','#f78166','#3fb950'];
   const series=[foreign,inst,retail];
   dates.forEach((d,i)=>{
@@ -712,7 +877,6 @@ function drawFlow(){
       const bh=Math.abs(cy(v)-cy0);
       ctx.fillStyle=cols[j]+'55';ctx.fillRect(x,y,bw,bh);
       ctx.strokeStyle=cols[j];ctx.lineWidth=1.5;ctx.strokeRect(x,y,bw,bh);
-      // value label for large bars
       if(Math.abs(v)>8000){
         ctx.fillStyle=cols[j];ctx.font='bold 9px JetBrains Mono';ctx.textAlign='center';
         const lbl=(v>0?'+':'')+(v/10000).toFixed(1)+'조';
@@ -720,12 +884,9 @@ function drawFlow(){
         ctx.fillText(lbl,x+bw/2,ly);
       }
     });
-    // date label
     ctx.fillStyle='#888';ctx.font='12px Noto Sans KR,sans-serif';ctx.textAlign='center';
     ctx.fillText(d,ml+i*gW+gW/2,H-6);
   });
-
-  // legend
   ['외국인','기관','개인'].forEach((n,j)=>{
     const lx=ml+j*100;
     ctx.fillStyle=cols[j]+'55';ctx.fillRect(lx,12,14,10);
@@ -746,26 +907,20 @@ function drawDamped(){
   const halfW=(W-ml-mr)/2;
   const cH=H-mt-mb;
   const p1x=ml,p2x=ml+halfW+24,pW=halfW-12;
-
   function ty(v){return mt+(yMax-v)/(yMax-yMin)*cH;}
   function ttx(px,t){return px+t/tMax*pW;}
   const dayLbls=['6/8','6/9','6/10','6/11','6/12'];
-
   function drawBase(px,title,col){
-    // panel bg
     ctx.fillStyle='#0e0e1e';ctx.fillRect(px-4,mt-4,pW+8,cH+8);
     ctx.strokeStyle=col+'88';ctx.lineWidth=1.5;ctx.strokeRect(px-4,mt-4,pW+8,cH+8);
-    // equilibrium
     const eqY=ty(8000);
     ctx.strokeStyle='#334';ctx.lineWidth=1.5;ctx.setLineDash([6,4]);
     ctx.beginPath();ctx.moveTo(px,eqY);ctx.lineTo(px+pW,eqY);ctx.stroke();
     ctx.setLineDash([]);
     ctx.fillStyle='#445';ctx.font='10px JetBrains Mono';ctx.textAlign='right';
     ctx.fillText('8,000',px-2,eqY+4);
-    // title
     ctx.fillStyle=col;ctx.font='bold 13px Noto Sans KR,sans-serif';ctx.textAlign='center';
     ctx.fillText(title,px+pW/2,mt-14);
-    // t-axis
     [0,1,2,3,4].forEach(t=>{
       const x=ttx(px,t);
       ctx.fillStyle='#555';ctx.font='11px Noto Sans KR';ctx.textAlign='center';
@@ -774,10 +929,8 @@ function drawDamped(){
       ctx.beginPath();ctx.moveTo(x,mt);ctx.lineTo(x,mt+cH);ctx.stroke();
     });
   }
-
-  // Panel 1: Predicted
+  const eqY=ty(8000);
   drawBase(p1x,'[ 예측 ] 감쇠진동자','#58a6ff');
-  // draw smooth curve
   ctx.beginPath();ctx.strokeStyle='#58a6ff';ctx.lineWidth=2.5;
   let f=true;
   for(let t=0;t<=4;t+=0.015){
@@ -786,13 +939,10 @@ function drawDamped(){
     f?(ctx.moveTo(px_,py_),f=false):ctx.lineTo(px_,py_);
   }
   ctx.stroke();
-  // amplitude annotations (pred)
-  const eqY=ty(8000);
   const predA=[{t:0,p:7484,a:516},{t:1,p:8326,a:326},{t:2,p:7794,a:206},{t:3,p:8130,a:130}];
   predA.forEach(({t,p,a})=>{
     const x=ttx(p1x,t),y=ty(p);
     ctx.fillStyle='#58a6ff';ctx.beginPath();ctx.arc(x,y,4,0,6.28);ctx.fill();
-    // bracket
     ctx.strokeStyle='#58a6ff66';ctx.lineWidth=1.5;
     ctx.beginPath();ctx.moveTo(x+7,Math.min(y,eqY));ctx.lineTo(x+7,Math.max(y,eqY));ctx.stroke();
     ctx.fillStyle='#58a6ff';ctx.font='bold 10px JetBrains Mono';ctx.textAlign='left';
@@ -800,10 +950,7 @@ function drawDamped(){
   });
   ctx.fillStyle='#58a6ff';ctx.font='bold 11px Noto Sans KR';ctx.textAlign='center';
   ctx.fillText('↓ 진폭 감소 · 수렴',p1x+pW/2,H-mb+30);
-
-  // Panel 2: Actual
   drawBase(p2x,'[ 실제 ] 데이터','#f85149');
-  // connect points
   const actualPts=[{t:0,p:7484},{t:1,p:8097},{t:2,p:7731}];
   ctx.strokeStyle='#f8514966';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);
   ctx.beginPath();
@@ -812,7 +959,6 @@ function drawDamped(){
     i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
   });
   ctx.stroke();ctx.setLineDash([]);
-
   const actualAmps=[
     {t:0,p:7484,a:516,grow:false},
     {t:1,p:8097,a:97,grow:false},
@@ -821,17 +967,13 @@ function drawDamped(){
   actualAmps.forEach(({t,p,a,grow})=>{
     const x=ttx(p2x,t),y=ty(p);
     const acol=grow?'#f85149':'#3fb950';
-    // dot
     ctx.fillStyle=acol;ctx.strokeStyle='#fff';ctx.lineWidth=1.5;
     ctx.beginPath();ctx.arc(x,y,5,0,6.28);ctx.fill();ctx.stroke();
-    // price label
     ctx.fillStyle='#e8e8f0';ctx.font='bold 12px JetBrains Mono,monospace';ctx.textAlign='center';
     ctx.fillText(p.toLocaleString(),x,p<8000?y+16:y-8);
-    // amplitude bracket
     ctx.strokeStyle=acol+'aa';ctx.lineWidth=2;
     const bx2=x+9;
     ctx.beginPath();ctx.moveTo(bx2,Math.min(y,eqY));ctx.lineTo(bx2,Math.max(y,eqY));ctx.stroke();
-    // amp label
     ctx.fillStyle=acol;ctx.font='bold 11px JetBrains Mono';ctx.textAlign='left';
     ctx.fillText(a+(grow?' ↑!':''),bx2+4,(y+eqY)/2+4);
   });
@@ -849,8 +991,6 @@ function drawExpFit(){
   function fx(d){return ml+(d-xMin)/(xMax-xMin)*cW;}
   function fy(v){return mt+(yMax-v)/(yMax-yMin)*cH;}
   function expF(x){return 2159.9*Math.exp(0.0034*x);}
-
-  // grid x
   [0,100,200,300,400,500].forEach(d=>{
     const x=fx(d);
     ctx.strokeStyle='#1c1c30';ctx.lineWidth=1;
@@ -858,7 +998,6 @@ function drawExpFit(){
     ctx.fillStyle='#4a4a6a';ctx.font='11px JetBrains Mono';ctx.textAlign='center';
     ctx.fillText(d,x,H-mb+16);
   });
-  // grid y
   [0,2000,4000,6000,8000,10000,12000].forEach(v=>{
     const y=fy(v);
     ctx.strokeStyle='#1c1c30';ctx.lineWidth=1;
@@ -868,8 +1007,6 @@ function drawExpFit(){
   });
   ctx.fillStyle='#444';ctx.font='11px Noto Sans KR';ctx.textAlign='center';
   ctx.fillText('2025-04-07 기준 경과일',ml+cW/2,H-6);
-
-  // prediction zone (day 498-528)
   const pS=fx(498),pE=fx(528);
   ctx.fillStyle='#f7816618';ctx.fillRect(pS,mt,pE-pS,cH);
   ctx.strokeStyle='#f78166';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);
@@ -878,8 +1015,6 @@ function drawExpFit(){
   ctx.fillStyle='#f78166';ctx.font='bold 10px Noto Sans KR';ctx.textAlign='center';
   ctx.fillText('예측',(pS+pE)/2,mt+12);
   ctx.fillText('구간',(pS+pE)/2,mt+24);
-
-  // current day (2026-06-11 = day 430)
   const curX=fx(430);
   ctx.strokeStyle='#3fb950aa';ctx.lineWidth=1.5;ctx.setLineDash([5,3]);
   ctx.beginPath();ctx.moveTo(curX,mt);ctx.lineTo(curX,mt+cH);ctx.stroke();
@@ -887,8 +1022,6 @@ function drawExpFit(){
   ctx.fillStyle='#3fb950';ctx.font='bold 10px Noto Sans KR';ctx.textAlign='center';
   ctx.fillText('현재',curX,mt+10);
   ctx.fillText('6/11',curX,mt+22);
-
-  // draw exponential fit curve (clipped)
   ctx.save();ctx.beginPath();ctx.rect(ml,mt,cW,cH);ctx.clip();
   ctx.beginPath();ctx.strokeStyle='#58a6ff55';ctx.lineWidth=2;
   let ff=true;
@@ -897,37 +1030,27 @@ function drawExpFit(){
     ff?(ctx.moveTo(x,y),ff=false):ctx.lineTo(x,y);
   }
   ctx.stroke();ctx.restore();
-
-  // peak interval dashed lines
   [113,208,323,418].forEach(d=>{
     const x=fx(d);
     ctx.strokeStyle='#2a2a3a';ctx.lineWidth=1;ctx.setLineDash([3,3]);
-    ctx.beginPath();ctx.moveTo(x,mt);ctx.lineTo(x,ty_local=fy(0));ctx.stroke();
+    ctx.beginPath();ctx.moveTo(x,mt);ctx.lineTo(x,fy(0));ctx.stroke();
     ctx.setLineDash([]);
   });
-
-  // data points
   const pts=[{d:113,y:3228,lbl:'1고점'},{d:208,y:4226,lbl:'2고점'},{d:323,y:6347,lbl:'3고점'},{d:418,y:8933,lbl:'4고점'}];
   pts.forEach(({d,y,lbl})=>{
     const x=fx(d),yc=fy(y);
-    // glow
     const g=ctx.createRadialGradient(x,yc,0,x,yc,14);
     g.addColorStop(0,'#f7816666');g.addColorStop(1,'transparent');
     ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,yc,14,0,6.28);ctx.fill();
-    // dot
     ctx.fillStyle='#f78166';ctx.strokeStyle='#fff';ctx.lineWidth=1.5;
     ctx.beginPath();ctx.arc(x,yc,6,0,6.28);ctx.fill();ctx.stroke();
-    // labels
     ctx.fillStyle='#f78166';ctx.font='bold 11px Noto Sans KR';ctx.textAlign='center';
     ctx.fillText(lbl,x,yc-13);
     ctx.fillStyle='#bbb';ctx.font='10px JetBrains Mono';
     ctx.fillText(y.toLocaleString(),x,yc-25);
-    // day
     ctx.fillStyle='#555';ctx.font='10px JetBrains Mono';
     ctx.fillText('d'+d,x,yc+17);
   });
-
-  // R² badge
   ctx.fillStyle='#3fb95066';ctx.beginPath();ctx.rect(W-mr-110,mt+4,106,22);ctx.fill();
   ctx.fillStyle='#3fb950';ctx.font='bold 12px JetBrains Mono';ctx.textAlign='center';
   ctx.fillText('R² = 0.9974',W-mr-57,mt+18);
@@ -941,8 +1064,6 @@ function drawMC(){
   const cW=W-ml-mr,cH=H-mt-mb;
   const xMin=0.55,xMax=1.005,binW=0.01;
   const threshold=0.997;
-
-  // approximate distribution
   function ht(r){
     if(r<0.60)return 3;
     if(r<0.65)return 10+(r-0.60)/0.05*28;
@@ -955,19 +1076,15 @@ function drawMC(){
     if(r<0.96)return 49-(r-0.93)/0.03*30;
     if(r<0.98)return 19-(r-0.96)/0.02*10;
     if(r<0.995)return 9-(r-0.98)/0.015*5;
-    return 18; // highlighted tail
+    return 18;
   }
-
   const bins=[];
   for(let r=xMin;r<xMax-0.001;r+=binW){
     bins.push({r:parseFloat(r.toFixed(3)),h:Math.max(1,Math.round(ht(r)))});
   }
   const maxH=Math.max(...bins.map(b=>b.h));
-
   function bx(r){return ml+(r-xMin)/(xMax-xMin)*cW;}
   function by(h){return mt+(1-h/(maxH*1.12))*cH;}
-
-  // grid
   [0,50,100,150].forEach(h=>{
     const y=by(h);
     ctx.strokeStyle=h===0?'#30363d':'#1c1c30';ctx.lineWidth=1;
@@ -982,8 +1099,6 @@ function drawMC(){
     ctx.fillStyle='#555';ctx.font='11px JetBrains Mono';ctx.textAlign='center';
     ctx.fillText(r.toFixed(1),x,H-mb+16);
   });
-
-  // bars
   const bpx=cW/((xMax-xMin)/binW)-0.5;
   bins.forEach(({r,h})=>{
     const x=bx(r),y=by(h),bh=by(0)-y;
@@ -993,31 +1108,22 @@ function drawMC(){
     ctx.strokeStyle=isTail?'#f85149bb':'#58a6ff55';
     ctx.lineWidth=0.5;ctx.strokeRect(x,y,bpx,bh);
   });
-
-  // threshold line
-  const tx=bx(threshold);
+  const tx_=bx(threshold);
   ctx.strokeStyle='#f85149';ctx.lineWidth=2;
-  ctx.beginPath();ctx.moveTo(tx,mt);ctx.lineTo(tx,mt+cH);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(tx_,mt);ctx.lineTo(tx_,mt+cH);ctx.stroke();
   ctx.fillStyle='#f85149';ctx.font='bold 11px JetBrains Mono';ctx.textAlign='center';
-  ctx.fillText('R² = 0.997',tx,mt-10);
-
-  // tail annotation
+  ctx.fillText('R² = 0.997',tx_,mt-10);
   const tailMx=bx(0.9985);
   ctx.fillStyle='#f85149';ctx.font='bold 12px JetBrains Mono';ctx.textAlign='center';
   ctx.fillText('2.7%',tailMx,by(32));
   ctx.font='10px Noto Sans KR';ctx.fillText('(54/2000)',tailMx,by(32)+15);
-
-  // legend
   ctx.fillStyle='#58a6ff33';ctx.fillRect(ml,13,13,10);
   ctx.strokeStyle='#58a6ff55';ctx.lineWidth=1;ctx.strokeRect(ml,13,13,10);
   ctx.fillStyle='#aaa';ctx.font='11px Noto Sans KR';ctx.textAlign='left';
   ctx.fillText('랜덤 GBM 2,000회',ml+17,22);
-
   ctx.fillStyle='#f8514966';ctx.fillRect(ml+160,13,13,10);
   ctx.strokeStyle='#f85149';ctx.lineWidth=1;ctx.strokeRect(ml+160,13,13,10);
   ctx.fillStyle='#f85149';ctx.fillText('실측 초과 (2.7%)',ml+177,22);
-
-  // axis labels
   ctx.fillStyle='#444';ctx.font='11px Noto Sans KR';ctx.textAlign='center';
   ctx.fillText('지수 피팅 R² 값',ml+cW/2,H-6);
   ctx.save();ctx.translate(16,mt+cH/2);ctx.rotate(-Math.PI/2);
