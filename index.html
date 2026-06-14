@@ -203,7 +203,7 @@ hr.div { border: none; border-top: 1px solid var(--bd); margin: 0; }
   <p class="pw-sub">연구소 임원 AI 2차 세미나 · 2026년 6월</p>
   <div class="pw-box">
     <div class="pw-label">비밀번호 입력</div>
-    <input id="pw-input" class="pw-input" type="tel" maxlength="4" inputmode="numeric" placeholder="0000" autocomplete="off">
+    <input id="pw-input" class="pw-input" type="tel" maxlength="4" inputmode="numeric" placeholder="1111" autocomplete="off">
     <div id="pw-err" class="pw-err"></div>
     <button class="pw-btn" onclick="checkPw()">입장하기 →</button>
   </div>
@@ -853,7 +853,7 @@ function checkPw() {
   var val = document.getElementById('pw-input').value;
   var err = document.getElementById('pw-err');
   var gate = document.getElementById('pw-gate');
-  if (val === '0000') {
+  if (val === '1111') {
     sessionStorage.setItem('pw_ok', '1');
     gate.style.opacity = '0';
     setTimeout(function() { gate.classList.add('hidden'); }, 400);
