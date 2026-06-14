@@ -205,6 +205,22 @@ hr.div { border: none; border-top: 1px solid var(--bd); margin: 0; }
 /* FOOTER */
 .footer { padding: 48px 24px; text-align: center; border-top: 1px solid var(--bd); color: var(--mt); font-size: 0.82rem; }
 
+/* GLOBAL AI STATUS */
+.global-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 8px; }
+.global-card { background: var(--sf); border: 1px solid var(--bd); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+.global-card-hd { display: flex; align-items: center; gap: 14px; padding: 20px 22px; border-bottom: 1px solid var(--bd); }
+.global-badge { display: inline-block; font-size: 0.7rem; font-weight: 700; border-radius: 12px; padding: 2px 10px; margin-top: 4px; }
+.global-card-body { padding: 18px 22px; display: flex; flex-direction: column; gap: 0; flex: 1; }
+.gmodel-row { padding: 11px 0; border-bottom: 1px solid var(--bd); }
+.gmodel-row:last-of-type { border-bottom: none; padding-bottom: 4px; }
+.gmodel-name { font-size: 0.88rem; font-weight: 700; color: var(--tx); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; line-height: 1.4; }
+.gmodel-desc { font-size: 0.78rem; color: var(--mt); line-height: 1.6; }
+.gmodel-badge { font-size: 0.63rem; font-weight: 700; border-radius: 8px; padding: 1px 7px; white-space: nowrap; }
+.gmodel-badge.gnew { background: rgba(99,102,241,0.15); color: var(--ac2); }
+.gmodel-badge.ghot { background: rgba(239,68,68,0.12); color: var(--rd); }
+.global-insight { font-size: 0.79rem; color: var(--mt); background: var(--sf2); border-radius: 8px; padding: 10px 14px; line-height: 1.65; border-left: 3px solid var(--ac); margin-top: 14px; }
+.global-insight b { color: var(--tx); }
+
 @media (max-width: 720px) {
   .hero-title { font-size: 1.8rem; }
   .section-title { font-size: 1.5rem; }
@@ -243,6 +259,7 @@ hr.div { border: none; border-top: 1px solid var(--bd); margin: 0; }
   <div class="nav-brand">AI 세미나 2차</div>
   <a href="#today">오늘 세션</a>
   <a href="#news">AI 뉴스</a>
+  <a href="#global">글로벌 현황</a>
   <a href="#google">Google/Gemini</a>
   <a href="#antigravity">Antigravity</a>
   <a href="#aistudio">AI Studio</a>
@@ -434,6 +451,109 @@ hr.div { border: none; border-top: 1px solid var(--bd); margin: 0; }
       <p>Antigravity, Cursor, Lovable 등 자연어 → 앱 생성 도구가 비개발자 임원층까지 확산. "프롬프트만 쓸 줄 알면 앱을 만드는 시대".</p>
       <div class="news-impact">임팩트: <span class="impact-med">★★ 높음</span></div>
     </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- SECTION: 글로벌 AI 현황 -->
+<section class="section" id="global">
+  <div class="section-label">글로벌 현황 · 2026.06</div>
+  <h2 class="section-title">중국 · 한국 · 오픈소스<br><span style="color:var(--ac)">AI 경쟁 지금 이 순간</span></h2>
+  <p class="section-sub">미국 빅테크(Claude · GPT · Gemini)만 알면 절반만 보는 것입니다.<br>중국이 오픈소스로 맹추격하고, 한국도 독자 AI 개발을 가속하고 있습니다.</p>
+
+  <div class="global-grid">
+
+    <!-- 🇨🇳 중국 -->
+    <div class="global-card">
+      <div class="global-card-hd" style="border-color:rgba(239,68,68,0.35);background:rgba(239,68,68,0.06)">
+        <span style="font-size:2rem;flex-shrink:0">🇨🇳</span>
+        <div>
+          <h3 style="font-size:1.05rem;font-weight:800;margin-bottom:0;line-height:1.3">중국 AI</h3>
+          <span class="global-badge" style="background:rgba(239,68,68,0.15);color:var(--rd)">빠른 추격자</span>
+        </div>
+      </div>
+      <div class="global-card-body">
+        <div class="gmodel-row">
+          <div class="gmodel-name">Z.ai GLM-5.2 <span class="gmodel-badge gnew">🆕 최신</span></div>
+          <div class="gmodel-desc">1M 컨텍스트 · 코딩·장기 작업 특화. 다음 주 MIT 오픈소스 공개 예정. GLM Coding Plan 사용자 선공개.</div>
+        </div>
+        <div class="gmodel-row">
+          <div class="gmodel-name">DeepSeek V3 / R1</div>
+          <div class="gmodel-desc">GPT-4 수준 성능을 오픈소스로 공개. 2025년 초 글로벌 충격. 코딩·수학 벤치마크 세계 1위.</div>
+        </div>
+        <div class="gmodel-row">
+          <div class="gmodel-name">Alibaba Qwen 3</div>
+          <div class="gmodel-desc">0.6B~235B MoE 전 라인업 오픈소스(Apache 2.0). 추론 능력 GPT-4o 대등. 로컬 실행 인기 1위.</div>
+        </div>
+        <div class="gmodel-row">
+          <div class="gmodel-name">Baidu ERNIE X1</div>
+          <div class="gmodel-desc">DeepSeek 대비 10배 성능 주장. 중국 내 기업 API 사용 빠르게 확산 중.</div>
+        </div>
+        <div class="global-insight"><b>시사점:</b> 미국 수출통제 → 중국 오픈소스 개발 역가속. MIT 라이선스로 전 세계 배포, 막을 방법 없음.</div>
+      </div>
+    </div>
+
+    <!-- 🇰🇷 한국 -->
+    <div class="global-card">
+      <div class="global-card-hd" style="border-color:rgba(37,99,235,0.35);background:rgba(37,99,235,0.05)">
+        <span style="font-size:2rem;flex-shrink:0">🇰🇷</span>
+        <div>
+          <h3 style="font-size:1.05rem;font-weight:800;margin-bottom:0;line-height:1.3">한국 AI</h3>
+          <span class="global-badge" style="background:rgba(37,99,235,0.15);color:#2563eb">독자 개발 중</span>
+        </div>
+      </div>
+      <div class="global-card-body">
+        <div class="gmodel-row">
+          <div class="gmodel-name">삼성 Gauss 2 <span class="gmodel-badge ghot">🔥 사내 도입</span></div>
+          <div class="gmodel-desc">사내 전용 LLM. 6월부터 ChatGPT·Gemini·Claude 외부 AI도 전 관계사 병행 허용 전환.</div>
+        </div>
+        <div class="gmodel-row">
+          <div class="gmodel-name">Naver HyperCLOVA X 2.0</div>
+          <div class="gmodel-desc">한국어 최강 모델. ClovaX 기업 API 공급. 의료·법률 특화 버전 순차 출시.</div>
+        </div>
+        <div class="gmodel-row">
+          <div class="gmodel-name">LG EXAONE 3.5</div>
+          <div class="gmodel-desc">2.4B·7.8B·32B 3종 오픈소스. 연구·법률·제조 특화. Hugging Face 다운로드 가능.</div>
+        </div>
+        <div class="gmodel-row">
+          <div class="gmodel-name">KT Midm / SKT A.</div>
+          <div class="gmodel-desc">통신사 독자 LLM. B2B API 공급 및 디바이스 온디바이스 AI 통합 진행 중.</div>
+        </div>
+        <div class="global-insight"><b>시사점:</b> 한국어 특화·기업 보안 준수. 글로벌 빅모델과 국산 모델 병행 도입이 현실적 전략.</div>
+      </div>
+    </div>
+
+    <!-- 🌐 오픈소스 -->
+    <div class="global-card">
+      <div class="global-card-hd" style="border-color:rgba(22,163,74,0.35);background:rgba(22,163,74,0.05)">
+        <span style="font-size:2rem;flex-shrink:0">🌐</span>
+        <div>
+          <h3 style="font-size:1.05rem;font-weight:800;margin-bottom:0;line-height:1.3">오픈소스 AI</h3>
+          <span class="global-badge" style="background:rgba(22,163,74,0.15);color:var(--gn)">게임체인저</span>
+        </div>
+      </div>
+      <div class="global-card-body">
+        <div class="gmodel-row">
+          <div class="gmodel-name">Meta Llama 3.3 70B</div>
+          <div class="gmodel-desc">GPT-4 수준 오픈 모델. 개인 서버·온프레미스 구동. Meta Commercial License 상업 이용 허용.</div>
+        </div>
+        <div class="gmodel-row">
+          <div class="gmodel-name">Qwen 3 235B MoE</div>
+          <div class="gmodel-desc">오픈소스 벤치마크 1위. Apache 2.0. 로컬 구동 최적화 32B 버전이 가장 인기.</div>
+        </div>
+        <div class="gmodel-row">
+          <div class="gmodel-name">Mistral Large 3</div>
+          <div class="gmodel-desc">EU 기반 오픈소스. GDPR 준수 기업용. 유럽 기업 채택 급증. 다국어 최강.</div>
+        </div>
+        <div class="gmodel-row">
+          <div class="gmodel-name">GLM-5.2 <span class="gmodel-badge gnew">다음 주 MIT</span></div>
+          <div class="gmodel-desc">Z.ai 신작. 1M 컨텍스트. MIT 라이선스 오픈소스 공개 예정 — 상업 이용 무제한.</div>
+        </div>
+        <div class="global-insight"><b>시사점:</b> 오픈소스 = 무료가 아닌 자유. 사내 서버 구동 시 데이터 외부 유출 Zero. 제조업 최적.</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
