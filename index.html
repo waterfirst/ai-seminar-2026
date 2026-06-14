@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,6 +21,24 @@
   --pp: #a78bfa;
   --rd: #ef4444;
   --or: #f97316;
+}
+/* LIGHT MODE */
+[data-theme="light"] {
+  --bg: #f4f6fb;
+  --sf: #ffffff;
+  --sf2: #eaecf4;
+  --bd: #d0d4e4;
+  --ac: #4f52cc;
+  --ac2: #6366f1;
+  --tx: #111827;
+  --mt: #60657a;
+  --gn: #16a34a;
+  --gd: #b45309;
+  --pk: #be185d;
+  --cy: #0e7490;
+  --pp: #6d28d9;
+  --rd: #dc2626;
+  --or: #c2410c;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -45,6 +63,7 @@ body { background: var(--bg); color: var(--tx); font-family: 'Apple SD Gothic Ne
 .nav-brand { font-size: 0.9rem; font-weight: 800; color: var(--ac); white-space: nowrap; padding: 14px 20px 14px 0; border-right: 1px solid var(--bd); margin-right: 8px; flex-shrink: 0; }
 .nav a { display: inline-block; padding: 14px 14px; font-size: 0.8rem; color: var(--mt); text-decoration: none; border-bottom: 2px solid transparent; white-space: nowrap; transition: color 0.2s, border-color 0.2s; flex-shrink: 0; }
 .nav a:hover, .nav a.active { color: var(--tx); border-bottom-color: var(--ac); }
+.theme-btn { margin-left: auto; flex-shrink: 0; background: none; border: 1px solid var(--bd); border-radius: 8px; color: var(--mt); cursor: pointer; font-size: 1rem; padding: 5px 11px; transition: border-color 0.2s, color 0.2s; line-height: 1; }
 
 /* LAYOUT */
 .section { padding: 72px 24px; max-width: 1000px; margin: 0 auto; }
@@ -232,6 +251,7 @@ hr.div { border: none; border-top: 1px solid var(--bd); margin: 0; }
   <a href="#openai">OpenAI</a>
   <a href="#codex">Codex</a>
   <a href="#compare">비교</a>
+  <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">🌙</button>
 </nav>
 
 <!-- HERO -->
@@ -838,6 +858,23 @@ hr.div { border: none; border-top: 1px solid var(--bd); margin: 0; }
 </footer>
 
 <script>
+// Theme toggle
+(function() {
+  var saved = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  window.addEventListener('DOMContentLoaded', function() {
+    var btn = document.getElementById('theme-btn');
+    if (btn) btn.textContent = saved === 'dark' ? '☀️' : '🌙';
+  });
+})();
+function toggleTheme() {
+  var html = document.documentElement;
+  var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  document.getElementById('theme-btn').textContent = next === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('theme', next);
+}
+
 // Password gate
 (function() {
   if (sessionStorage.getItem('pw_ok') === '1') {
