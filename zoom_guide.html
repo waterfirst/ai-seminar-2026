@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 출장보고서 작성법 — Zoom 가이드</title>
+<style>
+  :root {
+    --bg: #0f0f14;
+    --sf: #1a1a24;
+    --bd: #2a2a3a;
+    --ac: #6366f1;
+    --tx: #e4e4ec;
+    --mt: #888898;
+    --gn: #22c55e;
+    --pk: #ec4899;
+    --gd: #f59e0b;
+    --cy: #06b6d4;
+    --pp: #a78bfa;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--tx);
+    font-family: 'Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+    min-height: 100vh;
+  }
+
+  /* ── Slide layout ── */
+  .slide-nav {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 10px; align-items: center; z-index: 100;
+    background: rgba(26,26,36,0.92); border: 1px solid var(--bd);
+    border-radius: 30px; padding: 8px 18px; backdrop-filter: blur(10px);
+  }
+  .slide-nav button {
+    background: none; border: none; color: var(--tx); cursor: pointer;
+    font-size: 1rem; padding: 4px 8px; border-radius: 6px;
+  }
+  .slide-nav button:hover { background: var(--bd); }
+  .slide-counter { font-size: 0.82rem; color: var(--mt); min-width: 60px; text-align: center; }
+
+  /* ── Slides ── */
+  .slide { display: none; min-height: 100vh; padding: 40px 32px; max-width: 860px; margin: 0 auto; }
+  .slide.active { display: flex; flex-direction: column; justify-content: center; }
+
+  /* ── Slide types ── */
+  .s-title { text-align: center; }
+  .s-title .big { font-size: 2.8rem; font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+  .s-title .big span { color: var(--ac); }
+  .s-title .sub { font-size: 1rem; color: var(--mt); line-height: 1.8; }
+  .s-title .badge {
+    display: inline-block; background: rgba(99,102,241,0.15); color: var(--ac);
+    border: 1px solid rgba(99,102,241,0.3); border-radius: 20px;
+    padding: 5px 14px; font-size: 0.8rem; font-weight: 600; margin-bottom: 24px;
+  }
+
+  .step-num {
+    font-size: 5rem; font-weight: 900; color: rgba(99,102,241,0.15);
+    line-height: 1; margin-bottom: 8px;
+  }
+  .step-title { font-size: 1.6rem; font-weight: 800; margin-bottom: 20px; }
+  .step-title span { color: var(--ac); }
+
+  .step-body { font-size: 0.95rem; line-height: 1.9; color: var(--tx); }
+  .step-body b { color: var(--gd); }
+  .step-body .hl { color: var(--ac); }
+
+  .tip-box {
+    background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.25);
+    border-radius: 10px; padding: 14px 18px; margin-top: 16px;
+    font-size: 0.85rem; line-height: 1.8; color: var(--tx);
+  }
+  .tip-box .tip-label {
+    font-size: 0.72rem; font-weight: 700; color: var(--ac); margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+  .warn-box {
+    background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.3);
+    border-radius: 10px; padding: 14px 18px; margin-top: 16px;
+    font-size: 0.85rem; line-height: 1.8; color: var(--tx);
+  }
+  .warn-box .warn-label { font-size: 0.72rem; font-weight: 700; color: var(--gd); margin-bottom: 6px; }
+
+  /* Steps overview */
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 8px;
+  }
+  @media(max-width:600px) { .steps-grid { grid-template-columns: 1fr; } }
+  .step-card {
+    background: var(--sf); border: 1px solid var(--bd);
+    border-radius: 10px; padding: 14px 16px;
+  }
+  .step-card .num { font-size: 1.4rem; font-weight: 900; color: var(--ac); margin-bottom: 6px; }
+  .step-card .name { font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; }
+  .step-card .desc { font-size: 0.78rem; color: var(--mt); line-height: 1.6; }
+  .step-card .time-badge {
+    display: inline-block; font-size: 0.68rem; background: rgba(34,197,94,0.15);
+    color: var(--gn); border-radius: 20px; padding: 1px 7px; margin-top: 6px;
+  }
+
+  /* Code block */
+  .code-block {
+    background: #0a0a10; border: 1px solid var(--bd);
+    border-radius: 10px; padding: 16px 18px; margin-top: 14px;
+    font-family: 'SF Mono','Fira Code',monospace; font-size: 0.82rem;
+    line-height: 1.9; color: #c8e6c9;
+    overflow-x: auto; white-space: pre-wrap;
+  }
+  .code-block .comment { color: #666888; }
+  .code-block .str { color: #f59e0b; }
+  .code-block .key { color: #6366f1; }
+
+  /* Folder tree */
+  .folder-tree {
+    background: #0a0a10; border: 1px solid var(--bd);
+    border-radius: 10px; padding: 16px 18px; margin-top: 14px;
+    font-family: 'SF Mono','Fira Code',monospace; font-size: 0.85rem;
+    line-height: 1.95; color: var(--tx);
+  }
+  .folder-tree .dir { color: var(--cy); font-weight: 700; }
+  .folder-tree .file { color: var(--tx); }
+  .folder-tree .note { color: var(--mt); font-size: 0.75rem; }
+
+  /* Progress bar */
+  .progress-row { display: flex; gap: 6px; margin-top: 10px; }
+  .progress-step {
+    flex: 1; height: 4px; border-radius: 2px; background: var(--bd);
+  }
+  .progress-step.done { background: var(--ac); }
+  .progress-step.current { background: var(--gd); }
+
+  /* URL box */
+  .url-box {
+    background: var(--sf); border: 1px solid var(--bd);
+    border-radius: 8px; padding: 12px 16px; margin-top: 14px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.85rem;
+  }
+  .url-box .url-label { color: var(--mt); font-size: 0.72rem; flex-shrink: 0; }
+  .url-box .url-text { color: var(--ac); font-weight: 600; word-break: break-all; }
+
+  /* Big check */
+  .big-check {
+    text-align: center; padding: 40px 0;
+  }
+  .big-check .icon { font-size: 4rem; margin-bottom: 14px; }
+  .big-check .msg { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+  .big-check .sub { font-size: 0.85rem; color: var(--mt); }
+
+  /* Keyboard hint */
+  .key-hint {
+    position: fixed; top: 16px; right: 16px; font-size: 0.72rem;
+    color: var(--mt); background: rgba(26,26,36,0.8); padding: 6px 10px;
+    border-radius: 6px; border: 1px solid var(--bd);
+  }
+</style>
+</head>
+<body>
+
+<div class="key-hint">← → 키로 이동</div>
+
+<!-- ═════════════ SLIDE 1: TITLE ═════════════ -->
+<div class="slide active s-title">
+  <div class="badge">AWE USA 2026 · Long Beach, CA · Jun 15–18</div>
+  <div class="big">AI로 만드는<br><span>출장 보고서</span></div>
+  <div class="sub">
+    사진 + 메모 → AI → HTML 보고서 → GitHub Pages 배포<br>
+    <br>
+    총 6단계 · 약 1~2시간 · 코딩 불필요<br>
+    <br>
+    <span style="font-size:0.8rem;color:var(--ac)">"I, Spatial — Humans Empowered by Spatial AI"</span><br>
+    <br>
+    강의: [발표자] | [날짜]
+  </div>
+</div>
+
+<!-- ═════════════ SLIDE 2: 왜 이 방법? ═════════════ -->
+<div class="slide">
+  <div class="step-num">?</div>
+  <div class="step-title">왜 이 방법인가?</div>
+  <div class="step-body">
+    기존 출장 보고서의 문제점:<br><br>
+    ❌ PPT/Word → 무겁고, 사진 붙이기 번거로움<br>
+    ❌ 이메일 첨부 → 접근 어렵고, 업데이트 안 됨<br>
+    ❌ 직접 작성 → 시간 너무 많이 걸림<br>
+    <br>
+    이번 방법의 장점:<br><br>
+    ✅ <b>사진 + 메모만 있으면</b> AI가 보고서 생성<br>
+    ✅ <b>URL 하나</b>로 누구나 접근 가능<br>
+    ✅ <b>모바일</b>에서도 보기 좋음<br>
+    ✅ 코딩 <b>전혀 몰라도</b> 됨
+  </div>
+  <div class="tip-box">
+    <div class="tip-label">실제 예시</div>
+    참고 예시 (SID 2026) → <span style="color:var(--ac)">waterfirst.github.io/sid-display-week-2026</span><br>
+    AWE 2026도 똑같이 만들 수 있습니다 (Long Beach, 6/15–18)
+  </div>
+</div>
+
+<!-- ═════════════ SLIDE 3: 전체 흐름 ═════════════ -->
+<div class="slide">
+  <div class="step-num" style="font-size:2rem;margin-bottom:16px">OVERVIEW</div>
+  <div class="step-title">6단계 <span>전체 흐름</span></div>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="num">01</div>
+      <div class="name">🔑 Antigravity 가입</div>
+      <div class="desc">Google 계정으로 가입<br>antigravity.google</div>
+      <div class="time-badge">5분</div>
+    </div>
+    <div class="step-card">
+      <div class="num">02</div>
+      <div class="name">🐙 GitHub 계정 만들기</div>
+      <div class="desc">이메일로 가입<br>github.com</div>
+      <div class="time-badge">5분</div>
+    </div>
+    <div class="step-card">
+      <div class="num">03</div>
+      <div class="name">🍴 템플릿 가져오기</div>
+      <div class="desc">Fork (클릭만) 또는<br>Clone (Git 명령어)</div>
+      <div class="time-badge">2~10분</div>
+    </div>
+    <div class="step-card">
+      <div class="num">04</div>
+      <div class="name">📁 현장 자료 정리</div>
+      <div class="desc">사진 폴더 + 메모 파일<br>(현지에서 수행)</div>
+      <div class="time-badge">출장 중</div>
+    </div>
+    <div class="step-card">
+      <div class="num">05</div>
+      <div class="name">🤖 Antigravity로 생성</div>
+      <div class="desc">폴더 올리고 프롬프트 입력<br>AI가 HTML 완성</div>
+      <div class="time-badge">30분</div>
+    </div>
+    <div class="step-card">
+      <div class="num">06</div>
+      <div class="name">🚀 GitHub Pages 배포</div>
+      <div class="desc">URL 생성 → 팀 공유</div>
+      <div class="time-badge">5분</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════ SLIDE 4: STEP 1 — Antigravity ═════════════ -->
+<div class="slide">
+  <div class="progress-row">
+    <div class="progress-step current"></div>
+    <div class="progress-step"></div><div class="progress-step"></div>
+    <div class="progress-step"></div><div class="progress-step"></div><div class="progress-step"></div>
+  </div>
+  <div style="height:24px"></div>
+  <div class="step-num">01</div>
+  <div class="step-title">🔑 <span>Antigravity</span> 가입</div>
+  <div class="step-body">
+    Google의 AI 코딩 도구입니다.<br>
+    코딩을 몰라도 <b>자연어로 지시</b>하면 HTML을 만들어줍니다.
+  </div>
+  <div class="url-box">
+    <div class="url-label">접속 URL</div>
+    <div class="url-text">https://antigravity.google</div>
+  </div>
+  <div class="tip-box">
+    <div class="tip-label">가입 방법</div>
+    1. 위 URL 접속<br>
+    2. <b>Sign in with Google</b> 클릭<br>
+    3. 회사 이메일 또는 개인 Gmail로 로그인<br>
+    4. 완료 ✅
+  </div>
+  <div class="warn-box">
+    <div class="warn-label">⚠️ 주의</div>
+    무료 플랜은 토큰(사용량) 제한이 있습니다.<br>
+    보고서 한 개 만들기에는 충분하지만, 큰 파일이 많으면 유료 플랜이 필요할 수 있습니다.
+  </div>
+</div>
+
+<!-- ═════════════ SLIDE 5: STEP 2 — GitHub ═════════════ -->
+<div class="slide">
+  <div class="progress-row">
+    <div class="progress-step done"></div>
+    <div class="progress-step current"></div>
+    <div class="progress-step"></div><div class="progress-step"></div>
+    <div class="progress-step"></div><div class="progress-step"></div>
+  </div>
+  <div style="height:24px"></div>
+  <div class="step-num">02</div>
+  <div class="step-title">🐙 <span>GitHub</span> 계정 만들기</div>
+  <div class="step-body">
+    보고서를 올리고 URL을 만들 공간입니다.<br>
+    <b>평생 무료</b>로 사용 가능합니다.
+  </div>
+  <div class="url-box">
+    <div class="url-label">접속 URL</div>
+    <div class="url-text">https://github.com → Sign up</div>
+  </div>
+  <div class="tip-box">
+    <div class="tip-label">가입 방법</div>
+    1. github.com 접속 → <b>Sign up</b><br>
+    2. 이메일 / 비밀번호 / 사용자명 입력<br>
+    3. 이메일 인증<br>
+    4. 완료 ✅
+  </div>
+  <div class="tip-box" style="background:rgba(34,197,94,0.06);border-color:rgba(34,197,94,0.25)">
+    <div class="tip-label" style="color:var(--gn)">💡 사용자명 추천</div>
+    나중에 URL이 됩니다: <span style="color:var(--ac)">[내계정].github.io/awe_2026_LA</span><br>
+    알아보기 쉬운 영문 소문자 이름 추천 (예: kimyoungjae, leejinsoo)
+  </div>
+</div>
+
+<!-- ═════════════ SLIDE 6: STEP 3 — Fork vs Clone ═════════════ -->
+<div class="slide">
+  <div class="progress-row">
+    <div class="progress-step done"></div><div class="progress-step done"></div>
+    <div class="progress-step current"></div>
+    <div class="progress-step"></div><div class="progress-step"></div><div class="progress-step"></div>
+  </div>
+  <div style="height:24px"></div>
+  <div class="step-num">03</div>
+  <div class="step-title">🍴 템플릿 <span>가져오기</span></div>
+  <div class="step-body">두 가지 방법 중 하나를 선택하세요.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">
+    <div class="tip-box" style="background:rgba(34,197,94,0.06);border-color:rgba(34,197,94,0.3)">
+      <div class="tip-label" style="color:var(--gn)">방법 A — Fork + ZIP ⭐추천</div>
+      Git <b>설치 불필요</b><br>
+      Fork → ZIP 다운 → 폴더 편집<br>
+      → 웹에서 드래그 업로드<br><br>
+      <b style="color:var(--gn)">비개발자 대부분 이 방법</b>
+    </div>
+    <div class="tip-box" style="background:rgba(99,102,241,0.06);border-color:rgba(99,102,241,0.3)">
+      <div class="tip-label" style="color:var(--ac)">방법 B — Clone</div>
+      Git <b>설치 필요</b><br>
+      git clone → 로컬 편집<br>
+      → git push 업로드<br><br>
+      <b style="color:var(--ac)">Git 사용자용</b>
+    </div>
+  </div>
+  <div class="tip-box" style="margin-top:12px">
+    <div class="tip-label">방법 A 전체 흐름 (Git 불필요)</div>
+    <b>① Fork</b> — github.com/waterfirst/awe_2026_LA → 우측 상단 <b style="color:var(--gd)">Fork ▼</b> → Create fork<br>
+    <b>② ZIP 다운</b> — 내 레포 → 초록 <b>Code ▼</b> → <b>Download ZIP</b> → 압축 해제<br>
+    <b>③ 로컬 작업</b> — img/ 에 사진 복붙, notes/ 메모 작성, Antigravity로 index.html 생성<br>
+    <b>④ 웹 업로드</b> — 내 레포 → <b>Add file → Upload files</b> → 드래그 → Commit ✅
+  </div>
+  <div style="text-align:center;margin-top:10px;font-size:0.8rem;color:var(--mt)">
+    방법 B(Clone + Git) 상세 절차는 다음 슬라이드 →
+  </div>
+</div>
+
+<!-- ═════════════ SLIDE 7: STEP 3B — Clone ═════════════ -->
+<div class="slide">
+  <div class="progress-row">
+    <div class="progress-step done"></div><div class="progress-step done"></div>
+    <div class="progress-step current"></div>
+    <div class="progress-step"></div><div class="progress-step"></div><div class="progress-step"></div>
+  </div>
+  <div style="height:24px"></div>
+  <div class="step-num" style="font-size:2.5rem">03-B</div>
+  <div class="step-title">💻 <span>Clone</span> 상세 방법</div>
+
+  <div class="tip-box" style="margin-top:12px">
+    <div class="tip-label">① Git 설치 (처음 한 번만)</div>
+    <b>Windows:</b> <span style="color:var(--ac)">git-scm.com/download/win</span> 접속 → 다운로드 → 설치<br>
+    <b>Mac:</b> 터미널 열고 아래 입력 후 설치 팝업에서 "설치" 클릭:
+    <div class="code-block" style="margin-top:8px">git --version</div>
+    설치 확인: 터미널에 <b style="color:var(--gn)">git version 2.x.x</b> 가 나오면 완료 ✅
+  </div>
+
+  <div class="tip-box" style="margin-top:10px">
+    <div class="tip-label">② 클론 + 내 GitHub 레포로 연결</div>
+    <div class="code-block"><span class="comment"># 1. 템플릿 다운로드</span>
+git clone https://github.com/waterfirst/awe_2026_LA.git
+cd awe_2026_LA
+
+<span class="comment"># 2. github.com/new 에서 새 레포 만든 후:</span>
+git remote remove origin
+git remote add origin https://github.com/<span class="str">[내계정]</span>/awe_2026_LA.git
+
+<span class="comment"># 3. 내 레포에 업로드</span>
+git push -u origin main</div>
+  </div>
+
+  <div class="tip-box" style="margin-top:10px;background:rgba(34,197,94,0.06);border-color:rgba(34,197,94,0.25)">
+    <div class="tip-label" style="color:var(--gn)">③ 이후 파일 추가할 때마다</div>
+    <div class="code-block">git add .
+git commit -m "사진 및 메모 추가"
+git push origin main</div>
+    Push 할 때마다 GitHub Pages가 <b style="color:var(--gn)">자동으로 업데이트</b>됩니다 ✅
+  </div>
+</div>
+
+<!-- ═════════════ SLIDE 7: STEP 4 — 자료 정리 ═════════════ -->
+<div class="slide">
+  <div class="progress-row">
+    <div class="progress-step done"></div><div class="progress-step done"></div>
+    <div class="progress-step done"></div><div class="progress-step current"></div>
+    <div class="progress-step"></div><div class="progress-step"></div>
+  </div>
+  <div style="height:24px"></div>
+  <div class="step-num">04</div>
+  <div class="step-title">📁 현장 <span>자료 정리</span></div>
+  <div class="step-body">
+    현지에서 이렇게 모으세요.
+  </div>
+  <div class="folder-tree">
+<span class="dir">awe_2026_LA/</span>
+├── <span class="dir">img/</span>
+│   ├── <span class="dir">day1/</span>  <span class="note">← 이동일 사진</span>
+│   ├── <span class="dir">day2/</span>  <span class="note">← 전시 첫째날 사진</span>
+│   ├── <span class="dir">day3/</span>  <span class="note">← 전시 둘째날 사진</span>
+│   └── <span class="dir">day4/</span>  <span class="note">← 귀국일</span>
+└── <span class="dir">notes/</span>
+    ├── <span class="file">exhibition.txt</span>  <span class="note">← 부스 관찰 메모</span>
+    └── <span class="file">meetings.txt</span>    <span class="note">← VIP 미팅 메모</span>
+  </div>
+  <div class="tip-box">
+    <div class="tip-label">현장 메모 팁</div>
+    📱 <b>카카오톡 나에게 보내기</b> → 텍스트 실시간 기록<br>
+    📷 사진은 <b>많이 찍을수록 좋음</b> (보고서가 풍성해짐)<br>
+    📝 귀국 후 메모를 <code>notes/exhibition.txt</code>에 복붙
+  </div>
+  <div class="warn-box">
+    <div class="warn-label">📝 exhibition.txt 작성 예시</div>
+    [부스명: Meta]<br>
+    - 제품: Quest 4 Pro 시연<br>
+    - 특징: 시야각 120° · 무게 280g<br>
+    - 고객 반응: 30분 대기줄<br>
+    - 인상: 경쟁사 대비 가격 경쟁력 우수
+  </div>
+</div>
+
+<!-- ═════════════ SLIDE 8: STEP 5 — Antigravity ═════════════ -->
+<div class="slide">
+  <div class="progress-row">
+    <div class="progress-step done"></div><div class="progress-step done"></div>
+    <div class="progress-step done"></div><div class="progress-step done"></div>
+    <div class="progress-step current"></div><div class="progress-step"></div>
+  </div>
+  <div style="height:24px"></div>
+  <div class="step-num">05</div>
+  <div class="step-title">🤖 <span>Antigravity</span>로 보고서 생성</div>
+  <div class="step-body">
+    antigravity.google → 폴더 업로드 → 프롬프트 전송 → index.html 다운로드
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px">
+    <div class="tip-box">
+      <div class="tip-label">프롬프트 A — 기본</div>
+      <span style="font-size:0.78rem;color:var(--mt)">사진을 img/ 폴더로 따로 관리</span><br><br>
+      <code style="font-size:0.75rem;color:var(--cy)">
+        notes/ 메모와 img/ 사진으로<br>
+        index.html 출장보고서 완성해줘.<br>
+        규칙:<br>
+        1. 탭 구성 유지<br>
+        2. [ ] 플레이스홀더 교체<br>
+        3. 사진 날짜별 배치<br>
+        4. 단일 HTML 출력<br>
+        5. 다크 테마·탭 구조 유지
+      </code>
+    </div>
+    <div class="tip-box" style="background:rgba(34,197,94,0.07);border-color:rgba(34,197,94,0.3)">
+      <div class="tip-label" style="color:var(--gn)">프롬프트 B — 사진 내장형 ⭐</div>
+      <span style="font-size:0.78rem;color:var(--mt)">사진을 HTML 안에 통째로 내장<br>파일 1개로 완성!</span><br><br>
+      <code style="font-size:0.75rem;color:var(--cy)">
+        notes/ 메모와 img/ 사진으로<br>
+        index.html 출장보고서 완성해줘.<br>
+        규칙:<br>
+        1~5. (위와 동일)<br>
+        <b style="color:var(--gn)">+ 6. 모든 사진을 Base64로<br>
+        HTML 안에 직접 내장<br>
+        (img/ 폴더 참조 없이<br>
+        파일 하나로 동작)</b>
+      </code>
+    </div>
+  </div>
+
+  <div class="warn-box" style="margin-top:10px">
+    <div class="warn-label">⭐ B 추천 이유</div>
+    index.html <b>파일 하나만</b> GitHub에 올리면 끝! 사진 폴더 따로 업로드 불필요<br>
+    <span style="font-size:0.78rem;color:var(--mt)">⚠️ 사진 많으면 파일 커짐 (10장 기준 약 5~15MB)</span>
+  </div>
+</div>
+
+<!-- ═════════════ SLIDE 9: STEP 6 — 배포 방법 3가지 개요 ═════════════ -->
+<div class="slide">
+  <div class="progress-row">
+    <div class="progress-step done"></div><div class="progress-step done"></div>
+    <div class="progress-step done"></div><div class="progress-step done"></div>
+    <div class="progress-step done"></div><div class="progress-step current"></div>
+  </div>
+  <div style="height:24px"></div>
+  <div class="step-num">06</div>
+  <div class="step-title">🚀 <span>배포 방법</span> — 3가지 중 선택</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:16px">
+    <div class="step-card" style="border-color:rgba(34,197,94,0.4);background:rgba(34,197,94,0.05)">
+      <div class="num" style="color:var(--gn)">🥇</div>
+      <div class="name">Antigravity<br>Publish 버튼</div>
+      <div class="desc">클릭 한 번<br>Git·GitHub 불필요</div>
+      <div class="time-badge">30초</div>
+    </div>
+    <div class="step-card" style="border-color:rgba(99,102,241,0.4);background:rgba(99,102,241,0.05)">
+      <div class="num" style="color:var(--ac)">🥈</div>
+      <div class="name">GitHub<br>웹 업로드</div>
+      <div class="desc">브라우저만 사용<br>Git 불필요</div>
+      <div class="time-badge">5분</div>
+    </div>
+    <div class="step-card" style="border-color:rgba(168,139,250,0.4);background:rgba(168,139,250,0.05)">
+      <div class="num" style="color:var(--pp)">🥉</div>
+      <div class="name">git push<br>(개발자)</div>
+      <div class="desc">Git 설치 필요<br>터미널 사용</div>
+      <div class="time-badge">1분</div>
+    </div>
+  </div>
+
+  <div class="tip-box" style="margin-top:14px;font-size:0.82rem">
+    <div class="tip-label">한눈에 비교</div>
+    <b style="color:var(--gn)">🥇 .web.app 또는 .run.app 도메인</b> — 가장 간단, 지금 당장 공유 가능<br>
+    <b style="color:var(--ac)">🥈 [내계정].github.io 도메인</b> — 브라우저만 있으면 OK<br>
+    <b style="color:var(--pp)">🥉 [내계정].github.io 도메인</b> — Git 설치 필요, 개발자 전용<br><br>
+    <span style="color:var(--mt)">다음 슬라이드에서 각 방법 상세 설명 →</span>
+  </div>
+</div>
+
+<!-- ═════════════ SLIDE 10: 방법 1 — Antigravity Publish ═════════════ -->
+<div class="slide">
+  <div class="step-num" style="font-size:2.8rem;color:var(--gn)">🥇</div>
+  <div class="step-title" style="color:var(--gn)">방법 1 — <span style="color:var(--tx)">Antigravity Publish</span></div>
+  <div class="step-body" style="color:var(--gd)">
+    가장 쉬운 방법 · Git·GitHub 계정 없어도 됨 · 클릭 한 번
+  </div>
+
+  <div class="tip-box" style="background:rgba(34,197,94,0.07);border-color:rgba(34,197,94,0.3);margin-top:14px">
+    <div class="tip-label" style="color:var(--gn)">상세 절차</div>
+    <b>① Antigravity에서 보고서 생성 완료 후</b><br><br>
+    <b>② 화면 우측 상단(또는 하단) 버튼 클릭:</b><br>
+    <div class="code-block" style="margin-top:8px;font-size:0.82rem">
+"Publish" 또는 "Share" 또는 "Deploy" 버튼
+  → 클릭 → 잠시 대기 (10~30초)
+  → URL 자동 생성!</div>
+    <br>
+    <b>③ 생성된 URL 복사 후 공유:</b><br>
+    <div class="url-box" style="margin-top:8px">
+      <div class="url-label">예시 URL</div>
+      <div class="url-text" style="font-size:0.82rem">
+        https://[프로젝트-ID].web.app<br>
+        또는 https://[서비스명]-[난수].run.app
+      </div>
+    </div>
+  </div>
+
+  <div class="tip-box" style="margin-top:10px;background:rgba(245,158,11,0.06);border-color:rgba(245,158,11,0.25)">
+    <div class="warn-label">📌 참고</div>
+    URL은 <b>Firebase(.web.app)</b> 또는 <b>Cloud Run(.run.app)</b> 도메인으로 생성됩니다.<br>
+    URL 수정·삭제는 Antigravity 대시보드에서 가능합니다.<br>
+    <span style="color:var(--mt);font-size:0.78rem">github.io URL이 필요하면 방법 2 또는 3을 사용하세요.</span>
+  </div>
+</div>
+
+<!-- ═════════════ SLIDE 11: 방법 2 — GitHub 웹 업로드 ═════════════ -->
+<div class="slide">
+  <div class="step-num" style="font-size:2.8rem;color:var(--ac)">🥈</div>
+  <div class="step-title" style="color:var(--ac)">방법 2 — <span style="color:var(--tx)">GitHub 웹 업로드</span></div>
+  <div class="step-body" style="color:var(--mt)">
+    브라우저만 있으면 OK · Git 설치 불필요 · github.io URL 생성
+  </div>
+
+  <div class="tip-box" style="margin-top:12px">
+    <div class="tip-label">① index.html 업로드</div>
+    1. <span style="color:var(--ac)">github.com/[내계정]/awe_2026_LA</span> 접속<br>
+    2. <b>Add file ▼ → Upload files</b> 클릭<br>
+    3. Antigravity에서 받은 <b>index.html</b> 드래그 앤 드롭<br>
+    4. 하단 <b>Commit changes</b> 클릭<br><br>
+    <span style="color:var(--gn)">⭐ 프롬프트 B(Base64 내장형)로 만든 경우 여기서 끝!</span>
+  </div>
+
+  <div class="tip-box" style="margin-top:10px;background:rgba(6,182,212,0.06);border-color:rgba(6,182,212,0.25)">
+    <div class="tip-label" style="color:var(--cy)">② GitHub Pages 활성화 (최초 1회)</div>
+    1. 레포 상단 <b>⚙️ Settings</b> 탭<br>
+    2. 왼쪽 메뉴 스크롤 → <b>Pages</b> 클릭<br>
+    3. Source: <b>Deploy from a branch</b><br>
+    4. Branch: <b>main</b> / Folder: <b>/ (root)</b> → <b>Save</b><br>
+    5. 1~3분 대기 후 URL 생성 ✅
+  </div>
+
+  <div class="url-box" style="margin-top:12px">
+    <div class="url-label">내 보고서 URL</div>
+    <div class="url-text">https://[내계정].github.io/awe_2026_LA</div>
+  </div>
+</div>
+
+<!-- ═════════════ SLIDE 12: 방법 3 + 완료 ═════════════ -->
+<div class="slide">
+  <div class="step-num" style="font-size:2.8rem;color:var(--pp)">🥉</div>
+  <div class="step-title" style="color:var(--pp)">방법 3 — <span style="color:var(--tx)">git push (개발자)</span></div>
+  <div class="step-body" style="color:var(--mt)">Git 설치 필요 · 터미널 사용</div>
+
+  <div class="tip-box" style="margin-top:12px;background:rgba(168,139,250,0.06);border-color:rgba(168,139,250,0.25)">
+    <div class="tip-label" style="color:var(--pp)">파일 수정 후 레포 폴더에서 실행</div>
+    <div class="code-block" style="margin-top:8px">git add .
+git commit -m "보고서 완성"
+git push origin main
+<span class="comment"># → GitHub Pages 자동 업데이트</span></div>
+  </div>
+
+  <div style="margin-top:28px;border-top:1px solid var(--bd);padding-top:24px">
+    <div class="big-check" style="padding:16px 0">
+      <div class="icon">🎉</div>
+      <div class="msg">완성! URL 하나로 팀 전체 공유</div>
+      <div class="sub" style="margin-top:8px;line-height:1.8">
+        템플릿: <span style="color:var(--ac)">github.com/waterfirst/awe_2026_LA</span><br>
+        AI 도구: <span style="color:var(--ac)">antigravity.google</span>
+      </div>
+    </div>
+    <div style="text-align:center;font-size:0.85rem;color:var(--mt)">
+      질문이 있으시면 편하게 연락주세요 👋
+    </div>
+  </div>
+</div>
+
+<!-- ── Slide nav ── -->
+<div class="slide-nav">
+  <button onclick="prevSlide()">◀</button>
+  <div class="slide-counter" id="counter">1 / 13</div>
+  <button onclick="nextSlide()">▶</button>
+</div>
+
+<script>
+  let cur = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+
+  function show(i) {
+    slides.forEach((s, j) => s.classList.toggle('active', i === j));
+    document.getElementById('counter').textContent = (i + 1) + ' / ' + total;
+    cur = i;
+  }
+  function nextSlide() { show((cur + 1) % total); }
+  function prevSlide() { show((cur - 1 + total) % total); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
+  });
+</script>
+</body>
+</html>
