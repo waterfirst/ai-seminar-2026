@@ -1209,6 +1209,21 @@ hr.div { border: none; border-top: 1px solid var(--bd); margin: 0; }
     </div>
   </div>
 
+  <!-- 보안 주의 -->
+  <div style="margin-top:28px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.35);border-radius:14px;padding:20px 24px">
+    <div style="font-size:0.95rem;font-weight:800;color:var(--rd);margin-bottom:10px">⚠ 반드시 — 토큰·보안 주의</div>
+    <div style="font-size:0.85rem;color:var(--tx);line-height:1.8">
+      이 도구는 채팅앱 토큰·API 키로 서버와 코드를 직접 제어합니다. <b>편리한 만큼 보안 사고 시 피해가 큽니다.</b> 아래는 필수입니다:
+    </div>
+    <ul style="font-size:0.82rem;color:var(--mt);line-height:1.85;margin:12px 0 0;padding-left:20px">
+      <li><b style="color:var(--tx)">토큰·API 키를 코드·메시지·캡처에 절대 노출 금지.</b> 깃 커밋·스크린샷에 키가 들어가지 않게 확인.</li>
+      <li>키는 <b style="color:var(--tx)">환경변수·별도 설정파일에만</b> 저장하고, 봇 토큰이 유출되면 즉시 재발급(BotFather Revoke).</li>
+      <li><b style="color:var(--tx)">사내 기밀·고객 데이터는 외부 AI/봇에 입력 금지.</b> 회사 보안 정책·승인 범위 안에서만 사용.</li>
+      <li>봇 접근을 <b style="color:var(--tx)">본인 채팅 ID로 제한</b>하고, 사용하지 않을 때는 서버를 내려둘 것.</li>
+      <li>회사 자산(사내 PC·서버)에 설치 전 <b style="color:var(--tx)">정보보안팀 승인</b>을 먼저 받으세요.</li>
+    </ul>
+  </div>
+
   <div style="margin-top:24px;text-align:center">
     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
       <a href="https://github.com/kstost/cokacdir" target="_blank"
