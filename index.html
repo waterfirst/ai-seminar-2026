@@ -1216,6 +1216,8 @@ hr.div { border: none; border-top: 1px solid var(--bd); margin: 0; }
       이 도구는 채팅앱 토큰·API 키로 서버와 코드를 직접 제어합니다. <b>편리한 만큼 보안 사고 시 피해가 큽니다.</b> 아래는 필수입니다:
     </div>
     <ul style="font-size:0.82rem;color:var(--mt);line-height:1.85;margin:12px 0 0;padding-left:20px">
+      <li><b style="color:var(--tx)">회사 PC가 아닌 "개인 스마트폰"에 설치·운영하세요.</b> 사내망·회사 자산과 분리해 보안 리스크를 차단합니다.</li>
+      <li><b style="color:var(--tx)">에이전트에게 너무 많은 권한을 주지 마세요.</b> 삭제·배포·결제 등 위험 작업은 막고, 꼭 필요한 폴더·기능만 허용. 모르면 먼저 묻게 설정.</li>
       <li><b style="color:var(--tx)">토큰·API 키를 코드·메시지·캡처에 절대 노출 금지.</b> 깃 커밋·스크린샷에 키가 들어가지 않게 확인.</li>
       <li>키는 <b style="color:var(--tx)">환경변수·별도 설정파일에만</b> 저장하고, 봇 토큰이 유출되면 즉시 재발급(BotFather Revoke).</li>
       <li><b style="color:var(--tx)">사내 기밀·고객 데이터는 외부 AI/봇에 입력 금지.</b> 회사 보안 정책·승인 범위 안에서만 사용.</li>
@@ -1236,6 +1238,20 @@ hr.div { border: none; border-top: 1px solid var(--bd); margin: 0; }
       </a>
     </div>
     <span style="font-size:0.75rem;color:var(--mt);display:block;margin-top:10px">MIT License · Rust 기반 · macOS / Linux / Windows</span>
+  </div>
+
+  <!-- 추천 이유 -->
+  <div style="margin-top:24px;background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.3);border-radius:14px;padding:20px 24px">
+    <div style="font-size:0.95rem;font-weight:800;color:var(--ac);margin-bottom:10px">왜 "코드깎는노인(cokacdir)" 방식인가</div>
+    <p style="font-size:0.84rem;color:var(--tx);line-height:1.8;margin:0 0 10px">
+      OpenClo 같은 다른 방식 대신 <b>코드깎는노인(cokacdir)</b> 방식을 추천하는 이유:
+    </p>
+    <ul style="font-size:0.82rem;color:var(--mt);line-height:1.85;margin:0;padding-left:20px">
+      <li><b style="color:var(--tx)">가장 강력한 Claude Code를 그대로 제어</b> — 자체 약한 모델이 아니라, 검증된 최상위 에이전트를 채팅으로 부린다.</li>
+      <li><b style="color:var(--tx)">한국어 제작자·튜토리얼·커뮤니티</b> — 위 영상처럼 한국어로 따라 하기 쉽고, 막힐 때 물어볼 곳이 있다.</li>
+      <li><b style="color:var(--tx)">설치가 명령어 하나</b> — 복잡한 환경설정 없이 단일 바이너리로 5분 안에 시작.</li>
+      <li><b style="color:var(--tx)">내 서버·내 폰에서 동작</b> — 데이터가 외부 SaaS를 거치지 않아 보안 통제가 쉽다.</li>
+    </ul>
   </div>
 </section>
 
