@@ -1,0 +1,137 @@
+<!doctype html><html lang=ko><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">
+<title>AI 세미나 3차 — 클로드 특별강의</title>
+<style>
+:root{--bg:#0b0e14;--card:#141925;--line:#232c3d;--tx:#e8edf5;--mut:#93a1b5;--a:#19d3a7;--am:#f5a623;--bl:#4f9bff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tx);line-height:1.7}
+.nav{position:sticky;top:0;background:rgba(11,14,20,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 16px;font-size:12px;z-index:50;display:flex;gap:14px;flex-wrap:wrap}
+.nav a{color:var(--mut);text-decoration:none}.nav a:hover{color:var(--a)}
+.wrap{max-width:920px;margin:0 auto;padding:0 18px 80px}
+.hero{text-align:center;padding:64px 18px 40px;background:radial-gradient(circle at 50% 30%,#15233a,#0b0e14 70%)}
+.hero .badge{display:inline-block;border:1px solid var(--a);color:var(--a);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;letter-spacing:2px}
+.hero h1{font-size:34px;margin:16px 0 6px;letter-spacing:-.5px}
+.hero h1 b{color:var(--a)}
+.hero .sub{color:var(--mut);font-size:15px}
+.hero .by{margin-top:18px;font-size:11.5px;color:#5f6e85;font-family:ui-monospace,monospace}
+h2{font-size:23px;margin:48px 0 6px;letter-spacing:-.3px}.sec-no{color:var(--am);font-weight:800;font-family:ui-monospace,monospace;font-size:14px}
+.lead{color:var(--mut);font-size:14.5px;margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:12px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}@media(max-width:680px){.grid{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.tile h3{margin:0 0 6px;font-size:16px}.tile .ic{font-size:26px}.tile p{margin:6px 0 0;font-size:13px;color:var(--mut)}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;margin-right:4px}
+.t-a{background:rgba(25,211,167,.15);color:var(--a)}.t-b{background:rgba(79,155,255,.15);color:var(--bl)}.t-c{background:rgba(245,166,35,.15);color:var(--am)}
+code,.mono{font-family:ui-monospace,Menlo,monospace;font-size:12.5px}
+pre{background:#0d1119;border:1px solid var(--line);border-radius:10px;padding:12px 14px;overflow:auto;font-size:12px;color:#cfe3d8}
+.step{display:flex;gap:12px;margin:8px 0;align-items:flex-start}
+.step .n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--am);color:#1a1206;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:13px}
+.step .tx{font-size:13.5px}.step .tx b{color:var(--tx)}
+ul{margin:6px 0;padding-left:20px}li{margin:5px 0;font-size:14px}
+.q{border-left:3px solid var(--a);padding:8px 14px;color:#cfe3d8;font-style:italic;background:#0e1620;border-radius:0 8px 8px 0;margin:10px 0}
+.kpi{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+.kpi div{background:#0e1620;border:1px solid var(--line);border-radius:10px;padding:10px 14px;text-align:center;flex:1;min-width:120px}
+.kpi b{display:block;font-size:22px;color:var(--a)}.kpi span{font-size:11.5px;color:var(--mut)}
+.flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin:8px 0}
+.flow b{background:#0e1620;border:1px solid var(--line);border-radius:8px;padding:6px 10px;color:var(--tx)}
+.foot{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-size:11.5px;color:#5f6e85}
+.amber{color:var(--am)}.aqua{color:var(--a)}.blue{color:var(--bl)}
+</style></head><body>
+<div class=nav><a href="#s1">시리즈</a><a href="#s2">3가지 얼굴</a><a href="#s3">MCP</a><a href="#s4">실전: 부동산앱</a><a href="#s5">실전: 에이전트 전과정</a><a href="#s6">키메라</a><a href="#s7">4대 인프라</a><a href="#s8">결론</a></div>
+
+<div class=hero>
+<span class=badge>AI 세미나 · 3차</span>
+<h1>클로드 <b>마스터클래스</b></h1>
+<div class=sub>Chat · Cowork · Code 부터 에이전트 · 키메라까지 — 그리고 신뢰의 기술</div>
+<div class=by>// 세는 건 코드, 판단은 사람 · 2026-06-21 · SDC 연구소 AI 세미나</div>
+</div>
+<div class=wrap>
+
+<h2 id=s1><span class=sec-no>01</span> 시리즈에서의 위치</h2>
+<p class=lead>채팅 → 바이브코딩 → <b class=amber>에이전트</b>. 이번 3차는 "클로드를 도구가 아니라 시스템으로 쓰는 법".</p>
+<div class=grid>
+<div class=tile><div class=ic>🟦</div><h3>1차</h3><p>AI 기초·사내 GPT/Codex 실전 — "그냥 써보기"</p></div>
+<div class=tile><div class=ic>🟨</div><h3>2차</h3><p>바이브코딩·연구 검증·시뮬레이터 — "만들어 쓰기"</p></div>
+<div class=tile style="border-color:var(--a)"><div class=ic>🟩</div><h3>3차 (오늘)</h3><p>클로드 에이전트·키메라·신뢰 인프라 — "시스템으로 굴리기"</p></div>
+</div>
+
+<h2 id=s2><span class=sec-no>02</span> 클로드의 3가지 얼굴</h2>
+<p class=lead>같은 클로드, 다른 인터페이스. 용도가 다르다.</p>
+<div class=grid>
+<div class=tile><span class="tag t-a">대화</span><h3>① Chat</h3><p>질문·요약·문서·기획. 가장 가벼움. "물어보고 답 받기".</p></div>
+<div class=tile><span class="tag t-b">노코딩 느낌</span><h3>② Cowork</h3><p>데스크탑 앱 + <b>MCP 커넥터</b> 활용. 부동산 시세·지도·카카오 끌어다 쓰기. 마우스로 다룸. <span class=mut>단, 배포는 터미널서 직접.</span></p></div>
+<div class=tile><span class="tag t-c">CLI·자동화</span><h3>③ Code (CLI)</h3><p>터미널 기반. <b>git 연동·배포·크론 자동화</b>. 폴더를 통째로 맡김. cokacdir(텔레그램 비서)의 엔진.</p></div>
+</div>
+<div class=q>실전 팁(일요모임 결론): <b>Cowork에서 MCP로 작업 → Code로 배포·유지보수</b>. 둘을 합쳐 쓴다.</div>
+
+<h2 id=s3><span class=sec-no>03</span> MCP — 모든 도구를 꽂는 C타입</h2>
+<p class=lead>Model Context Protocol. AI가 외부 앱·웹·데이터와 소통하는 <b>표준 규약</b>(앤트로픽 발표 → 업계 표준).</p>
+<div class=card>충전기가 5핀·8핀 제각각이던 게 <b class=amber>C타입 하나</b>로 통일된 것처럼, AI ↔ 모든 서비스를 하나의 규약으로. 부동산 시세·네이버/카카오 지도·공공데이터·크롬 크롤링·깃허브 전부 커넥터로 연결.</div>
+
+<h2 id=s4><span class=sec-no>04</span> 실전 케이스 ① — 일요모임 "부동산 앱"</h2>
+<p class=lead>한 멤버가 Cowork + MCP로 만든 서울 아파트 실거래 지도 대시보드.</p>
+<ul>
+<li>데이터: 공공데이터포털 실거래가 API + 네이버부동산/크롬 MCP + 지도 API</li>
+<li><b>GitHub Actions로 매일 09시 자동 갱신</b> (서버용 맥미니)</li>
+<li>핵심 통찰: 가중치 점수화(학교·주차·역거리…) = <b class=aqua>ETF 모멘텀 로직의 부동산 이식</b></li>
+</ul>
+
+<h2 id=s5><span class=sec-no>05</span> 실전 케이스 ② — 에이전트가 만든 전 과정 <span style="font-size:13px;color:var(--am)">(오늘, 실제)</span></h2>
+<p class=lead>"채팅 몇 줄"로 에이전트가 앱 하나를 처음부터 끝까지 만든 실제 기록. <b>실리콘 네스트(경기남부 아파트)</b>.</p>
+<div class=card>
+<div class=step><div class=n>1</div><div class=tx><b>포크 & 적응</b> — 공개 레포 포크 → 서울 25구를 <b>경기남부 31시군구</b>로 교체</div></div>
+<div class=step><div class=n>2</div><div class=tx><b>데이터 검증</b> — 31개 법정동 코드를 국토부 API로 전수 확인 → 죽은코드(부천·화성) <b>실측으로 정정</b></div></div>
+<div class=step><div class=n>3</div><div class=tx><b>보안</b> — 원본에 노출된 API 키 <b>전부 제거</b>(헌법 제2조), GitHub Actions secrets로 이관</div></div>
+<div class=step><div class=n>4</div><div class=tx><b>개인화</b> — 반도체 클러스터 7개 시군구 강조, 구성역·플랫폼시티·GTX 호재 반영</div></div>
+<div class=step><div class=n>5</div><div class=tx><b>배포</b> — GitHub Pages 활성화, 분석 페이지·맞춤 스플래시 추가</div></div>
+<div class=step><div class=n>6</div><div class=tx><b>의사결정</b> — 실거래 추세·병원/역 거리·세금·자금까지 분석 리포트 자동 생성</div></div>
+</div>
+<div class=kpi><div><b>31</b><span>API검증 시군구</span></div><div><b>0</b><span>하드코딩 키</span></div><div><b>4</b><span>레포 자동연동</span></div><div><b>1줄</b><span>사람의 명령</span></div></div>
+<div class=q>여기에 더해 <b>손절 엔진</b>(ETFstyle 규칙, 매일 16:40 자동판정)·<b>ETF 모멘텀 CLI</b>까지 — 투자 시스템도 코드가 판정하고 사람이 집행.</div>
+
+<h2 id=s6><span class=sec-no>06</span> 키메라 — 혼자보다 같이가 강하다</h2>
+<p class=lead>클로드가 최고지만, <b>GPT·제미나이와 함께</b> 쓰면 더 우수하다. 각자 잘하는 게 다르다.</p>
+<div class=grid>
+<div class=tile><div class=ic>🧠</div><h3>Claude</h3><p>두뇌 — 기획·판단·오케스트레이션·코드</p></div>
+<div class=tile><div class=ic>🔎</div><h3>Gemini</h3><p>손 — 웹검색 실측(그라운딩)·대용량 처리</p></div>
+<div class=tile><div class=ic>🧪</div><h3>GPT-5.5</h3><p>검증 — 적대적 레드팀(반박)·세컨드 오피니언</p></div>
+</div>
+<h3 class=amber style="margin-top:14px">★ 재귀 교차검증 (오늘 실제로 작동)</h3>
+<div class=flow><b>Claude 초안</b> → <b>Gemini 실측</b> → <b>GPT-5.5 레드팀</b> → <b>Claude 수정</b> → 발송</div>
+<ul>
+<li>GPT-5.5가 클로드의 <b>"예수금 소진·반도체 둔화" 오판</b>을 잡아냄</li>
+<li>동시에 GPT의 <b>"코스피 9,200 비현실적" 오판</b>을 Gemini 실측(9,052)으로 클로드가 역기각</li>
+<li>결론: <b>레드팀도 무오류가 아니다 → 최종 판정은 사람 + 실측</b></li>
+</ul>
+
+<h2 id=s7><span class=sec-no>07</span> 에이전트를 신뢰가능하게 — 4대 인프라</h2>
+<p class=lead>AI를 "그냥" 쓰지 말 것. <b>시스템</b>으로 묶어야 신뢰가 생긴다.</p>
+<div class=grid>
+<div class=tile><div class=ic>🧩</div><h3>① 스킬(Skills)</h3><p>반복 작업을 절차로 박제. "이런 요청엔 이렇게" 자동 적용.</p></div>
+<div class=tile><div class=ic>⚖️</div><h3>② 헌법(Constitution)</h3><p>최상위 운영 규칙. 메모리·키·교차검증·"세는 건 코드". 모든 세션이 따름.</p></div>
+<div class=tile><div class=ic>🔐</div><h3>③ 키 관리</h3><p>5중 방어. 하드코딩 금지·secrets 중앙화·pre-commit 차단·주간 감사.</p></div>
+<div class=tile><div class=ic>⏰</div><h3>④ 크론(자동화)</h3><p>모델 등급제(haiku/sonnet/opus)로 비용 최적화. 무신호=무응답.</p></div>
+</div>
+<div class=card style="margin-top:12px"><b class=amber>키 관리 실전 규칙</b>
+<pre># 절대 금지: 코드에 평문 키
+API_KEY = "sk-xxxxxxxx..."          # ❌ pre-commit hook이 차단
+
+# 올바른 방법: 환경변수 / GitHub Actions secrets
+API_KEY = os.environ["API_KEY"]      # ✅
+gh secret set MOLIT_API_KEY -R repo  # ✅ 암호화 저장</pre>
+오늘도 포크한 레포의 노출 키를 전부 제거하고 secrets로 옮겼다. <b>private 여부 확인 → 마스킹 → 토큰 일회성 → 클론 삭제</b>.</div>
+
+<h2 id=s8><span class=sec-no>08</span> 결론 — 한 문장</h2>
+<div class=card style="border-color:var(--a)">
+<p style="font-size:17px;margin:0 0 8px"><b class=aqua>"AI를 그냥 쓰지 말고, 헌법·교차검증·키관리로 묶어 시스템으로 굴려라."</b></p>
+<p class=lead style="margin:0">최고의 모델(클로드)을 중심에 두되, GPT·제미나이로 교차검증하고, 스킬·헌법·키관리로 신뢰를 만든다. 그러면 "채팅 한 줄"이 검증된 결과물로 바뀐다.</p>
+</div>
+<h3 style="margin-top:18px">실천 로드맵</h3>
+<div class=card>
+<div class=step><div class=n>1</div><div class=tx>Chat으로 시작 → Cowork(MCP)로 만들기 → Code(CLI)로 배포·자동화</div></div>
+<div class=step><div class=n>2</div><div class=tx>중요 판단은 GPT·제미나이로 <b>교차검증</b> (혼자 단정 금지)</div></div>
+<div class=step><div class=n>3</div><div class=tx>나만의 <b>헌법·스킬</b> 만들기 + 키는 secrets로 (절대 하드코딩 금지)</div></div>
+<div class=step><div class=n>4</div><div class=tx>우리 데이터로 <b>학습 루프</b> 쌓기 — 한 번 만든 시스템이 매일 일하게</div></div>
+</div>
+
+<div class=foot>AI 세미나 3차 · 클로드 특별강의 · 2026-06-21 · 본 자료는 일요 AI 모임 + 실제 에이전트 작업 로그를 바탕으로 Claude+GPT-5.5+Gemini 재귀검증으로 작성됨.</div>
+</div></body></html>

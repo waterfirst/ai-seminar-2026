@@ -70,3 +70,6 @@ ai-seminar-2026/
 ## 관련 저장소
 
 - [awe_2026_LA](https://github.com/waterfirst/awe_2026_LA) — AWE 2026 출장 원본 자료
+
+## 3차 — 클로드 특별강의
+- `claude-masterclass-2026.html` : Chat/Cowork/Code·MCP·키메라(클로드+GPT+제미나이)·에이전트 실전(실리콘네스트 구축)·스킬/헌법/키관리
