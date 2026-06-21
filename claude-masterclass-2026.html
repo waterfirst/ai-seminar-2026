@@ -13,14 +13,18 @@ body{margin:0;font-family:-apple-system,'Malgun Gothic',sans-serif;background:va
 .hero h1 b{color:var(--a)}
 .hero .sub{color:var(--mut);font-size:15px}
 .hero .by{margin-top:18px;font-size:11.5px;color:#5f6e85;font-family:ui-monospace,monospace}
+.hero-intro{margin:24px auto 0;max-width:640px;background:rgba(25,211,167,.06);border:1px solid rgba(25,211,167,.25);border-radius:14px;padding:18px 22px;text-align:left}
+.hero-intro p{margin:0 0 8px;font-size:14px;color:var(--tx);line-height:1.8}
+.hero-intro p:last-child{margin:0;color:var(--mut);font-size:13px}
 h2{font-size:23px;margin:48px 0 6px;letter-spacing:-.3px}.sec-no{color:var(--am);font-weight:800;font-family:ui-monospace,monospace;font-size:14px}
 .lead{color:var(--mut);font-size:14.5px;margin:0 0 14px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:12px 0}
 .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}@media(max-width:680px){.grid{grid-template-columns:1fr}}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:680px){.grid2{grid-template-columns:1fr}}
 .tile{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
 .tile h3{margin:0 0 6px;font-size:16px}.tile .ic{font-size:26px}.tile p{margin:6px 0 0;font-size:13px;color:var(--mut)}
 .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;margin-right:4px}
-.t-a{background:rgba(25,211,167,.15);color:var(--a)}.t-b{background:rgba(79,155,255,.15);color:var(--bl)}.t-c{background:rgba(245,166,35,.15);color:var(--am)}
+.t-a{background:rgba(25,211,167,.15);color:var(--a)}.t-b{background:rgba(79,155,255,.15);color:var(--bl)}.t-c{background:rgba(245,166,35,.15);color:var(--am)}.t-d{background:rgba(167,139,250,.15);color:#a78bfa}
 code,.mono{font-family:ui-monospace,Menlo,monospace;font-size:12.5px}
 pre{background:#0d1119;border:1px solid var(--line);border-radius:10px;padding:12px 14px;overflow:auto;font-size:12px;color:#cfe3d8}
 .step{display:flex;gap:12px;margin:8px 0;align-items:flex-start}
@@ -33,6 +37,7 @@ ul{margin:6px 0;padding-left:20px}li{margin:5px 0;font-size:14px}
 .kpi b{display:block;font-size:22px;color:var(--a)}.kpi span{font-size:11.5px;color:var(--mut)}
 .flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin:8px 0}
 .flow b{background:#0e1620;border:1px solid var(--line);border-radius:8px;padding:6px 10px;color:var(--tx)}
+.flow .arr{color:var(--am);font-size:14px}
 .foot{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-size:11.5px;color:#5f6e85}
 .amber{color:var(--am)}.aqua{color:var(--a)}.blue{color:var(--bl)}
 .gallery{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:14px 0}@media(max-width:680px){.gallery{grid-template-columns:1fr}}
@@ -41,16 +46,80 @@ figure img{width:100%;display:block;background:#0b0e14}
 figcaption{font-size:12px;color:var(--mut);padding:8px 10px;text-align:center}
 .shot-wide{margin:12px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#0e1620}
 .shot-wide img{width:100%;display:block}.shot-wide figcaption{padding:9px 12px}
+/* NEWS 섹션 */
+.news-item{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--a);border-radius:0 12px 12px 0;padding:14px 18px;margin:10px 0}
+.news-item .news-tag{font-size:11px;font-weight:700;color:var(--am);font-family:ui-monospace,monospace;margin-bottom:6px}
+.news-item h4{margin:0 0 4px;font-size:15px}
+.news-item p{margin:0;font-size:13px;color:var(--mut)}
+/* 파이프라인 다이어그램 */
+.pipe-diagram{display:flex;align-items:stretch;gap:0;margin:16px 0;overflow-x:auto;padding-bottom:4px}
+.pipe-node{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:110px;padding:12px 8px;border-radius:10px;text-align:center;flex-shrink:0}
+.pipe-node .pn-icon{font-size:22px;margin-bottom:4px}
+.pipe-node .pn-name{font-size:12px;font-weight:700}
+.pipe-node .pn-role{font-size:10px;color:var(--mut);margin-top:2px}
+.pipe-arr{display:flex;align-items:center;color:var(--am);font-size:18px;flex-shrink:0;padding:0 2px}
+.pn-user{background:rgba(232,237,245,.08);border:1px solid var(--line)}
+.pn-claude{background:rgba(25,211,167,.1);border:1px solid rgba(25,211,167,.4)}
+.pn-zai{background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.4)}
+.pn-gpt{background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.4)}
+.pn-gemini{background:rgba(79,155,255,.1);border:1px solid rgba(79,155,255,.4)}
+.pn-name-claude{color:var(--a)}
+.pn-name-zai{color:#a78bfa}
+.pn-name-gpt{color:var(--am)}
+.pn-name-gemini{color:var(--bl)}
+.md-handoff{background:#0d1119;border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:12px;color:#cfe3d8;font-family:ui-monospace,monospace;margin:8px 0}
 </style></head><body>
-<div class=nav><a href="#s1">시리즈</a><a href="#s2">3가지 얼굴</a><a href="#s3">MCP</a><a href="#s4">실전: 부동산앱</a><a href="#s5">실전: 에이전트 전과정</a><a href="#s6">키메라</a><a href="#s7">4대 인프라</a><a href="#s8">결론</a></div>
+<div class=nav><a href="#s0">🆕 클로드 새 소식</a><a href="#s1">시리즈</a><a href="#s2">3가지 얼굴</a><a href="#s3">MCP</a><a href="#s4">실전: 부동산앱</a><a href="#s5">실전: 에이전트 전과정</a><a href="#s6">키메라</a><a href="#s6b">파이프라인</a><a href="#s7">4대 인프라</a><a href="#s8">결론</a></div>
 
 <div class=hero>
 <span class=badge>AI 세미나 · 3차</span>
 <h1>클로드 <b>마스터클래스</b></h1>
 <div class=sub>Chat · Cowork · Code 부터 에이전트 · 키메라까지 — 그리고 신뢰의 기술</div>
 <div class=by>// 세는 건 코드, 판단은 사람 · 2026-06-21 · SDC 연구소 AI 세미나</div>
+<div class=hero-intro>
+<p>이번 3차 세미나는 <b class=aqua>클로드를 도구가 아니라 시스템으로 쓰는 법</b>을 다룬다. 에이전트·키메라 멀티AI 파이프라인·신뢰 인프라까지 — 일요 AI 모임의 실전 결과물을 그대로 보여준다.</p>
+<p>오늘 이 자료 자체도 Claude + GPT + Gemini 재귀검증으로 만들었다. 에이전트가 에이전트를 설명한다.</p>
+</div>
 </div>
 <div class=wrap>
+
+<h2 id=s0><span class=sec-no>🆕</span> 클로드 최신 소식 — 2026년 6월 기준</h2>
+<p class=lead>앤트로픽이 조용히, 그러나 빠르게 움직이고 있다. 핵심 업데이트만 정리.</p>
+
+<div class=news-item>
+<div class=news-tag>MODEL · 2026-06</div>
+<h4>Claude Sonnet 4.6 & Opus 4.8 — 현재 라인업</h4>
+<p>Sonnet 4.6은 코딩·분석 최적화, Opus 4.8은 복잡한 추론 최고 성능. 이 세미나 자료를 만든 모델이 Sonnet 4.6이다. Fast 모드(Opus급 속도)도 추가됨.</p>
+</div>
+
+<div class=news-item>
+<div class=news-tag>CLAUDE CODE · CLI</div>
+<h4>Claude Code — 터미널 에이전트의 완성</h4>
+<p>단순 코딩 도우미에서 <b>폴더 전체를 맡아 git·배포·자동화까지 처리하는 에이전트</b>로 진화. cokacdir 텔레그램 비서의 엔진이 바로 이것. /schedule·/skill 등 슬래시 커맨드로 세션 외 자동화 가능.</p>
+</div>
+
+<div class=news-item>
+<div class=news-tag>MCP · PROTOCOL</div>
+<h4>MCP (Model Context Protocol) — 업계 표준 등극</h4>
+<p>앤트로픽이 발표한 AI ↔ 외부서비스 연결 규약. 이제 OpenAI·Google·MS도 채택. 카카오·네이버·부동산 API·GitHub 전부 커넥터 하나로. <b>AI의 USB-C타입 충전기.</b></p>
+</div>
+
+<div class=news-item>
+<div class=news-tag>MULTI-AGENT · NEW</div>
+<h4>멀티에이전트 오케스트레이션 — Claude가 Claude를 지휘</h4>
+<p>하나의 Claude가 여러 서브에이전트를 실행·조율하는 공식 패턴 지원. 복잡한 작업을 병렬로 분해·실행·합산. 오늘 s06b 키메라 파이프라인의 공식 기반 기술.</p>
+</div>
+
+<div class=grid2 style="margin-top:14px">
+<div class=tile><span class="tag t-a">NEW</span><h3>Extended Thinking</h3><p>Opus 4.8에서 강화. 복잡한 수학·추론 문제를 "생각하는 시간" 부여 후 답변. 사고 과정이 보임.</p></div>
+<div class=tile><span class="tag t-b">NEW</span><h3>Computer Use (베타)</h3><p>클로드가 직접 마우스·키보드 조작. 웹 자동화·앱 테스트. 아직 베타지만 실용 수준 근접.</p></div>
+<div class=tile><span class="tag t-c">강화</span><h3>128K→200K 컨텍스트</h3><p>책 한 권 통째로 입력. 장문서·코드베이스 전체 분석 가능. Z AI GLM은 1M 토큰.</p></div>
+<div class=tile><span class="tag t-d">NEW</span><h3>Projects & Memory</h3><p>claude.ai에서 프로젝트별 기억 유지. "매번 다시 설명"에서 해방. 팀 공유도 가능.</p></div>
+</div>
+
+<div class=q>결론: 클로드는 "채팅 AI"에서 <b>에이전트 플랫폼</b>으로 진화 완료. Chat → Code → Orchestrator 3단계 모두 가능.</div>
+
+<hr style="border:none;border-top:1px solid var(--line);margin:36px 0">
 
 <h2 id=s1><span class=sec-no>01</span> 시리즈에서의 위치</h2>
 <p class=lead>채팅 → 바이브코딩 → <b class=amber>에이전트</b>. 이번 3차는 "클로드를 도구가 아니라 시스템으로 쓰는 법".</p>
@@ -110,12 +179,102 @@ figcaption{font-size:12px;color:var(--mut);padding:8px 10px;text-align:center}
 <div class=tile><div class=ic>🧪</div><h3>GPT-5.5</h3><p>검증 — 적대적 레드팀(반박)·세컨드 오피니언</p></div>
 </div>
 <h3 class=amber style="margin-top:14px">★ 재귀 교차검증 (오늘 실제로 작동)</h3>
-<div class=flow><b>Claude 초안</b> → <b>Gemini 실측</b> → <b>GPT-5.5 레드팀</b> → <b>Claude 수정</b> → 발송</div>
+<div class=flow><b>Claude 초안</b> <span class=arr>→</span> <b>Gemini 실측</b> <span class=arr>→</span> <b>GPT-5.5 레드팀</b> <span class=arr>→</span> <b>Claude 수정</b> <span class=arr>→</span> 발송</div>
 <ul>
 <li>GPT-5.5가 클로드의 <b>"예수금 소진·반도체 둔화" 오판</b>을 잡아냄</li>
 <li>동시에 GPT의 <b>"코스피 9,200 비현실적" 오판</b>을 Gemini 실측(9,052)으로 클로드가 역기각</li>
 <li>결론: <b>레드팀도 무오류가 아니다 → 최종 판정은 사람 + 실측</b></li>
 </ul>
+
+<hr style="border:none;border-top:1px solid var(--line);margin:36px 0">
+
+<h2 id=s6b><span class=sec-no>06+</span> 키메라 파이프라인 — 이렇게 일한다</h2>
+<p class=lead>실제로 멀티AI를 굴리는 방식. <b>사람 1명의 명령 → 4개 AI 순차 실행 → 검증된 결과물</b>.</p>
+
+<h3 class=amber>파이프라인 구조</h3>
+<div class=pipe-diagram>
+  <div class="pipe-node pn-user">
+    <div class=pn-icon>👤</div>
+    <div class="pn-name">사용자</div>
+    <div class=pn-role>명령 1줄</div>
+  </div>
+  <div class=pipe-arr>→</div>
+  <div class="pipe-node pn-claude">
+    <div class=pn-icon>🧠</div>
+    <div class="pn-name pn-name-claude">Claude</div>
+    <div class=pn-role>총괄기획<br>기획서 작성</div>
+  </div>
+  <div class=pipe-arr>→</div>
+  <div class="pipe-node pn-zai">
+    <div class=pn-icon>⚡</div>
+    <div class="pn-name pn-name-zai">Z AI / GLM</div>
+    <div class=pn-role>코딩 초안<br>1M context</div>
+  </div>
+  <div class=pipe-arr>→</div>
+  <div class="pipe-node pn-gpt">
+    <div class=pn-icon>🔍</div>
+    <div class="pn-name pn-name-gpt">GPT</div>
+    <div class=pn-role>완성·감독<br>레드팀</div>
+  </div>
+  <div class=pipe-arr>→</div>
+  <div class="pipe-node pn-gemini">
+    <div class=pn-icon>✅</div>
+    <div class="pn-name pn-name-gemini">Gemini</div>
+    <div class=pn-role>검수·테스트<br>실측 검증</div>
+  </div>
+  <div class=pipe-arr>→</div>
+  <div class="pipe-node pn-claude">
+    <div class=pn-icon>🚀</div>
+    <div class="pn-name pn-name-claude">Claude</div>
+    <div class=pn-role>최종판단<br>배포</div>
+  </div>
+  <div class=pipe-arr>→</div>
+  <div class="pipe-node pn-user">
+    <div class=pn-icon>✨</div>
+    <div class="pn-name">사용자</div>
+    <div class=pn-role>결과 수령</div>
+  </div>
+</div>
+
+<div class="shot-wide"><img src="images/chimera_pipeline.png" alt="키메라 파이프라인 다이어그램"><figcaption>키메라 파이프라인 — 나 → Claude → Z AI → GPT → Gemini → 배포 (GPT Image 2.0 생성)</figcaption></div>
+
+<h3 class=amber style="margin-top:18px">역할 고정표</h3>
+<div class=card>
+<div class=grid>
+<div class=tile><span class="tag t-a">Claude</span><h3>총괄기획자·배포</h3><p>기획서 작성, 루프 판단, 최종 배포 단독 권한. CLAUDE.md·헌법 준수.</p></div>
+<div class=tile><span class="tag t-d">Z AI / GLM</span><h3>코딩 초안</h3><p>1M 컨텍스트로 대량 코드 초안. SKILL.md 지시 따름. 자율 판단 금지.</p></div>
+<div class=tile><span class="tag t-c">GPT</span><h3>완성·감독</h3><p>Z AI 결과 완성 및 레드팀 검증. 독립 세컨드 오피니언.</p></div>
+<div class=tile><span class="tag t-b">Gemini</span><h3>검수·테스트</h3><p>실측 웹검색, 기능 테스트, 버그 리포트 작성.</p></div>
+<div class=tile><span class="tag" style="background:rgba(232,237,245,.1);color:var(--mut)">사용자</span><h3>의사결정자</h3><p>최종 실행 승인. AI는 제안, 사람이 집행.</p></div>
+</div>
+</div>
+
+<h3 class=amber style="margin-top:18px">MD 핸드오프 시스템</h3>
+<p class=lead>각 AI는 마크다운 파일로 소통한다. 채팅이 아니라 <b>문서</b>로 인수인계.</p>
+<div class=md-handoff>pipeline/
+├── 00_PIPELINE_SOP.md    # 전체 규칙 (클로드가 작성)
+├── 01_기획서.md          # 클로드 → Z AI에게 전달
+├── 02_ZAI_TASK.md        # Z AI 코딩 지시서
+├── 03_ZAI_DELIVERY.md    # Z AI 결과물 납품
+├── 04_GPT_FEEDBACK.md    # GPT 검토 리포트
+├── 05_GEMINI_REPORT.md   # Gemini 테스트 결과
+└── 06_FINAL.md           # 클로드 최종 결정</div>
+<div class=q><b>왜 MD 파일인가?</b> 각 AI에게 SKILL.md를 제공하면 루프가 3회 이하로 수렴. 채팅으로 하면 컨텍스트가 날아가고 지시가 흐릿해진다.</div>
+
+<h3 class=amber style="margin-top:18px">운영 규칙 9가지</h3>
+<div class=card>
+<div class=step><div class=n>1</div><div class=tx>모든 작업은 <b>기획서 먼저</b> — 코딩 전에 Claude가 작성, 사용자 승인</div></div>
+<div class=step><div class=n>2</div><div class=tx>각 AI에게 <b>SKILL.md 의무 제공</b> — "이렇게 해라" 문서가 있어야 루프가 줄어든다</div></div>
+<div class=step><div class=n>3</div><div class=tx><b>루프 상한 3회</b> — 3번 돌아도 해결 안 되면 인간 개입 요청</div></div>
+<div class=step><div class=n>4</div><div class=tx>JS 함수 보호 — 기존 기능은 <b>건드리지 말 것</b> (Z AI 과잉 수정 방지)</div></div>
+<div class=step><div class=n>5</div><div class=tx><b>배포는 Claude 단독</b> — 다른 AI가 git push 금지</div></div>
+<div class=step><div class=n>6</div><div class=tx>키는 <b>os.environ만</b> — 어떤 AI도 평문 키 코드에 넣지 않는다</div></div>
+<div class=step><div class=n>7</div><div class=tx>중요 판단은 <b>교차검증 필수</b> — 혼자 단정하는 AI를 믿지 않는다</div></div>
+<div class=step><div class=n>8</div><div class=tx>결과물은 <b>MD 파일로 납품</b> — 채팅 답변은 기록에 남지 않는다</div></div>
+<div class=step><div class=n>9</div><div class=tx>최종 결정은 <b>항상 사람</b> — AI는 제안, 사람이 집행</div></div>
+</div>
+
+<hr style="border:none;border-top:1px solid var(--line);margin:36px 0">
 
 <h2 id=s7><span class=sec-no>07</span> 에이전트를 신뢰가능하게 — 4대 인프라</h2>
 <p class=lead>AI를 "그냥" 쓰지 말 것. <b>시스템</b>으로 묶어야 신뢰가 생긴다.</p>
