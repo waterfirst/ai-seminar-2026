@@ -35,6 +35,12 @@ ul{margin:6px 0;padding-left:20px}li{margin:5px 0;font-size:14px}
 .flow b{background:#0e1620;border:1px solid var(--line);border-radius:8px;padding:6px 10px;color:var(--tx)}
 .foot{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-size:11.5px;color:#5f6e85}
 .amber{color:var(--am)}.aqua{color:var(--a)}.blue{color:var(--bl)}
+.gallery{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:14px 0}@media(max-width:680px){.gallery{grid-template-columns:1fr}}
+figure{margin:0;background:#0e1620;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+figure img{width:100%;display:block;background:#0b0e14}
+figcaption{font-size:12px;color:var(--mut);padding:8px 10px;text-align:center}
+.shot-wide{margin:12px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#0e1620}
+.shot-wide img{width:100%;display:block}.shot-wide figcaption{padding:9px 12px}
 </style></head><body>
 <div class=nav><a href="#s1">시리즈</a><a href="#s2">3가지 얼굴</a><a href="#s3">MCP</a><a href="#s4">실전: 부동산앱</a><a href="#s5">실전: 에이전트 전과정</a><a href="#s6">키메라</a><a href="#s7">4대 인프라</a><a href="#s8">결론</a></div>
 
@@ -61,6 +67,7 @@ ul{margin:6px 0;padding-left:20px}li{margin:5px 0;font-size:14px}
 <div class=tile><span class="tag t-b">노코딩 느낌</span><h3>② Cowork</h3><p>데스크탑 앱 + <b>MCP 커넥터</b> 활용. 부동산 시세·지도·카카오 끌어다 쓰기. 마우스로 다룸. <span class=mut>단, 배포는 터미널서 직접.</span></p></div>
 <div class=tile><span class="tag t-c">CLI·자동화</span><h3>③ Code (CLI)</h3><p>터미널 기반. <b>git 연동·배포·크론 자동화</b>. 폴더를 통째로 맡김. cokacdir(텔레그램 비서)의 엔진.</p></div>
 </div>
+<div class="shot-wide"><img src="images/vibe_coding_workflow.png" alt="바이브코딩 워크플로"><figcaption>바이브코딩 워크플로 — 대화로 만들고 배포까지</figcaption></div>
 <div class=q>실전 팁(일요모임 결론): <b>Cowork에서 MCP로 작업 → Code로 배포·유지보수</b>. 둘을 합쳐 쓴다.</div>
 
 <h2 id=s3><span class=sec-no>03</span> MCP — 모든 도구를 꽂는 C타입</h2>
@@ -86,6 +93,13 @@ ul{margin:6px 0;padding-left:20px}li{margin:5px 0;font-size:14px}
 <div class=step><div class=n>6</div><div class=tx><b>의사결정</b> — 실거래 추세·병원/역 거리·세금·자금까지 분석 리포트 자동 생성</div></div>
 </div>
 <div class=kpi><div><b>31</b><span>API검증 시군구</span></div><div><b>0</b><span>하드코딩 키</span></div><div><b>4</b><span>레포 자동연동</span></div><div><b>1줄</b><span>사람의 명령</span></div></div>
+<h3 class=amber style="margin-top:16px">📸 에이전트가 만든 실제 화면</h3>
+<div class=gallery>
+<figure><img src="images/cm_splash.png" alt="실리콘네스트 스플래시"><figcaption>① 맞춤 스플래시 — "실리콘 네스트" (사용자 성향 반영 디자인)</figcaption></figure>
+<figure><img src="images/cm_dash.png" alt="경기남부 실거래 대시보드"><figcaption>② 실거래 지도 대시보드 (반도체 클러스터 필터·매일 자동갱신)</figcaption></figure>
+<figure><img src="images/cm_report.png" alt="갈아타기 분석 리포트"><figcaption>③ 의사결정 리포트 (지도·실거래 추세·세금·자금 자동 분석)</figcaption></figure>
+</div>
+<p class=small>위 3개는 "채팅 대화"만으로 에이전트가 생성·배포한 실제 결과물 화면이다. (waterfirst.github.io/gyeonggi_south_apt)</p>
 <div class=q>여기에 더해 <b>손절 엔진</b>(ETFstyle 규칙, 매일 16:40 자동판정)·<b>ETF 모멘텀 CLI</b>까지 — 투자 시스템도 코드가 판정하고 사람이 집행.</div>
 
 <h2 id=s6><span class=sec-no>06</span> 키메라 — 혼자보다 같이가 강하다</h2>
