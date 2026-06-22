@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 3차 세미나 — Claude Code 심화 & 토큰 최적화</title>
+<style>
+:root {
+  --bg: #0a0a12;
+  --sf: #13131e;
+  --sf2: #1a1a28;
+  --bd: #2a2a3c;
+  --ac: #6366f1;
+  --ac2: #818cf8;
+  --tx: #e4e4f0;
+  --mt: #7878a0;
+  --gn: #22c55e;
+  --gd: #f59e0b;
+  --pk: #ec4899;
+  --cy: #06b6d4;
+  --pp: #a78bfa;
+  --rd: #ef4444;
+  --or: #f97316;
+}
+[data-theme="light"] {
+  --bg: #f4f6fb;
+  --sf: #ffffff;
+  --sf2: #eaecf4;
+  --bd: #d0d4e4;
+  --ac: #4f52cc;
+  --ac2: #6366f1;
+  --tx: #111827;
+  --mt: #60657a;
+  --gn: #16a34a;
+  --gd: #b45309;
+  --pk: #be185d;
+  --cy: #0e7490;
+  --pp: #6d28d9;
+  --rd: #dc2626;
+  --or: #c2410c;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--tx); font-family: 'Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif; line-height: 1.6; }
+
+/* SPLASH / PASSWORD */
+#splash {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #0a0a14;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+}
+#splash.hide { display: none; }
+.splash-grid {
+  position: absolute; inset: 0; overflow: hidden; opacity: 0.1;
+  background: linear-gradient(rgba(99,102,241,0.5) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(99,102,241,0.5) 1px, transparent 1px);
+  background-size: 60px 60px;
+  transform: perspective(600px) rotateX(30deg); transform-origin: bottom;
+}
+.splash-logo { font-size: 2.4rem; font-weight: 900; color: #fff; letter-spacing: -1px; }
+.splash-sub { font-size: 0.9rem; color: #7878a0; }
+.pw-box { display: flex; gap: 10px; margin-top: 8px; }
+.pw-box input {
+  background: #1a1a28; border: 1px solid #2a2a3c; color: #fff;
+  border-radius: 10px; padding: 12px 18px; font-size: 1rem; width: 160px; text-align: center;
+  letter-spacing: 6px;
+}
+.pw-box button {
+  background: #6366f1; color: #fff; border: none; border-radius: 10px;
+  padding: 12px 24px; font-size: 0.9rem; font-weight: 700; cursor: pointer;
+}
+.pw-err { font-size: 0.8rem; color: #ef4444; min-height: 18px; }
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--sf); border-bottom: 1px solid var(--bd);
+  display: flex; align-items: center; padding: 0 20px; height: 52px; gap: 6px;
+  overflow-x: auto; white-space: nowrap;
+}
+.nav-brand { font-weight: 900; font-size: 0.95rem; color: var(--ac); margin-right: 16px; flex-shrink: 0; }
+.nav-item {
+  padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; color: var(--mt);
+  cursor: pointer; text-decoration: none; flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+.nav-item:hover { background: var(--sf2); color: var(--tx); }
+.nav-sep { color: var(--bd); margin: 0 2px; }
+.theme-btn {
+  margin-left: auto; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--bd);
+  background: var(--sf2); color: var(--mt); font-size: 0.78rem; cursor: pointer; flex-shrink: 0;
+}
+
+/* HERO */
+.hero {
+  min-height: 88vh; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; text-align: center; padding: 60px 20px;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; opacity: 0.05;
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, #6366f1, transparent);
+}
+.hero-badge {
+  display: inline-block; background: rgba(99,102,241,0.12); color: var(--ac2);
+  border: 1px solid rgba(99,102,241,0.3); border-radius: 999px;
+  padding: 6px 18px; font-size: 0.78rem; font-weight: 700; margin-bottom: 28px;
+}
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 900; line-height: 1.18;
+  letter-spacing: -1.5px; margin-bottom: 20px;
+}
+.hero h1 em { color: var(--ac); font-style: normal; }
+.hero-sub { font-size: 1.05rem; color: var(--mt); max-width: 600px; }
+.hero-meta { display: flex; gap: 24px; margin-top: 36px; flex-wrap: wrap; justify-content: center; }
+.hero-meta-item { font-size: 0.82rem; color: var(--mt); display: flex; flex-direction: column; gap: 2px; }
+.hero-meta-item strong { color: var(--tx); font-weight: 700; }
+
+/* SECTIONS */
+.section { max-width: 960px; margin: 0 auto; padding: 72px 24px; }
+.section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--ac); margin-bottom: 10px; }
+.section-title { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 900; line-height: 1.2; margin-bottom: 14px; letter-spacing: -0.5px; }
+.section-sub { font-size: 0.95rem; color: var(--mt); max-width: 680px; }
+.div { border: none; border-top: 1px solid var(--bd); margin: 0; }
+
+/* CARDS */
+.feature-card {
+  background: var(--sf); border: 1px solid var(--bd); border-radius: 14px;
+  padding: 22px 24px;
+}
+.feature-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; }
+.feature-card p { font-size: 0.82rem; color: var(--mt); line-height: 1.7; }
+.fc-tip { font-size: 0.72rem; color: var(--ac); margin-top: 10px; font-weight: 600; }
+
+/* ALERT BOX */
+.alert-box {
+  background: var(--sf); border: 1px solid var(--bd); border-radius: 14px;
+  padding: 20px 22px; display: flex; gap: 16px; align-items: flex-start;
+  margin-top: 24px;
+}
+.alert-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
+.alert-box h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 6px; }
+.alert-box p { font-size: 0.83rem; color: var(--mt); line-height: 1.7; }
+
+/* CODE BLOCK */
+.code-block {
+  background: #0d0d14; border: 1px solid var(--bd); border-radius: 12px;
+  padding: 20px 24px; font-family: 'Fira Code','Consolas',monospace;
+  position: relative; overflow-x: auto;
+}
+.code-label { font-size: 0.7rem; color: var(--mt); margin-bottom: 10px; display: block; }
+.code-line { color: #a5f3fc; font-size: 0.88rem; line-height: 1.8; }
+.code-comment { color: #4b5563; }
+.code-key { color: #f59e0b; }
+.code-val { color: #86efac; }
+.code-num { color: #c084fc; }
+
+/* STAT CARD */
+.stat-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; margin-top: 28px; }
+.stat-card {
+  background: var(--sf); border: 1px solid var(--bd); border-radius: 12px;
+  padding: 18px 20px; text-align: center;
+}
+.stat-num { font-size: 1.9rem; font-weight: 900; color: var(--ac); }
+.stat-unit { font-size: 0.72rem; color: var(--mt); margin-top: 4px; }
+
+/* STEPS */
+.steps { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 28px; }
+.step-card {
+  background: var(--sf); border: 1px solid var(--bd); border-radius: 12px;
+  padding: 20px 22px;
+}
+.step-num { font-size: 1.5rem; font-weight: 900; color: var(--ac); margin-bottom: 8px; }
+.step-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 6px; }
+.step-card p { font-size: 0.78rem; color: var(--mt); line-height: 1.65; }
+
+/* TAG */
+.tag {
+  display: inline-block; background: rgba(99,102,241,0.1); color: var(--ac);
+  border: 1px solid rgba(99,102,241,0.25); border-radius: 6px;
+  padding: 2px 8px; font-size: 0.72rem; font-weight: 700;
+}
+
+/* COMPARISON TABLE SUBSTITUTE */
+.compare-list { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+.compare-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  background: var(--sf); border: 1px solid var(--bd); border-radius: 10px;
+  padding: 14px 18px; font-size: 0.83rem;
+}
+.compare-row .left { color: var(--mt); }
+.compare-row .right { color: var(--tx); font-weight: 600; }
+
+/* HIGHLIGHT BOX */
+.hl-box {
+  background: rgba(99,102,241,0.07); border: 1px solid rgba(99,102,241,0.3);
+  border-radius: 14px; padding: 22px 26px; margin-top: 24px;
+}
+.hl-box-title { font-size: 0.95rem; font-weight: 800; color: var(--ac); margin-bottom: 10px; }
+.hl-box ul { padding-left: 18px; }
+.hl-box li { font-size: 0.84rem; color: var(--mt); line-height: 1.85; }
+.hl-box li b { color: var(--tx); }
+
+/* FLOW DIAGRAM */
+.flow { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 20px; }
+.flow-item {
+  background: var(--sf); border: 1px solid var(--bd); border-radius: 10px;
+  padding: 10px 16px; font-size: 0.82rem; font-weight: 600;
+}
+.flow-arrow { color: var(--mt); font-size: 1.1rem; }
+
+/* PILL */
+.pill {
+  display: inline-block; border-radius: 999px; padding: 4px 12px; font-size: 0.75rem; font-weight: 700;
+}
+.pill-green { background: rgba(22,163,74,0.12); color: var(--gn); border: 1px solid rgba(22,163,74,0.3); }
+.pill-red { background: rgba(220,38,38,0.12); color: var(--rd); border: 1px solid rgba(220,38,38,0.3); }
+.pill-blue { background: rgba(79,82,204,0.12); color: var(--ac); border: 1px solid rgba(79,82,204,0.3); }
+
+/* FOOTER */
+footer {
+  text-align: center; padding: 40px 20px; font-size: 0.8rem; color: var(--mt);
+  border-top: 1px solid var(--bd); background: var(--sf);
+}
+</style>
+</head>
+<body>
+
+<!-- PASSWORD SPLASH -->
+<div id="splash">
+  <div class="splash-grid"></div>
+  <div class="splash-logo">AI 3차 세미나</div>
+  <div class="splash-sub">SDC 연구소 · Claude Code 심화 과정</div>
+  <div class="pw-box">
+    <input type="password" id="pwInput" placeholder="0000" maxlength="8"
+      onkeydown="if(event.key==='Enter')checkPw()">
+    <button onclick="checkPw()">입장 →</button>
+  </div>
+  <div class="pw-err" id="pwErr"></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-brand">AI 3차 세미나</span>
+  <a class="nav-item" href="#review">복습</a>
+  <span class="nav-sep">·</span>
+  <a class="nav-item" href="#hooks">훅 시스템</a>
+  <span class="nav-sep">·</span>
+  <a class="nav-item" href="#rtk">RTK</a>
+  <span class="nav-sep">·</span>
+  <a class="nav-item" href="#install">설치</a>
+  <span class="nav-sep">·</span>
+  <a class="nav-item" href="#savings">효과 측정</a>
+  <span class="nav-sep">·</span>
+  <a class="nav-item" href="#memory">메모리</a>
+  <span class="nav-sep">·</span>
+  <a class="nav-item" href="#philosophy">운영 철학</a>
+  <button class="theme-btn" onclick="toggleTheme()">🌓 테마</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-badge">SDC 연구소 AI 세미나 3차 · 2026.07</div>
+  <h1>Claude Code 심화<br><em>토큰을 아끼는 AI 에이전트</em></h1>
+  <p class="hero-sub">
+    1·2차에서 배운 AI 도구를 이제 <strong>"비용 효율적으로"</strong> 운영하는 방법을 배웁니다.<br>
+    RTK 훅 하나로 토큰 소비를 최대 90% 줄이고, 에이전트 운영 비용을 현실화합니다.
+  </p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><span>대상</span><strong>연구소 임원·연구원</strong></div>
+    <div class="hero-meta-item"><span>도구</span><strong>Claude Code + RTK</strong></div>
+    <div class="hero-meta-item"><span>핵심 주제</span><strong>토큰 최적화 · 훅 시스템</strong></div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- SECTION 1: 복습 -->
+<section class="section" id="review">
+  <div class="section-label">Review · 2차 세미나 복습</div>
+  <h2 class="section-title">지금까지 배운 것<br><span style="color:var(--ac)">3단계 요약</span></h2>
+  <p class="section-sub">1·2차에서 다룬 내용을 빠르게 정리하고, 오늘 3차에서 뭘 더하는지 확인합니다.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:32px">
+    <div class="feature-card" style="border-color:rgba(22,163,74,0.3)">
+      <div class="pill pill-green" style="margin-bottom:12px">1차 세미나</div>
+      <h4>AI가 바꾸는 연구개발</h4>
+      <p>Gemini · Claude · ChatGPT 비교, 글로벌 AI 현황, 연구개발 실무 적용법. "AI를 알자"</p>
+    </div>
+    <div class="feature-card" style="border-color:rgba(79,82,204,0.3)">
+      <div class="pill pill-blue" style="margin-bottom:12px">2차 세미나</div>
+      <h4>AI 도구 완전 가이드</h4>
+      <p>NotebookLM · AI Studio · Antigravity · cokacdir 에이전트 설치까지. "AI를 쓰자"</p>
+    </div>
+    <div class="feature-card" style="border-color:rgba(239,68,68,0.3)">
+      <div class="pill pill-red" style="margin-bottom:12px">3차 세미나 ← 오늘</div>
+      <h4>Claude Code 심화</h4>
+      <p>토큰 비용 절감, RTK 훅 시스템, 메모리 관리, 에이전트 운영 철학. "AI를 잘 쓰자"</p>
+    </div>
+  </div>
+
+  <div class="alert-box" style="border-color:rgba(245,158,11,0.4);background:rgba(245,158,11,0.05);margin-top:32px">
+    <div class="alert-icon">💡</div>
+    <div>
+      <h4>오늘의 핵심 질문</h4>
+      <p>
+        Claude Code를 쓰는데 <b>토큰(비용)이 너무 많이 나간다</b>고 느낀 적 있으신가요?<br>
+        bash 명령어 하나 실행할 때마다 수백~수천 토큰이 소비됩니다.
+        오늘은 그걸 자동으로 90%까지 줄이는 시스템 — <b>RTK(Rust Token Killer)</b>를 배웁니다.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- SECTION 2: 토큰이란 -->
+<section class="section" id="token">
+  <div class="section-label">Background · 토큰과 비용</div>
+  <h2 class="section-title">토큰 소비가<br><span style="color:var(--ac)">왜 문제인가</span></h2>
+  <p class="section-sub">Claude는 모든 입력과 출력을 "토큰" 단위로 과금합니다. Claude Code 에이전트가 도구를 쓸수록 토큰이 쌓입니다.</p>
+
+  <div class="flow" style="margin-top:28px">
+    <div class="flow-item">사용자 지시</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item">Claude Code</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item" style="border-color:rgba(239,68,68,0.4)">bash 명령 실행</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item" style="border-color:rgba(239,68,68,0.4)">출력 전체 전송 <span style="color:var(--rd)">↑토큰</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item">다음 판단</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item">...</div>
+  </div>
+
+  <div class="compare-list" style="margin-top:28px">
+    <div class="compare-row">
+      <div class="left">일반 채팅 1회</div>
+      <div class="right">수백 토큰</div>
+    </div>
+    <div class="compare-row">
+      <div class="left"><code>git log --oneline</code> 결과 100줄</div>
+      <div class="right" style="color:var(--rd)">3,000~5,000 토큰</div>
+    </div>
+    <div class="compare-row">
+      <div class="left"><code>ls -la</code> 결과 디렉토리 50항목</div>
+      <div class="right" style="color:var(--rd)">1,000~2,000 토큰</div>
+    </div>
+    <div class="compare-row">
+      <div class="left"><code>npm install</code> 로그 전체</div>
+      <div class="right" style="color:var(--rd)">10,000+ 토큰</div>
+    </div>
+    <div class="compare-row">
+      <div class="left">에이전트 작업 1건 (30~50 bash 실행)</div>
+      <div class="right" style="color:var(--rd)">수십만 토큰</div>
+    </div>
+  </div>
+
+  <div class="hl-box" style="margin-top:24px">
+    <div class="hl-box-title">핵심 문제: 출력의 99%는 "노이즈"</div>
+    <ul>
+      <li>Claude가 bash 결과를 받을 때, <b>실제로 판단에 필요한 내용은 앞 10~20줄</b></li>
+      <li>나머지 수백 줄(경고 메시지, 진행 로그, 빈 줄)은 토큰 낭비</li>
+      <li>그 낭비가 <b>입력 토큰</b>으로 누적되어 비용 폭증</li>
+    </ul>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- SECTION 3: HOOKS 시스템 -->
+<section class="section" id="hooks">
+  <div class="section-label">Claude Code 내부 · 훅 시스템</div>
+  <h2 class="section-title">Claude Code<br><span style="color:var(--ac)">훅(Hook)이란?</span></h2>
+  <p class="section-sub">Claude Code는 도구 실행 전·후에 사용자 정의 스크립트를 끼워 넣을 수 있습니다. 이게 "훅"입니다.</p>
+
+  <div class="flow" style="margin-top:28px">
+    <div class="flow-item">Claude 판단</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item" style="border-color:rgba(99,102,241,0.5);background:rgba(99,102,241,0.08)"><b>Pre-Hook</b><br><span style="font-size:0.72rem;color:var(--mt)">실행 전 개입</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item">bash 실행</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item" style="border-color:rgba(99,102,241,0.5);background:rgba(99,102,241,0.08)"><b>Post-Hook</b><br><span style="font-size:0.72rem;color:var(--mt)">결과 가공</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item">Claude에게 전달</div>
+  </div>
+
+  <div style="margin-top:32px">
+    <div class="section-label" style="margin-bottom:12px">등록 위치 — settings.json</div>
+    <div class="code-block">
+      <span class="code-label">~/.claude/settings.json (또는 .claude/settings.local.json)</span>
+      <div class="code-line"><span class="code-key">"hooks"</span>: {</div>
+      <div class="code-line">&nbsp;&nbsp;<span class="code-key">"PreToolUse"</span>: [</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;{</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"matcher"</span>: <span class="code-val">"Bash"</span>,</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"hooks"</span>: [{ <span class="code-key">"type"</span>: <span class="code-val">"command"</span>, <span class="code-key">"command"</span>: <span class="code-val">"rtk hook pre"</span> }]</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+      <div class="code-line">&nbsp;&nbsp;],</div>
+      <div class="code-line">&nbsp;&nbsp;<span class="code-key">"PostToolUse"</span>: [</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;{</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"matcher"</span>: <span class="code-val">"Bash"</span>,</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"hooks"</span>: [{ <span class="code-key">"type"</span>: <span class="code-val">"command"</span>, <span class="code-key">"command"</span>: <span class="code-val">"rtk hook post"</span> }]</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+      <div class="code-line">&nbsp;&nbsp;]</div>
+      <div class="code-line">}</div>
+    </div>
+  </div>
+
+  <div class="alert-box" style="border-color:rgba(6,182,212,0.3);background:rgba(6,182,212,0.05);margin-top:24px">
+    <div class="alert-icon" style="color:var(--cy)">🔌</div>
+    <div>
+      <h4>훅의 활용 범위</h4>
+      <p>
+        토큰 절약 외에도 훅은 다양하게 쓸 수 있습니다:<br>
+        <b>보안 감사</b>(위험 명령 차단) · <b>로깅</b>(모든 실행 기록) · <b>알림</b>(완료 시 카카오톡 발송) · <b>자동 포맷팅</b>(결과 정리)
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- SECTION 4: RTK 소개 -->
+<section class="section" id="rtk">
+  <div class="section-label">핵심 도구 · RTK</div>
+  <h2 class="section-title">RTK<br><span style="color:var(--ac)">Rust Token Killer</span></h2>
+  <p class="section-sub">
+    Claude Code Bash 도구에 자동으로 끼어드는 훅 프록시입니다.<br>
+    명령 실행 결과를 필터링해 Claude에게 필요한 내용만 전달합니다.
+  </p>
+
+  <div class="alert-box" style="border-color:rgba(99,102,241,0.3);margin-top:28px">
+    <div class="alert-icon">🦀</div>
+    <div>
+      <h4>RTK가 하는 일 — 한 줄 요약</h4>
+      <p>
+        <code>git status</code>를 실행하면 RTK가 자동으로 <code>rtk git status</code>로 바꿔서 실행합니다.<br>
+        결과는 동일하지만 <b>Claude에게 돌아오는 출력은 압축·필터링</b>되어 토큰이 줄어듭니다.
+      </p>
+    </div>
+  </div>
+
+  <!-- 동작 원리 -->
+  <div style="margin-top:36px">
+    <div class="section-label" style="margin-bottom:16px">동작 원리 — Before vs After</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div>
+        <div style="font-size:0.75rem;font-weight:700;color:var(--rd);margin-bottom:8px">RTK 없을 때</div>
+        <div class="code-block">
+          <div class="code-line" style="color:#9ca3af">$ git log --oneline</div>
+          <div class="code-line">a1b2c3d feat: add login</div>
+          <div class="code-line">d4e5f6a fix: typo</div>
+          <div class="code-line">7890abc chore: deps</div>
+          <div class="code-line">... (200줄 더)</div>
+          <div style="margin-top:10px;font-size:0.72rem;color:var(--rd)">→ 전체가 Claude 입력으로</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:0.75rem;font-weight:700;color:var(--gn);margin-bottom:8px">RTK 있을 때</div>
+        <div class="code-block">
+          <div class="code-line" style="color:#9ca3af">$ rtk git log --oneline</div>
+          <div class="code-line">a1b2c3d feat: add login</div>
+          <div class="code-line">d4e5f6a fix: typo</div>
+          <div class="code-line">7890abc chore: deps</div>
+          <div class="code-line" style="color:#4b5563">[RTK: 197줄 생략]</div>
+          <div style="margin-top:10px;font-size:0.72rem;color:var(--gn)">→ 상위 3줄만 전달 (90% 절약)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 왜 Rust인가 -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:32px">
+    <div class="feature-card" style="border-color:rgba(245,158,11,0.3)">
+      <h4>🦀 Rust로 만든 이유</h4>
+      <p>Python·Node.js 없이 단일 바이너리. 속도 오버헤드 0에 가까움. 훅이 느리면 의미 없기 때문.</p>
+    </div>
+    <div class="feature-card" style="border-color:rgba(22,163,74,0.3)">
+      <h4>🔗 훅에 자동 등록</h4>
+      <p>Claude Code settings.json에 Pre/PostToolUse 훅으로 등록. 이후 모든 Bash 실행이 자동으로 RTK를 통과.</p>
+    </div>
+    <div class="feature-card" style="border-color:rgba(99,102,241,0.3)">
+      <h4>📊 사용량 추적</h4>
+      <p><code>rtk gain</code> 명령으로 절약된 토큰 수, 명령 횟수, 절약률을 언제든 확인.</p>
+    </div>
+    <div class="feature-card" style="border-color:rgba(6,182,212,0.3)">
+      <h4>🔍 디버그 지원</h4>
+      <p><code>rtk proxy &lt;cmd&gt;</code>로 필터링 없이 원본 출력 확인 가능. 필요 시 바이패스.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- SECTION 5: 설치 -->
+<section class="section" id="install">
+  <div class="section-label">실전 · 설치 & 설정</div>
+  <h2 class="section-title">RTK 설치<br><span style="color:var(--ac)">3단계면 끝</span></h2>
+  <p class="section-sub">바이너리 다운로드 → 훅 등록 → 확인. Claude Code 구독이 있으면 추가 비용 없음.</p>
+
+  <div class="steps">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <h4>바이너리 설치</h4>
+      <p>공식 릴리스에서 OS에 맞는 바이너리를 받아 PATH에 추가</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <h4>훅 등록</h4>
+      <p>settings.json에 PreToolUse / PostToolUse 훅 등록</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <h4>동작 확인</h4>
+      <p><code>rtk gain</code>으로 절약 현황 확인. Claude Code 재시작 후 즉시 적용</p>
+    </div>
+  </div>
+
+  <div style="margin-top:32px">
+    <div class="code-block">
+      <span class="code-label">1. 바이너리 설치 (Linux / macOS)</span>
+      <div class="code-line" style="color:#9ca3af"># GitHub Releases에서 다운로드 후</div>
+      <div class="code-line">chmod +x rtk</div>
+      <div class="code-line">mv rtk ~/.local/bin/rtk</div>
+      <div class="code-line">rtk --version &nbsp;&nbsp;<span class="code-comment"># 버전 확인</span></div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px">
+    <div class="code-block">
+      <span class="code-label">2. ~/.claude/settings.json 훅 등록</span>
+      <div class="code-line">{</div>
+      <div class="code-line">&nbsp;&nbsp;<span class="code-key">"hooks"</span>: {</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"PreToolUse"</span>: [{</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"matcher"</span>: <span class="code-val">"Bash"</span>,</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"hooks"</span>: [{ <span class="code-key">"type"</span>: <span class="code-val">"command"</span>, <span class="code-key">"command"</span>: <span class="code-val">"rtk hook pre"</span> }]</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;}],</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"PostToolUse"</span>: [{</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"matcher"</span>: <span class="code-val">"Bash"</span>,</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"hooks"</span>: [{ <span class="code-key">"type"</span>: <span class="code-val">"command"</span>, <span class="code-key">"command"</span>: <span class="code-val">"rtk hook post"</span> }]</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;}]</div>
+      <div class="code-line">&nbsp;&nbsp;}</div>
+      <div class="code-line">}</div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px">
+    <div class="code-block">
+      <span class="code-label">3. 메타 명령어 — 항상 rtk 직접 호출</span>
+      <div class="code-line">rtk gain &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 절약 통계 보기</span></div>
+      <div class="code-line">rtk gain --history &nbsp;<span class="code-comment"># 명령별 절약 이력</span></div>
+      <div class="code-line">rtk discover &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 더 절약할 수 있는 명령 탐색</span></div>
+      <div class="code-line">rtk proxy &lt;cmd&gt; &nbsp;&nbsp;<span class="code-comment"># 필터링 없이 원본 실행 (디버그)</span></div>
+      <div class="code-line">rtk --version &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 버전 확인</span></div>
+    </div>
+  </div>
+
+  <div class="alert-box" style="border-color:rgba(245,158,11,0.3);background:rgba(245,158,11,0.05);margin-top:24px">
+    <div class="alert-icon">⚠</div>
+    <div>
+      <h4>주의 — 이름 충돌</h4>
+      <p>
+        <code>rtk gain</code>이 실패하면 다른 <code>rtk</code> 바이너리가 설치되어 있을 수 있습니다.<br>
+        <code>which rtk</code>로 경로를 확인하고, <code>~/.local/bin/rtk</code>가 맞는지 점검하세요.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- SECTION 6: 효과 측정 -->
+<section class="section" id="savings">
+  <div class="section-label">효과 측정 · rtk gain</div>
+  <h2 class="section-title">실제 절약<br><span style="color:var(--ac)">얼마나 되나</span></h2>
+  <p class="section-sub">
+    <code>rtk gain</code> 명령으로 언제든 확인 가능. 아래는 실사용 예시입니다.
+  </p>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--ac)">1,001</div>
+      <div class="stat-unit">총 명령 실행 횟수</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--gn)">213,000</div>
+      <div class="stat-unit">절약된 입력 토큰</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--or)">3.1%</div>
+      <div class="stat-unit">기본 절약률</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--cy)">최대 90%</div>
+      <div class="stat-unit">출력 다중 명령 시</div>
+    </div>
+  </div>
+
+  <div class="hl-box" style="margin-top:28px">
+    <div class="hl-box-title">절약률이 왜 편차가 크나</div>
+    <ul>
+      <li>짧은 명령(<code>pwd</code>, <code>echo</code> 등): 절약 거의 없음 — 원래 출력이 짧기 때문</li>
+      <li><b>긴 출력 명령</b>(<code>git log</code>, <code>npm install</code>, <code>find</code>): 60~90% 절약</li>
+      <li>에이전트가 코드베이스를 탐색하는 작업일수록 <b>효과가 극적으로 커짐</b></li>
+      <li><code>rtk discover</code>를 실행하면 "이 명령에 쓰면 더 아낄 수 있다"는 힌트를 줌</li>
+    </ul>
+  </div>
+
+  <!-- rtk gain 출력 예시 -->
+  <div style="margin-top:28px">
+    <div class="section-label" style="margin-bottom:12px">rtk gain 출력 예시</div>
+    <div class="code-block">
+      <span class="code-label">$ rtk gain</span>
+      <div class="code-line" style="color:#6b7280">════════════════════════════════════</div>
+      <div class="code-line">&nbsp;&nbsp;<span class="code-key">RTK Savings Report</span></div>
+      <div class="code-line" style="color:#6b7280">════════════════════════════════════</div>
+      <div class="code-line">Total commands proxied: &nbsp;<span class="code-num">1,001</span></div>
+      <div class="code-line">Input tokens saved: &nbsp;&nbsp;&nbsp;&nbsp; <span class="code-num">213,847</span></div>
+      <div class="code-line">Overall savings rate: &nbsp;&nbsp; <span class="code-num">3.1%</span></div>
+      <div class="code-line" style="color:#6b7280">────────────────────────────────────</div>
+      <div class="code-line">Top savers:</div>
+      <div class="code-line">&nbsp;&nbsp;<span class="code-val">git log</span> &nbsp;&nbsp; 89% saved (avg)</div>
+      <div class="code-line">&nbsp;&nbsp;<span class="code-val">npm install</span> 76% saved (avg)</div>
+      <div class="code-line">&nbsp;&nbsp;<span class="code-val">find</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 71% saved (avg)</div>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- SECTION 7: CLAUDE.md & 메모리 -->
+<section class="section" id="memory">
+  <div class="section-label">Claude Code 심화 · CLAUDE.md</div>
+  <h2 class="section-title">AI가 맥락을<br><span style="color:var(--ac)">기억하게 하는 법</span></h2>
+  <p class="section-sub">
+    Claude Code는 세션이 끝나면 대화를 잊습니다. <code>CLAUDE.md</code>를 쓰면 "항상 기억해야 할 규칙"을 주입할 수 있습니다.
+  </p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:32px">
+    <div class="feature-card" style="border-color:rgba(99,102,241,0.3)">
+      <h4>📄 CLAUDE.md 란?</h4>
+      <p>프로젝트 루트나 <code>~/.claude/</code>에 두는 마크다운 파일. Claude가 세션 시작 시 자동으로 읽어 규칙을 주입합니다.</p>
+      <div class="fc-tip">세션 매번 지시 반복 → CLAUDE.md로 자동화</div>
+    </div>
+    <div class="feature-card" style="border-color:rgba(22,163,74,0.3)">
+      <h4>🗄 메모리 파일</h4>
+      <p>CLAUDE.md에서 외부 파일을 참조(<code>@파일경로</code>)하면 여러 md 파일로 분산 저장 가능. 큰 프로젝트에 유용.</p>
+      <div class="fc-tip">now.md · diary.md · portfolio.md 등</div>
+    </div>
+    <div class="feature-card" style="border-color:rgba(6,182,212,0.3)">
+      <h4>⚙ settings.json</h4>
+      <p>훅 외에도 모델 선택, 권한, 자동승인 목록을 설정합니다. RTK 훅도 여기 등록.</p>
+      <div class="fc-tip">~/.claude/settings.json</div>
+    </div>
+  </div>
+
+  <div style="margin-top:28px">
+    <div class="section-label" style="margin-bottom:12px">CLAUDE.md 작성 예시</div>
+    <div class="code-block">
+      <span class="code-label">~/.claude/CLAUDE.md</span>
+      <div class="code-line" style="color:#a5f3fc"># 항상 지킬 규칙</div>
+      <div class="code-line" style="color:#9ca3af"></div>
+      <div class="code-line">- 응답은 한국어로</div>
+      <div class="code-line">- 파일 수정 전 반드시 Read 먼저</div>
+      <div class="code-line">- 민감 정보는 .env에만 저장</div>
+      <div class="code-line">- 삭제·배포 전 사용자 확인 필수</div>
+      <div class="code-line" style="color:#9ca3af"></div>
+      <div class="code-line" style="color:#a5f3fc"># 현재 프로젝트 컨텍스트</div>
+      <div class="code-line">@memory/now.md &nbsp;&nbsp;&nbsp;<span class="code-comment"># 현재 상태</span></div>
+      <div class="code-line">@memory/diary.md &nbsp;<span class="code-comment"># 최근 3일 작업 기록</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- SECTION 8: 운영 철학 -->
+<section class="section" id="philosophy">
+  <div class="section-label">운영 철학 · AI를 잘 쓰는 법</div>
+  <h2 class="section-title">AI 에이전트<br><span style="color:var(--ac)">잘 쓰는 5원칙</span></h2>
+  <p class="section-sub">도구가 아무리 좋아도 쓰는 방법이 틀리면 역효과. 실제 운영에서 검증된 원칙들입니다.</p>
+
+  <div style="display:flex;flex-direction:column;gap:14px;margin-top:28px">
+    <div class="feature-card" style="border-color:rgba(99,102,241,0.3)">
+      <h4>① 첫 문장이 결론 — VFF 원칙</h4>
+      <p>AI에게 지시할 때도, AI의 답변도 "결론 → 근거" 순서를 강제하세요. 배경 설명만 늘어놓는 답변은 CLAUDE.md에서 금지시키면 됩니다.</p>
+    </div>
+    <div class="feature-card" style="border-color:rgba(22,163,74,0.3)">
+      <h4>② 마지막 1cm는 인간이 — 자동 집행 금지</h4>
+      <p>파일 삭제, 코드 배포, 결제, 이메일 발송 — 되돌리기 어려운 작업은 AI가 "준비"하고, <b>최종 실행은 반드시 사람</b>이 합니다.</p>
+    </div>
+    <div class="feature-card" style="border-color:rgba(245,158,11,0.3)">
+      <h4>③ 토큰을 설계하라 — RTK + 명령 최적화</h4>
+      <p>RTK 설치만으로도 절약 가능하지만, 근본적으로는 <b>AI가 짧고 유용한 출력을 받도록</b> 명령 자체를 설계해야 합니다. <code>--oneline</code>, <code>--quiet</code>, <code>head -n 20</code> 등 적극 활용.</p>
+    </div>
+    <div class="feature-card" style="border-color:rgba(6,182,212,0.3)">
+      <h4>④ 맥락은 파일에 — 구두 반복 금지</h4>
+      <p>"저번에 말했잖아요" → 세션마다 잊어버립니다. 자주 쓰는 맥락은 CLAUDE.md·메모리 파일에 적어두면 AI가 매번 자동으로 읽습니다.</p>
+    </div>
+    <div class="feature-card" style="border-color:rgba(239,68,68,0.3)">
+      <h4>⑤ 보안은 습관 — 키는 .env에만</h4>
+      <p>API 키, 봇 토큰, 비밀번호는 절대 코드·채팅·캡처에 포함하지 않습니다. 유출 시 즉시 재발급. 회사 자산에는 정보보안팀 승인 후 사용.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- SECTION 9: 정리 -->
+<section class="section" id="wrap">
+  <div class="section-label">오늘의 핵심 · 3줄 정리</div>
+  <h2 class="section-title">오늘 배운 것<br><span style="color:var(--ac)">3줄로</span></h2>
+
+  <div class="stat-row" style="margin-top:28px">
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--ac);font-size:2.5rem">훅</div>
+      <div class="stat-unit" style="font-size:0.82rem;line-height:1.6;margin-top:8px">Claude Code 도구 실행 전·후에<br>커스텀 스크립트를 끼울 수 있다</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--gn);font-size:2.5rem">RTK</div>
+      <div class="stat-unit" style="font-size:0.82rem;line-height:1.6;margin-top:8px">Bash 출력을 자동 필터링해<br>토큰 최대 90% 절약</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--cy);font-size:2.5rem">md</div>
+      <div class="stat-unit" style="font-size:0.82rem;line-height:1.6;margin-top:8px">CLAUDE.md로 규칙 주입,<br>메모리 파일로 맥락 영속화</div>
+    </div>
+  </div>
+
+  <div class="hl-box" style="margin-top:32px">
+    <div class="hl-box-title">지금 바로 할 수 있는 것</div>
+    <ul>
+      <li><b>RTK 설치</b>: 바이너리 받고 settings.json에 훅 등록 → 즉시 절약 시작</li>
+      <li><b>CLAUDE.md 작성</b>: 자주 반복하는 지시 3가지만 적어두기</li>
+      <li><b>rtk gain 확인</b>: 1주일 후 <code>rtk gain --history</code>로 절약 확인</li>
+      <li><b>마지막 1cm 규칙 적용</b>: 위험 작업 목록을 settings.json deny에 추가</li>
+    </ul>
+  </div>
+
+  <div style="margin-top:32px;text-align:center">
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <a href="https://waterfirst.github.io/ai-seminar-2026/" target="_blank"
+         style="display:inline-block;background:var(--ac);color:#fff;border-radius:10px;padding:12px 28px;font-size:0.88rem;font-weight:700;text-decoration:none">
+        ← 2차 세미나 보기
+      </a>
+      <a href="https://waterfirst.github.io/ai-seminar-2026/index2.html" target="_blank"
+         style="display:inline-block;background:var(--sf2);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:12px 28px;font-size:0.88rem;font-weight:700;text-decoration:none">
+        1차 세미나 보기
+      </a>
+    </div>
+    <span style="font-size:0.75rem;color:var(--mt);display:block;margin-top:12px">SDC 연구소 AI 세미나 시리즈</span>
+  </div>
+</section>
+
+<footer>
+  <div style="margin-bottom:6px">AI 3차 세미나 — Claude Code 심화 & 토큰 최적화</div>
+  <div>삼성디스플레이 연구소 · 2026.07</div>
+</footer>
+
+<script>
+function checkPw() {
+  const v = document.getElementById('pwInput').value.trim();
+  if (v === '0000') {
+    document.getElementById('splash').classList.add('hide');
+  } else {
+    document.getElementById('pwErr').textContent = '비밀번호가 틀렸습니다.';
+    document.getElementById('pwInput').value = '';
+    document.getElementById('pwInput').focus();
+  }
+}
+function toggleTheme() {
+  const h = document.documentElement;
+  h.setAttribute('data-theme', h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+}
+document.getElementById('pwInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') checkPw();
+});
+</script>
+</body>
+</html>

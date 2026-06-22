@@ -8,6 +8,20 @@
 
 ## 세미나 자료 목록
 
+### 3차 세미나 — Claude Code 심화 & 토큰 최적화 (2026.07) `index3.html`
+**대상**: 연구소 임원·연구원  
+**링크**: https://waterfirst.github.io/ai-seminar-2026/index3.html  
+**접속**: 비밀번호 `0000`
+
+주요 내용:
+- 토큰 비용 문제와 RTK(Rust Token Killer) 훅 시스템
+- Claude Code Hooks 설정 (PreToolUse / PostToolUse)
+- CLAUDE.md 작성법과 메모리 파일 관리
+- AI 에이전트 운영 5원칙 (VFF · 마지막 1cm · 토큰 설계)
+- 실전 절약 측정: `rtk gain` 명령 활용
+
+---
+
 ### 2차 세미나 — AI 도구 완전 가이드 (2026.06) `index.html`
 **대상**: 연구소 임원 과정  
 **링크**: https://waterfirst.github.io/ai-seminar-2026/  
@@ -54,6 +68,7 @@ AWE 센싱 교육 자료 및 주요 전시 부스 분석.
 
 ```
 ai-seminar-2026/
+├── index3.html       # 3차 세미나 — Claude Code 심화 & 토큰 최적화 (비밀번호: 0000)
 ├── index.html        # 2차 세미나 — AI 도구 완전 가이드 (비밀번호: 0000)
 ├── index2.html       # 1차 세미나 — AI가 바꾸는 연구개발
 ├── ml-with-prompts.html    # ML + 프롬프트 사례 연구
