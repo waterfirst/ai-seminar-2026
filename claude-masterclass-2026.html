@@ -120,7 +120,7 @@ figcaption{font-size:12px;color:var(--mut);padding:8px 10px;text-align:center}
 <button class="tab-btn" onclick="switchTab('codex',this)">Claude Code vs Codex CLI</button>
 </div>
 <div class="tab-pane active" id="pane-seminar">
-<div class=nav><a href="#s0">🆕 클로드 새 소식</a><a href="#s1">시리즈</a><a href="#s2">3가지 얼굴</a><a href="#s3">MCP</a><a href="#s4">실전: 부동산앱</a><a href="#s5">실전: 에이전트 전과정</a><a href="#s6">키메라</a><a href="#s6b">파이프라인 v2.2</a><a href="#s7">4대 인프라</a><a href="#s8">결론</a></div>
+<div class=nav><a href="#s0">🆕 클로드 새 소식</a><a href="#s1">시리즈</a><a href="#s2">3가지 얼굴</a><a href="#s3">MCP</a><a href="#s4">실전: 부동산앱</a><a href="#s5">실전: 에이전트 전과정</a><a href="#s6">키메라</a><a href="#s6b">파이프라인 v2.2</a><a href="#s7">4대 인프라</a><a href="#s9">RTK 토큰 절약</a><a href="#s8">결론</a></div>
 
 <div class=hero>
 <span class=badge>AI 세미나 · 3차</span>
@@ -374,6 +374,59 @@ API_KEY = "sk-xxxxxxxx..."          # ❌ pre-commit hook이 차단
 API_KEY = os.environ["API_KEY"]      # ✅
 gh secret set MOLIT_API_KEY -R repo  # ✅ 암호화 저장</pre>
 오늘도 포크한 레포의 노출 키를 전부 제거하고 secrets로 옮겼다. <b>private 여부 확인 → 마스킹 → 토큰 일회성 → 클론 삭제</b>.</div>
+
+<!-- RTK SECTION -->
+<h2 id=s9><span class=sec-no>09</span> RTK — 토큰 킬러 시스템</h2>
+<p class=lead>Claude Code의 Bash 도구 호출마다 발생하는 불필요한 토큰을 자동으로 제거하는 Rust 단일 바이너리 훅.</p>
+
+<div class=kpi>
+  <div><b class=aqua>60~90%</b><span>명령별 토큰 절감</span></div>
+  <div><b class=am>213,000</b><span>누적 절약 토큰</span></div>
+  <div><b class=aqua>1,001</b><span>처리 명령 수</span></div>
+  <div><b class=bl>3.1%</b><span>전체 절감률</span></div>
+</div>
+
+<h3>RTK가 하는 일</h3>
+<div class=card>
+<div class=step><div class=n>1</div><div class=tx>Claude Code가 Bash 도구를 실행하려 할 때 <b>PreToolUse 훅</b>이 먼저 개입</div></div>
+<div class=step><div class=n>2</div><div class=tx><b>rtk hook pre</b>가 명령어를 분석 → 출력 필터 규칙 결정 (git status, ls, cat 등)</div></div>
+<div class=step><div class=n>3</div><div class=tx>실행 후 <b>rtk hook post</b>가 결과를 압축·정리 → AI에 전달되는 토큰 최소화</div></div>
+<div class=step><div class=n>4</div><div class=tx>AI 행동은 그대로, 토큰만 줄어든다 — <b>투명한 프록시</b></div></div>
+</div>
+
+<h3>설치: settings.json 훅 등록</h3>
+<div class=card>
+<pre>{
+  "hooks": {
+    "PreToolUse": [{
+      "matcher": "Bash",
+      "hooks": [{ "type": "command", "command": "rtk hook pre" }]
+    }],
+    "PostToolUse": [{
+      "matcher": "Bash",
+      "hooks": [{ "type": "command", "command": "rtk hook post" }]
+    }]
+  }
+}</pre>
+<p style="margin:8px 0 0;font-size:13px;color:var(--mut)">경로: <code>~/.claude/settings.json</code> — 한 번 설정하면 모든 세션에 자동 적용</p>
+</div>
+
+<h3>RTK 메타 명령</h3>
+<div class=card>
+<div class=step><div class=n>①</div><div class=tx><code>rtk gain</code> — 현재까지 절약된 토큰 수·비율 즉시 조회</div></div>
+<div class=step><div class=n>②</div><div class=tx><code>rtk gain --history</code> — 명령별 절감 이력 (어떤 명령이 가장 많이 절약했나)</div></div>
+<div class=step><div class=n>③</div><div class=tx><code>rtk discover</code> — Claude Code 히스토리 분석 → 아직 RTK가 잡지 못한 기회 식별</div></div>
+<div class=step><div class=n>④</div><div class=tx><code>rtk proxy &lt;cmd&gt;</code> — 필터링 없이 원본 명령 실행 (디버깅용)</div></div>
+<div class=step><div class=n>⑤</div><div class=tx><code>rtk --version</code> — 설치 확인</div></div>
+</div>
+
+<div class=card style="border-color:var(--am)">
+<p style="margin:0"><b class=am>⚠️ 주의</b> — <code>rtk gain</code>이 실패하면 <a href="https://github.com/reachingforthejack/rtk" style="color:var(--bl)" target=_blank>reachingforthejack/rtk</a>(Rust Type Kit)가 이미 설치된 것. 올바른 바이너리: <b>Rust Token Killer</b>. <code>which rtk</code>로 경로 확인 후 재설치.</p>
+</div>
+
+<div class=card style="background:rgba(25,211,167,.07);border-color:var(--a)">
+<p style="font-size:15px;margin:0"><b class=aqua>"토큰을 아끼는 것이 곧 AI 에이전트 운영 비용을 줄이는 것이다. RTK는 설정 한 번으로 매 세션마다 자동으로 일한다."</b></p>
+</div>
 
 <h2 id=s8><span class=sec-no>08</span> 결론 — 한 문장</h2>
 <div class=card style="border-color:var(--a)">
