@@ -51,10 +51,21 @@ nav {
   min-height: 88vh; display: flex; flex-direction: column; align-items: center;
   justify-content: center; text-align: center; padding: 60px 20px;
   position: relative; overflow: hidden;
+  background: url('images/genie_splash.png') center center / cover no-repeat;
 }
 .hero-bg {
-  position: absolute; inset: 0; opacity: 0.6;
-  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(99,102,241,0.15), transparent);
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 8, 18, 0.72) 0%,
+    rgba(8, 8, 18, 0.80) 60%,
+    rgba(8, 8, 18, 0.92) 100%
+  );
+}
+.hero-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% 30%, rgba(99,102,241,0.18), transparent);
 }
 .hero-badge {
   display: inline-block; background: rgba(99,102,241,0.12); color: var(--ac2);
