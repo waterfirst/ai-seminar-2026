@@ -177,6 +177,142 @@ footer {
   text-align: center; padding: 40px 20px; font-size: 0.8rem; color: var(--mt);
   border-top: 1px solid var(--bd); background: var(--sf);
 }
+
+/* ===== SPLASH / PASSWORD GATE ===== */
+#splash-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+#splash-overlay.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+.splash-card {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 24px;
+  padding: 52px 44px 44px;
+  text-align: center;
+  width: min(420px, 90vw);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  animation: splash-in 0.55s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes splash-in {
+  from { opacity:0; transform: scale(0.88) translateY(24px); }
+  to   { opacity:1; transform: scale(1)    translateY(0); }
+}
+.splash-icon {
+  font-size: 3.4rem;
+  margin-bottom: 18px;
+  display: block;
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+.splash-title {
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+.splash-sub {
+  font-size: 0.83rem;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 36px;
+  line-height: 1.5;
+}
+.splash-label {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.5);
+  text-align: left;
+  margin-bottom: 8px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.splash-input-wrap {
+  position: relative;
+  margin-bottom: 14px;
+}
+#splash-pw {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 1.5rem;
+  letter-spacing: 0.25em;
+  border-radius: 12px;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  outline: none;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+#splash-pw:focus {
+  border-color: #818cf8;
+}
+#splash-pw::placeholder {
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.3);
+}
+.splash-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #6366f1, #818cf8);
+  color: #fff;
+  letter-spacing: 0.04em;
+  transition: opacity 0.2s, transform 0.1s;
+  box-shadow: 0 4px 20px rgba(99,102,241,0.45);
+}
+.splash-btn:hover  { opacity: 0.9; }
+.splash-btn:active { transform: scale(0.97); }
+.splash-err {
+  margin-top: 12px;
+  font-size: 0.8rem;
+  color: #f87171;
+  min-height: 18px;
+  transition: opacity 0.2s;
+}
+.splash-err.hidden { opacity: 0; }
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%,60%  { transform: translateX(-8px); }
+  40%,80%  { transform: translateX(8px); }
+}
+.shake { animation: shake 0.35s ease; }
+/* particles */
+.splash-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.splash-particles span {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.18;
+  animation: drift linear infinite;
+}
+@keyframes drift {
+  from { transform: translateY(100vh) scale(0); opacity:0.18; }
+  to   { transform: translateY(-10vh)  scale(1); opacity:0; }
+}
+
 </style>
 <style>
 
@@ -204,6 +340,35 @@ body { padding-bottom: 44px; }
 </style>
 </head>
 <body>
+
+<!-- ===== SPLASH SCREEN ===== -->
+<div id="splash-overlay">
+  <!-- particles -->
+  <div class="splash-particles">
+    <span style="width:6px;height:6px;left:10%;background:#818cf8;animation-duration:7s;animation-delay:0s;"></span>
+    <span style="width:10px;height:10px;left:25%;background:#6366f1;animation-duration:9s;animation-delay:1.5s;"></span>
+    <span style="width:4px;height:4px;left:45%;background:#a5b4fc;animation-duration:6s;animation-delay:0.7s;"></span>
+    <span style="width:8px;height:8px;left:65%;background:#c7d2fe;animation-duration:11s;animation-delay:2s;"></span>
+    <span style="width:5px;height:5px;left:80%;background:#818cf8;animation-duration:8s;animation-delay:0.3s;"></span>
+    <span style="width:7px;height:7px;left:90%;background:#6366f1;animation-duration:10s;animation-delay:1s;"></span>
+  </div>
+  <div class="splash-card">
+    <span class="splash-icon">🤖</span>
+    <div class="splash-title">AI 3차 세미나</div>
+    <div class="splash-sub">Claude Code 심화 &amp; 토큰 최적화<br>SDC 연구소 · 품질팀</div>
+    <div class="splash-label">🔒 비밀번호 입력</div>
+    <div class="splash-input-wrap">
+      <input id="splash-pw" type="password" maxlength="10"
+             placeholder="비밀번호를 입력하세요"
+             autocomplete="off" inputmode="numeric"
+             onkeydown="if(event.key==='Enter')splashCheck();" />
+    </div>
+    <button class="splash-btn" onclick="splashCheck()">입장하기 →</button>
+    <div class="splash-err hidden" id="splash-err">비밀번호가 올바르지 않습니다.</div>
+  </div>
+</div>
+<!-- ===== /SPLASH SCREEN ===== -->
+
 
 <!-- NAV -->
 <nav>
@@ -1843,5 +2008,35 @@ function toggleTheme() {
 
 <!-- SERIES NAV -->
 <div id="series-bar"><span class="s-label">📚 AI 세미나 시리즈</span><a class="s-link" href="./index1.html">1차 세미나</a><span class="s-sep"> | </span><a class="s-link" href="./index2.html">2차 세미나</a><span class="s-sep"> | </span><a class="s-active" href="./index.html">3차 세미나 ★</a></div>
+
+<script>
+(function(){
+  /* focus input on load */
+  window.addEventListener('load', function(){
+    var pw = document.getElementById('splash-pw');
+    if(pw) setTimeout(function(){ pw.focus(); }, 400);
+  });
+})();
+function splashCheck(){
+  var pw = document.getElementById('splash-pw');
+  var err = document.getElementById('splash-err');
+  var card = document.querySelector('.splash-card');
+  if(pw.value === '2222'){
+    var overlay = document.getElementById('splash-overlay');
+    overlay.style.transition = 'opacity 0.6s ease';
+    overlay.style.opacity = '0';
+    setTimeout(function(){ overlay.style.display='none'; }, 650);
+  } else {
+    err.classList.remove('hidden');
+    /* shake */
+    card.classList.remove('shake');
+    void card.offsetWidth; /* reflow */
+    card.classList.add('shake');
+    pw.value='';
+    pw.focus();
+    setTimeout(function(){ err.classList.add('hidden'); }, 2000);
+  }
+}
+</script>
 </body>
 </html>
