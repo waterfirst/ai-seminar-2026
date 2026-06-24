@@ -186,7 +186,9 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  background: 
+    linear-gradient(135deg, rgba(15,12,41,0.82), rgba(48,43,99,0.75), rgba(36,36,62,0.85)),
+    url('./images/splash_bg.png') center/cover no-repeat;
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
 #splash-overlay.hide {
@@ -474,6 +476,167 @@ section.section:nth-of-type(even) {
 
 /* Footer */
 footer { font-size: 0.85rem !important; }
+</style>
+
+<!-- ★ AI DESIGN OVERRIDE ★ -->
+<style>
+/* ── HERO: AI-generated background ── */
+.hero {
+  background: url('./images/hero.png') center/cover no-repeat;
+}
+.hero-bg {
+  position: absolute; inset: 0; opacity: 1 !important;
+  background: linear-gradient(
+    180deg,
+    rgba(6,4,24,0.62) 0%,
+    rgba(12,8,40,0.30) 40%,
+    rgba(4,4,18,0.88) 100%
+  );
+}
+.hero h1 {
+  color: #ffffff;
+  text-shadow: 0 2px 32px rgba(99,102,241,0.45), 0 1px 6px rgba(0,0,0,0.6);
+}
+.hero h1 em {
+  color: #a5b4fc !important;
+  text-shadow: 0 0 40px rgba(165,180,252,0.5);
+}
+.hero-sub {
+  color: rgba(255,255,255,0.82) !important;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+}
+.hero-badge {
+  background: rgba(99,102,241,0.20) !important;
+  border: 1px solid rgba(165,180,252,0.50) !important;
+  color: #c7d2fe !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  text-shadow: none;
+}
+.hero-meta {
+  background: rgba(255,255,255,0.06) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.14) !important;
+  border-radius: 20px;
+  padding: 20px 36px !important;
+  gap: 44px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.hero-meta-item span { color: rgba(255,255,255,0.50) !important; }
+.hero-meta-item strong { color: #ffffff !important; }
+
+/* ── GEMINI TRENDS SECTION ── */
+#gemini-trends {
+  background: linear-gradient(135deg, rgba(15,10,40,0.04), rgba(99,102,241,0.06));
+  border-top: 1px solid rgba(99,102,241,0.12);
+}
+.gemini-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.gemini-header .gemini-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(139,92,246,0.12));
+  border: 1px solid rgba(99,102,241,0.3);
+  border-radius: 999px;
+  padding: 6px 18px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #6366f1;
+  margin-bottom: 16px;
+  letter-spacing: 0.04em;
+}
+.gemini-header h2 {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+}
+.gemini-header p {
+  color: var(--mt);
+  font-size: 0.95rem;
+}
+.trend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.trend-card {
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(99,102,241,0.14);
+  border-radius: 20px;
+  padding: 28px 24px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.trend-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4);
+  border-radius: 20px 20px 0 0;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.trend-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(99,102,241,0.14), 0 4px 16px rgba(0,0,0,0.06);
+  border-color: rgba(99,102,241,0.35);
+}
+.trend-card:hover::before { opacity: 1; }
+.trend-icon {
+  font-size: 2.4rem;
+  margin-bottom: 14px;
+  display: block;
+  line-height: 1;
+}
+.trend-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  margin-bottom: 10px;
+  color: var(--tx);
+}
+.trend-desc {
+  font-size: 0.875rem;
+  color: var(--mt);
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+.trend-tag {
+  display: inline-block;
+  background: rgba(99,102,241,0.10);
+  color: #6366f1;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 3px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(99,102,241,0.20);
+}
+.gemini-footer-note {
+  text-align: center;
+  margin-top: 36px;
+  font-size: 0.78rem;
+  color: var(--mt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* ── DARK MODE COMPAT ── */
+@media (prefers-color-scheme: dark) {
+  .trend-card {
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(99,102,241,0.20);
+  }
+}
 </style>
 </head>
 <body>
@@ -1734,6 +1897,58 @@ footer { font-size: 0.85rem !important; }
       </a>
     </div>
     <span style="font-size:0.75rem;color:var(--mt);display:block;margin-top:12px">SDC 연구소 AI 세미나 시리즈</span>
+  </div>
+</section>
+
+
+<!-- ★ 2026 AI 최신 트렌드 (Gemini 2.5 Flash 생성) ★ -->
+<section class="section" id="gemini-trends">
+  <div class="gemini-header">
+    <div class="gemini-badge">⚡ Powered by Gemini 2.5 Flash</div>
+    <h2>2026 AI 최신 트렌드</h2>
+    <p>Gemini AI가 분석한 현업 개발자가 지금 주목해야 할 핵심 기술과 도구</p>
+  </div>
+  <div class="trend-grid">
+        <div class="trend-card">
+          <span class="trend-icon">🎣</span>
+          <div class="trend-title">Claude Code 훅 시스템</div>
+          <div class="trend-desc">2026년 Claude는 단순 코드 생성기를 넘어 개발 워크플로우에 깊숙이 통합되는 훅 시스템을 제공합니다. 이를 통해 개발자는 특정 이벤트나 단계에서 Claude의 코드 생성 및 분석 기능을 유연하게 호출하고 커스터마이징할 수 있게 됩니다.</div>
+          <span class="trend-tag">워크플로우 통합</span>
+        </div>
+        <div class="trend-card">
+          <span class="trend-icon">🧠</span>
+          <div class="trend-title">GPT-4.1 Codex</div>
+          <div class="trend-desc">GPT-4.1 Codex는 기존 모델의 한계를 뛰어넘어 더욱 정교하고 복잡한 코드 생성 및 디버깅 능력을 선보입니다. 방대한 코드 데이터와 심층 학습을 통해 개발자의 의도를 정확히 파악하며, 다국어 및 멀티모달 코딩 지원이 강화됩니다.</div>
+          <span class="trend-tag">차세대 코드생성</span>
+        </div>
+        <div class="trend-card">
+          <span class="trend-icon">⚡</span>
+          <div class="trend-title">Gemini 2.5 Flash</div>
+          <div class="trend-desc">Gemini 2.5 Flash는 극도로 빠른 응답 속도와 최적화된 리소스 사용률로 실시간 코딩 지원을 제공합니다. 특히 멀티모달 능력을 활용하여 설계도, UI/UX 시안 등 비코드 정보로부터 직접 코드를 생성하는 데 탁월한 성능을 발휘합니다.</div>
+          <span class="trend-tag">실시간 코딩</span>
+        </div>
+        <div class="trend-card">
+          <span class="trend-icon">🤖</span>
+          <div class="trend-title">Cursor 에이전트 모드</div>
+          <div class="trend-desc">Cursor의 에이전트 모드는 단순 코드 자동 완성을 넘어 개발 프로젝트의 복잡한 태스크를 자율적으로 관리합니다. 사용자의 지시를 기반으로 코드 베이스를 이해하고, 필요한 변경 사항을 제안하며, 심지어 테스트 코드까지 자동으로 생성하고 실행합니다.</div>
+          <span class="trend-tag">자율 개발 환경</span>
+        </div>
+        <div class="trend-card">
+          <span class="trend-icon">💰</span>
+          <div class="trend-title">AI 토큰 최적화 RTK</div>
+          <div class="trend-desc">AI 토큰 최적화 RTK는 개발자가 AI 코딩 도구를 사용할 때 발생하는 토큰 비용을 최소화하는 데 중점을 둡니다. 지능적인 컨텍스트 관리와 불필요한 정보 필터링을 통해 효율적인 토큰 사용을 유도하며, 대규모 프로젝트에서도 경제적인 AI 활용을 가능하게 합니다.</div>
+          <span class="trend-tag">비용 효율성</span>
+        </div>
+        <div class="trend-card">
+          <span class="trend-icon">📈</span>
+          <div class="trend-title">2026 자율 에이전트 트렌드</div>
+          <div class="trend-desc">2026년에는 코딩 작업 전반에 걸쳐 자율 에이전트의 역할이 더욱 확대될 것입니다. 이들은 요구사항 분석부터 배포까지 개발 생명주기의 여러 단계를 독립적으로 수행하며, 개발자는 고수준의 지시만으로 복잡한 프로젝트를 진행할 수 있게 됩니다.</div>
+          <span class="trend-tag">미래 개발 방향</span>
+        </div>
+  </div>
+  <div class="gemini-footer-note">
+    <span>🤖</span>
+    <span>Gemini 2.5 Flash가 실시간으로 분석한 2026년 AI 기술 트렌드입니다</span>
   </div>
 </section>
 
