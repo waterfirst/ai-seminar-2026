@@ -205,7 +205,54 @@ footer {
   text-align: center;
   width: min(420px, 90vw);
   box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-  animation: splash-in 0.55s cubic-bezier(.22,1,.36,1) both;
+  opacity: 0;
+  transform: scale(0.88) translateY(24px);
+  pointer-events: none;
+  transition: opacity 0.65s cubic-bezier(.22,1,.36,1), transform 0.65s cubic-bezier(.22,1,.36,1);
+}
+.splash-card.phase2-active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
+}
+/* Phase 1 cinematic display */
+.splash-phase1 {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: opacity 0.65s ease;
+  pointer-events: none;
+}
+.splash-phase1.p1-fade { opacity: 0; }
+.splash-phase1-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1px;
+  text-shadow: 0 4px 32px rgba(99,102,241,0.7), 0 2px 8px rgba(0,0,0,0.5);
+  animation: splash-in 0.8s cubic-bezier(.22,1,.36,1) both;
+  margin-bottom: 14px;
+}
+.splash-phase1-sub {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+  animation: splash-in 0.8s cubic-bezier(.22,1,.36,1) 0.18s both;
+}
+.splash-phase1-hint {
+  margin-top: 52px;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.32);
+  animation: p1-pulse 2s ease-in-out infinite;
+}
+@keyframes p1-pulse {
+  0%,100% { opacity: 0.32; }
+  50%      { opacity: 0.65; }
 }
 @keyframes splash-in {
   from { opacity:0; transform: scale(0.88) translateY(24px); }
@@ -630,22 +677,7 @@ footer { font-size: 0.85rem !important; }
   gap: 6px;
 }
 
-/* ── DARK MODE COMPAT ── */
-/* ========== 다크모드 ========== */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0f172a;
-    --sf: #1e293b;
-    --sf2: #334155;
-    --bd: #475569;
-    --tx: #f1f5f9;
-    --mt: #e2e8f0;
-  }
-  .trend-card {
-    background: rgba(255,255,255,0.04);
-    border-color: rgba(99,102,241,0.20);
-  }
-}
+/* 다크모드: [data-theme="dark"]으로만 제어 */
 [data-theme="dark"] {
   --bg: #0f172a;
   --sf: #1e293b;
@@ -653,6 +685,10 @@ footer { font-size: 0.85rem !important; }
   --bd: #475569;
   --tx: #f1f5f9;
   --mt: #e2e8f0;
+}
+[data-theme="dark"] .trend-card {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(99,102,241,0.20);
 }
 
 /* ── LIGHTBOX ── */
@@ -706,7 +742,12 @@ footer { font-size: 0.85rem !important; }
     <span style="width:5px;height:5px;left:80%;background:#818cf8;animation-duration:8s;animation-delay:0.3s;"></span>
     <span style="width:7px;height:7px;left:90%;background:#6366f1;animation-duration:10s;animation-delay:1s;"></span>
   </div>
-  <div class="splash-card">
+  <div class="splash-phase1" id="splash-phase1">
+    <div class="splash-phase1-title">🤖 AI 3차 세미나</div>
+    <div class="splash-phase1-sub">Claude Code 심화 &amp; 토큰 최적화<br>삼성디스플레이 품질팀</div>
+    <div class="splash-phase1-hint">잠시 후 입장 화면으로 전환됩니다...</div>
+  </div>
+  <div class="splash-card" id="splash-card">
     <span class="splash-icon">🤖</span>
     <div class="splash-title">AI 3차 세미나</div>
     <div class="splash-sub">Claude Code 심화 &amp; 토큰 최적화<br>삼성디스플레이 품질팀</div>
@@ -746,7 +787,7 @@ footer { font-size: 0.85rem !important; }
           <a class="nav-item" href="#memory">메모리</a>
           <span class="nav-sep">·</span>
           <a class="nav-item" href="#philosophy">운영 철학</a>
-          <button class="theme-btn" onclick="toggleTheme()">🌓 테마</button>
+          <button class="theme-btn" id="theme-toggle-btn" onclick="toggleTheme()" title="테마 전환">☀️ 밝게</button>
         </nav>
 
 <!-- HERO -->
@@ -1948,7 +1989,7 @@ footer { font-size: 0.85rem !important; }
         1차 세미나 보기
       </a>
     </div>
-    <span style="font-size:0.75rem;color:var(--mt);display:block;margin-top:12px">SDC 연구소 AI 세미나 시리즈</span>
+    <span style="font-size:0.75rem;color:var(--mt);display:block;margin-top:12px">삼성디스플레이 AI 세미나 시리즈</span>
   </div>
 </section>
 
@@ -2012,8 +2053,22 @@ footer { font-size: 0.85rem !important; }
 <script>
 function toggleTheme() {
   const h = document.documentElement;
-  h.setAttribute('data-theme', h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  const isDark = h.getAttribute('data-theme') === 'dark';
+  const next = isDark ? 'light' : 'dark';
+  h.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  const btn = document.getElementById('theme-toggle-btn');
+  if (btn) btn.textContent = next === 'dark' ? '🌙 어둡게' : '☀️ 밝게';
 }
+// 저장된 테마 적용 (light가 기본)
+(function() {
+  const saved = localStorage.getItem('theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    const btn = document.getElementById('theme-toggle-btn');
+    if (btn) btn.textContent = '🌙 어둡게';
+  }
+})();
 </script>
 
 <!-- ============================= FORMATION SECTION ============================= -->
@@ -2407,7 +2462,7 @@ function toggleTheme() {
     <div style="font-size:clamp(1.2rem,3vw,1.8rem);font-weight:900;letter-spacing:-0.5px;color:var(--tx);">
       "품질팀은 <span style="color:var(--ac,#7dd3fc)">AI</span>로 일한다"
     </div>
-    <div style="margin-top:8px;font-size:0.88rem;color:var(--mt);">SDC 연구소 · Quality Team AI Showcase 2026</div>
+    <div style="margin-top:8px;font-size:0.88rem;color:var(--mt);">삼성디스플레이 · Quality Team AI Showcase 2026</div>
   </div>
 </section>
 <!-- ============================= /BROCHURE SECTION ============================= -->
@@ -2417,10 +2472,18 @@ function toggleTheme() {
 
 <script>
 (function(){
-  /* focus input on load */
+  /* Phase 1 → Phase 2 transition */
   window.addEventListener('load', function(){
-    var pw = document.getElementById('splash-pw');
-    if(pw) setTimeout(function(){ pw.focus(); }, 400);
+    var phase1 = document.getElementById('splash-phase1');
+    var card   = document.getElementById('splash-card');
+    setTimeout(function(){
+      if(phase1) phase1.classList.add('p1-fade');
+      setTimeout(function(){
+        if(card) card.classList.add('phase2-active');
+        var pw = document.getElementById('splash-pw');
+        if(pw) pw.focus();
+      }, 500);
+    }, 2600);
   });
 })();
 function splashCheck(){
