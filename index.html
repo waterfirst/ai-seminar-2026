@@ -26,34 +26,6 @@
 html { scroll-behavior: smooth; }
 body { background: var(--bg); color: var(--tx); font-family: 'Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif; line-height: 1.6; }
 
-/* SPLASH / PASSWORD */
-#splash {
-  position: fixed; inset: 0; z-index: 9999;
-  background: linear-gradient(135deg, #f0f4ff 0%, #e8ecff 50%, #f4f0ff 100%);
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
-}
-#splash.hide { display: none; }
-.splash-grid {
-  position: absolute; inset: 0; overflow: hidden; opacity: 0.1; pointer-events: none;
-  background: linear-gradient(rgba(99,102,241,0.2) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(99,102,241,0.2) 1px, transparent 1px);
-  background-size: 60px 60px;
-  transform: perspective(600px) rotateX(30deg); transform-origin: bottom;
-}
-.splash-logo { font-size: 2.4rem; font-weight: 900; color: #1a1d4e; letter-spacing: -1px; }
-.splash-sub { font-size: 0.9rem; color: #60657a; }
-.pw-box { display: flex; gap: 10px; margin-top: 8px; }
-.pw-box input {
-  background: #ffffff; border: 1px solid #d0d4e4; color: #111827;
-  border-radius: 10px; padding: 12px 18px; font-size: 1rem; width: 160px; text-align: center;
-  letter-spacing: 6px; box-shadow: 0 2px 8px rgba(79,82,204,0.08);
-}
-.pw-box button {
-  background: #6366f1; color: #fff; border: none; border-radius: 10px;
-  padding: 12px 24px; font-size: 0.9rem; font-weight: 700; cursor: pointer;
-}
-.pw-err { font-size: 0.8rem; color: #ef4444; min-height: 18px; }
-
 /* NAV */
 nav {
   position: sticky; top: 0; z-index: 100;
@@ -232,19 +204,6 @@ body { padding-bottom: 44px; }
 </style>
 </head>
 <body>
-
-<!-- PASSWORD SPLASH -->
-<div id="splash">
-  <div class="splash-grid"></div>
-  <div class="splash-logo">AI 3차 세미나</div>
-  <div class="splash-sub">SDC 연구소 · Claude Code 심화 과정</div>
-  <div class="pw-box">
-    <input type="password" id="pwInput" placeholder="0000" maxlength="8"
-      onkeydown="if(event.key==='Enter')checkPw()">
-    <button onclick="checkPw()">입장 →</button>
-  </div>
-  <div class="pw-err" id="pwErr"></div>
-</div>
 
 <!-- NAV -->
 <nav>
@@ -1482,23 +1441,10 @@ body { padding-bottom: 44px; }
 </footer>
 
 <script>
-function checkPw() {
-  const v = document.getElementById('pwInput').value.trim();
-  if (v === '0000') {
-    document.getElementById('splash').classList.add('hide');
-  } else {
-    document.getElementById('pwErr').textContent = '비밀번호가 틀렸습니다.';
-    document.getElementById('pwInput').value = '';
-    document.getElementById('pwInput').focus();
-  }
-}
 function toggleTheme() {
   const h = document.documentElement;
   h.setAttribute('data-theme', h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
 }
-document.getElementById('pwInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') checkPw();
-});
 </script>
 
 <!-- ============================= FORMATION SECTION ============================= -->
