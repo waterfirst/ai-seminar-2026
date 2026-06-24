@@ -637,6 +637,43 @@ footer { font-size: 0.85rem !important; }
     border-color: rgba(99,102,241,0.20);
   }
 }
+
+/* ── LIGHTBOX ── */
+#lb-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);cursor:zoom-out;align-items:center;justify-content:center;padding:20px;}
+#lb-overlay.lb-active{display:flex;}
+#lb-img{max-width:95vw;max-height:92vh;object-fit:contain;border-radius:10px;box-shadow:0 24px 80px rgba(0,0,0,0.9);cursor:default;animation:lb-pop .24s cubic-bezier(.34,1.56,.64,1);}
+@keyframes lb-pop{from{opacity:0;transform:scale(.85);}to{opacity:1;transform:scale(1);}}
+#lb-close{position:fixed;top:16px;right:20px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.14);border-radius:50%;color:#fff;font-size:1.5rem;cursor:pointer;transition:background .15s;z-index:10000;user-select:none;line-height:1;}
+#lb-close:hover{background:rgba(255,255,255,0.26);}
+#lb-hint{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.5);font-size:0.78rem;pointer-events:none;}
+
+/* ── MOBILE (≤768px) ── */
+@media(max-width:768px){
+  nav{padding:0 12px;gap:2px;}
+  .nav-brand{font-size:0.82rem;margin-right:6px;}
+  .nav-item{padding:5px 8px;font-size:0.72rem;}
+  .hero{padding:36px 16px;min-height:60vh;}
+  .hero h1{letter-spacing:-0.5px;}
+  .hero-sub{font-size:0.88rem;}
+  .hero-meta{gap:14px;margin-top:24px;}
+  .section{padding:44px 16px;}
+  .section-title{font-size:clamp(1.25rem,5vw,1.7rem);}
+  .stat-row{grid-template-columns:repeat(2,1fr);gap:10px;}
+  .steps{grid-template-columns:1fr;gap:10px;}
+  .compare-row{grid-template-columns:1fr;gap:4px;}
+  .compare-row .left{border-bottom:1px solid var(--bd);padding-bottom:4px;}
+  .trend-grid{grid-template-columns:1fr!important;}
+  .feature-card{padding:16px 14px;}
+  .alert-box{padding:14px 16px;gap:10px;flex-wrap:wrap;}
+  .code-block{padding:14px 16px;}
+  .code-line{font-size:0.8rem;}
+}
+
+/* ── WIDE DESKTOP (≥1200px) ── */
+@media(min-width:1200px){
+  .section{max-width:1100px;}
+  .trend-grid{grid-template-columns:repeat(3,1fr)!important;}
+}
 </style>
 </head>
 <body>
@@ -2326,7 +2363,9 @@ function toggleTheme() {
   <!-- Brochure Image -->
   <div style="border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.4);margin-bottom:32px;">
     <img src="./ai_brochure.png" alt="품질팀은 AI로 일한다 — 웹앱 쇼케이스 브로셔"
-      style="width:100%;height:auto;max-height:420px;object-fit:cover;display:block;">
+      style="width:100%;height:auto;display:block;cursor:zoom-in;transition:opacity 0.15s;"
+      onclick="lbOpen(this.src,this.alt)"
+      onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
   </div>
 
   <!-- Action Cards -->
@@ -2389,6 +2428,26 @@ function splashCheck(){
     setTimeout(function(){ err.classList.add('hidden'); }, 2000);
   }
 }
+/* lightbox */
+function lbOpen(src,alt){
+  var o=document.getElementById('lb-overlay');
+  document.getElementById('lb-img').src=src;
+  document.getElementById('lb-img').alt=alt||'';
+  o.classList.add('lb-active');
+  document.body.style.overflow='hidden';
+}
+function lbClose(){
+  document.getElementById('lb-overlay').classList.remove('lb-active');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')lbClose();});
 </script>
+
+<!-- LIGHTBOX OVERLAY -->
+<div id="lb-overlay" onclick="lbClose()">
+  <div id="lb-close" title="닫기 (ESC)" onclick="lbClose()">✕</div>
+  <img id="lb-img" src="" alt="" onclick="event.stopPropagation()">
+  <div id="lb-hint">클릭하거나 ESC 키를 누르면 닫힙니다</div>
+</div>
 </body>
 </html>
