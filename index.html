@@ -269,6 +269,8 @@ body { padding-bottom: 44px; }
   <span class="nav-sep">·</span>
   <a class="nav-item" href="#philosophy">운영 철학</a>
   <button class="theme-btn" onclick="toggleTheme()">🌓 테마</button>
+<span class="nav-sep">·</span>
+<a class="nav-item" href="#formation">포메이션</a>
 </nav>
 
 <!-- HERO -->
@@ -1498,6 +1500,375 @@ document.getElementById('pwInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') checkPw();
 });
 </script>
+
+<!-- ============================= FORMATION SECTION ============================= -->
+<section id="formation" style="max-width:960px;margin:0 auto;padding:60px 24px 80px;">
+  <div style="font-size:0.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac,#7dd3fc);margin-bottom:8px;">
+    AI 멀티에이전트 시스템
+  </div>
+  <h2 style="font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:900;line-height:1.2;margin-bottom:16px;">
+    포메이션 전략 — <span style="color:var(--ac,#7dd3fc)">7가지 운용 패턴</span>
+  </h2>
+  <p style="font-size:0.95rem;color:var(--mt,#94a3b8);max-width:680px;margin-bottom:48px;">
+    AI 에이전트를 단독으로 쓰는 대신, 여러 에이전트를 <strong>포메이션</strong>으로 운용하면 결과 품질이 극적으로 올라갑니다.
+    아래 7가지 패턴 중 업무에 맞는 형태를 골라 바로 적용해 보세요.
+  </p>
+
+  <!-- Formation Overview Grid -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:64px;">
+
+    <a href="#f-pipeline" style="text-decoration:none;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:20px;transition:background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+      <div style="font-size:1.4rem;margin-bottom:8px;">🔗</div>
+      <div style="font-weight:700;color:#e2e8f0;margin-bottom:4px;">Pipeline</div>
+      <div style="font-size:0.82rem;color:#94a3b8;">순차적 처리 — 각 에이전트가 이전 출력을 이어받아 개선</div>
+    </a>
+
+    <a href="#f-compete" style="text-decoration:none;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:20px;transition:background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+      <div style="font-size:1.4rem;margin-bottom:8px;">⚔️</div>
+      <div style="font-weight:700;color:#e2e8f0;margin-bottom:4px;">Compete</div>
+      <div style="font-size:0.82rem;color:#94a3b8;">경쟁 — 동일 과제를 병렬 수행 후 심판이 최선 선택</div>
+    </a>
+
+    <a href="#f-debate" style="text-decoration:none;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:20px;transition:background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+      <div style="font-size:1.4rem;margin-bottom:8px;">🗣️</div>
+      <div style="font-weight:700;color:#e2e8f0;margin-bottom:4px;">Debate</div>
+      <div style="font-size:0.82rem;color:#94a3b8;">토론 — 제안자↔비평가 N라운드 후 판사 결정</div>
+    </a>
+
+    <a href="#f-panel" style="text-decoration:none;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:20px;transition:background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+      <div style="font-size:1.4rem;margin-bottom:8px;">🎙️</div>
+      <div style="font-weight:700;color:#e2e8f0;margin-bottom:4px;">Panel</div>
+      <div style="font-size:0.82rem;color:#94a3b8;">패널 — 전문가 관점별 병렬 분석 후 합성</div>
+    </a>
+
+    <a href="#f-diamond" style="text-decoration:none;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:20px;transition:background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+      <div style="font-size:1.4rem;margin-bottom:8px;">💎</div>
+      <div style="font-weight:700;color:#e2e8f0;margin-bottom:4px;">Diamond</div>
+      <div style="font-size:0.82rem;color:#94a3b8;">다이아몬드 — 분해→병렬→병합→검토 4단계</div>
+    </a>
+
+    <a href="#f-funnel" style="text-decoration:none;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:20px;transition:background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+      <div style="font-size:1.4rem;margin-bottom:8px;">🏆</div>
+      <div style="font-weight:700;color:#e2e8f0;margin-bottom:4px;">Funnel</div>
+      <div style="font-size:0.82rem;color:#94a3b8;">토너먼트 — 라운드마다 탈락 후 최고안 선발</div>
+    </a>
+
+    <a href="#f-star" style="text-decoration:none;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:20px;transition:background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+      <div style="font-size:1.4rem;margin-bottom:8px;">⭐</div>
+      <div style="font-weight:700;color:#e2e8f0;margin-bottom:4px;">Star</div>
+      <div style="font-size:0.82rem;color:#94a3b8;">스타 — 중앙 오케스트레이터가 하위 작업 전체 통합</div>
+    </a>
+
+  </div>
+
+  <!-- ── Case 01: Pipeline ── -->
+  <div id="f-pipeline" style="margin-bottom:56px;padding:32px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+      <span style="font-size:2rem;">🔗</span>
+      <div>
+        <div style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--ac,#7dd3fc);font-weight:700;">Case 01</div>
+        <h3 style="font-size:1.3rem;font-weight:800;color:#f1f5f9;margin:0;">Pipeline — 순차 개선</h3>
+      </div>
+    </div>
+    <p style="color:#cbd5e1;font-size:0.9rem;line-height:1.7;margin-bottom:16px;">
+      여러 에이전트가 <strong>순서대로</strong> 작업을 이어받아 점진적으로 개선합니다. 복잡한 작업을 단계별로 분리해 각 전문 에이전트가 최적화하는 방식입니다.
+    </p>
+    <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:20px;margin-bottom:16px;">
+      <div style="font-size:0.75rem;color:#64748b;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;">실전 사례 — 기술 사양서 작성 → 코드 구현 → 리뷰</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:0.85rem;">
+        <span style="background:#1e3a5f;color:#93c5fd;padding:4px 12px;border-radius:6px;">Claude <span style="opacity:0.7">전략가</span></span>
+        <span style="color:#475569;">→</span>
+        <span style="background:#1a3a2a;color:#6ee7b7;padding:4px 12px;border-radius:6px;">GPT <span style="opacity:0.7">코더</span></span>
+        <span style="color:#475569;">→</span>
+        <span style="background:#3a2a1a;color:#fcd34d;padding:4px 12px;border-radius:6px;">Gemini <span style="opacity:0.7">분석가</span></span>
+        <span style="color:#475569;">→</span>
+        <span style="background:#3a1a1a;color:#fca5a5;padding:4px 12px;border-radius:6px;">Zai <span style="opacity:0.7">챌린저</span></span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.82rem;">
+      <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:8px;padding:12px;">
+        <div style="color:#6ee7b7;font-weight:700;margin-bottom:4px;">✓ 활용 포인트</div>
+        <div style="color:#94a3b8;">다분야 전문 지식이 요구되는 복잡한 프로젝트에 효과적</div>
+      </div>
+      <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:12px;">
+        <div style="color:#fca5a5;font-weight:700;margin-bottom:4px;">⚠ 주의사항</div>
+        <div style="color:#94a3b8;">순차 처리 → 시간 소요. 초기 입력 품질이 전체 결과 좌우</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Case 02: Compete ── -->
+  <div id="f-compete" style="margin-bottom:56px;padding:32px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+      <span style="font-size:2rem;">⚔️</span>
+      <div>
+        <div style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--ac,#7dd3fc);font-weight:700;">Case 02</div>
+        <h3 style="font-size:1.3rem;font-weight:800;color:#f1f5f9;margin:0;">Compete — 경쟁 선발</h3>
+      </div>
+    </div>
+    <p style="color:#cbd5e1;font-size:0.9rem;line-height:1.7;margin-bottom:16px;">
+      여러 에이전트가 <strong>동일한 과제를 동시에</strong> 수행하고, 심판이 최고의 결과를 선택합니다. 다양한 해결책 중 최선을 자동으로 골라냅니다.
+    </p>
+    <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:20px;margin-bottom:16px;">
+      <div style="font-size:0.75rem;color:#64748b;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;">실전 사례 — 최적 SQL 쿼리 작성</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font-size:0.8rem;text-align:center;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:10px;">
+          <div style="color:#93c5fd;font-weight:700;">Claude</div><div style="color:#64748b;font-size:0.75rem;margin-top:2px;">정확성↑ 속도↓</div>
+        </div>
+        <div style="background:rgba(99,200,99,0.15);border:1px solid rgba(99,200,99,0.3);border-radius:8px;padding:10px;">
+          <div style="color:#6ee7b7;font-weight:700;">GPT 🏆</div><div style="color:#64748b;font-size:0.75rem;margin-top:2px;">빠른 실행 선발</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:10px;">
+          <div style="color:#fcd34d;font-weight:700;">Gemini</div><div style="color:#64748b;font-size:0.75rem;margin-top:2px;">통계 추가</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:10px;">
+          <div style="color:#fca5a5;font-weight:700;">Zai</div><div style="color:#64748b;font-size:0.75rem;margin-top:2px;">혁신적↑ 정확성↓</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.82rem;">
+      <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:8px;padding:12px;">
+        <div style="color:#6ee7b7;font-weight:700;margin-bottom:4px;">✓ 활용 포인트</div>
+        <div style="color:#94a3b8;">각 에이전트 강점 파악 + 경쟁을 통한 지속 개선</div>
+      </div>
+      <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:12px;">
+        <div style="color:#fca5a5;font-weight:700;margin-bottom:4px;">⚠ 주의사항</div>
+        <div style="color:#94a3b8;">심판의 평가 기준이 불명확하면 결과 신뢰도 저하</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Case 03: Debate ── -->
+  <div id="f-debate" style="margin-bottom:56px;padding:32px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+      <span style="font-size:2rem;">🗣️</span>
+      <div>
+        <div style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--ac,#7dd3fc);font-weight:700;">Case 03</div>
+        <h3 style="font-size:1.3rem;font-weight:800;color:#f1f5f9;margin:0;">Debate — 제안↔비판 토론</h3>
+      </div>
+    </div>
+    <p style="color:#cbd5e1;font-size:0.9rem;line-height:1.7;margin-bottom:16px;">
+      제안자와 비평가가 N라운드 토론 후 판사가 결정합니다. 복잡한 기술적 선택이나 의사결정에서 다양한 관점을 자동으로 고려합니다.
+    </p>
+    <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:20px;margin-bottom:16px;">
+      <div style="font-size:0.75rem;color:#64748b;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;">실전 사례 — 마이크로서비스 vs 모놀리식 아키텍처</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:0.82rem;">
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span style="background:#1e3a5f;color:#93c5fd;padding:2px 10px;border-radius:4px;font-size:0.75rem;white-space:nowrap;">R1 제안</span>
+          <span style="color:#94a3b8;">마이크로서비스 장점 (확장성·배포 독립성·기술 다양성)</span>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span style="background:#3a1a1a;color:#fca5a5;padding:2px 10px;border-radius:4px;font-size:0.75rem;white-space:nowrap;">R2 반박</span>
+          <span style="color:#94a3b8;">모놀리식 장점 (단순성·성능·통합 용이)</span>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span style="background:#1e3a5f;color:#93c5fd;padding:2px 10px;border-radius:4px;font-size:0.75rem;white-space:nowrap;">R3-4 재반박</span>
+          <span style="color:#94a3b8;">추가 데이터·논거 제시 / 추가 반론</span>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span style="background:#1a3a2a;color:#6ee7b7;padding:2px 10px;border-radius:4px;font-size:0.75rem;white-space:nowrap;">R5 판결</span>
+          <span style="color:#94a3b8;">판사가 양측 최종 주장 종합 → 결정</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.82rem;">
+      <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:8px;padding:12px;">
+        <div style="color:#6ee7b7;font-weight:700;margin-bottom:4px;">✓ 활용 포인트</div>
+        <div style="color:#94a3b8;">복잡한 의사결정, 팀 내 합의점 도출에 최적</div>
+      </div>
+      <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:12px;">
+        <div style="color:#fca5a5;font-weight:700;margin-bottom:4px;">⚠ 주의사항</div>
+        <div style="color:#94a3b8;">편향된 데이터 입력 시 결과 왜곡, 판사 공정성 필수</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Case 04: Panel ── -->
+  <div id="f-panel" style="margin-bottom:56px;padding:32px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+      <span style="font-size:2rem;">🎙️</span>
+      <div>
+        <div style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--ac,#7dd3fc);font-weight:700;">Case 04</div>
+        <h3 style="font-size:1.3rem;font-weight:800;color:#f1f5f9;margin:0;">Panel — 전문가 다각도 분석</h3>
+      </div>
+    </div>
+    <p style="color:#cbd5e1;font-size:0.9rem;line-height:1.7;margin-bottom:16px;">
+      전문 분야별 에이전트가 <strong>병렬</strong>로 동일 주제를 분석하고, 합성기가 통합합니다. 기술·비즈니스·보안 등 다각도 리스크 분석에 탁월합니다.
+    </p>
+    <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:20px;margin-bottom:16px;">
+      <div style="font-size:0.75rem;color:#64748b;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;">실전 사례 — AI 도입 리스크 다각도 분석</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:0.8rem;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:12px;">
+          <div style="color:#93c5fd;font-weight:700;margin-bottom:6px;">🔧 기술 에이전트</div>
+          <div style="color:#94a3b8;">시스템 통합 문제, 데이터 품질</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:12px;">
+          <div style="color:#fcd34d;font-weight:700;margin-bottom:6px;">💼 비즈니스 에이전트</div>
+          <div style="color:#94a3b8;">ROI 불확실성, 시장 변화 민감도</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:12px;">
+          <div style="color:#fca5a5;font-weight:700;margin-bottom:6px;">🔒 보안 에이전트</div>
+          <div style="color:#94a3b8;">데이터 유출, 권한 관리 취약점</div>
+        </div>
+      </div>
+      <div style="margin-top:10px;background:rgba(16,185,129,0.1);border-radius:8px;padding:10px;text-align:center;font-size:0.82rem;color:#6ee7b7;">
+        합성기 → 3가지 관점 종합 → 최적 도입 전략 도출
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.82rem;">
+      <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:8px;padding:12px;">
+        <div style="color:#6ee7b7;font-weight:700;margin-bottom:4px;">✓ 활용 포인트</div>
+        <div style="color:#94a3b8;">병렬 처리로 분석 시간 단축 + 포괄적 시각 확보</div>
+      </div>
+      <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:12px;">
+        <div style="color:#fca5a5;font-weight:700;margin-bottom:4px;">⚠ 주의사항</div>
+        <div style="color:#94a3b8;">에이전트 결과 상충 시 신중한 검토 필요</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Case 05: Diamond ── -->
+  <div id="f-diamond" style="margin-bottom:56px;padding:32px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+      <span style="font-size:2rem;">💎</span>
+      <div>
+        <div style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--ac,#7dd3fc);font-weight:700;">Case 05</div>
+        <h3 style="font-size:1.3rem;font-weight:800;color:#f1f5f9;margin:0;">Diamond — 분해→병렬→병합→검토</h3>
+      </div>
+    </div>
+    <p style="color:#cbd5e1;font-size:0.9rem;line-height:1.7;margin-bottom:16px;">
+      가장 강력한 구성. 복잡한 작업을 <strong>분해 → 병렬 처리 → 병합 → 최종 검토</strong> 4단계로 처리합니다.
+    </p>
+    <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:20px;margin-bottom:16px;">
+      <div style="font-size:0.75rem;color:#64748b;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;">실전 사례 — 포괄적 비즈니스 보고서 작성</div>
+      <div style="display:flex;flex-direction:column;gap:6px;font-size:0.82rem;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="min-width:70px;text-align:center;background:#1e3a5f;color:#93c5fd;padding:4px 8px;border-radius:6px;font-size:0.75rem;">① 분해</span>
+          <span style="color:#94a3b8;">Claude(계획자) → 시장분석 / 재무분석 / 경쟁사분석으로 분할</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="min-width:70px;text-align:center;background:#3a2a1a;color:#fcd34d;padding:4px 8px;border-radius:6px;font-size:0.75rem;">② 병렬</span>
+          <span style="color:#94a3b8;">GPT(코딩·시각화) + Gemini(심층분석) 동시 수행</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="min-width:70px;text-align:center;background:#1a3a2a;color:#6ee7b7;padding:4px 8px;border-radius:6px;font-size:0.75rem;">③ 병합</span>
+          <span style="color:#94a3b8;">모든 결과 통합 → 일관된 보고서 초안 생성</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="min-width:70px;text-align:center;background:#1e3a5f;color:#93c5fd;padding:4px 8px;border-radius:6px;font-size:0.75rem;">④ 검토</span>
+          <span style="color:#94a3b8;">Claude(검토자) → 최종 품질 확인 및 보완</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.82rem;">
+      <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:8px;padding:12px;">
+        <div style="color:#6ee7b7;font-weight:700;margin-bottom:4px;">✓ 활용 포인트</div>
+        <div style="color:#94a3b8;">병렬 효율성 + 전문성 + 검토 품질 모두 확보</div>
+      </div>
+      <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:12px;">
+        <div style="color:#fca5a5;font-weight:700;margin-bottom:4px;">⚠ 주의사항</div>
+        <div style="color:#94a3b8;">하위 작업 간 의존성 최소화 필수. 병합 일관성 확인</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Case 06: Funnel ── -->
+  <div id="f-funnel" style="margin-bottom:56px;padding:32px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+      <span style="font-size:2rem;">🏆</span>
+      <div>
+        <div style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--ac,#7dd3fc);font-weight:700;">Case 06</div>
+        <h3 style="font-size:1.3rem;font-weight:800;color:#f1f5f9;margin:0;">Funnel — 토너먼트 선발</h3>
+      </div>
+    </div>
+    <p style="color:#cbd5e1;font-size:0.9rem;line-height:1.7;margin-bottom:16px;">
+      라운드마다 성능 하위 에이전트를 탈락시켜 <strong>최고안을 자동 선발</strong>합니다. 경쟁력 강화와 최고 품질 도출에 최적입니다.
+    </p>
+    <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:20px;margin-bottom:16px;">
+      <div style="font-size:0.75rem;color:#64748b;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;">실전 사례 — CS 자동화 스크립트 최고안 선발</div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;font-size:0.8rem;">
+        <div style="text-align:center;">
+          <div style="color:#94a3b8;margin-bottom:4px;font-size:0.72rem;">N명 참가</div>
+          <div style="background:rgba(255,255,255,0.08);border-radius:8px;padding:8px 16px;color:#e2e8f0;">🏃🏃🏃🏃🏃</div>
+        </div>
+        <span style="color:#475569;font-size:1.2rem;">→</span>
+        <div style="text-align:center;">
+          <div style="color:#94a3b8;margin-bottom:4px;font-size:0.72rem;">라운드 탈락</div>
+          <div style="background:rgba(255,255,255,0.08);border-radius:8px;padding:8px 16px;color:#e2e8f0;">🏃🏃🏃</div>
+        </div>
+        <span style="color:#475569;font-size:1.2rem;">→</span>
+        <div style="text-align:center;">
+          <div style="color:#94a3b8;margin-bottom:4px;font-size:0.72rem;">최종 챔피언</div>
+          <div style="background:rgba(99,200,99,0.15);border:1px solid rgba(99,200,99,0.3);border-radius:8px;padding:8px 16px;color:#6ee7b7;">🏆 1명</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.82rem;">
+      <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:8px;padding:12px;">
+        <div style="color:#6ee7b7;font-weight:700;margin-bottom:4px;">✓ 활용 포인트</div>
+        <div style="color:#94a3b8;">다양한 아이디어 중 최선 자동 도출. 실전 경험 축적</div>
+      </div>
+      <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:12px;">
+        <div style="color:#fca5a5;font-weight:700;margin-bottom:4px;">⚠ 주의사항</div>
+        <div style="color:#94a3b8;">공정한 심판 기준 필수. 탈락자에게 피드백 제공</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Case 07: Star ── -->
+  <div id="f-star" style="margin-bottom:56px;padding:32px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+      <span style="font-size:2rem;">⭐</span>
+      <div>
+        <div style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--ac,#7dd3fc);font-weight:700;">Case 07</div>
+        <h3 style="font-size:1.3rem;font-weight:800;color:#f1f5f9;margin:0;">Star — 중앙 오케스트레이터</h3>
+      </div>
+    </div>
+    <p style="color:#cbd5e1;font-size:0.9rem;line-height:1.7;margin-bottom:16px;">
+      중앙 에이전트가 전체 작업을 분배하고 결과를 통합합니다. <strong>하위 작업 간 의존성이 낮고 규모가 클 때</strong> 최적입니다.
+    </p>
+    <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:20px;margin-bottom:16px;">
+      <div style="font-size:0.75rem;color:#64748b;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;">실전 사례 — 전사 AI 도입 전략 보고서</div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">
+        <div style="background:#1e3a5f;border-radius:50%;width:52px;height:52px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#93c5fd;font-weight:900;">🤖</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.78rem;">
+          <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:8px 12px;color:#94a3b8;">A: AI 시장 분석</div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:8px 12px;color:#94a3b8;">B: 경쟁사 전략</div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:8px 12px;color:#94a3b8;">C: 내부 역량 평가</div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:8px 12px;color:#94a3b8;">D: 실행 로드맵</div>
+        </div>
+      </div>
+      <div style="margin-top:10px;text-align:center;font-size:0.8rem;color:#64748b;">↑ 중앙 오케스트레이터가 A~D 병렬 분배 후 최종 통합</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.82rem;">
+      <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:8px;padding:12px;">
+        <div style="color:#6ee7b7;font-weight:700;margin-bottom:4px;">✓ 활용 포인트</div>
+        <div style="color:#94a3b8;">병렬 효율 극대화 + 중앙 통제로 일관성 유지</div>
+      </div>
+      <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:12px;">
+        <div style="color:#fca5a5;font-weight:700;margin-bottom:4px;">⚠ 주의사항</div>
+        <div style="color:#94a3b8;">통합 기준 사전 정의 필수. 정보 손실 방지 확인</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary Banner -->
+  <div style="background:linear-gradient(135deg,rgba(125,211,252,0.08),rgba(99,102,241,0.08));border:1px solid rgba(125,211,252,0.2);border-radius:16px;padding:28px;text-align:center;">
+    <div style="font-size:1.1rem;font-weight:800;color:#f1f5f9;margin-bottom:10px;">포메이션 선택 가이드</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;text-align:left;font-size:0.8rem;margin-top:16px;">
+      <div style="color:#94a3b8;"><span style="color:#7dd3fc;font-weight:700;">Pipeline</span> — 단계별 전문화 필요</div>
+      <div style="color:#94a3b8;"><span style="color:#7dd3fc;font-weight:700;">Compete</span> — 최선안 자동 선택</div>
+      <div style="color:#94a3b8;"><span style="color:#7dd3fc;font-weight:700;">Debate</span> — 의사결정 검증</div>
+      <div style="color:#94a3b8;"><span style="color:#7dd3fc;font-weight:700;">Panel</span> — 다관점 분석 필요</div>
+      <div style="color:#94a3b8;"><span style="color:#7dd3fc;font-weight:700;">Diamond</span> — 대규모 복합 작업</div>
+      <div style="color:#94a3b8;"><span style="color:#7dd3fc;font-weight:700;">Funnel</span> — 품질 최고안 선발</div>
+      <div style="color:#94a3b8;"><span style="color:#7dd3fc;font-weight:700;">Star</span> — 병렬 규모 확장</div>
+    </div>
+    <div style="margin-top:16px;font-size:0.8rem;color:#64748b;">출처: <a href="https://github.com/waterfirst/ai-seminar-lab" style="color:#7dd3fc;text-decoration:none;">waterfirst/ai-seminar-lab</a> — AI 멀티에이전트 포메이션 시스템</div>
+  </div>
+
+</section>
+<!-- ============================= /FORMATION SECTION ============================= -->
 
 <!-- SERIES NAV -->
 <div id="series-bar"><span class="s-label">📚 AI 세미나 시리즈</span><a class="s-link" href="./index1.html">1차 세미나</a><span class="s-sep"> | </span><a class="s-link" href="./index2.html">2차 세미나</a><span class="s-sep"> | </span><a class="s-active" href="./index.html">3차 세미나 ★</a></div>
