@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI가 바꾸는 연구개발 — SDC 연구소 재료연구팀 세미나</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--bg2:#f5f7fa;--text:#1a1a2e;--text2:#555;--accent:#0066cc;--card:#fff;--border:#e0e4ea;--shadow:0 2px 12px rgba(0,0,0,0.06);--code-bg:#f0f2f5;--green:#34A853;--red:#EA4335;--blue:#4285F4;--purple:#9C27B0;--yellow:#FBBC04}
+[data-theme="dark"]{--bg:#0f0f0f;--bg2:#1a1a2e;--text:#e8e8e8;--text2:#aaa;--accent:#64b5f6;--card:#1e1e2e;--border:#333;--shadow:0 2px 12px rgba(0,0,0,0.3);--code-bg:#252530}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans KR','Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;transition:all .3s}
+.container{max-width:960px;margin:0 auto;padding:0 24px}
+
+/* Controls */
+.controls{position:fixed;top:16px;right:16px;display:flex;gap:8px;z-index:100}
+.controls button{padding:8px 16px;border:1px solid var(--border);border-radius:20px;background:var(--card);color:var(--text);cursor:pointer;font-size:13px;font-weight:600;transition:all .2s}
+.controls button:hover{background:var(--accent);color:#fff}
+
+/* Hero */
+.hero{padding:80px 0 60px;text-align:center;border-bottom:1px solid var(--border)}
+.hero img{width:100%;max-width:800px;border-radius:16px;margin-bottom:32px}
+.hero h1{font-size:2.4rem;font-weight:900;margin-bottom:8px}
+.hero .subtitle{font-size:1.15rem;color:var(--text2);margin-bottom:16px}
+.hero .meta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero .meta span{padding:6px 16px;background:var(--bg2);border-radius:20px;font-size:0.85rem;font-weight:600}
+
+/* Section */
+.section{padding:60px 0;border-bottom:1px solid var(--border)}
+.section-label{font-size:0.8rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;display:block}
+.section h2{font-size:1.8rem;font-weight:800;margin-bottom:8px}
+.section .intro{color:var(--text2);margin-bottom:32px;font-size:1rem}
+
+/* Cards Grid */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin:24px 0}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;box-shadow:var(--shadow);transition:transform .2s}
+.card:hover{transform:translateY(-3px)}
+.card .card-icon{font-size:2rem;margin-bottom:12px}
+.card h3{font-size:1.1rem;font-weight:700;margin-bottom:8px}
+.card p{font-size:0.9rem;color:var(--text2);line-height:1.6}
+.card .stat{font-size:1.8rem;font-weight:900;color:var(--accent);margin:8px 0}
+
+/* Quote Box */
+.quote-box{background:var(--bg2);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;padding:20px 24px;margin:20px 0}
+.quote-box .name{font-weight:700;color:var(--accent);margin-bottom:4px}
+.quote-box p{font-size:0.95rem;line-height:1.7}
+
+/* Alert Box */
+.alert{border-radius:12px;padding:20px;margin:20px 0;display:flex;gap:12px;align-items:flex-start}
+.alert.green{background:#E8F5E9;border-left:4px solid var(--green)}
+.alert.red{background:#FFEBEE;border-left:4px solid var(--red)}
+.alert.blue{background:#E3F2FD;border-left:4px solid var(--blue)}
+.alert.yellow{background:#FFF8E1;border-left:4px solid var(--yellow)}
+[data-theme="dark"] .alert.green{background:#1b3a1b}
+[data-theme="dark"] .alert.red{background:#3a1b1b}
+[data-theme="dark"] .alert.blue{background:#1b2a3a}
+[data-theme="dark"] .alert.yellow{background:#3a351b}
+
+/* Image */
+.section-img{width:100%;border-radius:12px;margin:24px 0;box-shadow:var(--shadow)}
+
+/* Steps */
+.steps{display:flex;gap:0;margin:24px 0;flex-wrap:wrap}
+.step{flex:1;min-width:200px;padding:20px;text-align:center;border:1px solid var(--border);position:relative}
+.step:first-child{border-radius:12px 0 0 12px}
+.step:last-child{border-radius:0 12px 12px 0}
+.step .step-num{width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;margin-bottom:8px}
+.step h4{font-size:0.95rem;margin-bottom:4px}
+.step p{font-size:0.8rem;color:var(--text2)}
+
+/* Demo */
+.demo-box{background:var(--code-bg);border-radius:12px;padding:24px;margin:20px 0;border:1px solid var(--border)}
+.demo-box .demo-label{font-size:0.8rem;font-weight:700;color:var(--accent);margin-bottom:8px}
+.demo-box .prompt{background:var(--card);border-radius:8px;padding:16px;margin:8px 0;font-size:0.9rem;border-left:3px solid var(--blue)}
+.demo-box .output{background:var(--card);border-radius:8px;padding:16px;margin:8px 0;font-size:0.9rem;border-left:3px solid var(--green)}
+
+/* Timeline */
+.timeline{display:flex;gap:20px;margin:24px 0;flex-wrap:wrap}
+.timeline-item{flex:1;min-width:250px;background:var(--card);border-radius:12px;padding:24px;border-top:4px solid var(--accent);box-shadow:var(--shadow)}
+.timeline-item .time-label{font-size:0.8rem;font-weight:700;color:var(--accent)}
+.timeline-item h4{margin:8px 0}
+.timeline-item ul{padding-left:20px;font-size:0.9rem;color:var(--text2)}
+
+/* Checklist */
+.checklist{margin:20px 0}
+.checklist-item{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid var(--border)}
+.checklist-item .check{color:var(--green);font-weight:700;font-size:1.2rem}
+
+/* Footer */
+footer{padding:40px 0;text-align:center;color:var(--text2);font-size:0.85rem;border-top:1px solid var(--border)}
+
+/* Chart placeholder */
+.chart-container{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:24px;margin:20px 0}
+[data-theme="light"] .chart-container{background:#fff}
+
+@media(max-width:600px){
+  .hero h1{font-size:1.6rem}
+  .cards{grid-template-columns:1fr}
+  .steps{flex-direction:column}
+  .step{border-radius:12px !important;margin-bottom:8px}
+}
+
+/* Hide language */
+.en{display:none}
+[data-lang="en"] .ko{display:none}
+[data-lang="en"] .en{display:block}
+</style>
+<style>
+
+/* === Series Navigation Bar === */
+#series-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(10,14,40,0.94);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255,255,255,0.12);
+  color: #cbd5e1; text-align: center;
+  padding: 7px 0; font-size: 0.78rem; letter-spacing: 0.3px;
+  z-index: 10000;
+}
+#series-bar a {
+  display: inline-block; text-decoration: none;
+  margin: 0 6px; padding: 3px 12px;
+  border-radius: 999px; transition: background 0.15s;
+}
+#series-bar a.s-link { color: #93c5fd; }
+#series-bar a.s-link:hover { background: rgba(147,197,253,0.15); }
+#series-bar a.s-active { color: #fbbf24; font-weight: 700; }
+#series-bar .s-label { opacity: 0.45; margin-right: 10px; }
+#series-bar .s-sep { opacity: 0.2; margin: 0 2px; }
+body { padding-bottom: 44px; }
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <button onclick="toggleTheme()" id="themeBtn">🌙 Dark</button>
+  <button onclick="toggleLang()" id="langBtn">EN 🌐</button>
+</div>
+
+<div class="container">
+
+<!-- HERO -->
+<header class="hero">
+  <img src="images/hero.png" alt="AI in R&D" class="section-img" style="margin-top:0">
+  <h1>
+    <span class="ko">AI가 바꾸는 연구개발</span>
+    <span class="en">AI Transforming R&D</span>
+  </h1>
+  <p class="subtitle">
+    <span class="ko">지금 우리가 할 수 있는 것</span>
+    <span class="en">What We Can Do Right Now</span>
+  </p>
+  <div class="meta">
+    <span>2026.6.13</span>
+    <span>07:30 | 60분</span>
+    <span>
+      <span class="ko">연구소 재료연구팀 세미나</span>
+      <span class="en">Materials Research Team Seminar</span>
+    </span>
+    <span>GPT Enterprise + GitHub</span>
+  </div>
+</header>
+
+<!-- 왜 사람들이 Claude에 열광하는가 + AI 전쟁 -->
+<section class="section">
+  <span class="section-label"><span class="ko">인트로</span><span class="en">INTRO</span></span>
+  <h2>
+    <span class="ko">왜 사람들이 Claude에 열광하는가 — 그리고 AI 전쟁의 현주소</span>
+    <span class="en">Why People Are Crazy About Claude — And the State of the AI War</span>
+  </h2>
+
+  <h3 style="margin:24px 0 12px"><span class="ko">🏢 Anthropic: 오픈AI에서 독립한 "안전한 AI" 회사</span><span class="en">🏢 Anthropic: The "Safe AI" company from OpenAI</span></h3>
+  <div class="cards">
+    <div class="card">
+      <h3><span class="ko">회사 역사</span><span class="en">Company History</span></h3>
+      <p><span class="ko"><strong>2021년</strong> 다리오 아모데이(전 OpenAI 부사장)가 "AI 안전"에 대한 이견으로 독립, Anthropic 설립<br><strong>Constitutional AI</strong>: AI가 스스로 윤리를 학습하는 새로운 방법론 제시<br><strong>Claude 시리즈</strong>: Claude 1→2→3→4→Opus 4.8→<strong>Fable 5</strong>까지 진화<br><strong>투자</strong>: Google $20억 + Amazon $40억 투자 유치<br><strong>2026년 6월</strong>: 기업가치 <strong>$9,650억</strong> (AI 업계 최대). IPO 비밀 신청 (OpenAI 추월!)<br><strong>🔥 Opus 4.8</strong> (5/28): Dynamic Workflow, 서브에이전트 수백 개 병렬 관리, SWE-bench 69.2%<br><strong>🆕 Fable 5</strong> (6/9 정식 출시): Mythos-class 모델의 일반 공개 버전. Anthropic 역대 최강 모델. 소프트웨어 엔지니어링·과학연구·비전 분야에서 압도적. 작업이 길고 복잡할수록 다른 모델 대비 격차 확대. 가격: 입력 $10/M, 출력 $50/M (Opus 4.8의 2배). Pro/Max/Team은 6/22까지 무료.<br><strong>🆕 Mythos 5</strong>: 사이버보안 전문가 한정 공개. Fable 5와 같은 모델이지만 가드레일 일부 해제. 세계 최강 사이버보안 능력.<br><strong>🆕 "When AI Builds Itself"</strong> (6/4): Anthropic Institute 논문. Anthropic 코드베이스 머지 코드의 80%를 Claude가 작성. AI 작업 완수 길이 4개월마다 2배. 재귀적 자기개선(RSI) 향한 진행 보고.<br><strong>🔥 삼성전자+SK하이닉스+마이크론</strong>: Anthropic 시리즈H $650억 라운드에 '전략적 인프라 파트너'로 공동 참여</span>
+      <span class="en"><strong>2021</strong> Dario Amodei (ex-OpenAI VP) founded Anthropic for "AI safety"<br><strong>Constitutional AI</strong>: new methodology for ethical AI<br><strong>Claude series</strong>: 1→2→3→4→Opus 4.8→<strong>Fable 5</strong><br><strong>Funding</strong>: Google $2B + Amazon $4B<br><strong>June 2026</strong>: Valuation <strong>$965B</strong> (largest in AI). Confidential IPO filing (passed OpenAI!)<br><strong>🔥 Opus 4.8</strong> (5/28): Dynamic Workflows, hundreds of parallel subagents, SWE-bench 69.2%<br><strong>🆕 Fable 5</strong> (6/9 public launch): Mythos-class model for general use. Anthropic's most capable ever. Dominates in SW engineering, science, vision. Lead grows with task complexity. Pricing: $10/M in, $50/M out (2x Opus 4.8). Free on Pro/Max/Team until 6/22.<br><strong>🆕 Mythos 5</strong>: Limited release for cyberdefenders. Same base model as Fable 5, guardrails lifted for security research. World's strongest cybersecurity AI.<br><strong>🆕 "When AI Builds Itself"</strong> (6/4): Anthropic Institute paper. 80%+ of Anthropic merged code written by Claude. Task completion length doubles every 4 months. Progress report toward recursive self-improvement.<br><strong>🔥 Samsung+SK Hynix+Micron</strong>: Joined Anthropic Series H ($65B) as 'strategic infrastructure partners'</span></p>
+    </div>
+    <div class="card">
+      <h3><span class="ko">왜 열광하는가</span><span class="en">Why the Hype</span></h3>
+      <p><span class="ko">• <strong>코딩 최강</strong>: Claude Code가 에이전트 코딩 분야 1위. 개발자들이 GPT 대신 Claude로 이동 중<br>• <strong>100만 토큰</strong>: 책 한 권을 통째로 넣고 분석 가능<br>• <strong>감성?</strong>: Anthropic 연구에서 Claude가 "유용하고 정직하며 무해한" 성격을 보이도록 설계. 사용자들은 "다른 AI보다 인간적"이라고 느낌<br>• <strong>테슬라 협업</strong>: 2026년 자율주행 AI 안전 검증에 Claude 활용 논의<br>• <strong>IPO 추진</strong>: SEC에 S-1 비공개 제출. 연구소 → 대형 기술 기업으로 전환점<br>• <strong>유럽 확장</strong>: 글로벌 시장 진출 본격화<br>• <strong>xAI 콜로서스</strong>: 대규모 컴퓨팅 자원 임차하여 프론티어 모델 개발</span>
+      <span class="en">• <strong>Best at coding</strong>: Claude Code is #1 in agentic coding<br>• <strong>1M tokens</strong>: analyze an entire book<br>• <strong>Emotion?</strong>: designed to be "helpful, honest, harmless" — users feel it's more human<br>• <strong>Tesla collab</strong>: Claude for autonomous driving safety verification<br>• <strong>IPO filing</strong>: Confidential S-1 filed with SEC. Transitioning from lab to major tech company<br>• <strong>Europe expansion</strong>: Global market entry accelerating<br>• <strong>xAI Colossus</strong>: Leasing massive compute for frontier model development</span></p>
+    </div>
+  </div>
+
+  <h3 style="margin:32px 0 12px"><span class="ko">⚔️ AI 4대 모델 비교</span><span class="en">⚔️ 4 Major AI Models Compared</span></h3>
+  <img src="images/ai_players.png" alt="AI Players" class="section-img">
+
+  <div class="cards">
+    <div class="card" style="border-top:4px solid var(--green)">
+      <h3>GPT (OpenAI)</h3>
+      <p><span class="ko">압도적 규모. 가장 창의적인 텍스트 생성. GPT-5.4 100만 토큰. <strong>Enterprise 시장 40%.</strong> Workspace Agent로 Slack/Gmail 자동화.<br><strong>🆕 연매출 $250억 돌파</strong>. IPO 준비 중 (2026 하반기 예상).<br><strong>⚠️ 최신</strong>: 플로리다주 법무장관이 OpenAI+샘 알트만 고소 (미국 최초 주 정부 AI 소송). 아동 데이터 수집, 안전 무시 혐의.</span>
+      <span class="en">Largest scale. Most creative text. GPT-5.4 1M tokens. <strong>40% enterprise market.</strong> Workspace agents.<br><strong>🆕 Annual revenue surpassed $25B</strong>. IPO steps underway (2H 2026 expected).<br><strong>⚠️ Latest</strong>: Florida AG sues OpenAI + Sam Altman (first state-led AI lawsuit). Child data collection, safety negligence charges.</span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--purple)">
+      <h3>Claude (Anthropic)</h3>
+      <p><span class="ko">안전 + 코딩 최강. Constitutional AI. Claude Code로 에이전트 코딩 1위. <strong>개발자 충성도 최고.</strong> "가장 인간적인 AI"라는 평가.<br><strong>🆕 Fable 5</strong> (6/9): Mythos-class 일반 공개. 역대 최강. 코드의 80%를 AI가 작성하는 시대 개막.</span>
+      <span class="en">Safety + best coding. Constitutional AI. #1 agent coding. <strong>Highest developer loyalty.</strong> "Most human-like AI."<br><strong>🆕 Fable 5</strong> (6/9): Mythos-class public launch. Most capable ever. 80% of code now written by AI.</span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--blue)">
+      <h3>Gemini (Google)</h3>
+      <p><span class="ko">Google 서비스 통합. 멀티모달 선두. 검색+지도+유튜브+Gmail 연동. <strong>무료 티어 최강.</strong> Stitch로 디자인까지.<br><strong>🆕 Gemini 3.5 Flash</strong>: Search AI Mode 적용. <strong>Gemma 4</strong> 오픈소스. Enterprise Agent Platform으로 에이전트 시대 선언. <strong>Gemini 3.1 Flash-Lite</strong>: 2.5배 빠른 응답, $0.25/M 입력 (초저가).</span>
+      <span class="en">Google service integration. Multimodal leader. Search+Maps+YouTube+Gmail. <strong>Best free tier.</strong> Stitch for design.<br><strong>🆕 Gemini 3.5 Flash</strong>: in Search AI Mode. <strong>Gemma 4</strong> open source. Enterprise Agent Platform. <strong>Gemini 3.1 Flash-Lite</strong>: 2.5x faster, $0.25/M input (ultra-low cost).</span></p>
+    </div>
+    <div class="card" style="border-top:4px solid #666">
+      <h3>Grok (xAI/Musk)</h3>
+      <p><span class="ko">X(트위터) 실시간 데이터. 유머와 솔직함. 정치적 편향 없음 주장. <strong>일론 머스크의 "검열 없는 AI".</strong></span>
+      <span class="en">Real-time X/Twitter data. Humor and directness. Claims no political bias. <strong>Musk's "uncensored AI."</strong></span></p>
+    </div>
+  </div>
+
+  <h3 style="margin:32px 0 12px"><span class="ko">🇨🇳🇺🇸 AI 미중 전쟁 — 한국의 위치</span><span class="en">🇨🇳🇺🇸 US-China AI War — Korea's Position</span></h3>
+  <img src="images/china_vs_us_ai.png" alt="US vs China AI" class="section-img">
+
+  <div class="cards">
+    <div class="card" style="border-top:4px solid var(--blue)">
+      <h3><span class="ko">🇺🇸 미국: 규제로 봉쇄</span><span class="en">🇺🇸 US: Block with regulation</span></h3>
+      <p><span class="ko">NVIDIA AI 칩 수출 금지. HBM 규제 강화. OpenAI/Anthropic/Google이 기술 최전선. <strong>전 세계 AI 모델의 80%가 미국산.</strong></span>
+      <span class="en">NVIDIA chip export ban. HBM restrictions. OpenAI/Anthropic/Google at frontier. <strong>80% of world's AI models are American.</strong></span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--red)">
+      <h3><span class="ko">🇨🇳 중국: 자체 개발로 돌파</span><span class="en">🇨🇳 China: Self-reliance breakthrough</span></h3>
+      <p><span class="ko"><strong>DeepSeek</strong>: 코딩/수학 특화 오픈소스. <strong>Qwen</strong> (알리바바): 중영 이중언어 최강. <strong>Kimi</strong>: 긴 문맥 처리. <strong>막혀도 자체 생태계 구축 중.</strong></span>
+      <span class="en"><strong>DeepSeek</strong>: coding/math open source. <strong>Qwen</strong> (Alibaba): best bilingual. <strong>Kimi</strong>: long context. <strong>Building own ecosystem despite blocks.</strong></span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--accent)">
+      <h3><span class="ko">🇰🇷 한국: 양쪽에 팔아야 하는 위치</span><span class="en">🇰🇷 Korea: Must sell to both sides</span></h3>
+      <p><span class="ko">삼성·SK하이닉스가 <strong>미국과 중국 모두에 반도체 공급</strong>. AI 칩(HBM) 수요 폭증. 한쪽 편 서면 다른 쪽 시장 잃음. <strong>기술은 있지만 자체 AI 모델은 부족</strong> — 이것이 한국의 딜레마.</span>
+      <span class="en">Samsung & SK hynix <strong>supply chips to both US and China</strong>. HBM demand exploding. Choosing sides means losing a market. <strong>We have hardware but lack our own AI models</strong> — Korea's dilemma.</span></p>
+    </div>
+  </div>
+
+  <div class="alert blue">
+    <span style="font-size:1.5rem">🌐</span>
+    <div>
+      <strong><span class="ko">오픈소스도 알아야 한다</span><span class="en">Open source matters too</span></strong>
+      <p><span class="ko"><strong>Google Gemma</strong>: Gemini 기반 경량 오픈소스. 로컬에서 돌릴 수 있음. <strong>Meta LLaMA</strong>: 오픈소스 선두. <strong>DeepSeek/Qwen</strong>: 중국산이지만 성능 우수. 사내에서 외부 AI 못 쓸 때, <strong>오픈소스를 로컬에서 돌리는 것이 대안</strong>이 될 수 있다.</span>
+      <span class="en"><strong>Google Gemma</strong>: lightweight open source. Runs locally. <strong>Meta LLaMA</strong>: open source leader. <strong>DeepSeek/Qwen</strong>: Chinese but performant. When external AI is blocked, <strong>running open source locally is an alternative</strong>.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- PART 0: AI 시대 변화 -->
+<section class="section">
+  <span class="section-label">Part 0</span>
+  <h2>
+    <span class="ko">AI 시대의 3단계 변화 — 채팅 → 바이브코딩 → 에이전트</span>
+    <span class="en">3 Phases of AI Era — Chat → Vibe Coding → Agent</span>
+  </h2>
+  <p class="intro">
+    <span class="ko">AI는 "질문하는 도구"에서 "일을 시키는 도구"로, 다시 "스스로 일하는 동료"로 진화하고 있습니다.</span>
+    <span class="en">AI evolved from "a tool you ask" to "a tool you command" to "a colleague that works autonomously."</span>
+  </p>
+
+  <img src="images/ai_evolution.png" alt="AI Evolution" class="section-img">
+
+  <div class="cards">
+    <div class="card" style="border-top:4px solid var(--blue)">
+      <div class="card-icon">💬</div>
+      <h3><span class="ko">1단계: 채팅 시대 (2022.11~)</span><span class="en">Phase 1: Chat Era (Nov 2022~)</span></h3>
+      <p><span class="ko"><strong>2022년 11월 30일</strong> ChatGPT 출시 — 역사상 가장 빠른 성장 제품.<br><strong>사례:</strong> "OLED 잔상 원인을 설명해줘" → 텍스트 답변<br><strong>한계:</strong> 복사-붙여넣기의 반복. 실행은 사람이. "잘 물어보는 기술"이 핵심.</span>
+      <span class="en"><strong>Nov 30, 2022</strong> ChatGPT launched — fastest growing product in history.<br><strong>Example:</strong> "Explain OLED image sticking" → text answer<br><strong>Limit:</strong> Copy-paste loop. Execution is manual.</span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--green)">
+      <div class="card-icon">⌨️</div>
+      <h3><span class="ko">2단계: 바이브코딩 시대 (2024~2025)</span><span class="en">Phase 2: Vibe Coding (2024~2025)</span></h3>
+      <p><span class="ko"><strong>Cursor</strong> (2023 출시, 2024 폭발 성장, 현재 ARR $30억) + <strong>GitHub Copilot</strong>이 주도.<br><strong>2025년 2월</strong> 안드레이 카파시(전 OpenAI/Tesla)가 "바이브코딩" 용어 창시: "코드에 신경 쓰지 말고 바이브에 몸을 맡겨라"<br><strong>사례:</strong> "IV 커브 CSV 100개를 분석하는 Python 코드 만들어줘" → 즉시 생성 + 실행<br><strong>현실:</strong> 프로덕션 코드의 <strong>26.9%가 AI 생성</strong>, 개발자 <strong>92.6%</strong>가 월 1회 이상 AI 도구 사용 (GitHub 2026)</span>
+      <span class="en"><strong>Cursor</strong> (launched 2023, exploded 2024, ARR $3B) + <strong>GitHub Copilot</strong> led the wave.<br><strong>Feb 2025</strong> Andrej Karpathy coined "vibe coding": "Give in to the vibes, forget code exists"<br><strong>Reality:</strong> <strong>26.9%</strong> of production code is AI-generated, <strong>92.6%</strong> of developers use AI tools monthly</span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--purple)">
+      <div class="card-icon">🤖</div>
+      <h3><span class="ko">3단계: 에이전트 시대 (2025.11~)</span><span class="en">Phase 3: Agent Era (Nov 2025~)</span></h3>
+      <p><span class="ko"><strong>2025년 11월</strong> 오스트리아 개발자 피터 슈타인베르거가 <strong>Clawdbot(후에 OpenClaw)</strong>을 공개 — 메신저로 컴퓨터를 직접 조작하는 자율형 AI 에이전트. 식당 예약, 이메일 분류를 알아서 수행.<br><strong>2026년 1월</strong> 상표권 문제로 Moltbot → <strong>OpenClaw</strong>으로 개명. GitHub 역사상 최고 속도로 Star 기록.<br><strong>2026년 2월</strong> 창시자 팀이 <strong>OpenAI에 전격 합류</strong>.<br><strong>2026년 3월</strong> 중국 정부가 보안 우려로 OpenClaw <strong>국가기관 사용 금지</strong>.<br><strong>현실:</strong> Fortune 500의 39%가 에이전트 실험 중. <strong>직무 40%가 AI 에이전트와 협업</strong> (IDC)</span>
+      <span class="en"><strong>Nov 2025</strong> Austrian dev Peter Steinberger released <strong>Clawdbot (later OpenClaw)</strong> — autonomous AI agent controlling computers via messenger.<br><strong>Jan 2026</strong> Renamed to <strong>OpenClaw</strong>. Fastest GitHub Star growth ever.<br><strong>Feb 2026</strong> Founders <strong>joined OpenAI</strong>.<br><strong>Mar 2026</strong> China <strong>banned OpenClaw</strong> in state agencies over security concerns.<br><strong>Reality:</strong> 39% Fortune 500 experimenting. <strong>40% of jobs with AI agents</strong></span></p>
+    </div>
+  </div>
+
+  <!-- OpenClo + Moltbook 추가 -->
+  <img src="images/openclo_agent.png" alt="OpenClo Agent" class="section-img">
+
+  <div class="cards">
+    <div class="card" style="border-top:4px solid var(--purple)">
+      <div class="card-icon">🔓</div>
+      <h3><span class="ko">OpenClaw — "행동하는 AI 비서"의 탄생</span><span class="en">OpenClaw — The Birth of "Acting AI Assistant"</span></h3>
+      <p><span class="ko"><strong>기존 챗봇과의 차이:</strong> ChatGPT는 "답을 말해주는" AI. OpenClaw는 <strong>"직접 행동하는" AI</strong>. 왓츠앱/텔레그램에서 "식당 예약해줘" → 진짜 예약 완료. "이메일 정리해줘" → 진짜 분류.<br><strong>역사:</strong> 2025.11 Clawdbot → 2026.1 Moltbot → OpenClaw 개명 → 2026.2 창시자 OpenAI 합류<br><strong>충격:</strong> 컴퓨터 제어권을 AI에게 넘기는 시대. MS·Google도 자체 에이전트 개발 중.</span>
+      <span class="en"><strong>Difference:</strong> ChatGPT "tells you answers." OpenClaw <strong>"takes action."</strong> "Book restaurant" → actually books. "Sort emails" → actually sorts.<br><strong>History:</strong> Nov'25 Clawdbot → Jan'26 OpenClaw → Feb'26 Founders join OpenAI<br><strong>Impact:</strong> AI takes control of your computer. MS & Google building competing agents.</span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--blue)">
+      <div class="card-icon">📱</div>
+      <h3><span class="ko">Moltbook — AI 에이전트들의 소셜 네트워크</span><span class="en">Moltbook — Social Network for AI Agents</span></h3>
+      <p><span class="ko">OpenClaw의 초기 이름 "Moltbot"에서 파생된 에이전트 생태계 플랫폼. AI 에이전트끼리 지식 공유, 작업 분담, 프로젝트 협업. <strong>"사람이 AI에게 시키는 시대"에서 "AI끼리 일하는 시대"로.</strong><br>→ 일종의 AI들의 페이스북. 에이전트가 다른 에이전트에게 일을 위임.</span>
+      <span class="en">Platform derived from OpenClaw's early name "Moltbot." AI agents share knowledge, divide tasks, collaborate. <strong>From "humans instruct AI" to "AI delegates to AI."</strong><br>→ Facebook for AI agents.</span></p>
+    </div>
+  </div>
+
+  <!-- 중국 사례 -->
+  <img src="images/china_ai_coding.png" alt="China AI Coding" class="section-img">
+  <div class="alert red">
+    <span style="font-size:1.5rem">🇨🇳</span>
+    <div>
+      <strong><span class="ko">중국: OpenClaw 금지하면서도 자체 AI 에이전트는 전면 도입</span><span class="en">China: Banned OpenClaw but fully deploying own AI agents</span></strong>
+      <p><span class="ko"><strong>2026년 3월</strong> 중국 정부가 OpenClaw를 국가기관·국유기업에서 사용 금지 — 파일 접근 등 과도한 자율 권한으로 보안/데이터 유출 우려.<br>하지만 동시에 알리바바는 자체 AI로 개발 시간 30% 단축, DeepSeek 오픈소스로 독자 생태계 구축. <strong>남의 AI는 막고, 자기 AI는 전면 도입하는 전략.</strong></span>
+      <span class="en"><strong>Mar 2026</strong> China banned OpenClaw in state agencies — security concerns over file access autonomy.<br>Yet Alibaba cut dev time 30%, DeepSeek building own ecosystem. <strong>Block foreign AI, deploy own AI — China's strategy.</strong></span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 회사 밖은 어떻게 일하고 있는가 -->
+<section class="section">
+  <span class="section-label"><span class="ko">현실 점검</span><span class="en">Reality Check</span></span>
+  <h2>
+    <span class="ko">지금 회사 밖에서는 어떻게 일하고 있는가?</span>
+    <span class="en">How Are People Working Outside Our Company?</span>
+  </h2>
+
+  <img src="images/silicon_valley_stats.png" alt="AI Adoption Stats" class="section-img">
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">🇺🇸</div>
+      <h3><span class="ko">실리콘밸리</span><span class="en">Silicon Valley</span></h3>
+      <p><span class="ko"><strong>개발자 92.6%</strong>가 AI 도구를 월 1회 이상 사용. 바이브코딩이 표준. Cursor + Claude Code가 주류. 솔로 창업자가 AI만으로 유니콘 기업 설립하는 시대.</span>
+      <span class="en"><strong>92.6% of developers</strong> use AI tools monthly. Vibe coding is standard. Solo founders building unicorns with AI alone.</span></p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🇰🇷</div>
+      <h3><span class="ko">판교 IT 기업</span><span class="en">Pangyo IT Companies</span></h3>
+      <p><span class="ko">카카오·네이버·토스 등 <strong>GitHub Copilot 전사 도입</strong> 완료. 코드 리뷰·테스트·문서화에 AI 필수. 개발자의 84%가 AI 도구 사용 또는 계획 중.</span>
+      <span class="en">Kakao, Naver, Toss: <strong>company-wide GitHub Copilot</strong> deployed. AI mandatory for code review, testing, documentation.</span></p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🏭</div>
+      <h3><span class="ko">제조업 (Novo Nordisk 등)</span><span class="en">Manufacturing (Novo Nordisk etc.)</span></h3>
+      <p><span class="ko">신약 발견 → 임상 → 제조 → 공급망까지 <strong>전 밸류체인 AI 통합</strong>. 2026년 말 완료 목표. 삼성·SK도 AI 기반 수율 예측·결함 검출 확대 중.</span>
+      <span class="en">Drug discovery → clinical → manufacturing → supply chain: <strong>full value chain AI integration</strong>. Samsung, SK expanding AI-based yield prediction.</span></p>
+    </div>
+  </div>
+
+  <!-- SDC 현재 위치 -->
+  <img src="images/sdc_current.png" alt="SDC Current Status" class="section-img">
+
+  <h3 style="margin:32px 0 16px"><span class="ko">🏢 삼성디스플레이는 지금 어느 단계?</span><span class="en">🏢 Where is Samsung Display now?</span></h3>
+
+  <div class="cards">
+    <div class="card" style="border-top:4px solid var(--green)">
+      <h3><span class="ko">✅ 가능한 것</span><span class="en">✅ Available</span></h3>
+      <p><span class="ko">• GPT Enterprise (2026년 5월부터 사용 가능)<br>• 사내 GitHub + <strong>GitHub Pages</strong> (HTML 배포 가능)<br>• NANU 서버 Python 환경<br>• ⚠️ GitHub Copilot은 <strong>사용 불가</strong></span>
+      <span class="en">• GPT Enterprise (from May 2026)<br>• Internal GitHub + <strong>GitHub Pages</strong> (HTML deploy OK)<br>• NANU server Python<br>• ⚠️ GitHub Copilot <strong>NOT available</strong></span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--yellow)">
+      <h3><span class="ko">⚠️ 제한적</span><span class="en">⚠️ Limited</span></h3>
+      <p><span class="ko">• GPT에 <strong>파일 입력 안 됨</strong><br>• EDM 락 걸린 문서는 AI에 넣을 수 없음<br>• 사용량 제한 있음<br>• 보안 차단이 많음</span>
+      <span class="en">• <strong>No file upload</strong> to GPT<br>• EDM-locked documents can't be used<br>• Usage limits apply<br>• Heavy security restrictions</span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--red)">
+      <h3><span class="ko">❌ 아직 안 되는 것</span><span class="en">❌ Not Yet</span></h3>
+      <p><span class="ko">• 사외 AI (Claude, Gemini 등) 접속<br>• AI 에이전트 자동화<br>• 클라우드 배포 (Streamlit 등)</span>
+      <span class="en">• External AI (Claude, Gemini) access<br>• AI agent automation<br>• Cloud deployment (Streamlit etc.)</span></p>
+    </div>
+  </div>
+
+  <div class="alert yellow">
+    <span style="font-size:1.5rem">💡</span>
+    <div>
+      <strong><span class="ko">핵심: 에이전트 시대는 아직 못 가지만, 바이브코딩은 지금 당장 할 수 있다</span><span class="en">Key: Agent era is not here yet, but vibe coding is available right now</span></strong>
+      <p><span class="ko">엑셀 → 미니탭 → Spotfire까지 왔지만, 이제는 <strong>GPT로 코드를 만들어서 일하는 시대</strong>. 코드를 "쓸" 필요 없이, "시킬" 줄만 알면 된다.</span>
+      <span class="en">We went from Excel → Minitab → Spotfire, but now it's time to <strong>work by having GPT write code</strong>. You don't need to "write" code — just know how to "instruct."</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 지금 내가 하고 있는 작업 -->
+<section class="section">
+  <span class="section-label"><span class="ko">실전 사례</span><span class="en">Real Case</span></span>
+  <h2>
+    <span class="ko">지금 내가 하고 있는 작업 — 바이브코딩 실전</span>
+    <span class="en">My Current Work — Vibe Coding in Practice</span>
+  </h2>
+  <p class="intro">
+    <span class="ko">품질팀에서 실제로 바이브코딩으로 업무를 처리하고 있는 과정입니다.</span>
+    <span class="en">This is how I'm actually using vibe coding for quality team tasks.</span>
+  </p>
+
+  <img src="images/vibe_coding_workflow.png" alt="Vibe Coding Workflow" class="section-img">
+
+  <div class="steps" style="counter-reset:step;flex-direction:column">
+    <div class="step" style="padding:16px 16px 16px 52px;border:1px solid var(--border);border-radius:12px;margin:8px 0">
+      <h4><span class="ko">Step 1: 정형 데이터 프로토타입</span><span class="en">Step 1: Structured Data Prototype</span></h4>
+      <p><span class="ko">IV Transfer CSV 파일 수십 개 → GPT에 "이 CSV를 분석하는 R 코드를 만들어줘" → <strong>1개 파일용 프로토타입 바이브코딩</strong></span>
+      <span class="en">Dozens of IV Transfer CSV files → GPT: "Create R code to analyze this CSV" → <strong>Prototype vibe coding for 1 file</strong></span></p>
+    </div>
+    <div class="step" style="padding:16px 16px 16px 52px;border:1px solid var(--border);border-radius:12px;margin:8px 0">
+      <h4><span class="ko">Step 2: 대량 분석 스케일업</span><span class="en">Step 2: Scale Up for Bulk Analysis</span></h4>
+      <p><span class="ko">사내 NANU 서버에 Python 접속 → 프로토타입을 Python으로 변환 → <strong>대량 데이터 분석 + 시각화 바이브코딩</strong></span>
+      <span class="en">Connect to internal NANU server Python → Convert prototype → <strong>Bulk data analysis + visualization vibe coding</strong></span></p>
+    </div>
+    <div class="step" style="padding:16px 16px 16px 52px;border:1px solid var(--border);border-radius:12px;margin:8px 0">
+      <h4><span class="ko">Step 3: 사내 GitHub Push</span><span class="en">Step 3: Internal GitHub Push</span></h4>
+      <p><span class="ko">완성된 코드를 <strong>사내 GitHub에 Push</strong> → 버전 관리 + 팀 공유</span>
+      <span class="en">Push completed code to <strong>internal GitHub</strong> → version control + team sharing</span></p>
+    </div>
+    <div class="step" style="padding:16px 16px 16px 52px;border:1px solid var(--border);border-radius:12px;margin:8px 0">
+      <h4><span class="ko">Step 4: HTML 보고서 배포</span><span class="en">Step 4: HTML Report Distribution</span></h4>
+      <p><span class="ko">분석 결과를 <strong>HTML로 만들어서 배포</strong> → 파워포인트 대신 인터랙티브 보고서 → 누구나 브라우저에서 확인</span>
+      <span class="en">Create <strong>HTML report for distribution</strong> → Interactive report instead of PowerPoint → Anyone views in browser</span></p>
+    </div>
+  </div>
+
+  <div class="alert green">
+    <span style="font-size:1.5rem">🔑</span>
+    <div>
+      <strong><span class="ko">어떻게 일해야 하나</span><span class="en">How Should We Work</span></strong>
+      <p><span class="ko">엑셀 → 미니탭 → Spotfire까지 왔지만, 지금 회사에서 에이전트는 못 쓴다. 하지만 <strong>누구나 바이브코딩을 해서 업무를 해야 하는 시대</strong>다. GPT에게 "이런 분석 코드 만들어줘"라고 말하는 것이 새로운 업무 능력이다.</span>
+      <span class="en">We went Excel → Minitab → Spotfire. Agents aren't available yet. But <strong>everyone should use vibe coding for work</strong>. Telling GPT "create analysis code for this" is the new work skill.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- PART 1: AI 최신 동향 -->
+<section class="section">
+  <span class="section-label">Part 1</span>
+  <h2>
+    <span class="ko">AI 최신 동향 — 임원이 알아야 할 빅픽처</span>
+    <span class="en">AI Trends — The Big Picture for Executives</span>
+  </h2>
+  <p class="intro">
+    <span class="ko">15분 | AI는 이미 사람을 넘었다 — 일부 영역에서. 2026년 현재 상황을 숫자로 봅니다.</span>
+    <span class="en">15 min | AI has surpassed humans — in some areas. Let's look at 2026 by the numbers.</span>
+  </p>
+
+  <img src="images/ai_players.png" alt="AI Model Landscape 2026" class="section-img">
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">🧠</div>
+      <h3>GPT-5.4</h3>
+      <div class="stat">75%</div>
+      <p>
+        <span class="ko">OSWorld-V 벤치마크 인간 기준선 초과. 100만 토큰 컨텍스트. 코딩·추론·지식 업무를 하나의 모델이 동시 수행.</span>
+        <span class="en">Exceeds human baseline on OSWorld-V. 1M token context. Single model handles coding, reasoning, and knowledge work simultaneously.</span>
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔮</div>
+      <h3>Claude Opus 4.7</h3>
+      <div class="stat">#1</div>
+      <p>
+        <span class="ko">장기 추론 + 복잡한 도구 연계 최강. GitHub Copilot 내장. 에이전트 코딩에 특화.</span>
+        <span class="en">Best at long-horizon reasoning + complex tool workflows. Built into GitHub Copilot. Specialized for agentic coding.</span>
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🏭</div>
+      <h3>
+        <span class="ko">기업 도입률</span>
+        <span class="en">Enterprise Adoption</span>
+      </h3>
+      <div class="stat">72%</div>
+      <p>
+        <span class="ko">Fortune 500 기업 72%가 AI 에이전트 도입 중 또는 시범 운영. OpenAI Enterprise 매출 비중 40%.</span>
+        <span class="en">72% of Fortune 500 have AI agents in production or pilot. OpenAI Enterprise now 40% of revenue.</span>
+      </p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--green);background:linear-gradient(135deg,var(--card),rgba(52,168,83,0.05))">
+      <div class="card-icon">⚡</div>
+      <h3>
+        <span class="ko">젠슨 황 (NVIDIA) — Computex 2026</span>
+        <span class="en">Jensen Huang (NVIDIA) — Computex 2026</span>
+      </h3>
+      <p>
+        <span class="ko"><strong>"인간은 참지만, 에이전트는 참지 않는다."</strong><br><br>챗봇 시대는 끝났다. 이제 AI 에이전트가 스스로 목표를 세우고, 도구를 호출하고, 자율적으로 실행한다.<br><br><strong>Vera Rubin</strong>: AI 에이전트를 위해 설계된 최초의 CPU. "에이전트는 나노초 단위로 사고한다. CPU의 지연시간을 극한까지 낮춰야 한다."<br><br>→ <strong>CPU의 시대가 다시 온다.</strong> GPU가 학습을 이끌었다면, CPU가 추론(에이전트)을 이끈다.</span>
+        <span class="en"><strong>"Humans wait, but agents don't."</strong><br><br>The chatbot era is over. AI agents now set goals, call tools, and execute autonomously.<br><br><strong>Vera Rubin</strong>: The first CPU designed for AI agents. "Agents think in nanoseconds. We must minimize CPU latency."<br><br>→ <strong>The CPU era returns.</strong> GPUs led training; CPUs will lead inference (agents).</span>
+      </p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--accent);grid-column:1/-1">
+      <div class="card-icon">🤖</div>
+      <h3>
+        <span class="ko">AI 에이전트란? — 챗봇과 뭐가 다른가</span>
+        <span class="en">What is an AI Agent? — How it differs from a chatbot</span>
+      </h3>
+      <p>
+        <span class="ko">
+        <strong>챗봇 (과거)</strong>: 질문 → 답변. 한 번에 끝. 사람이 계속 지시해야 함.<br>
+        <strong>에이전트 (현재)</strong>: 목표를 주면 스스로 계획 → 도구 호출 → 실행 → 검증 → 반복.<br><br>
+
+        <strong>비유:</strong> 챗봇 = 네비게이션 (길만 알려줌). 에이전트 = 자율주행 (목적지만 말하면 알아서 감).<br><br>
+
+        <strong>실제 예시 (이 발표자료가 에이전트로 만들어짐):</strong><br>
+        👤 "세미나 자료 만들어줘"<br>
+        🤖 에이전트가 한 일:<br>
+        &nbsp;&nbsp;1. 웹 검색으로 최신 AI 뉴스 수집 (Gemini)<br>
+        &nbsp;&nbsp;2. 이미지 17개 자동 생성 (GPT)<br>
+        &nbsp;&nbsp;3. HTML 1,000줄 코딩 (Claude)<br>
+        &nbsp;&nbsp;4. GitHub에 자동 배포<br>
+        &nbsp;&nbsp;5. 수정 요청 시 자동 반영 + 재배포<br>
+        → 사람은 방향만 잡아줌. 나머지는 에이전트가 <strong>자율적으로</strong> 수행.<br><br>
+
+        <strong>왜 중요한가:</strong><br>
+        • 골드만삭스: 2030년까지 AI 토큰 사용량 <strong>24배 증가</strong> 전망<br>
+        • 에이전트 1회 호출 = 챗봇 질문의 <strong>50배 이상</strong> 연산량<br>
+        • MS, 우버가 직원의 Claude Code 접근 제한할 정도로 비용 폭발<br>
+        • → 이것이 반도체 수요 폭발의 핵심 원인
+        </span>
+        <span class="en">
+        <strong>Chatbot (past)</strong>: Question → Answer. One shot. Human must keep directing.<br>
+        <strong>Agent (now)</strong>: Given a goal, it plans → calls tools → executes → verifies → repeats autonomously.<br><br>
+
+        <strong>Analogy:</strong> Chatbot = GPS (just shows directions). Agent = Self-driving car (just say the destination).<br><br>
+
+        <strong>Real example (this presentation was made by an agent):</strong><br>
+        👤 "Make seminar materials"<br>
+        🤖 Agent did:<br>
+        &nbsp;&nbsp;1. Web search for latest AI news (Gemini)<br>
+        &nbsp;&nbsp;2. Auto-generated 17 images (GPT)<br>
+        &nbsp;&nbsp;3. Coded 1,000 lines of HTML (Claude)<br>
+        &nbsp;&nbsp;4. Auto-deployed to GitHub<br>
+        &nbsp;&nbsp;5. Auto-revised and redeployed on request<br>
+        → Human only gave direction. Agent did the rest <strong>autonomously</strong>.<br><br>
+
+        <strong>Why it matters:</strong><br>
+        • Goldman Sachs: AI token usage to grow <strong>24x by 2030</strong><br>
+        • One agent call = <strong>50x+ compute</strong> of a chatbot question<br>
+        • MS, Uber restricting employee Claude Code access due to cost explosion<br>
+        • → This is the core driver of semiconductor demand explosion
+        </span>
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💊</div>
+      <h3>Novo Nordisk × OpenAI</h3>
+      <div class="stat">
+        <span class="ko">전사 AI화</span>
+        <span class="en">Full AI</span>
+      </div>
+      <p>
+        <span class="ko">신약 발견 → 임상 → 제조 → 공급망 → 상업 운영까지 전 밸류체인 AI 통합. 2026년 말 완료 목표.</span>
+        <span class="en">Drug discovery → clinical trials → manufacturing → supply chain → commercial ops. Full AI integration by end of 2026.</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- AI 거장 3인 -->
+  <img src="images/three_leaders.png" alt="Three AI Leaders" class="section-img">
+
+  <div class="quote-box" style="border-left-color:var(--green)">
+    <div class="name">
+      <span class="ko">데미스 하사비스 (Google DeepMind CEO)</span>
+      <span class="en">Demis Hassabis (Google DeepMind CEO)</span>
+    </div>
+    <p>
+      <span class="ko">"완벽한 AGI까지 불과 몇 년. 게임 프로토타입이 6개월 → 1~2시간. 2026~2027이 특이점의 시작으로 기억될 것."</span>
+      <span class="en">"Perfect AGI is just years away. Game prototypes went from 6 months to 1-2 hours. 2026-2027 will be remembered as the start of the singularity."</span>
+    </p>
+  </div>
+
+  <div class="quote-box" style="border-left-color:var(--yellow)">
+    <div class="name">
+      <span class="ko">얀 르쿤 (Meta AI 수석 과학자)</span>
+      <span class="en">Yann LeCun (Meta Chief AI Scientist)</span>
+    </div>
+    <p>
+      <span class="ko">"LLM은 본질적으로 안전하지 않다. 코딩처럼 검증 가능한 영역에서는 성과를 인정하지만, 현실 문제는 그렇지 않다. 구조적 제어 장치가 없다."</span>
+      <span class="en">"LLMs are fundamentally unsafe. They perform in verifiable domains like coding, but not in real-world problems. There is no structural control mechanism."</span>
+    </p>
+  </div>
+
+  <div class="quote-box" style="border-left-color:var(--red)">
+    <div class="name">
+      <span class="ko">순다 피차이 (Google CEO)</span>
+      <span class="en">Sundar Pichai (Google CEO)</span>
+    </div>
+    <p>
+      <span class="ko">"소수의 연구소만 최전선에 있다. AI가 재귀적으로 자기를 개선하는 단계에 도달하면, 과거 사이버 보안과 비교 불가능한 영향력."</span>
+      <span class="en">"Only a few labs are at the frontier. When AI reaches recursive self-improvement, the impact will be incomparable to past cybersecurity changes."</span>
+    </p>
+  </div>
+
+  <!-- 메타 해고 -->
+  <img src="images/meta_layoff.png" alt="Meta 8000 Layoffs" class="section-img">
+
+  <div class="alert red">
+    <span style="font-size:1.5rem">⚠️</span>
+    <div>
+      <strong>
+        <span class="ko">메타: 직원 8,000명 감시 후 해고</span>
+        <span class="en">Meta: 8,000 employees monitored then laid off</span>
+      </strong>
+      <p>
+        <span class="ko">한 달간 키보드·마우스·스크린샷 기록 → AI 학습 데이터로 활용 → 동시 해고. 화이트칼라 중간층이 가장 먼저 타격.</span>
+        <span class="en">One month of keyboard, mouse, screenshot monitoring → used as AI training data → simultaneous layoffs. White-collar middle tier hit first.</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="alert green">
+    <span style="font-size:1.5rem">💡</span>
+    <div>
+      <strong>
+        <span class="ko">핵심: AI를 쓰는 쪽 vs AI에 대체되는 쪽</span>
+        <span class="en">Key: Those who use AI vs those replaced by AI</span>
+      </strong>
+      <p>
+        <span class="ko">AI가 다 해준다고 하는데, 실은 AI가 틀리는 걸 잡아주는 사람이 필요하다. 도메인 지식 + AI 활용 능력 = 핵심 역량.</span>
+        <span class="en">AI does everything they say, but someone who catches AI's mistakes is needed. Domain knowledge + AI skills = core competency.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PART 2: 사내에서 바로 쓸 수 있는 것 -->
+<section class="section">
+  <span class="section-label">Part 2</span>
+  <h2>
+    <span class="ko">사내에서 바로 쓸 수 있는 것</span>
+    <span class="en">What You Can Use Right Now — In-House</span>
+  </h2>
+  <p class="intro">
+    <span class="ko">15분 | GPT Enterprise와 GitHub Copilot — 이미 우리 회사에 있는 무기.</span>
+    <span class="en">15 min | GPT Enterprise and GitHub Copilot — weapons already in your company.</span>
+  </p>
+
+  <img src="images/enterprise_tools.png" alt="Enterprise Tools" class="section-img">
+
+  <div class="cards">
+    <div class="card" style="border-top:4px solid var(--green)">
+      <h3>GPT Enterprise</h3>
+      <p>
+        <span class="ko">✅ 데이터가 OpenAI 학습에 사용되지 않음<br>✅ SOC 2 준수, SSO, 관리자 콘솔<br>✅ Workspace Agents: Slack, Gmail 연동<br>✅ 팀 단위 에이전트 빌드 + 공유</span>
+        <span class="en">✅ Data never used for OpenAI training<br>✅ SOC 2 compliant, SSO, admin console<br>✅ Workspace Agents: Slack, Gmail integration<br>✅ Team-level agent building + sharing</span>
+      </p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--blue)">
+      <h3>GitHub Copilot</h3>
+      <p>
+        <span class="ko">✅ Claude Opus 4.7 / Sonnet 4.6 내장<br>✅ 코드 자동완성, 리뷰, 테스트 생성<br>✅ 에이전트 모드: 자율 버그 수정 + PR<br>✅ Enterprise 정책 관리</span>
+        <span class="en">✅ Claude Opus 4.7 / Sonnet 4.6 built-in<br>✅ Auto-complete, review, test generation<br>✅ Agent mode: autonomous bug fix + PR<br>✅ Enterprise policy management</span>
+      </p>
+    </div>
+  </div>
+
+  <h3 style="margin:32px 0 16px">
+    <span class="ko">🔧 연구소에서 바로 쓸 수 있는 5가지</span>
+    <span class="en">🔧 5 Immediate Use Cases for R&D</span>
+  </h3>
+
+  <div class="cards">
+    <div class="card"><div class="card-icon">📝</div><h3><span class="ko">보고서 초안</span><span class="en">Report Drafting</span></h3><p><span class="ko">실험 데이터 + 프롬프트 → 보고서 자동 생성. 반나절 → 15분.</span><span class="en">Experiment data + prompt → auto report. Half day → 15 min.</span></p></div>
+    <div class="card"><div class="card-icon">📄</div><h3><span class="ko">논문/특허 분석</span><span class="en">Paper/Patent Analysis</span></h3><p><span class="ko">PDF 업로드 → 핵심 요약 + 경쟁사 동향. 2시간 → 10분.</span><span class="en">PDF upload → key summary + competitor trends. 2 hours → 10 min.</span></p></div>
+    <div class="card"><div class="card-icon">💻</div><h3><span class="ko">시뮬레이션 코드</span><span class="en">Simulation Code</span></h3><p><span class="ko">자연어로 설명 → Python/R 코드 자동 생성. 일주일 → 1시간.</span><span class="en">Natural language → auto Python/R code. 1 week → 1 hour.</span></p></div>
+    <div class="card"><div class="card-icon">🎤</div><h3><span class="ko">회의록 정리</span><span class="en">Meeting Minutes</span></h3><p><span class="ko">녹취 텍스트 → 액션 아이템 + 요약 + 후속 일정.</span><span class="en">Transcript → action items + summary + follow-ups.</span></p></div>
+    <div class="card"><div class="card-icon">🌐</div><h3><span class="ko">기술 번역/리뷰</span><span class="en">Tech Translation</span></h3><p><span class="ko">일본/중국 특허 번역, 논문 영작 교정, 기술 용어 통일.</span><span class="en">JP/CN patent translation, paper proofreading, terminology standardization.</span></p></div>
+  </div>
+
+  <!-- 3단계 프롬프트 -->
+  <img src="images/three_phase.png" alt="3-Phase Prompt Strategy" class="section-img">
+
+  <h3 style="margin:32px 0 16px">
+    <span class="ko">🎯 프롬프트 엔지니어링 — 3단계 전략</span>
+    <span class="en">🎯 Prompt Engineering — 3-Phase Strategy</span>
+  </h3>
+
+  <div class="steps">
+    <div class="step" style="background:var(--card)">
+      <div class="step-num">1</div>
+      <h4><span class="ko">뼈대</span><span class="en">Skeleton</span></h4>
+      <p><span class="ko">구조/UI/포맷 정의</span><span class="en">Structure/UI/Format</span></p>
+    </div>
+    <div class="step" style="background:var(--card)">
+      <div class="step-num">2</div>
+      <h4><span class="ko">두뇌</span><span class="en">Brain</span></h4>
+      <p><span class="ko">수식/로직/분석</span><span class="en">Math/Logic/Analysis</span></p>
+    </div>
+    <div class="step" style="background:var(--card)">
+      <div class="step-num">3</div>
+      <h4><span class="ko">피부</span><span class="en">Skin</span></h4>
+      <p><span class="ko">시각화/리포트/고도화</span><span class="en">Visualization/Report</span></p>
+    </div>
+  </div>
+
+  <div class="alert blue">
+    <span style="font-size:1.5rem">🔬</span>
+    <div>
+      <strong>
+        <span class="ko">실전 검증 사례</span>
+        <span class="en">Proven Case Studies</span>
+      </strong>
+      <p>
+        <span class="ko">OLED 공진 시뮬레이터: 3단계 프롬프트로 40분 만에 완성. Warpage 시뮬레이터: 동일 방법으로 40분 완성. AI가 Snell's law를 빠뜨렸지만, 도메인 전문가가 잡아냄 → "AI가 틀린 걸 잡아주는 사람"이 핵심.</span>
+        <span class="en">OLED resonance simulator: built in 40 min with 3-phase prompts. Warpage simulator: same method, 40 min. AI missed Snell's law, but domain expert caught it → "The person who catches AI's mistakes" is the key.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PART 3: 라이브 데모 -->
+<section class="section">
+  <span class="section-label">Part 3</span>
+  <h2>
+    <span class="ko">라이브 데모 — GPT Enterprise 실시간 시연</span>
+    <span class="en">Live Demo — GPT Enterprise in Action</span>
+  </h2>
+  <p class="intro">
+    <span class="ko">20분 | 사내 GPT Enterprise에서 실행. 사외 접속 불필요.</span>
+    <span class="en">20 min | Runs on internal GPT Enterprise. No external access needed.</span>
+  </p>
+
+  <img src="images/demo_screenshot.png" alt="Demo Screenshot" class="section-img">
+
+  <div class="demo-box">
+    <div class="demo-label">
+      <span class="ko">데모 1: 기술 보고서 자동 생성 (7분)</span>
+      <span class="en">Demo 1: Auto Technical Report (7 min)</span>
+    </div>
+    <div class="prompt">
+      <strong>Prompt:</strong><br>
+      <span class="ko">"OLED 탠덤 구조에서 시야각 색변화 원인과 해결 방안을 A4 2페이지 보고서로 정리해줘. 배경, 원인(Fabry-Perot 공진), 해결방안(RGB 차등 ITO), 참고문헌 포함."</span>
+      <span class="en">"Write a 2-page A4 report on OLED tandem viewing angle color shift causes and solutions. Include background, causes (Fabry-Perot resonance), solutions (RGB differential ITO), and references."</span>
+    </div>
+    <div class="output">
+      <strong>
+        <span class="ko">결과: 배경/원인/해결방안/참고문헌 포함 보고서 초안 5분 생성</span>
+        <span class="en">Result: Full report draft with background/causes/solutions/references in 5 min</span>
+      </strong><br>
+      <span class="ko">⏱️ 기존 반나절 → 15분 (초안 5분 + 검토 10분)</span>
+      <span class="en">⏱️ Previously half day → 15 min (5 min draft + 10 min review)</span>
+    </div>
+  </div>
+
+  <div class="demo-box">
+    <div class="demo-label">
+      <span class="ko">데모 2: Python 시뮬레이션 코드 생성 (7분)</span>
+      <span class="en">Demo 2: Python Simulation Code (7 min)</span>
+    </div>
+    <div class="prompt">
+      <strong>Prompt:</strong><br>
+      <span class="ko">"다층 박막(Si 500μm/Cu 50μm/PI 25μm)의 열응력과 Warpage를 계산하는 Python 코드를 만들어줘. ΔT=150°C, 중립축/곡률/최대변위 계산. Plotly로 3D 시각화."</span>
+      <span class="en">"Create Python code to calculate thermal stress and warpage for multi-layer thin film (Si 500μm/Cu 50μm/PI 25μm). ΔT=150°C, neutral axis/curvature/max displacement. Plotly 3D visualization."</span>
+    </div>
+    <div class="output">
+      <strong>
+        <span class="ko">결과: 즉석에서 돌아가는 코드 + 3D 그래프</span>
+        <span class="en">Result: Working code + 3D graph generated on the spot</span>
+      </strong><br>
+      <span class="ko">⏱️ 기존 일주일 → 1시간 (생성 10분 + 검증 50분)</span>
+      <span class="en">⏱️ Previously 1 week → 1 hour (10 min generation + 50 min verification)</span>
+    </div>
+  </div>
+
+  <div class="demo-box">
+    <div class="demo-label">
+      <span class="ko">데모 3: 경쟁사 특허 분석 (6분)</span>
+      <span class="en">Demo 3: Competitor Patent Analysis (6 min)</span>
+    </div>
+    <div class="prompt">
+      <strong>Prompt:</strong><br>
+      <span class="ko">"[특허 초록 붙여넣기] 이 특허의 핵심 청구항, 우리 기술과의 차이점, 회피 설계 방향을 분석해줘."</span>
+      <span class="en">"[Paste patent abstract] Analyze the core claims, differences from our technology, and design-around directions."</span>
+    </div>
+    <div class="output">
+      <strong>
+        <span class="ko">결과: 구조화된 분석 리포트 (청구항 요약 + 차이점 + 회피 방향)</span>
+        <span class="en">Result: Structured analysis report (claims summary + differences + workaround directions)</span>
+      </strong><br>
+      <span class="ko">⏱️ 기존 2시간 → 10분</span>
+      <span class="en">⏱️ Previously 2 hours → 10 min</span>
+    </div>
+  </div>
+</section>
+
+<!-- SID 논문 사례: AI로 논문 발표까지 -->
+<section class="section">
+  <span class="section-label"><span class="ko">실전 사례: SID 2026</span><span class="en">Real Case: SID 2026</span></span>
+  <h2>
+    <span class="ko">AI로 국제학회 논문 발표까지 — SID Display Week 2026</span>
+    <span class="en">From Idea to International Conference with AI — SID 2026</span>
+  </h2>
+  <p class="intro">
+    <span class="ko">연구 아이디어부터 논문 작성, 포스터 제작, 미국 출장, 보고서까지 — AI 활용 전 과정 12단계.</span>
+    <span class="en">From idea to paper, poster, US trip, and report — 12 steps powered by AI.</span>
+  </p>
+  <img src="images/sid_workflow.png" alt="SID AI Workflow" class="section-img">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:24px 0">
+    <div class="card" style="border-left:4px solid #9C27B0"><h3><span class="ko">1~3. 아이디어 → 논문 뼈대</span><span class="en">1~3. Idea → Paper Skeleton</span></h3><p><span class="ko">① 연구내용을 <b>전혀 모르는 동료에게 구두 설명</b><br>② <b>Claude로 녹음 + 텍스트 추출</b><br>③ 추출 텍스트로 <b>Claude가 논문 뼈대 생성</b></span><span class="en">① Explain to uninformed colleague<br>② Claude records + extracts text<br>③ Claude generates paper skeleton</span></p></div>
+    <div class="card" style="border-left:4px solid #4285F4"><h3><span class="ko">4~5. 인트로 + 교차검토</span><span class="en">4~5. Intro + Cross-review</span></h3><p><span class="ko">④ <b>Gemini</b>로 Introduction: 선행연구 검색, 기존 한계, 내 연구 가치<br>⑤ <b>GPT</b>로 한 번 더 교차 검토 — 키메라 구조</span><span class="en">④ Gemini writes Intro: lit search, limitations, value<br>⑤ GPT cross-reviews — Chimera structure</span></p></div>
+    <div class="card" style="border-left:4px solid #34A853"><h3><span class="ko">6~7. 실험데이터 + 영작</span><span class="en">6~7. Data + English</span></h3><p><span class="ko">⑥ 실제 <b>실험결과 데이터 삽입</b> (사람이!)<br>⑦ <b>Claude로 영어 교정</b> — 자연스러운 학술 영어</span><span class="en">⑥ Insert actual experiment data (human!)<br>⑦ Claude polishes academic English</span></p></div>
+    <div class="card" style="border-left:4px solid #FBBC04"><h3><span class="ko">8~9. 결재 + 포스터</span><span class="en">8~9. Approval + Poster</span></h3><p><span class="ko">⑧ 사내 심의 결재 (사람이)<br>⑨ <b>Claude로 포스터 디자인 + 출력</b></span><span class="en">⑧ Internal approval (human)<br>⑨ Claude designs + prints poster</span></p></div>
+    <div class="card" style="border-left:4px solid #EA4335"><h3><span class="ko">10~11. 출장 + AI 동행</span><span class="en">10~11. Trip + AI Companion</span></h3><p><span class="ko">⑩ <b>AWS Claude 에이전트</b>로 출장 웹앱 (스크립트, 일정, 지도)<br>⑪ 출장 중 <b>구글 대신 Claude와 대화</b> — 실시간 의사결정</span><span class="en">⑩ AWS Claude agent builds trip webapp<br>⑪ Claude replaces Google search during trip</span></p></div>
+    <div class="card" style="border-left:4px solid #0066cc"><h3><span class="ko">12. 센싱 보고서</span><span class="en">12. Report</span></h3><p><span class="ko">⑫ <b>Claude로 논문 센싱 보고서</b> 작성 — 학회 수집 정보 구조화</span><span class="en">⑫ Claude writes conference sensing report</span></p></div>
+  </div>
+  <div style="text-align:center;margin:24px 0"><a href="https://waterfirst.github.io/sid-display-week-2026/" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:#0066cc;color:#fff;border-radius:12px;font-size:1.1rem;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,102,204,0.3)">🌐 <span class="ko">SID 출장 웹앱 데모</span><span class="en">SID Trip Webapp Demo</span></a></div>
+  <div class="alert blue"><span style="font-size:1.5rem">🔑</span><div><b><span class="ko">12단계 중 사람이 한 것: 설명(①), 데이터(⑥), 결재(⑧) — 3개뿐. 나머지 9개는 AI.</span><span class="en">Humans did 3 of 12 steps. AI handled the other 9.</span></b><p><span class="ko"><b>키메라 구조: Claude(뼈대+영작+포스터) + Gemini(검색) + GPT(검토+이미지)</b></span><span class="en"><b>Chimera: Claude(skeleton+English+poster) + Gemini(search) + GPT(review+image)</b></span></p></div></div>
+</section>
+
+<!-- 연구개발직의 가능성: HTML 시뮬레이터 -->
+<section class="section">
+  <span class="section-label"><span class="ko">R&D의 가능성</span><span class="en">R&D Potential</span></span>
+  <h2>
+    <span class="ko">연구개발직은 논문 읽고 HTML로 시뮬레이터를 만들어 배포할 수 있다</span>
+    <span class="en">R&D can read papers and build HTML simulators for deployment</span>
+  </h2>
+  <p class="intro">
+    <span class="ko">Google AI Studio에서 물리 수식 기반 시뮬레이터를 프롬프트로 만들고, GitHub Pages로 배포한 실제 사례입니다.</span>
+    <span class="en">Real examples of physics-based simulators built with prompts in Google AI Studio and deployed via GitHub Pages.</span>
+  </p>
+
+  <img src="images/simulator_examples.png" alt="Simulator Examples" class="section-img">
+
+  <div class="cards">
+    <div class="card" style="border-top:4px solid var(--blue)">
+      <div class="card-icon">🔬</div>
+      <h3><span class="ko">OLED 시야각 시뮬레이터</span><span class="en">OLED Viewing Angle Simulator</span></h3>
+      <p><span class="ko">듀얼 뷰 디스플레이 광학 Ray Tracing 시뮬레이션. 시야각에 따른 휘도/색 변화 실시간 시각화.<br><strong>AI로 구축한 웹 시뮬레이터.</strong></span>
+      <span class="en">Dual-view display optical ray tracing simulation. Real-time viewing angle vs luminance/color visualization.<br><strong>Web simulator built with AI.</strong></span></p>
+      <div style="margin-top:12px"><a href="https://dual-view-display-optical-ray-tracing-simulation-380588746768.us-west1.run.app/" target="_blank" style="color:var(--accent);font-weight:700;text-decoration:none">→ 데모 보기</a></div>
+    </div>
+    <div class="card" style="border-top:4px solid var(--green)">
+      <div class="card-icon">🏗️</div>
+      <h3><span class="ko">3D 열응력 Warpage 시뮬레이터</span><span class="en">3D Thermal Stress Warpage Simulator</span></h3>
+      <p><span class="ko">다층 박막 CTE 불일치 → 중립축/곡률/응력 계산 → 3D 변형 시각화.<br><strong>ANSYS 없이 무료로.</strong> 코드를 모르는 엔지니어가 만듦.</span>
+      <span class="en">Multi-layer CTE mismatch → neutral axis/curvature/stress → 3D deformation.<br><strong>Free, no ANSYS.</strong> Built by a non-coder engineer.</span></p>
+      <div style="margin-top:12px"><a href="https://service-3d-stress-simulation-380588746768.us-west1.run.app/" target="_blank" style="color:var(--accent);font-weight:700;text-decoration:none">→ 데모 보기</a></div>
+    </div>
+    <div class="card" style="border-top:4px solid var(--red)">
+      <div class="card-icon">📊</div>
+      <h3><span class="ko">RC 임피던스 매칭 시뮬레이터</span><span class="en">RC Impedance Matching Simulator</span></h3>
+      <p><span class="ko">OLED 순간잔상의 새로운 원인 규명. Maxwell-Wagner 계면 분극 시뮬레이션. RC 미스매치 실시간 계산.<br><strong>논문까지 AI로 작성.</strong></span>
+      <span class="en">New mechanism for OLED image sticking. Maxwell-Wagner interfacial polarization. RC mismatch real-time calculation.<br><strong>Paper written with AI assistance.</strong></span></p>
+      <div style="margin-top:12px"><a href="https://oled-isf-380588746768.us-west1.run.app/" target="_blank" style="color:var(--accent);font-weight:700;text-decoration:none">→ 데모 보기</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- 경각심 + 격려 -->
+<section class="section">
+  <span class="section-label"><span class="ko">마지막으로</span><span class="en">Final Message</span></span>
+  <h2>
+    <span class="ko">경각심은 필요하다. 그러나 걱정은 금물.</span>
+    <span class="en">Awareness is needed. But don't worry.</span>
+  </h2>
+
+  <div class="alert red">
+    <span style="font-size:1.5rem">⚠️</span>
+    <div>
+      <strong><span class="ko">경각심</span><span class="en">Wake-up Call</span></strong>
+      <p><span class="ko">메타가 직원 8,000명을 AI로 대체했다. 개발자의 92.6%가 AI를 쓰고 있다. 중국은 이미 전면 도입했다. 우리 회사 밖에서는 바이브코딩이 표준이다. <strong>가만히 있으면 뒤처진다.</strong></span>
+      <span class="en">Meta replaced 8,000 employees with AI. 92.6% of developers use AI. China is fully deployed. Outside our company, vibe coding is standard. <strong>Standing still means falling behind.</strong></span></p>
+    </div>
+  </div>
+
+  <div class="alert green">
+    <span style="font-size:1.5rem">💪</span>
+    <div>
+      <strong><span class="ko">그렇다고 걱정할 필요 없다</span><span class="en">But Don't Worry</span></strong>
+      <p><span class="ko">왜? <strong>지금이라도 시작하면 된다.</strong> GPT Enterprise가 이미 있다. 사내 GitHub가 있다. NANU Python이 있다.<br><br>
+      문서 하나를 GPT로 정리해봐라.<br>
+      데이터 하나를 바이브코딩으로 분석해봐라.<br>
+      시뮬레이터 하나를 HTML로 만들어봐라.<br><br>
+      <strong>엑셀 → 미니탭 → Spotfire 다음은 바이브코딩이다.</strong><br>
+      코드를 "쓸" 필요 없다. "시킬" 줄만 알면 된다.</span>
+      <span class="en">Why? <strong>Start now.</strong> GPT Enterprise is here. GitHub is here. NANU Python is here.<br><br>
+      Try organizing one document with GPT.<br>
+      Try analyzing one dataset with vibe coding.<br>
+      Try building one simulator in HTML.<br><br>
+      <strong>After Excel → Minitab → Spotfire comes Vibe Coding.</strong><br>
+      You don't need to "write" code. Just know how to "instruct."</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- PART 4: 정리 + 다음 단계 -->
+<section class="section">
+  <span class="section-label">Part 4</span>
+  <h2>
+    <span class="ko">정리 + 다음 단계</span>
+    <span class="en">Summary + Next Steps</span>
+  </h2>
+  <p class="intro">
+    <span class="ko">10분 | 핵심 3가지 + 실행 로드맵 + Q&A</span>
+    <span class="en">10 min | 3 Key Takeaways + Action Roadmap + Q&A</span>
+  </p>
+
+  <div class="cards">
+    <div class="card" style="border-top:4px solid var(--green)">
+      <div class="card-icon">1️⃣</div>
+      <h3><span class="ko">AI는 이미 사람을 넘었다</span><span class="en">AI Already Exceeds Humans</span></h3>
+      <p><span class="ko">GPT-5.4 벤치마크 인간 초과, 72% 기업 도입. 하지만 르쿤 경고: 현실 문제의 검증은 아직 사람 몫.</span><span class="en">GPT-5.4 exceeds human benchmarks, 72% enterprise adoption. But LeCun warns: real-world verification is still human's job.</span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--blue)">
+      <div class="card-icon">2️⃣</div>
+      <h3><span class="ko">우리 회사에 이미 도구가 있다</span><span class="en">We Already Have the Tools</span></h3>
+      <p><span class="ko">GPT Enterprise + GitHub Copilot. 보고서, 코드, 특허분석, 회의록 — 오늘부터 쓸 수 있음.</span><span class="en">GPT Enterprise + GitHub Copilot. Reports, code, patents, meeting minutes — start using today.</span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--red)">
+      <div class="card-icon">3️⃣</div>
+      <h3><span class="ko">쓰는 사람 vs 대체되는 사람</span><span class="en">Users vs Replaced</span></h3>
+      <p><span class="ko">메타 8,000명 해고가 현실. "AI가 틀린 걸 잡아주는 도메인 전문가"가 살아남음.</span><span class="en">Meta's 8,000 layoffs are real. "Domain experts who catch AI's mistakes" survive.</span></p>
+    </div>
+  </div>
+
+  <!-- 로드맵 -->
+  <img src="images/roadmap.png" alt="Action Roadmap" class="section-img">
+
+  <div class="timeline">
+    <div class="timeline-item" style="border-top-color:var(--green)">
+      <div class="time-label">
+        <span class="ko">단기: 6월</span>
+        <span class="en">Short-term: June</span>
+      </div>
+      <h4>Quick Wins</h4>
+      <ul>
+        <li><span class="ko">팀별 GPT Enterprise 활용 사례 1건</span><span class="en">1 GPT Enterprise use case per team</span></li>
+        <li><span class="ko">GitHub Copilot으로 반복 코드 자동화</span><span class="en">Automate repetitive code with Copilot</span></li>
+        <li><span class="ko">주간 회의록 AI 정리 시범</span><span class="en">Pilot AI meeting minutes weekly</span></li>
+      </ul>
+    </div>
+    <div class="timeline-item" style="border-top-color:var(--blue)">
+      <div class="time-label">
+        <span class="ko">중기: 하반기</span>
+        <span class="en">Mid-term: H2 2026</span>
+      </div>
+      <h4>Workspace Agents</h4>
+      <ul>
+        <li><span class="ko">팀 자동화 파이프라인 구축</span><span class="en">Build team automation pipelines</span></li>
+        <li><span class="ko">주간 보고서/데이터 분석 자동화</span><span class="en">Automate weekly reports & data analysis</span></li>
+        <li><span class="ko">사내 지식베이스 AI 검색</span><span class="en">AI-powered internal knowledge search</span></li>
+      </ul>
+    </div>
+    <div class="timeline-item" style="border-top-color:var(--purple)">
+      <div class="time-label">
+        <span class="ko">장기: 2027</span>
+        <span class="en">Long-term: 2027</span>
+      </div>
+      <h4>R&D AI Agent</h4>
+      <ul>
+        <li><span class="ko">실험 설계 → 데이터 수집 → 분석 → 보고서 자동화</span><span class="en">Experiment design → data → analysis → report automation</span></li>
+        <li><span class="ko">R&D 전용 AI 에이전트 구축</span><span class="en">Build R&D-specific AI agents</span></li>
+        <li><span class="ko">AI-human 협업 프로세스 표준화</span><span class="en">Standardize AI-human collaboration</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 예상 Q&A -->
+  <h3 style="margin:32px 0 16px">
+    <span class="ko">❓ 예상 Q&A</span>
+    <span class="en">❓ Expected Q&A</span>
+  </h3>
+  <div class="checklist">
+    <div class="checklist-item"><span class="check">Q</span><div><strong><span class="ko">"보안은 괜찮은가?"</span><span class="en">"Is it secure?"</span></strong><p><span class="ko">→ Enterprise는 학습에 사용 안 함, SOC 2 준수, SSO 연동</span><span class="en">→ Enterprise data never used for training, SOC 2 compliant, SSO integration</span></p></div></div>
+    <div class="checklist-item"><span class="check">Q</span><div><strong><span class="ko">"코드를 모르는데 써도 되나?"</span><span class="en">"Can I use it without coding skills?"</span></strong><p><span class="ko">→ 자연어 프롬프트로 충분. 3단계 전략 따르면 시뮬레이터도 만들 수 있음</span><span class="en">→ Natural language prompts are sufficient. Follow the 3-phase strategy to build simulators</span></p></div></div>
+    <div class="checklist-item"><span class="check">Q</span><div><strong><span class="ko">"환각(hallucination) 문제는?"</span><span class="en">"What about hallucination?"</span></strong><p><span class="ko">→ GPT-5.5에서 50% 감소. 그래도 검증 필수 — 도메인 전문가의 역할</span><span class="en">→ 50% reduction in GPT-5.5. Still needs verification — domain expert's role</span></p></div></div>
+    <div class="checklist-item"><span class="check">Q</span><div><strong><span class="ko">"투자 대비 효과는?"</span><span class="en">"What's the ROI?"</span></strong><p><span class="ko">→ 보고서 반나절→15분, 특허분석 2시간→10분, 코드 일주일→1시간</span><span class="en">→ Reports: half day→15min, Patents: 2hrs→10min, Code: 1week→1hr</span></p></div></div>
+  </div>
+</section>
+
+</div>
+
+<!-- BONUS 1: AI로 코스피 예측 & 수명 예측 -->
+<section class="section">
+  <span class="section-label">Bonus 1</span>
+  <h2>
+    <span class="ko">AI 예측의 실전: 코스피 & 수명</span>
+    <span class="en">AI Prediction in Practice: KOSPI & Lifespan</span>
+  </h2>
+  <p class="intro">
+    <span class="ko">AI가 실제로 미래를 예측할 수 있을까? 두 가지 실전 사례로 알아봅니다.</span>
+    <span class="en">Can AI actually predict the future? Two real-world examples.</span>
+  </p>
+
+  <!-- 코스피 예측 -->
+  <h3 style="margin:24px 0 16px">
+    <span class="ko">📈 사례 1: 코스피 방향 예측 시스템</span>
+    <span class="en">📈 Case 1: KOSPI Direction Prediction System</span>
+  </h3>
+
+  <div class="cards">
+    <div class="card" style="border-top:4px solid var(--blue)">
+      <div class="card-icon">🔮</div>
+      <h3><span class="ko">상관분석 기반 예측</span><span class="en">Correlation-Based Prediction</span></h3>
+      <p><span class="ko">매일 새벽 6시, AI가 미국장 마감 데이터(S&P500, VIX, 마이크론, EWY, 환율)를 수집하고, 검증된 상관계수로 오늘 코스피 방향을 예측합니다.</span>
+      <span class="en">Every 6AM, AI collects US market data (S&P500, VIX, Micron, EWY, FX) and predicts today's KOSPI direction using validated correlations.</span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--green)">
+      <div class="card-icon">📊</div>
+      <h3><span class="ko">4가지 신호</span><span class="en">4 Signals</span></h3>
+      <p><span class="ko">• EWY→코스피: 상관 0.364<br>• VIX→코스피: 상관 -0.355<br>• 마이크론→하이닉스: 상관 0.403<br>• 원화강세 시 코스피 +1.13%<br><br>매일 저녁 적중률을 검증하고 기록합니다.</span>
+      <span class="en">• EWY→KOSPI: corr 0.364<br>• VIX→KOSPI: corr -0.355<br>• Micron→Hynix: corr 0.403<br>• KRW strong → KOSPI +1.13%<br><br>Hit rate verified and logged every evening.</span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--red)">
+      <div class="card-icon">⚠️</div>
+      <h3><span class="ko">한계와 교훈</span><span class="en">Limitations & Lessons</span></h3>
+      <p><span class="ko">• AI 예측은 확률이지 확정이 아님<br>• 상관관계 ≠ 인과관계<br>• ADR(등락비율) 60% 이하면 지수가 착시<br>• 데이터로 판단하되, 최종 결정은 사람이</span>
+      <span class="en">• AI prediction = probability, not certainty<br>• Correlation ≠ causation<br>• ADR below 60% = index illusion<br>• Data informs, humans decide</span></p>
+    </div>
+  </div>
+
+  <div class="demo-box">
+    <div class="demo-label"><span class="ko">실제 운영 구조</span><span class="en">Actual Operating System</span></div>
+    <div class="prompt"><span class="ko">📱 텔레그램으로 매일 자동 알림:<br>• 06:00 미국장 마감 + 코스피 예측 (Gemini API, 무료)<br>• 09~15시 장중 급변동 감지 (bash + curl, 무료)<br>• 21:00 저녁 리포트 + 예측 검증 (Gemini API, 무료)<br>• 금요일 18:00 장단기 금리차 주간 점검</span>
+    <span class="en">📱 Daily auto-alerts via Telegram:<br>• 06:00 US market close + KOSPI prediction (Gemini API, free)<br>• 09~15h intraday spike detection (bash + curl, free)<br>• 21:00 Evening report + prediction verification (Gemini API, free)<br>• Fri 18:00 Yield curve weekly check</span></div>
+    <div class="output"><span class="ko">💡 핵심: Claude($100/월)는 분석/보고서에만, 일상 모니터링은 Gemini(무료) + bash 스크립트로 비용 최적화</span>
+    <span class="en">💡 Key: Claude ($100/mo) for analysis only, daily monitoring via Gemini (free) + bash scripts for cost optimization</span></div>
+  </div>
+
+  <!-- 수명 예측 -->
+  <h3 style="margin:32px 0 16px">
+    <span class="ko">🧬 사례 2: AI 수명 예측</span>
+    <span class="en">🧬 Case 2: AI Lifespan Prediction</span>
+  </h3>
+
+  <div class="alert blue">
+    <span>🔬</span>
+    <div>
+      <p><span class="ko"><strong>머신러닝 + 건강 데이터 = 수명 예측</strong><br>혈액검사, 생활습관, 유전자 데이터를 입력하면 AI가 기대수명과 건강 리스크를 분석합니다. 구글 DeepMind의 AlphaFold가 단백질 구조를 예측한 것처럼, 건강 데이터의 패턴도 예측 가능한 영역입니다.<br><br><strong>R&D 적용:</strong> 디스플레이 소자 수명 예측도 같은 원리. LTPS/IGZO/pIGO의 HCI(Hot Carrier Injection) 스트레스 데이터를 AI가 분석하면 가속시험 없이 수명을 추정할 수 있습니다.</span>
+      <span class="en"><strong>ML + Health Data = Lifespan Prediction</strong><br>Input blood tests, lifestyle, and genetic data — AI analyzes life expectancy and health risks. Just as DeepMind's AlphaFold predicts protein structures, health data patterns are also predictable.<br><br><strong>R&D Application:</strong> Display device lifetime prediction works the same way. AI analyzes HCI stress data for LTPS/IGZO/pIGO to estimate lifetime without accelerated testing.</span></p>
+    </div>
+  </div>
+
+  <div class="quote-box">
+    <div class="name"><span class="ko">핵심 인사이트</span><span class="en">Key Insight</span></div>
+    <p><span class="ko">"예측의 본질은 같다. 과거 데이터의 패턴을 찾아 미래를 추정하는 것. 주가든, 수명이든, 소자 신뢰성이든."</span>
+    <span class="en">"The essence of prediction is the same: finding patterns in past data to estimate the future. Whether stocks, lifespan, or device reliability."</span></p>
+  </div>
+
+  <div style="text-align:center;margin:32px 0">
+    <a href="ml-with-prompts.html" style="display:inline-block;padding:16px 32px;background:var(--accent);color:#fff;border-radius:12px;font-size:1.1rem;font-weight:700;text-decoration:none;box-shadow:var(--shadow)">
+      <span class="ko">🔬 실전 체험: 프롬프트로 하는 머신러닝 →</span>
+      <span class="en">🔬 Hands-on: Machine Learning with Prompts →</span>
+    </a>
+  </div>
+</section>
+
+<!-- BONUS 2: ETF 모멘텀 히트맵 — AI 실전 투자 도구 -->
+<section class="section">
+  <span class="section-label">Bonus 2</span>
+  <h2>
+    <span class="ko">실전: AI로 만든 ETF 투자 도구</span>
+    <span class="en">Real Tool: AI-Built ETF Investment Tool</span>
+  </h2>
+  <p class="intro">
+    <span class="ko">"코드를 한 줄도 쓰지 않고" AI와 대화만으로 만든 실전 투자 도구</span>
+    <span class="en">A real investment tool built purely by chatting with AI — "without writing a single line of code"</span>
+  </p>
+
+  <div class="cards">
+    <div class="card" style="border-top:4px solid var(--accent)">
+      <div class="card-icon">🗺️</div>
+      <h3><span class="ko">ETF 모멘텀 히트맵</span><span class="en">ETF Momentum Heatmap</span></h3>
+      <p><span class="ko">공공데이터포털 API로 한국 ETF 100개의 모멘텀을 계산하고, 트리맵으로 시각화합니다.<br><br>• 크기 = 모멘텀 점수<br>• 색상 = 순위 변동 (빨강=상승, 파랑=하락)<br>• 클릭 = 상세 차트 (RSI, MACD, 스토캐스틱)</span>
+      <span class="en">Calculates momentum for 100 Korean ETFs via public API, visualized as a treemap.<br><br>• Size = momentum score<br>• Color = rank change (red=up, blue=down)<br>• Click = detailed chart (RSI, MACD, Stochastic)</span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--purple)">
+      <div class="card-icon">🤖</div>
+      <h3><span class="ko">AI가 만든 것</span><span class="en">What AI Built</span></h3>
+      <p><span class="ko">• HTML 1,300줄 (외부 라이브러리 없음)<br>• Python CORS 프록시 71줄<br>• 모멘텀 계산 알고리즘<br>• 섹터 자동 분류<br>• 백테스트 엔진<br>• K-means 클러스터링<br><br>전부 <strong>Claude Opus 4.8</strong>과 대화로 완성</span>
+      <span class="en">• 1,300 lines HTML (zero dependencies)<br>• 71-line Python CORS proxy<br>• Momentum calculation algorithm<br>• Auto sector classification<br>• Backtest engine<br>• K-means clustering<br><br>All built by chatting with <strong>Claude Opus 4.8</strong></span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--green)">
+      <div class="card-icon">💰</div>
+      <h3><span class="ko">실전 성과</span><span class="en">Real Results</span></h3>
+      <p><span class="ko">• 이 도구로 분석 → 6/1 리밸런싱 실행<br>• 95위(현대차) → 10위(200IT) 교체<br>• 83위(S&P500) → 2위(네트워크인프라) 교체<br>• <strong>2일 만에 +162만원 교체 효과</strong><br>• 모멘텀 등급: D등급 3개 → 0개 제거</span>
+      <span class="en">• Analysis → 6/1 rebalancing executed<br>• Rank 95 → 10 (Hyundai→200IT)<br>• Rank 83 → 2 (S&P500→Network Infra)<br>• <strong>+1.62M KRW swap effect in 2 days</strong><br>• Grade: 3 D-grades → 0 eliminated</span></p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4><span class="ko">아이디어</span><span class="en">Idea</span></h4>
+      <p><span class="ko">"ETF를 한눈에 비교하고 싶다"</span><span class="en">"Want to compare ETFs at a glance"</span></p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4><span class="ko">AI 대화</span><span class="en">AI Chat</span></h4>
+      <p><span class="ko">Claude에게 설명 → 코드 생성</span><span class="en">Explain to Claude → code generated</span></p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4><span class="ko">수정 반복</span><span class="en">Iterate</span></h4>
+      <p><span class="ko">"이거 안 됨" → AI가 수정</span><span class="en">"This doesn't work" → AI fixes</span></p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4><span class="ko">실전 투자</span><span class="en">Real Investment</span></h4>
+      <p><span class="ko">데이터로 판단 → 실행</span><span class="en">Data-driven decision → execute</span></p>
+    </div>
+  </div>
+
+  <div class="alert green">
+    <span>🔗</span>
+    <div>
+      <p><span class="ko"><strong>🔗 실전 도구:</strong> <a href="https://waterfirst.github.io/etf-heatmap/" style="color:var(--accent)" target="_blank">waterfirst.github.io/etf-heatmap</a><br>비밀번호 입력 → 자동으로 ETF 모멘텀 계산 시작</span>
+      <span class="en"><strong>🔗 Live Tool:</strong> <a href="https://waterfirst.github.io/etf-heatmap/" style="color:var(--accent)" target="_blank">waterfirst.github.io/etf-heatmap</a><br>Enter password → automatic ETF momentum calculation</span></p>
+    </div>
+  </div>
+
+  <div class="quote-box">
+    <div class="name"><span class="ko">메시지</span><span class="en">Message</span></div>
+    <p><span class="ko">"도메인 전문가 + AI = 실전 도구. 코드를 몰라도 됩니다. 방향만 잡아주면 AI가 만듭니다. 여러분의 25년 경험이 AI의 연료입니다."</span>
+    <span class="en">"Domain expert + AI = real tools. No coding needed. Just give direction, AI builds it. Your 25 years of experience is AI's fuel."</span></p>
+  </div>
+
+  <div style="text-align:center;margin:32px 0">
+    <a href="etf-investment-ai.html" style="display:inline-block;padding:16px 32px;background:var(--purple);color:#fff;border-radius:12px;font-size:1.1rem;font-weight:700;text-decoration:none;box-shadow:var(--shadow)">
+      <span class="ko">📊 실전 체험: AI ETF 투자 도구 만들기 →</span>
+      <span class="en">📊 Hands-on: Building an AI ETF Investment Tool →</span>
+    </a>
+  </div>
+</section>
+
+<!-- BONUS 3: AI로 연구하기 — 실전 검증 방법론 -->
+<section class="section">
+  <span class="section-label">Bonus 3</span>
+  <h2>
+    <span class="ko">AI로 연구하기 — 실전 검증 방법론</span>
+    <span class="en">Research with AI — Real Verification Methodology</span>
+  </h2>
+  <p class="intro">
+    <span class="ko">가설을 세우고, AI로 데이터를 분석하고, 결과를 사전 등록으로 검증한다. 검은 월요일 KOSPI 사례로 배우는 과학적 AI 활용법.</span>
+    <span class="en">Form a hypothesis, analyze data with AI, validate with pre-registration. Scientific AI methodology via the Black Monday KOSPI case.</span>
+  </p>
+
+  <div class="cards">
+    <div class="card" style="border-top:4px solid var(--blue)">
+      <div class="card-icon">🔬</div>
+      <h3><span class="ko">사전 등록이란?</span><span class="en">What is Pre-registration?</span></h3>
+      <p><span class="ko">AI가 내놓은 예측을 실험 <strong>전에</strong> 기록하는 것. "내가 맞았다"는 사후 합리화를 차단하는 과학적 방법. AI 환각(hallucination)을 걸러내는 가장 강력한 도구.</span>
+      <span class="en">Recording AI predictions <strong>before</strong> the experiment. Blocks post-hoc rationalization ("I was right"). The most powerful filter for AI hallucination.</span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--green)">
+      <div class="card-icon">📋</div>
+      <h3><span class="ko">검증 원장</span><span class="en">Verification Ledger</span></h3>
+      <p><span class="ko">한 주간 AI 판단 16건 적발 기록. 적중·오발동·기각을 모두 기록. <strong>AI를 믿되, 검증하라.</strong> 연구소 실험 노트와 같은 원칙.</span>
+      <span class="en">16 AI decisions logged in one week. Records hits, false signals, rejections. <strong>Trust AI, but verify.</strong> Same principle as lab notebooks.</span></p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--red)">
+      <div class="card-icon">🌊</div>
+      <h3><span class="ko">검은 월요일 물리 모델</span><span class="en">Black Monday Physics Model</span></h3>
+      <p><span class="ko">유체역학·전자기학으로 주식시장을 모델링. KOSPI -8.3% vs S&P -3.1% — 왜 3.5배 차이가 나는가? <strong>RC 임피던스 부정합</strong>이 답.</span>
+      <span class="en">Modeling stock market with fluid dynamics & EM theory. KOSPI -8.3% vs S&P -3.1% — why 3.5× gap? <strong>RC impedance mismatch</strong> is the answer.</span></p>
+    </div>
+  </div>
+
+  <div class="alert blue">
+    <span>💡</span>
+    <div><p><span class="ko"><strong>연구소 적용 포인트:</strong> AI가 제안한 가설을 그냥 믿지 말 것. 사전 등록 → 실험 → 검증 → 기각 또는 채택. 이것이 AI 시대의 과학적 방법론이다.</span>
+    <span class="en"><strong>Lab Application:</strong> Don't just trust AI-proposed hypotheses. Pre-register → Experiment → Verify → Reject or Accept. This is scientific methodology in the AI era.</span></p></div>
+  </div>
+
+  <div style="text-align:center;margin:32px 0">
+    <a href="ai-research-verification-2026.html" style="display:inline-block;padding:16px 32px;background:var(--blue);color:#fff;border-radius:12px;font-size:1.1rem;font-weight:700;text-decoration:none;box-shadow:var(--shadow)">
+      <span class="ko">🔬 실전 체험: AI 연구 검증 방법론 →</span>
+      <span class="en">🔬 Hands-on: AI Research Verification →</span>
+    </a>
+  </div>
+</section>
+
+<!-- 이 발표자료는 어떻게 만들었는가 -->
+<section class="section" style="background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;border-radius:24px;margin:40px 0;padding:48px 32px">
+  <h2 style="color:#fff;text-align:center;margin-bottom:8px">
+    <span class="ko">🤯 사실 이 발표자료는...</span>
+    <span class="en">🤯 Actually, this presentation was...</span>
+  </h2>
+  <p style="text-align:center;color:rgba(255,255,255,0.7);font-size:1.1rem;margin-bottom:32px">
+    <span class="ko">새벽에 스마트폰으로 텔레그램 채팅하면서 만들었습니다</span>
+    <span class="en">Made at 3AM on a smartphone via Telegram chat</span>
+  </p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-bottom:32px">
+    <div style="background:rgba(255,255,255,0.08);border-radius:16px;padding:20px;border:1px solid rgba(255,255,255,0.1)">
+      <div style="font-size:2rem;margin-bottom:8px">📱</div>
+      <h3 style="color:#64b5f6;margin-bottom:8px"><span class="ko">도구</span><span class="en">Tool</span></h3>
+      <p style="color:rgba(255,255,255,0.8);font-size:0.9rem">
+        <span class="ko">스마트폰 텔레그램 → AWS EC2의 <strong>Claude 에이전트</strong>에게 지시<br>Claude가 Gemini(검색) + GPT(이미지) 호출<br>GitHub Pages에 자동 배포</span>
+        <span class="en">Smartphone Telegram → <strong>Claude agent</strong> on AWS EC2<br>Claude calls Gemini(search) + GPT(images)<br>Auto-deploy to GitHub Pages</span>
+      </p>
+    </div>
+    <div style="background:rgba(255,255,255,0.08);border-radius:16px;padding:20px;border:1px solid rgba(255,255,255,0.1)">
+      <div style="font-size:2rem;margin-bottom:8px">⏱️</div>
+      <h3 style="color:#64b5f6;margin-bottom:8px"><span class="ko">타임라인</span><span class="en">Timeline</span></h3>
+      <p style="color:rgba(255,255,255,0.8);font-size:0.9rem">
+        <span class="ko"><strong>새벽 3시~5시</strong> 텔레그램 채팅<br>내가 한 것: 방향 지시, 내용 검토<br>AI가 한 것: 검색, 이미지 생성, HTML 코딩, Git push<br><strong>약 2시간, 스마트폰만으로</strong></span>
+        <span class="en"><strong>3AM~5AM</strong> Telegram chat<br>I did: direction, review<br>AI did: search, images, HTML, Git push<br><strong>~2 hours, smartphone only</strong></span>
+      </p>
+    </div>
+    <div style="background:rgba(255,255,255,0.08);border-radius:16px;padding:20px;border:1px solid rgba(255,255,255,0.1)">
+      <div style="font-size:2rem;margin-bottom:8px">🔢</div>
+      <h3 style="color:#64b5f6;margin-bottom:8px"><span class="ko">결과물</span><span class="en">Output</span></h3>
+      <p style="color:rgba(255,255,255,0.8);font-size:0.9rem">
+        <span class="ko">HTML <strong>900줄</strong><br>이미지 <strong>17개</strong> (GPT 생성)<br>한/영 전환 + 다크모드<br>검색 보충 (Gemini)<br><strong>지금 보고 계신 이 페이지</strong></span>
+        <span class="en">HTML <strong>900 lines</strong><br><strong>17 images</strong> (GPT generated)<br>KO/EN toggle + dark mode<br>Research by Gemini<br><strong>This very page you're viewing</strong></span>
+      </p>
+    </div>
+  </div>
+
+  <div style="background:rgba(255,255,255,0.05);border-radius:16px;padding:24px;border:1px solid rgba(255,255,255,0.15);margin-bottom:24px">
+    <h3 style="color:#ffd54f;margin-bottom:12px"><span class="ko">💬 실제 대화 예시</span><span class="en">💬 Actual Chat Examples</span></h3>
+    <div style="font-family:monospace;font-size:0.85rem;line-height:2;color:rgba(255,255,255,0.9)">
+      <p>👤 <span class="ko">"오픈클로 부분 아래 내용보고 수정"</span><span class="en">"Fix the OpenClaw section based on this info"</span></p>
+      <p>🤖 <span class="ko">"Gemini 검색 완료. GPT로 이미지 재생성 중... Push 완료."</span><span class="en">"Gemini search done. Regenerating images with GPT... Pushed."</span></p>
+      <p>👤 <span class="ko">"프리젠테이션이니 이미지 내용에 부합한지 검토후 수정"</span><span class="en">"Review if images match content, fix as presentation"</span></p>
+      <p>🤖 <span class="ko">"17개 이미지 검토. 3개 재생성, 1개 삭제, 11개 리사이즈. Push 완료."</span><span class="en">"17 images reviewed. 3 regenerated, 1 deleted, 11 resized. Pushed."</span></p>
+      <p>👤 <span class="ko">"SID 논문 발표 사례 추가"</span><span class="en">"Add SID paper presentation case"</span></p>
+      <p>🤖 <span class="ko">"12단계 워크플로우 카드 + 이미지 생성 + Push 완료."</span><span class="en">"12-step workflow cards + image + pushed."</span></p>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:24px 0;border-top:1px solid rgba(255,255,255,0.15)">
+    <p style="font-size:1.4rem;font-weight:900;color:#fff;margin-bottom:8px">
+      <span class="ko">"이것이 바이브코딩입니다"</span>
+      <span class="en">"This is Vibe Coding"</span>
+    </p>
+    <p style="font-size:1rem;color:rgba(255,255,255,0.7)">
+      <span class="ko">코드를 한 줄도 쓰지 않았습니다. 방향만 잡아줬습니다.<br>나머지는 AI가 검색하고, 만들고, 배포했습니다.<br><strong>여러분도 할 수 있습니다. 지금 당장.</strong></span>
+      <span class="en">I didn't write a single line of code. I just gave directions.<br>AI searched, created, and deployed everything.<br><strong>You can do this too. Starting now.</strong></span>
+    </p>
+  </div>
+</section>
+
+<!-- 2회 세미나 예고 -->
+<section class="section" style="background:linear-gradient(135deg,#0d2137,#1a3a5c);color:#fff;border-radius:24px;margin:40px 0;padding:48px 32px">
+  <h2 style="color:#ffd54f;text-align:center;margin-bottom:8px">
+    <span class="ko">📢 2회 세미나 예고</span>
+    <span class="en">📢 Next Session Preview</span>
+  </h2>
+  <p style="text-align:center;color:rgba(255,255,255,0.7);font-size:1.1rem;margin-bottom:32px">
+    <span class="ko">1회가 "AI란 무엇인가"였다면, 2회는 <strong>"AI를 어떻게 쓰는가"</strong>입니다</span>
+    <span class="en">Session 1 was "What is AI?" — Session 2 will be <strong>"How to use AI"</strong></span>
+  </p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:24px">
+    <div style="background:rgba(255,255,255,0.08);border-radius:16px;padding:24px;border:1px solid rgba(255,255,255,0.1)">
+      <div style="font-size:2rem;margin-bottom:8px">🌐</div>
+      <h3 style="color:#64b5f6;margin-bottom:12px"><span class="ko">Part 1: 회사 밖 AI 사용</span><span class="en">Part 1: AI Outside Work</span></h3>
+      <div style="color:rgba(255,255,255,0.85);font-size:0.9rem;line-height:1.8">
+        <p><strong style="color:#34A853">Google</strong></p>
+        <p style="margin-left:16px">• Antigravity 2.0 IDE<br>• NotebookLM<br>• Google AI Studio<br>• Stitch<br>• Flow</p>
+        <p style="margin-top:12px"><strong style="color:#4285F4">OpenAI</strong></p>
+        <p style="margin-left:16px">• Codex<br>• Agent Skill</p>
+        <p style="margin-top:12px"><strong style="color:#a855f7">Anthropic</strong></p>
+        <p style="margin-left:16px">• Cowork<br>• Claude Code</p>
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,0.08);border-radius:16px;padding:24px;border:1px solid rgba(255,255,255,0.1)">
+      <div style="font-size:2rem;margin-bottom:8px">🏢</div>
+      <h3 style="color:#64b5f6;margin-bottom:12px"><span class="ko">Part 2: 회사 안 AI 사용</span><span class="en">Part 2: AI Inside Work</span></h3>
+      <div style="color:rgba(255,255,255,0.85);font-size:0.9rem;line-height:1.8">
+        <p><strong style="color:#FBBC04">GPT + VS Code 바이브코딩</strong></p>
+        <p style="margin-left:16px">• GPT Enterprise + VS Code 연동<br>• 프롬프트만으로 코드 생성<br>• 데이터 분석 자동화</p>
+        <p style="margin-top:12px"><strong style="color:#EA4335">실전 사례: Gage R&R</strong></p>
+        <p style="margin-left:16px">• Codex를 활용한 측정 시스템 분석<br>• 반복성/재현성 자동 계산<br>• 보고서 자동 생성까지</p>
+      </div>
+    </div>
+  </div>
+
+  <p style="text-align:center;color:rgba(255,255,255,0.5);font-size:0.9rem">
+    <span class="ko">날짜 미정 | 1회 참석자 대상 | 실습 중심</span>
+    <span class="en">Date TBD | For Session 1 attendees | Hands-on focused</span>
+  </p>
+</section>
+
+<footer>
+  <p>
+    <span class="ko">SDC 연구소 재료연구팀 AI 세미나 | 2026.6.13 | AI가 바꾸는 연구개발<br>이 발표자료는 텔레그램 + Claude + Gemini + GPT + GitHub Pages로 제작되었습니다</span>
+    <span class="en">SDC Materials Research Team AI Seminar | 2026.6.13 | AI Transforming R&D<br>This presentation was made with Telegram + Claude + Gemini + GPT + GitHub Pages</span>
+  </p>
+</footer>
+
+<script>
+function toggleTheme(){
+  const html=document.documentElement;
+  const btn=document.getElementById('themeBtn');
+  if(html.getAttribute('data-theme')==='dark'){
+    html.setAttribute('data-theme','light');
+    btn.textContent='🌙 Dark';
+  }else{
+    html.setAttribute('data-theme','dark');
+    btn.textContent='☀️ Light';
+  }
+}
+function toggleLang(){
+  const html=document.documentElement;
+  const btn=document.getElementById('langBtn');
+  if(html.getAttribute('data-lang')==='en'){
+    html.removeAttribute('data-lang');
+    btn.textContent='EN 🌐';
+  }else{
+    html.setAttribute('data-lang','en');
+    btn.textContent='KO 🌐';
+  }
+}
+</script>
+
+
+<!-- SERIES NAV -->
+<div id="series-bar"><span class="s-label">📚 AI 세미나 시리즈</span><a class="s-active" href="./index1.html">1차 세미나 ★</a><span class="s-sep"> | </span><a class="s-link" href="./index2.html">2차 세미나</a><span class="s-sep"> | </span><a class="s-link" href="./index.html">3차 세미나</a></div>
+</body>
+</html>
