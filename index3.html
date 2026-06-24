@@ -6,23 +6,6 @@
 <title>AI 3차 세미나 — Claude Code 심화 & 토큰 최적화</title>
 <style>
 :root {
-  --bg: #0a0a12;
-  --sf: #13131e;
-  --sf2: #1a1a28;
-  --bd: #2a2a3c;
-  --ac: #6366f1;
-  --ac2: #818cf8;
-  --tx: #e4e4f0;
-  --mt: #7878a0;
-  --gn: #22c55e;
-  --gd: #f59e0b;
-  --pk: #ec4899;
-  --cy: #06b6d4;
-  --pp: #a78bfa;
-  --rd: #ef4444;
-  --or: #f97316;
-}
-[data-theme="light"] {
   --bg: #f4f6fb;
   --sf: #ffffff;
   --sf2: #eaecf4;
@@ -46,24 +29,24 @@ body { background: var(--bg); color: var(--tx); font-family: 'Apple SD Gothic Ne
 /* SPLASH / PASSWORD */
 #splash {
   position: fixed; inset: 0; z-index: 9999;
-  background: #0a0a14;
+  background: linear-gradient(135deg, #f0f4ff 0%, #e8ecff 50%, #f4f0ff 100%);
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
 }
 #splash.hide { display: none; }
 .splash-grid {
   position: absolute; inset: 0; overflow: hidden; opacity: 0.1;
-  background: linear-gradient(rgba(99,102,241,0.5) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(99,102,241,0.5) 1px, transparent 1px);
+  background: linear-gradient(rgba(99,102,241,0.2) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(99,102,241,0.2) 1px, transparent 1px);
   background-size: 60px 60px;
   transform: perspective(600px) rotateX(30deg); transform-origin: bottom;
 }
-.splash-logo { font-size: 2.4rem; font-weight: 900; color: #fff; letter-spacing: -1px; }
-.splash-sub { font-size: 0.9rem; color: #7878a0; }
+.splash-logo { font-size: 2.4rem; font-weight: 900; color: #1a1d4e; letter-spacing: -1px; }
+.splash-sub { font-size: 0.9rem; color: #60657a; }
 .pw-box { display: flex; gap: 10px; margin-top: 8px; }
 .pw-box input {
-  background: #1a1a28; border: 1px solid #2a2a3c; color: #fff;
+  background: #ffffff; border: 1px solid #d0d4e4; color: #111827;
   border-radius: 10px; padding: 12px 18px; font-size: 1rem; width: 160px; text-align: center;
-  letter-spacing: 6px;
+  letter-spacing: 6px; box-shadow: 0 2px 8px rgba(79,82,204,0.08);
 }
 .pw-box button {
   background: #6366f1; color: #fff; border: none; border-radius: 10px;
@@ -98,8 +81,8 @@ nav {
   position: relative; overflow: hidden;
 }
 .hero-bg {
-  position: absolute; inset: 0; opacity: 0.05;
-  background: radial-gradient(ellipse 80% 60% at 50% 40%, #6366f1, transparent);
+  position: absolute; inset: 0; opacity: 0.6;
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(99,102,241,0.15), transparent);
 }
 .hero-badge {
   display: inline-block; background: rgba(99,102,241,0.12); color: var(--ac2);
@@ -144,16 +127,16 @@ nav {
 
 /* CODE BLOCK */
 .code-block {
-  background: #0d0d14; border: 1px solid var(--bd); border-radius: 12px;
+  background: #f8f9ff; border: 1px solid #dde1f5; border-radius: 12px;
   padding: 20px 24px; font-family: 'Fira Code','Consolas',monospace;
-  position: relative; overflow-x: auto;
+  position: relative; overflow-x: auto; box-shadow: inset 0 1px 3px rgba(79,82,204,0.06);
 }
 .code-label { font-size: 0.7rem; color: var(--mt); margin-bottom: 10px; display: block; }
-.code-line { color: #a5f3fc; font-size: 0.88rem; line-height: 1.8; }
-.code-comment { color: #4b5563; }
-.code-key { color: #f59e0b; }
-.code-val { color: #86efac; }
-.code-num { color: #c084fc; }
+.code-line { color: #1e3a8a; font-size: 0.88rem; line-height: 1.8; }
+.code-comment { color: #6b7280; font-style: italic; }
+.code-key { color: #b45309; font-weight: 600; }
+.code-val { color: #15803d; }
+.code-num { color: #7c3aed; }
 
 /* STAT CARD */
 .stat-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; margin-top: 28px; }
