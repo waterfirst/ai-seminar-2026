@@ -1,50 +1,50 @@
 <!DOCTYPE html>
-<html lang="ko" data-theme="light">
+<html lang="ko" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI 3차 세미나 — Claude Code 심화 & 토큰 최적화</title>
 <style>
 :root {
-  --bg: #f4f6fb;
-  --sf: #ffffff;
-  --sf2: #eaecf4;
-  --bd: #d0d4e4;
-  --ac: #4f52cc;
-  --ac2: #6366f1;
-  --tx: #111827;
-  --mt: #60657a;
-  --gn: #16a34a;
-  --gd: #b45309;
-  --pk: #be185d;
-  --cy: #0e7490;
-  --pp: #6d28d9;
-  --rd: #dc2626;
-  --or: #c2410c;
+  --bg: #0b0e14;
+  --sf: #141925;
+  --sf2: #1a2232;
+  --bd: #232c3d;
+  --ac: #19d3a7;
+  --ac2: #4f9bff;
+  --tx: #e8edf5;
+  --mt: #93a1b5;
+  --gn: #22c55e;
+  --gd: #f5a623;
+  --pk: #f472b6;
+  --cy: #22d3ee;
+  --pp: #a78bfa;
+  --rd: #f87171;
+  --or: #fb923c;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--tx); font-family: 'Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif; line-height: 1.6; }
+body { background: var(--bg); color: var(--tx); font-family: 'Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif; line-height: 1.6; padding-bottom: 56px; }
 
 /* SPLASH / PASSWORD */
 #splash {
   position: fixed; inset: 0; z-index: 9999;
-  background: linear-gradient(135deg, #f0f4ff 0%, #e8ecff 50%, #f4f0ff 100%);
+  background: radial-gradient(circle at 50% 36%, #2a2418 0%, #16161c 50%, #0a0a0e 100%);
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
 }
 #splash.hide { display: none; }
 .splash-grid {
   position: absolute; inset: 0; overflow: hidden; opacity: 0.1;
-  background: linear-gradient(rgba(99,102,241,0.2) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(99,102,241,0.2) 1px, transparent 1px);
+  background: linear-gradient(rgba(25,211,167,0.15) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(25,211,167,0.15) 1px, transparent 1px);
   background-size: 60px 60px;
   transform: perspective(600px) rotateX(30deg); transform-origin: bottom;
 }
-.splash-logo { font-size: 2.4rem; font-weight: 900; color: #1a1d4e; letter-spacing: -1px; }
-.splash-sub { font-size: 0.9rem; color: #60657a; }
+.splash-logo { font-size: 2.4rem; font-weight: 900; color: #e8edf5; letter-spacing: -1px; }
+.splash-sub { font-size: 0.9rem; color: #93a1b5; }
 .pw-box { display: flex; gap: 10px; margin-top: 8px; }
 .pw-box input {
-  background: #ffffff; border: 1px solid #d0d4e4; color: #111827;
+  background: #1a2232; border: 1px solid #232c3d; color: #e8edf5;
   border-radius: 10px; padding: 12px 18px; font-size: 1rem; width: 160px; text-align: center;
   letter-spacing: 6px; box-shadow: 0 2px 8px rgba(79,82,204,0.08);
 }
@@ -439,10 +439,10 @@ footer {
         </linearGradient>
       </defs>
       <!-- 스텝 1: 사람 -->
-      <rect x="10" y="30" width="100" height="90" rx="12" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+      <rect x="10" y="30" width="100" height="90" rx="12" fill="#1a2232" stroke="#3b82f6" stroke-width="1.5"/>
       <text x="60" y="65" text-anchor="middle" font-size="28" fill="#1d4ed8">💬</text>
       <text x="60" y="90" text-anchor="middle" font-size="11" fill="#3b82f6" font-weight="700">내 질문</text>
-      <text x="60" y="108" text-anchor="middle" font-size="10" fill="#6b7280">수십 토큰</text>
+      <text x="60" y="108" text-anchor="middle" font-size="10" fill="#93a1b5">수십 토큰</text>
       <!-- 화살표 1 -->
       <line x1="110" y1="75" x2="150" y2="75" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr)"/>
       <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#94a3b8"/></marker></defs>
@@ -450,16 +450,16 @@ footer {
       <rect x="150" y="30" width="100" height="90" rx="12" fill="#faf5ff" stroke="#7c3aed" stroke-width="1.5"/>
       <text x="200" y="65" text-anchor="middle" font-size="28" fill="#7c3aed">🤖</text>
       <text x="200" y="90" text-anchor="middle" font-size="11" fill="#7c3aed" font-weight="700">Claude 처리</text>
-      <text x="200" y="108" text-anchor="middle" font-size="10" fill="#6b7280">+ bash 결과</text>
+      <text x="200" y="108" text-anchor="middle" font-size="10" fill="#93a1b5">+ bash 결과</text>
       <!-- 화살표 2 -->
       <line x1="250" y1="75" x2="290" y2="75" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr)"/>
       <!-- 스텝 3: 누적 토큰 -->
-      <rect x="290" y="30" width="110" height="90" rx="12" fill="#fff7ed" stroke="#f59e0b" stroke-width="1.5"/>
+      <rect x="290" y="30" width="110" height="90" rx="12" fill="#1f1608" stroke="#f59e0b" stroke-width="1.5"/>
       <text x="345" y="62" text-anchor="middle" font-size="26" fill="#d97706">📊</text>
       <text x="345" y="86" text-anchor="middle" font-size="11" fill="#d97706" font-weight="700">토큰 누적</text>
-      <rect x="305" y="95" width="80" height="10" rx="4" fill="#e5e7eb"/>
+      <rect x="305" y="95" width="80" height="10" rx="4" fill="#232c3d"/>
       <rect x="305" y="95" width="64" height="10" rx="4" fill="url(#meterGrad)"/>
-      <text x="345" y="118" text-anchor="middle" font-size="10" fill="#6b7280">점점 늘어남 →</text>
+      <text x="345" y="118" text-anchor="middle" font-size="10" fill="#93a1b5">점점 늘어남 →</text>
       <!-- 화살표 3 -->
       <line x1="400" y1="75" x2="440" y2="75" stroke="#ef4444" stroke-width="2" marker-end="url(#arr2)"/>
       <defs><marker id="arr2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ef4444"/></marker></defs>
@@ -467,7 +467,7 @@ footer {
       <rect x="440" y="30" width="100" height="90" rx="12" fill="#fff1f2" stroke="#f43f5e" stroke-width="1.5"/>
       <text x="490" y="63" text-anchor="middle" font-size="26" fill="#e11d48">💸</text>
       <text x="490" y="87" text-anchor="middle" font-size="11" fill="#e11d48" font-weight="700">API 비용 발생</text>
-      <text x="490" y="106" text-anchor="middle" font-size="10" fill="#6b7280">토큰 = 돈</text>
+      <text x="490" y="106" text-anchor="middle" font-size="10" fill="#93a1b5">토큰 = 돈</text>
       <!-- RTK 절약 표시 -->
       <rect x="560" y="55" width="72" height="38" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
       <text x="596" y="72" text-anchor="middle" font-size="10" fill="#15803d" font-weight="700">RTK로</text>
@@ -523,7 +523,7 @@ footer {
     </ul>
 
   <!-- 사내 사례 자리표시자 -->
-  <div style="border:2px dashed #16a34a;border-radius:12px;padding:22px;margin-top:28px;background:rgba(22,163,74,0.02)">
+  <div style="border:2px dashed #16a34a;border-radius:12px;padding:22px;margin-top:28px;background:rgba(22,163,74,0.08)">
     <div style="font-size:0.72rem;font-weight:800;color:#16a34a;letter-spacing:0.1em;margin-bottom:10px">✏️ 사내 테스트 경험 사례 — 발표 시 작성 예정</div>
     <div style="color:#9ca3af;font-size:0.85rem;line-height:1.8">
       품질팀에서 AI를 실제 테스트에 활용한 사례를 이 자리에 작성합니다.<br>
@@ -549,33 +549,33 @@ footer {
       <!-- 파이프 배경 -->
       <rect x="0" y="50" width="580" height="28" rx="6" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
       <!-- Claude 판단 박스 -->
-      <rect x="10" y="35" width="90" height="58" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+      <rect x="10" y="35" width="90" height="58" rx="10" fill="#1a2232" stroke="#3b82f6" stroke-width="1.5"/>
       <text x="55" y="60" text-anchor="middle" font-size="18" fill="#3b82f6">🤖</text>
       <text x="55" y="79" text-anchor="middle" font-size="10.5" fill="#1d4ed8" font-weight="700">Claude 판단</text>
-      <text x="55" y="91" text-anchor="middle" font-size="9.5" fill="#6b7280">"명령 실행해"</text>
+      <text x="55" y="91" text-anchor="middle" font-size="9.5" fill="#93a1b5">"명령 실행해"</text>
       <!-- Pre-Hook 밸브 -->
-      <rect x="130" y="28" width="80" height="72" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+      <rect x="130" y="28" width="80" height="72" rx="10" fill="#1a2232" stroke="#7c3aed" stroke-width="2"/>
       <text x="170" y="54" text-anchor="middle" font-size="14" fill="#7c3aed">🪝</text>
       <text x="170" y="71" text-anchor="middle" font-size="10.5" fill="#6d28d9" font-weight="800">Pre-Hook</text>
-      <text x="170" y="85" text-anchor="middle" font-size="9" fill="#6b7280">실행 전 개입</text>
-      <text x="170" y="97" text-anchor="middle" font-size="9" fill="#6b7280">명령어 변환</text>
+      <text x="170" y="85" text-anchor="middle" font-size="9" fill="#93a1b5">실행 전 개입</text>
+      <text x="170" y="97" text-anchor="middle" font-size="9" fill="#93a1b5">명령어 변환</text>
       <!-- bash 실행 -->
-      <rect x="240" y="35" width="90" height="58" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+      <rect x="240" y="35" width="90" height="58" rx="10" fill="#0f2419" stroke="#16a34a" stroke-width="1.5"/>
       <text x="285" y="60" text-anchor="middle" font-size="16" fill="#15803d">⚙️</text>
       <text x="285" y="78" text-anchor="middle" font-size="10.5" fill="#15803d" font-weight="700">bash 실행</text>
-      <text x="285" y="90" text-anchor="middle" font-size="9.5" fill="#6b7280">결과 수백 줄</text>
+      <text x="285" y="90" text-anchor="middle" font-size="9.5" fill="#93a1b5">결과 수백 줄</text>
       <!-- Post-Hook 필터 -->
       <rect x="360" y="28" width="80" height="72" rx="10" fill="#fefce8" stroke="#d97706" stroke-width="2"/>
       <text x="400" y="54" text-anchor="middle" font-size="14" fill="#d97706">✂️</text>
       <text x="400" y="71" text-anchor="middle" font-size="10.5" fill="#b45309" font-weight="800">Post-Hook</text>
-      <text x="400" y="85" text-anchor="middle" font-size="9" fill="#6b7280">결과 압축</text>
-      <text x="400" y="97" text-anchor="middle" font-size="9" fill="#6b7280">노이즈 제거</text>
+      <text x="400" y="85" text-anchor="middle" font-size="9" fill="#93a1b5">결과 압축</text>
+      <text x="400" y="97" text-anchor="middle" font-size="9" fill="#93a1b5">노이즈 제거</text>
       <!-- 최종 전달 -->
-      <rect x="470" y="35" width="100" height="58" rx="10" fill="#fdf2f8" stroke="#c026d3" stroke-width="1.5"/>
+      <rect x="470" y="35" width="100" height="58" rx="10" fill="#1f0d1a" stroke="#c026d3" stroke-width="1.5"/>
       <text x="520" y="57" text-anchor="middle" font-size="14" fill="#a21caf">📦</text>
       <text x="520" y="74" text-anchor="middle" font-size="10.5" fill="#a21caf" font-weight="700">Claude에게 전달</text>
-      <text x="520" y="87" text-anchor="middle" font-size="9.5" fill="#6b7280">핵심만 전달</text>
-      <text x="520" y="99" text-anchor="middle" font-size="9.5" fill="#6b7280">90% 절약 🎉</text>
+      <text x="520" y="87" text-anchor="middle" font-size="9.5" fill="#93a1b5">핵심만 전달</text>
+      <text x="520" y="99" text-anchor="middle" font-size="9.5" fill="#93a1b5">90% 절약 🎉</text>
       <!-- 화살표들 -->
       <defs><marker id="ha" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#64748b"/></marker></defs>
       <line x1="100" y1="64" x2="128" y2="64" stroke="#64748b" stroke-width="1.5" marker-end="url(#ha)"/>
@@ -702,12 +702,12 @@ footer {
   </div>
 
   <!-- 사내 URL 자리표시자 -->
-  <div style="border:2px dashed #2563eb;border-radius:12px;padding:18px;margin-top:28px;background:rgba(37,99,235,0.02)">
+  <div style="border:2px dashed #2563eb;border-radius:12px;padding:18px;margin-top:28px;background:rgba(37,99,235,0.08)">
     <div style="font-size:0.72rem;font-weight:800;color:#2563eb;letter-spacing:0.1em;margin-bottom:12px">🔗 사내 연결 URL — 발표 시 연결 예정</div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <div style="background:#eff6ff;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ RTK 다운로드 · 사내 배포 위치 ]</div>
-      <div style="background:#eff6ff;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ 사내 설치 가이드 문서 ]</div>
-      <div style="background:#eff6ff;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ RTK 설정 예시 파일 ]</div>
+      <div style="background:#1a2232;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ RTK 다운로드 · 사내 배포 위치 ]</div>
+      <div style="background:#1a2232;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ 사내 설치 가이드 문서 ]</div>
+      <div style="background:#1a2232;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ RTK 설정 예시 파일 ]</div>
     </div>
   </div>
 </section>
@@ -789,7 +789,7 @@ footer {
   </div>
 
   <!-- 사내 사례 자리표시자 -->
-  <div style="border:2px dashed #16a34a;border-radius:12px;padding:22px;margin-top:28px;background:rgba(22,163,74,0.02)">
+  <div style="border:2px dashed #16a34a;border-radius:12px;padding:22px;margin-top:28px;background:rgba(22,163,74,0.08)">
     <div style="font-size:0.72rem;font-weight:800;color:#16a34a;letter-spacing:0.1em;margin-bottom:10px">✏️ 사내 설치 경험 사례 — 발표 시 작성 예정</div>
     <div style="color:#9ca3af;font-size:0.85rem;line-height:1.8">
       품질팀 PC 환경에서 Claude Code + RTK를 설치한 실제 경험을 이 자리에 작성합니다.<br>
@@ -798,11 +798,11 @@ footer {
   </div>
 
   <!-- 사내 URL 자리표시자 -->
-  <div style="border:2px dashed #2563eb;border-radius:12px;padding:18px;margin-top:16px;background:rgba(37,99,235,0.02)">
+  <div style="border:2px dashed #2563eb;border-radius:12px;padding:18px;margin-top:16px;background:rgba(37,99,235,0.08)">
     <div style="font-size:0.72rem;font-weight:800;color:#2563eb;letter-spacing:0.1em;margin-bottom:12px">🔗 사내 연결 URL — 발표 시 연결 예정</div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <div style="background:#eff6ff;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ Claude Code 사내 설치 가이드 ]</div>
-      <div style="background:#eff6ff;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ API Key 발급 절차 ]</div>
+      <div style="background:#1a2232;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ Claude Code 사내 설치 가이드 ]</div>
+      <div style="background:#1a2232;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ API Key 발급 절차 ]</div>
     </div>
   </div>
 
@@ -880,12 +880,12 @@ footer {
         </linearGradient>
       </defs>
       <!-- 그리드 라인 -->
-      <line x1="80" y1="20" x2="80" y2="120" stroke="#e5e7eb" stroke-width="1"/>
-      <line x1="80" y1="120" x2="540" y2="120" stroke="#e5e7eb" stroke-width="1"/>
+      <line x1="80" y1="20" x2="80" y2="120" stroke="#232c3d" stroke-width="1"/>
+      <line x1="80" y1="120" x2="540" y2="120" stroke="#232c3d" stroke-width="1"/>
       <!-- 명령 레이블 -->
-      <text x="70" y="50" text-anchor="end" font-size="10" fill="#6b7280">git log</text>
-      <text x="70" y="78" text-anchor="end" font-size="10" fill="#6b7280">npm install</text>
-      <text x="70" y="106" text-anchor="end" font-size="10" fill="#6b7280">find .</text>
+      <text x="70" y="50" text-anchor="end" font-size="10" fill="#93a1b5">git log</text>
+      <text x="70" y="78" text-anchor="end" font-size="10" fill="#93a1b5">npm install</text>
+      <text x="70" y="106" text-anchor="end" font-size="10" fill="#93a1b5">find .</text>
       <!-- RTK 없을 때 (빨간 막대) -->
       <rect x="82" y="38" width="380" height="14" rx="4" fill="url(#redBar)"/>
       <text x="466" y="50" font-size="10" fill="#dc2626" font-weight="700">100% (5,000 토큰)</text>
@@ -902,14 +902,14 @@ footer {
       <text x="169" y="106" font-size="9.5" fill="#15803d" font-weight="700">30% ✓</text>
       <!-- 범례 -->
       <rect x="82" y="128" width="12" height="8" rx="2" fill="#ef4444" fill-opacity="0.7"/>
-      <text x="98" y="136" font-size="9.5" fill="#6b7280">RTK 없음</text>
+      <text x="98" y="136" font-size="9.5" fill="#93a1b5">RTK 없음</text>
       <rect x="160" y="128" width="12" height="8" rx="2" fill="#22c55e" fill-opacity="0.8"/>
-      <text x="176" y="136" font-size="9.5" fill="#6b7280">RTK 적용 후</text>
+      <text x="176" y="136" font-size="9.5" fill="#93a1b5">RTK 적용 후</text>
     </svg>
   </div>
 
   <!-- 사내 사례 자리표시자 -->
-  <div style="border:2px dashed #16a34a;border-radius:12px;padding:22px;margin-top:24px;background:rgba(22,163,74,0.02)">
+  <div style="border:2px dashed #16a34a;border-radius:12px;padding:22px;margin-top:24px;background:rgba(22,163,74,0.08)">
     <div style="font-size:0.72rem;font-weight:800;color:#16a34a;letter-spacing:0.1em;margin-bottom:10px">✏️ 사내 실측 절약 사례 — 발표 시 작성 예정</div>
     <div style="color:#9ca3af;font-size:0.85rem;line-height:1.8">
       품질팀 업무에 Claude Code를 실제 사용했을 때 절약된 토큰·비용 수치를 이 자리에 작성합니다.<br>
@@ -939,7 +939,7 @@ footer {
       <rect x="10" y="30" width="100" height="70" rx="10" fill="#fff1f2" stroke="#f43f5e" stroke-width="1.5"/>
       <text x="60" y="57" text-anchor="middle" font-size="22" fill="#e11d48">😤</text>
       <text x="60" y="75" text-anchor="middle" font-size="10.5" fill="#e11d48" font-weight="700">CLAUDE.md</text>
-      <text x="60" y="89" text-anchor="middle" font-size="9.5" fill="#6b7280">없을 때</text>
+      <text x="60" y="89" text-anchor="middle" font-size="9.5" fill="#93a1b5">없을 때</text>
       <text x="60" y="103" text-anchor="middle" font-size="8.5" fill="#f43f5e">"저는 처음이에요"</text>
       <!-- vs 텍스트 -->
       <text x="133" y="70" text-anchor="middle" font-size="13" fill="#9ca3af" font-weight="800">VS</text>
@@ -947,25 +947,25 @@ footer {
       <rect x="155" y="20" width="80" height="100" rx="10" fill="#faf5ff" stroke="#7c3aed" stroke-width="1.5"/>
       <text x="195" y="48" text-anchor="middle" font-size="18" fill="#7c3aed">📋</text>
       <text x="195" y="66" text-anchor="middle" font-size="10" fill="#6d28d9" font-weight="800">CLAUDE.md</text>
-      <text x="195" y="82" text-anchor="middle" font-size="8.5" fill="#6b7280">프로젝트 규칙</text>
-      <text x="195" y="96" text-anchor="middle" font-size="8.5" fill="#6b7280">DB 위치·형식</text>
-      <text x="195" y="110" text-anchor="middle" font-size="8.5" fill="#6b7280">코드 스타일</text>
+      <text x="195" y="82" text-anchor="middle" font-size="8.5" fill="#93a1b5">프로젝트 규칙</text>
+      <text x="195" y="96" text-anchor="middle" font-size="8.5" fill="#93a1b5">DB 위치·형식</text>
+      <text x="195" y="110" text-anchor="middle" font-size="8.5" fill="#93a1b5">코드 스타일</text>
       <!-- 화살표 -->
       <line x1="237" y1="70" x2="265" y2="70" stroke="#64748b" stroke-width="1.5" marker-end="url(#ma)"/>
       <!-- AI 세션 박스 -->
-      <rect x="267" y="30" width="100" height="70" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+      <rect x="267" y="30" width="100" height="70" rx="10" fill="#0f2419" stroke="#16a34a" stroke-width="1.5"/>
       <text x="317" y="55" text-anchor="middle" font-size="22" fill="#15803d">😎</text>
       <text x="317" y="72" text-anchor="middle" font-size="10.5" fill="#15803d" font-weight="700">AI 신규 세션</text>
       <text x="317" y="87" text-anchor="middle" font-size="8.5" fill="#15803d">"규칙 알고 시작!"</text>
-      <text x="317" y="101" text-anchor="middle" font-size="8.5" fill="#6b7280">설명 반복 불필요</text>
+      <text x="317" y="101" text-anchor="middle" font-size="8.5" fill="#93a1b5">설명 반복 불필요</text>
       <!-- 화살표 -->
       <line x1="369" y1="70" x2="397" y2="70" stroke="#64748b" stroke-width="1.5" marker-end="url(#ma)"/>
       <!-- 결과 박스 -->
-      <rect x="399" y="25" width="170" height="80" rx="10" fill="#fff7ed" stroke="#f59e0b" stroke-width="1.5"/>
+      <rect x="399" y="25" width="170" height="80" rx="10" fill="#1f1608" stroke="#f59e0b" stroke-width="1.5"/>
       <text x="484" y="50" text-anchor="middle" font-size="11" fill="#d97706" font-weight="800">매 세션 절약 효과</text>
-      <text x="484" y="67" text-anchor="middle" font-size="9.5" fill="#6b7280">✅ 설명 반복 0회</text>
-      <text x="484" y="81" text-anchor="middle" font-size="9.5" fill="#6b7280">✅ 규칙 위반 실수 감소</text>
-      <text x="484" y="95" text-anchor="middle" font-size="9.5" fill="#6b7280">✅ 토큰 추가 낭비 방지</text>
+      <text x="484" y="67" text-anchor="middle" font-size="9.5" fill="#93a1b5">✅ 설명 반복 0회</text>
+      <text x="484" y="81" text-anchor="middle" font-size="9.5" fill="#93a1b5">✅ 규칙 위반 실수 감소</text>
+      <text x="484" y="95" text-anchor="middle" font-size="9.5" fill="#93a1b5">✅ 토큰 추가 낭비 방지</text>
     </svg>
   </div>
 
@@ -1005,7 +1005,7 @@ footer {
   </div>
 
   <!-- 사내 사례 자리표시자 -->
-  <div style="border:2px dashed #16a34a;border-radius:12px;padding:22px;margin-top:24px;background:rgba(22,163,74,0.02)">
+  <div style="border:2px dashed #16a34a;border-radius:12px;padding:22px;margin-top:24px;background:rgba(22,163,74,0.08)">
     <div style="font-size:0.72rem;font-weight:800;color:#16a34a;letter-spacing:0.1em;margin-bottom:10px">✏️ 사내 CLAUDE.md 활용 사례 — 발표 시 작성 예정</div>
     <div style="color:#9ca3af;font-size:0.85rem;line-height:1.8">
       품질팀 프로젝트에서 CLAUDE.md에 어떤 규칙을 설정했는지 실제 사례를 이 자리에 작성합니다.<br>
@@ -1014,11 +1014,11 @@ footer {
   </div>
 
   <!-- 사내 URL 자리표시자 -->
-  <div style="border:2px dashed #2563eb;border-radius:12px;padding:18px;margin-top:16px;background:rgba(37,99,235,0.02)">
+  <div style="border:2px dashed #2563eb;border-radius:12px;padding:18px;margin-top:16px;background:rgba(37,99,235,0.08)">
     <div style="font-size:0.72rem;font-weight:800;color:#2563eb;letter-spacing:0.1em;margin-bottom:12px">🔗 사내 연결 URL — 발표 시 연결 예정</div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <div style="background:#eff6ff;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ 사내 CLAUDE.md 템플릿 ]</div>
-      <div style="background:#eff6ff;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ 팀별 규칙 공유 NAS 경로 ]</div>
+      <div style="background:#1a2232;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ 사내 CLAUDE.md 템플릿 ]</div>
+      <div style="background:#1a2232;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ 팀별 규칙 공유 NAS 경로 ]</div>
     </div>
   </div>
 
@@ -1038,31 +1038,31 @@ footer {
     <svg viewBox="0 0 560 160" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;display:block;margin:0 auto">
       <defs><marker id="pa" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#7c3aed"/></marker></defs>
       <!-- 순환 화살표 배경 -->
-      <circle cx="280" cy="80" r="65" fill="none" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,3"/>
+      <circle cx="280" cy="80" r="65" fill="none" stroke="#232c3d" stroke-width="1" stroke-dasharray="4,3"/>
       <!-- 4개 노드 -->
       <!-- 상: 규칙 정의 -->
-      <rect x="218" y="8" width="124" height="40" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+      <rect x="218" y="8" width="124" height="40" rx="10" fill="#1a2232" stroke="#3b82f6" stroke-width="1.5"/>
       <text x="280" y="27" text-anchor="middle" font-size="12" fill="#1d4ed8">📋 규칙 정의</text>
-      <text x="280" y="42" text-anchor="middle" font-size="9.5" fill="#6b7280">CLAUDE.md 작성</text>
+      <text x="280" y="42" text-anchor="middle" font-size="9.5" fill="#93a1b5">CLAUDE.md 작성</text>
       <!-- 우: 실행 -->
-      <rect x="382" y="58" width="110" height="40" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+      <rect x="382" y="58" width="110" height="40" rx="10" fill="#0f2419" stroke="#16a34a" stroke-width="1.5"/>
       <text x="437" y="77" text-anchor="middle" font-size="12" fill="#15803d">⚙️ 실행</text>
-      <text x="437" y="92" text-anchor="middle" font-size="9.5" fill="#6b7280">Claude Code 작업</text>
+      <text x="437" y="92" text-anchor="middle" font-size="9.5" fill="#93a1b5">Claude Code 작업</text>
       <!-- 하: 측정 -->
-      <rect x="218" y="112" width="124" height="40" rx="10" fill="#fff7ed" stroke="#f59e0b" stroke-width="1.5"/>
+      <rect x="218" y="112" width="124" height="40" rx="10" fill="#1f1608" stroke="#f59e0b" stroke-width="1.5"/>
       <text x="280" y="131" text-anchor="middle" font-size="12" fill="#d97706">📊 측정</text>
-      <text x="280" y="146" text-anchor="middle" font-size="9.5" fill="#6b7280">rtk gain 확인</text>
+      <text x="280" y="146" text-anchor="middle" font-size="9.5" fill="#93a1b5">rtk gain 확인</text>
       <!-- 좌: 개선 -->
-      <rect x="68" y="58" width="110" height="40" rx="10" fill="#fdf2f8" stroke="#c026d3" stroke-width="1.5"/>
+      <rect x="68" y="58" width="110" height="40" rx="10" fill="#1f0d1a" stroke="#c026d3" stroke-width="1.5"/>
       <text x="123" y="77" text-anchor="middle" font-size="12" fill="#a21caf">🔄 개선</text>
-      <text x="123" y="92" text-anchor="middle" font-size="9.5" fill="#6b7280">규칙 업데이트</text>
+      <text x="123" y="92" text-anchor="middle" font-size="9.5" fill="#93a1b5">규칙 업데이트</text>
       <!-- 순환 화살표 -->
       <path d="M 342 28 Q 400 28 382 68" fill="none" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#pa)"/>
       <path d="M 437 98 Q 437 140 342 142" fill="none" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#pa)"/>
       <path d="M 218 132 Q 160 132 123 98" fill="none" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#pa)"/>
       <path d="M 123 58 Q 123 28 218 28" fill="none" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#pa)"/>
       <!-- 중앙 텍스트 -->
-      <circle cx="280" cy="80" r="28" fill="#f5f3ff" stroke="#a78bfa" stroke-width="1.5"/>
+      <circle cx="280" cy="80" r="28" fill="#1a2232" stroke="#a78bfa" stroke-width="1.5"/>
       <text x="280" y="75" text-anchor="middle" font-size="16" fill="#7c3aed">🤖</text>
       <text x="280" y="91" text-anchor="middle" font-size="9" fill="#7c3aed" font-weight="700">지속 개선</text>
     </svg>
@@ -1236,7 +1236,7 @@ footer {
   </div>
 
   <!-- 사내 사례 자리표시자 -->
-  <div style="border:2px dashed #16a34a;border-radius:12px;padding:22px;margin-top:28px;background:rgba(22,163,74,0.02)">
+  <div style="border:2px dashed #16a34a;border-radius:12px;padding:22px;margin-top:28px;background:rgba(22,163,74,0.08)">
     <div style="font-size:0.72rem;font-weight:800;color:#16a34a;letter-spacing:0.1em;margin-bottom:10px">✏️ 사내 파이프라인 구축 사례 — 발표 시 작성 예정</div>
     <div style="color:#9ca3af;font-size:0.85rem;line-height:1.8">
       품질팀에서 실제 구현했거나 구현 예정인 데이터 파이프라인 사례를 이 자리에 작성합니다.<br>
@@ -1245,12 +1245,12 @@ footer {
   </div>
 
   <!-- 사내 URL 자리표시자 -->
-  <div style="border:2px dashed #2563eb;border-radius:12px;padding:18px;margin-top:16px;background:rgba(37,99,235,0.02)">
+  <div style="border:2px dashed #2563eb;border-radius:12px;padding:18px;margin-top:16px;background:rgba(37,99,235,0.08)">
     <div style="font-size:0.72rem;font-weight:800;color:#2563eb;letter-spacing:0.1em;margin-bottom:12px">🔗 사내 연결 URL — 발표 시 연결 예정</div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <div style="background:#eff6ff;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ 사내 데이터 API 주소 ]</div>
-      <div style="background:#eff6ff;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ NAS 품질 데이터 경로 ]</div>
-      <div style="background:#eff6ff;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ 대시보드 데모 URL ]</div>
+      <div style="background:#1a2232;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ 사내 데이터 API 주소 ]</div>
+      <div style="background:#1a2232;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ NAS 품질 데이터 경로 ]</div>
+      <div style="background:#1a2232;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ 대시보드 데모 URL ]</div>
     </div>
   </div>
 
@@ -1383,7 +1383,7 @@ footer {
   </div>
 
   <!-- 사내 사례 자리표시자 -->
-  <div style="border:2px dashed #16a34a;border-radius:12px;padding:22px;margin-top:28px;background:rgba(22,163,74,0.02)">
+  <div style="border:2px dashed #16a34a;border-radius:12px;padding:22px;margin-top:28px;background:rgba(22,163,74,0.08)">
     <div style="font-size:0.72rem;font-weight:800;color:#16a34a;letter-spacing:0.1em;margin-bottom:10px">✏️ 사내 프롬프트 활용 사례 — 발표 시 작성 예정</div>
     <div style="color:#9ca3af;font-size:0.85rem;line-height:1.8">
       품질팀에서 실제 효과를 본 프롬프트 패턴을 이 자리에 작성합니다.<br>
@@ -1392,11 +1392,11 @@ footer {
   </div>
 
   <!-- 사내 URL 자리표시자 -->
-  <div style="border:2px dashed #2563eb;border-radius:12px;padding:18px;margin-top:16px;background:rgba(37,99,235,0.02)">
+  <div style="border:2px dashed #2563eb;border-radius:12px;padding:18px;margin-top:16px;background:rgba(37,99,235,0.08)">
     <div style="font-size:0.72rem;font-weight:800;color:#2563eb;letter-spacing:0.1em;margin-bottom:12px">🔗 사내 연결 URL — 발표 시 연결 예정</div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <div style="background:#eff6ff;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ 팀 프롬프트 라이브러리 ]</div>
-      <div style="background:#eff6ff;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ Codex 실습 환경 ]</div>
+      <div style="background:#1a2232;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ 팀 프롬프트 라이브러리 ]</div>
+      <div style="background:#1a2232;color:#1d4ed8;border-radius:8px;padding:8px 16px;font-size:0.82rem;font-weight:600;border:1px solid #bfdbfe">[ Codex 실습 환경 ]</div>
     </div>
   </div>
 
@@ -1474,5 +1474,46 @@ document.getElementById('pwInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') checkPw();
 });
 </script>
+
+<!-- 시리즈 네비게이션 바 -->
+<nav id="series-nav" style="
+  position:fixed; bottom:0; left:0; right:0; z-index:8000;
+  background:rgba(10,14,40,0.94);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-top:1px solid rgba(25,211,167,0.2);
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  padding:10px 16px; flex-wrap:wrap;
+">
+  <span style="font-size:0.7rem;font-weight:700;color:#93a1b5;letter-spacing:0.08em;margin-right:6px;">AI 세미나 시리즈</span>
+  <a href="index1.html" style="
+    display:inline-flex; align-items:center; gap:5px;
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12);
+    border-radius:8px; padding:5px 12px; font-size:0.75rem; font-weight:600;
+    color:#93a1b5; text-decoration:none; transition:all 0.2s;
+  " onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.color='#e8edf5'"
+     onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='#93a1b5'">
+    1차 세미나
+  </a>
+  <a href="index2.html" style="
+    display:inline-flex; align-items:center; gap:5px;
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12);
+    border-radius:8px; padding:5px 12px; font-size:0.75rem; font-weight:600;
+    color:#93a1b5; text-decoration:none; transition:all 0.2s;
+  " onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.color='#e8edf5'"
+     onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='#93a1b5'">
+    2차 세미나
+  </a>
+  <a href="index.html" style="
+    display:inline-flex; align-items:center; gap:5px;
+    background:rgba(25,211,167,0.15); border:1px solid rgba(25,211,167,0.4);
+    border-radius:8px; padding:5px 12px; font-size:0.75rem; font-weight:700;
+    color:#19d3a7; text-decoration:none;
+  ">
+    3차 세미나 ◀ 현재
+  </a>
+</nav>
+<!-- /시리즈 네비게이션 바 -->
 </body>
+
 </html>
