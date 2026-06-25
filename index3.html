@@ -1515,51 +1515,17 @@ footer {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // 비밀번호 검증 함수
-  const checkPw = () => {
-    const input = document.getElementById('pwInput');
-    const splash = document.getElementById('splash');
-    const errMsg = document.getElementById('pwErr');
-
-    if (!input || !splash || !errMsg) return;
-
-    const v = input.value.trim();
-    if (v === '0000') {
-      splash.classList.add('hide');
-      errMsg.textContent = '';
-    } else {
-      errMsg.textContent = '비밀번호가 틀렸습니다.';
-      input.value = '';
-      input.focus();
-    }
-  };
+  // 비밀번호 스플레쉬 자동 숨기기
+  const splash = document.getElementById('splash');
+  if (splash) {
+    splash.classList.add('hide');
+  }
 
   // 테마 토글
   const toggleTheme = () => {
     const h = document.documentElement;
     h.setAttribute('data-theme', h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
   };
-
-  // 비밀번호 입력창
-  const pwInput = document.getElementById('pwInput');
-  if (pwInput) {
-    pwInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        checkPw();
-      }
-    });
-    pwInput.addEventListener('keyup', () => {
-      document.getElementById('pwErr').textContent = '';
-    });
-    pwInput.focus();
-  }
-
-  // 입장 버튼
-  const pwBtn = document.getElementById('pwBtn');
-  if (pwBtn) {
-    pwBtn.addEventListener('click', checkPw);
-  }
 
   // 테마 버튼
   const themeBtn = document.getElementById('themeBtn');
