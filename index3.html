@@ -1516,21 +1516,54 @@ footer {
 
 <script>
 function checkPw() {
-  const v = document.getElementById('pwInput').value.trim();
+  const input = document.getElementById('pwInput');
+  const splash = document.getElementById('splash');
+  const errMsg = document.getElementById('pwErr');
+
+  if (!input || !splash || !errMsg) {
+    console.error('필수 요소를 찾을 수 없습니다.');
+    return;
+  }
+
+  const v = input.value.trim();
   if (v === '0000') {
-    document.getElementById('splash').classList.add('hide');
+    splash.classList.add('hide');
+    errMsg.textContent = '';
   } else {
-    document.getElementById('pwErr').textContent = '비밀번호가 틀렸습니다.';
-    document.getElementById('pwInput').value = '';
-    document.getElementById('pwInput').focus();
+    errMsg.textContent = '비밀번호가 틀렸습니다.';
+    input.value = '';
+    input.focus();
   }
 }
+
 function toggleTheme() {
   const h = document.documentElement;
   h.setAttribute('data-theme', h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
 }
-document.getElementById('pwInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') checkPw();
+
+// DOM 로드 완료 후 이벤트 리스너 등록
+document.addEventListener('DOMContentLoaded', function() {
+  const pwInput = document.getElementById('pwInput');
+  if (pwInput) {
+    pwInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        checkPw();
+      }
+    });
+    pwInput.focus();
+  }
+});
+
+// 버튼 클릭도 안전하게 처리
+document.addEventListener('DOMContentLoaded', function() {
+  const btn = document.querySelector('.pw-box button');
+  if (btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      checkPw();
+    });
+  }
 });
 </script>
 
