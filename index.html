@@ -2608,13 +2608,17 @@ body.light .def-mura { background:#e0e7ff; }
 
 <section class="section" id="pumsim">
   <div class="section-label">품잔팀 · 웹앱 시뮬레이션</div>
-  <h2 class="section-title">AI 웹앱 제작 <span style="color:var(--ac)">실전 3종</span></h2>
-  <p class="section-sub">Three.js 전압강하 · EL수명 열화 · TypeScript 불량분석 — 세 가지 시뮬레이션을 직접 체험해보세요.</p>
+  <h2 class="section-title">AI 웹앱 제작 <span style="color:var(--ac)">실전 7종</span></h2>
+  <p class="section-sub">전압강하 · EL수명 열화 · 불량분석 · Ball Drop · Bending · 열충격 사이클 · 내습성 평가 — 7가지 시뮬레이션을 직접 체험하세요.</p>
 
   <div class="pum-tabs">
     <button class="pum-tab-btn active" onclick="pumTab('vd')">⚡ Voltage Drop</button>
     <button class="pum-tab-btn" onclick="pumTab('el')">📉 EL 수명 열화</button>
     <button class="pum-tab-btn" onclick="pumTab('def')">🔬 불량 분석 리포트</button>
+    <button class="pum-tab-btn" onclick="pumTab('ball')">🎯 Ball Drop 기구 평가</button>
+    <button class="pum-tab-btn" onclick="pumTab('bend')">🔄 Bending 테스트</button>
+    <button class="pum-tab-btn" onclick="pumTab('therm')">🌡️ 열충격 사이클</button>
+    <button class="pum-tab-btn" onclick="pumTab('humid')">💧 내습성 평가</button>
   </div>
 
   <!-- ① Voltage Drop (Three.js-style canvas heatmap) -->
@@ -2651,6 +2655,26 @@ body.light .def-mura { background:#e0e7ff; }
       <code>DataTexture(Float32Array, w, h, RedFormat, FloatType)</code>로 전압 배열을 GPU 텍스처로 올리고,<br>
       ShaderMaterial의 <code>uniform sampler2D voltageMap</code>으로 heatmap 컬러맵을 적용합니다.
     </div>
+    <div class="pum-card" style="background:linear-gradient(135deg,#e0e7ff,#f0f4ff);border:1px solid #c7d2fe;">
+      <div style="font-weight:700;margin-bottom:8px;color:#4338ca;">🤖 AI 프롬프트 예시</div>
+      <div style="font-family:monospace;font-size:0.78rem;background:#fff;padding:10px;border-radius:6px;border:1px solid #e0e7ff;color:#1e293b;">
+        "OLED 패널의 전압강하 분포를 시뮬레이션하는 Python 코드를 작성해줘.<br>
+        - 패널 크기: 300×200 픽셀, 전극 저항 Rs=15 Ω/sq<br>
+        - 라플라스 방정식으로 전압 분포 계산<br>
+        - Jet 컬러맵으로 히트맵 시각화 (matplotlib)<br>
+        - 공급 위치(코너/중앙)별 비교 출력"
+      </div>
+    </div>
+    <div class="pum-card" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid #bbf7d0;">
+      <div style="font-weight:700;margin-bottom:8px;color:#15803d;">📋 테스트 방법</div>
+      <div style="font-size:0.82rem;color:#1e293b;line-height:1.7;">
+        <strong>IEC 62341-6-3</strong> / <strong>JIS C 8152</strong> 전압강하 측정 규격<br>
+        ① 패널 4코너 및 중앙부에 프로브 배치<br>
+        ② 정격 전류 인가 후 각 지점 전압 측정 (멀티미터 또는 4-선식 측정)<br>
+        ③ Vmax − Vmin 편차 ≤ 정격 전압의 3% 기준 판정<br>
+        ④ IR Drop Map 생성 — 열화 전/후 비교로 저항 증가 패턴 확인
+      </div>
+    </div>
   </div>
 
   <!-- ② EL 수명 열화 -->
@@ -2680,6 +2704,27 @@ body.light .def-mura { background:#e0e7ff; }
       <strong>구현 포인트 (Node.js + React)</strong><br>
       <code>const calcLifetime = (L0, alpha, t) =&gt; L0 * Math.exp(-alpha * t)</code><br>
       백엔드에서 계산 후 WebSocket으로 스트리밍 → Recharts <code>&lt;LineChart&gt;</code>로 실시간 렌더링
+    </div>
+    <div class="pum-card" style="background:linear-gradient(135deg,#e0e7ff,#f0f4ff);border:1px solid #c7d2fe;">
+      <div style="font-weight:700;margin-bottom:8px;color:#4338ca;">🤖 AI 프롬프트 예시</div>
+      <div style="font-family:monospace;font-size:0.78rem;background:#fff;padding:10px;border-radius:6px;border:1px solid #e0e7ff;color:#1e293b;">
+        "OLED 패널의 EL 수명 열화를 시뮬레이션하는 React 컴포넌트를 만들어줘.<br>
+        - 열화 모델: L(t) = L₀ × exp(−α×t)<br>
+        - 입력: 초기 휘도(cd/m²), 열화계수 α, 수명 기준(%), 최대 시간(시간)<br>
+        - Recharts LineChart로 수명 곡선 출력<br>
+        - LT50/LT70/LT80 수명 자동 표시 및 CSV 내보내기 기능 포함"
+      </div>
+    </div>
+    <div class="pum-card" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid #bbf7d0;">
+      <div style="font-weight:700;margin-bottom:8px;color:#15803d;">📋 테스트 방법</div>
+      <div style="font-size:0.82rem;color:#1e293b;line-height:1.7;">
+        <strong>IEC 62341-6-2</strong> EL 수명 측정 규격 (OLED 패널)<br>
+        ① 정격 휘도(1,000 cd/m²)에서 연속 점등 가속 시험<br>
+        ② 100시간 간격으로 휘도 측정 (포토미터 정면 측정)<br>
+        ③ LT50(초기 대비 50% 시점), LT80(80% 시점) 추출<br>
+        ④ Arrhenius 가속 모델로 상온 환산 수명 예측<br>
+        ⑤ 열화 곡선 기울기로 열화계수 α 역산 — 배치별 비교 관리
+      </div>
     </div>
   </div>
 
@@ -2735,6 +2780,235 @@ body.light .def-mura { background:#e0e7ff; }
       &nbsp;&nbsp;detectedAt: Date;<br>
       }</code><br><br>
       <code>pdfmake</code> / <code>@react-pdf/renderer</code>로 PDF 리포트 생성 가능
+    </div>
+    <div class="pum-card" style="background:linear-gradient(135deg,#e0e7ff,#f0f4ff);border:1px solid #c7d2fe;">
+      <div style="font-weight:700;margin-bottom:8px;color:#4338ca;">🤖 AI 프롬프트 예시</div>
+      <div style="font-family:monospace;font-size:0.78rem;background:#fff;padding:10px;border-radius:6px;border:1px solid #e0e7ff;color:#1e293b;">
+        "OLED 패널 불량 분석 리포트를 자동 생성하는 TypeScript 앱을 만들어줘.<br>
+        - DefectRecord 인터페이스: panelId, defectType(dark_spot/line_defect/mura), position(x,y%), severity(1-3), detectedAt<br>
+        - 불량 입력 폼 + 데이터 테이블 UI (React)<br>
+        - 심각도별 색상 표시 (Critical:빨강, Warning:노랑, Minor:초록)<br>
+        - CSV 내보내기 + PDF 리포트 생성 (@react-pdf/renderer)"
+      </div>
+    </div>
+    <div class="pum-card" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid #bbf7d0;">
+      <div style="font-weight:700;margin-bottom:8px;color:#15803d;">📋 테스트 방법</div>
+      <div style="font-size:0.82rem;color:#1e293b;line-height:1.7;">
+        <strong>IEC 62341-5-2</strong> / <strong>AQL 샘플링(IEC 60410)</strong> 불량 분석 규격<br>
+        ① AOI(자동광학검사) 장비로 전 패널 스캔 — Dark Spot ≥ 200μm 검출<br>
+        ② Line Defect: 수직/수평 라인 1픽셀 이상 연속 소등 시 Critical<br>
+        ③ Mura: 균일도 측정기(Minolta CA-2000) 5포인트 측정 — ΔLv ≥ 5% 불합격<br>
+        ④ 위치 좌표(X,Y%) + 심각도 + 발생 시각 기록 → 불량 분포 맵 생성<br>
+        ⑤ PPM 목표: Critical 0 ppm, Warning ≤ 50 ppm, Minor ≤ 200 ppm
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ Ball Drop 기구 평가 -->
+  <div class="pum-panel" id="pum-ball">
+    <div class="pum-card">
+      <div style="font-weight:700;margin-bottom:12px;font-size:0.95rem;">🎯 Ball Drop 기구 평가 시뮬레이션</div>
+      <p style="font-size:0.83rem;color:var(--mt);margin-bottom:14px;">
+        낙하 에너지 모델: <strong>E = mgh</strong> — 볼 질량·높이·패널 강성으로 충격 에너지와 응력 분포를 계산합니다.
+      </p>
+      <div class="pum-row">
+        <span class="pum-label">볼 질량 m (g)</span>
+        <input class="pum-input" id="ball-m" type="number" value="130" min="10" max="500">
+        <span class="pum-label">낙하 높이 h (cm)</span>
+        <input class="pum-input" id="ball-h" type="number" value="50" min="1" max="200">
+      </div>
+      <div class="pum-row">
+        <span class="pum-label">패널 두께 (mm)</span>
+        <input class="pum-input" id="ball-t" type="number" value="0.5" min="0.1" max="5" step="0.1">
+        <span class="pum-label">반복 횟수</span>
+        <input class="pum-input" id="ball-n" type="number" value="5" min="1" max="20">
+        <button class="pum-btn" onclick="runBall()">계산</button>
+      </div>
+      <canvas id="ball-canvas" height="220"></canvas>
+      <div class="pum-result" id="ball-result" style="display:none;"></div>
+    </div>
+    <div class="pum-card" style="font-size:0.82rem;color:var(--mt);">
+      <strong>구현 포인트 (Python + Streamlit)</strong><br>
+      <code>E = m * g * h</code> → 접촉 반경 r = (3FR/4E*)^(1/3) (Hertz 접촉 이론)<br>
+      Streamlit slider로 파라미터 조작 → matplotlib 충격 에너지-손상 곡선 실시간 렌더링
+    </div>
+    <div class="pum-card" style="background:linear-gradient(135deg,#e0e7ff,#f0f4ff);border:1px solid #c7d2fe;">
+      <div style="font-weight:700;margin-bottom:8px;color:#4338ca;">🤖 AI 프롬프트 예시</div>
+      <div style="font-family:monospace;font-size:0.78rem;background:#fff;padding:10px;border-radius:6px;border:1px solid #e0e7ff;color:#1e293b;">
+        "OLED 패널 Ball Drop 기구 평가를 시뮬레이션하는 Python 코드를 작성해줘.<br>
+        - 낙하 에너지: E = m×g×h (J 단위)<br>
+        - Hertz 접촉 이론으로 최대 응력 계산: σ_max = 0.578 × (6FE*²/πR²)^(1/3)<br>
+        - 반복 낙하(N회)에 따른 누적 손상 곡선 출력<br>
+        - 패널 두께별(0.3/0.5/0.7mm) 비교 그래프 (matplotlib)<br>
+        - 파손 임계 에너지 수평선 표시"
+      </div>
+    </div>
+    <div class="pum-card" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid #bbf7d0;">
+      <div style="font-weight:700;margin-bottom:8px;color:#15803d;">📋 테스트 방법</div>
+      <div style="font-size:0.82rem;color:#1e293b;line-height:1.7;">
+        <strong>IEC 62368-1</strong> / <strong>MIL-STD-810H Method 516</strong> 낙하 충격 규격<br>
+        ① 강철 볼(130g, Φ45mm) 정해진 높이에서 자유 낙하<br>
+        ② 패널 중앙부 및 4코너 각 1회 충격 → 총 5포인트<br>
+        ③ 낙하 후 화면 점등 검사: 크랙·Dark Spot·라인 불량 육안 확인<br>
+        ④ 50cm 무파손 합격 기준 (스마트폰 클래스: 1m 기준 적용)<br>
+        ⑤ 충격 전후 휘도 균일도 비교 — 5% 이상 변화 시 불합격
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑤ Bending 테스트 -->
+  <div class="pum-panel" id="pum-bend">
+    <div class="pum-card">
+      <div style="font-weight:700;margin-bottom:12px;font-size:0.95rem;">🔄 Bending 테스트 시뮬레이션</div>
+      <p style="font-size:0.83rem;color:var(--mt);margin-bottom:14px;">
+        S-N 곡선 모델: <strong>N<sub>f</sub> = C × ε<sup>−m</sup></strong> (Coffin-Manson) — 굽힘 반경과 반복 횟수로 피로 수명을 예측합니다.
+      </p>
+      <div class="pum-row">
+        <span class="pum-label">굽힘 반경 R (mm)</span>
+        <input class="pum-input" id="bend-r" type="number" value="3" min="0.5" max="50" step="0.5">
+        <span class="pum-label">패널 두께 t (mm)</span>
+        <input class="pum-input" id="bend-t" type="number" value="0.1" min="0.05" max="1" step="0.01">
+      </div>
+      <div class="pum-row">
+        <span class="pum-label">굽힘 속도 (회/분)</span>
+        <input class="pum-input" id="bend-speed" type="number" value="60" min="1" max="300">
+        <span class="pum-label">목표 수명 (만 회)</span>
+        <input class="pum-input" id="bend-target" type="number" value="20" min="1" max="200">
+        <button class="pum-btn" onclick="runBend()">계산</button>
+      </div>
+      <canvas id="bend-canvas" height="220"></canvas>
+      <div class="pum-result" id="bend-result" style="display:none;"></div>
+    </div>
+    <div class="pum-card" style="font-size:0.82rem;color:var(--mt);">
+      <strong>구현 포인트 (React + D3.js)</strong><br>
+      <code>const strain = t / (2 * R)</code> → <code>Nf = 0.5 * Math.pow(strain / 0.005, -2.5)</code><br>
+      D3.js log-log 스케일 S-N 곡선 + 목표 수명 수평선 오버레이
+    </div>
+    <div class="pum-card" style="background:linear-gradient(135deg,#e0e7ff,#f0f4ff);border:1px solid #c7d2fe;">
+      <div style="font-weight:700;margin-bottom:8px;color:#4338ca;">🤖 AI 프롬프트 예시</div>
+      <div style="font-family:monospace;font-size:0.78rem;background:#fff;padding:10px;border-radius:6px;border:1px solid #e0e7ff;color:#1e293b;">
+        "플렉시블 OLED 패널의 Bending 피로 수명을 시뮬레이션하는 코드를 작성해줘.<br>
+        - Coffin-Manson 모델: Nf = C × ε^(−m), 변형률 ε = t/(2R)<br>
+        - 굽힘 반경 R: 1~10mm 범위 S-N 곡선 출력 (log-log 스케일)<br>
+        - 두께 t별 비교: 0.05/0.1/0.2mm<br>
+        - 목표 수명(200만 회) 달성 최소 굽힘 반경 자동 계산<br>
+        - D3.js로 인터랙티브 차트, 마우스오버 수명 표시"
+      </div>
+    </div>
+    <div class="pum-card" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid #bbf7d0;">
+      <div style="font-weight:700;margin-bottom:8px;color:#15803d;">📋 테스트 방법</div>
+      <div style="font-size:0.82rem;color:#1e293b;line-height:1.7;">
+        <strong>IEC 62715-6-1</strong> 플렉시블 디스플레이 굽힘 시험 규격<br>
+        ① 맨드릴(금속 봉) 굽힘 지그에 패널 고정 — R=3mm 기본 조건<br>
+        ② 굽힘 → 복원 1사이클, 60 회/분 속도로 200만 회 반복<br>
+        ③ 매 10만 회마다 점등 검사: 크랙·저항 변화·휘도 균일도 측정<br>
+        ④ 배선 저항 증가 ≤ 10% 기준, 휘도 변화 ≤ 5% 기준<br>
+        ⑤ In-folding / Out-folding 양방향 시험 후 결과 비교
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑥ 열충격 사이클 -->
+  <div class="pum-panel" id="pum-therm">
+    <div class="pum-card">
+      <div style="font-weight:700;margin-bottom:12px;font-size:0.95rem;">🌡️ 열충격 사이클 시뮬레이션</div>
+      <p style="font-size:0.83rem;color:var(--mt);margin-bottom:14px;">
+        누적 손상 모델: <strong>D(N) = Σ(ΔT<sup>m</sup>/C)</strong> — 온도 범위와 사이클 수로 열피로 누적 손상을 예측합니다.
+      </p>
+      <div class="pum-row">
+        <span class="pum-label">최저 온도 (°C)</span>
+        <input class="pum-input" id="therm-tmin" type="number" value="-40" min="-60" max="0">
+        <span class="pum-label">최고 온도 (°C)</span>
+        <input class="pum-input" id="therm-tmax" type="number" value="85" min="40" max="150">
+      </div>
+      <div class="pum-row">
+        <span class="pum-label">사이클 수</span>
+        <input class="pum-input" id="therm-n" type="number" value="500" min="10" max="3000" step="10">
+        <span class="pum-label">유지 시간 (분)</span>
+        <input class="pum-input" id="therm-dwell" type="number" value="15" min="1" max="60">
+        <button class="pum-btn" onclick="runTherm()">계산</button>
+      </div>
+      <canvas id="therm-canvas" height="220"></canvas>
+      <div class="pum-result" id="therm-result" style="display:none;"></div>
+    </div>
+    <div class="pum-card" style="font-size:0.82rem;color:var(--mt);">
+      <strong>구현 포인트 (Vue.js + Chart.js)</strong><br>
+      <code>const damage = (dT, m=2.5, C=1e8) => Math.pow(dT, m) / C</code><br>
+      누적 손상(D=1.0 기준) 막대차트 — Vue reactive data로 실시간 파라미터 업데이트
+    </div>
+    <div class="pum-card" style="background:linear-gradient(135deg,#e0e7ff,#f0f4ff);border:1px solid #c7d2fe;">
+      <div style="font-weight:700;margin-bottom:8px;color:#4338ca;">🤖 AI 프롬프트 예시</div>
+      <div style="font-family:monospace;font-size:0.78rem;background:#fff;padding:10px;border-radius:6px;border:1px solid #e0e7ff;color:#1e293b;">
+        "OLED 패널 열충격 사이클 누적 손상을 시뮬레이션하는 Vue.js 앱을 만들어줘.<br>
+        - Coffin-Manson 열피로 모델: D = N × (ΔT/ΔT_ref)^m<br>
+        - 온도 범위 −40°C ~ +85°C, 사이클 수 100~2000<br>
+        - D=1.0 파손 임계선 표시, 현재 D값 게이지 시각화<br>
+        - Chart.js 누적 손상 곡선 + 온도 프로파일 오버레이<br>
+        - 목표 사이클(1000회) 달성 가능 온도 범위 역산"
+      </div>
+    </div>
+    <div class="pum-card" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid #bbf7d0;">
+      <div style="font-weight:700;margin-bottom:8px;color:#15803d;">📋 테스트 방법</div>
+      <div style="font-size:0.82rem;color:#1e293b;line-height:1.7;">
+        <strong>IEC 60068-2-14</strong> / <strong>JESD22-A104</strong> 열충격 시험 규격<br>
+        ① 2-조 열충격 챔버 설정: Low −40°C / High +85°C<br>
+        ② 전환 시간 ≤ 10초, 각 극한 온도 유지 15분 (1사이클 = 30분+전환)<br>
+        ③ 500사이클마다 꺼내 점등 검사: 디라미네이션·크랙·접합 불량 확인<br>
+        ④ 총 1,000사이클 후 전기 특성(저항, 커패시턴스) 재측정<br>
+        ⑤ 실장 솔더 조인트 단면 SEM 분석으로 균열 진전 평가
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑦ 내습성 평가 -->
+  <div class="pum-panel" id="pum-humid">
+    <div class="pum-card">
+      <div style="font-weight:700;margin-bottom:12px;font-size:0.95rem;">💧 내습성 평가 시뮬레이션</div>
+      <p style="font-size:0.83rem;color:var(--mt);margin-bottom:14px;">
+        Fickian 확산 모델: <strong>C(x,t) = C<sub>s</sub> × erfc(x / 2√(Dt))</strong> — 수분 침투 깊이와 농도 프로파일을 시뮬레이션합니다.
+      </p>
+      <div class="pum-row">
+        <span class="pum-label">온도 (°C)</span>
+        <input class="pum-input" id="humid-temp" type="number" value="85" min="40" max="120">
+        <span class="pum-label">상대 습도 (%RH)</span>
+        <input class="pum-input" id="humid-rh" type="number" value="85" min="50" max="100">
+      </div>
+      <div class="pum-row">
+        <span class="pum-label">노출 시간 (hrs)</span>
+        <input class="pum-input" id="humid-time" type="number" value="1000" min="10" max="5000" step="10">
+        <span class="pum-label">봉지 두께 (μm)</span>
+        <input class="pum-input" id="humid-thick" type="number" value="10" min="1" max="100">
+        <button class="pum-btn" onclick="runHumid()">계산</button>
+      </div>
+      <canvas id="humid-canvas" height="220"></canvas>
+      <div class="pum-result" id="humid-result" style="display:none;"></div>
+    </div>
+    <div class="pum-card" style="font-size:0.82rem;color:var(--mt);">
+      <strong>구현 포인트 (Next.js + TypeScript)</strong><br>
+      <code>const D = D0 * Math.exp(-Ea / (k * (T+273)))</code> (Arrhenius 확산계수)<br>
+      <code>C(x,t) = Cs * erfc(x / (2 * Math.sqrt(D * t)))</code> → Canvas 농도 프로파일 렌더링
+    </div>
+    <div class="pum-card" style="background:linear-gradient(135deg,#e0e7ff,#f0f4ff);border:1px solid #c7d2fe;">
+      <div style="font-weight:700;margin-bottom:8px;color:#4338ca;">🤖 AI 프롬프트 예시</div>
+      <div style="font-family:monospace;font-size:0.78rem;background:#fff;padding:10px;border-radius:6px;border:1px solid #e0e7ff;color:#1e293b;">
+        "OLED 봉지 필름의 수분 침투를 시뮬레이션하는 Next.js + TypeScript 앱을 만들어줘.<br>
+        - Fickian 확산: C(x,t) = Cs × erfc(x / 2√(Dt))<br>
+        - Arrhenius 확산계수: D(T) = D₀ × exp(−Ea/kT), Ea=0.45eV<br>
+        - 85°C/85%RH 조건, 봉지 두께 1~50μm 파라미터<br>
+        - Canvas로 농도 프로파일(깊이 vs 수분 농도) 실시간 시각화<br>
+        - WVTR(수증기 투과율) 목표값 10⁻⁶ g/m²/day 달성 두께 계산"
+      </div>
+    </div>
+    <div class="pum-card" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid #bbf7d0;">
+      <div style="font-weight:700;margin-bottom:8px;color:#15803d;">📋 테스트 방법</div>
+      <div style="font-size:0.82rem;color:#1e293b;line-height:1.7;">
+        <strong>IEC 60068-2-67</strong> / <strong>JESD22-A101</strong> 고온고습 시험 규격<br>
+        ① 85°C/85%RH 챔버에서 최소 1,000시간 노출 (HALT 조건)<br>
+        ② 168시간 주기로 꺼내 Dark Spot 성장 면적 측정 (현미경 × 50배)<br>
+        ③ WVTR 측정: MOCON AQUATRAN (Calcium Test 대안) — 목표 ≤ 10⁻⁶ g/m²/day<br>
+        ④ 1,000시간 후 EL 스펙트럼 측정 — 색좌표 변화 Δu'v' ≤ 0.003 기준<br>
+        ⑤ 침투 깊이 단면 EDS 분석으로 Na·Cl 이온 이동 경로 확인
+      </div>
     </div>
   </div>
 </section>
@@ -2972,8 +3246,215 @@ function exportDefectCSV() {
   a.click();
 }
 
+/* ===== Ball Drop 시뮬레이션 ===== */
+function runBall() {
+  const m = parseFloat(document.getElementById('ball-m').value) / 1000;
+  const h = parseFloat(document.getElementById('ball-h').value) / 100;
+  const t = parseFloat(document.getElementById('ball-t').value);
+  const N = parseInt(document.getElementById('ball-n').value);
+  const g = 9.81;
+  const E = m * g * h;
+  const canvas = document.getElementById('ball-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth || 600;
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  const Ecrit = 0.05 * (t / 0.5);
+  const counts = Array.from({length: N}, (_, i) => i + 1);
+  const damage = counts.map(n => Math.min(1.5, (n * E / (Ecrit * 10))));
+  const pad = {l:55, r:20, t:20, b:40};
+  const cw = W - pad.l - pad.r, ch = H - pad.t - pad.b;
+  ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1;
+  for (let i = 0; i <= 5; i++) {
+    const y = pad.t + ch * (1 - i/5);
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + cw, y); ctx.stroke();
+    ctx.fillStyle = '#64748b'; ctx.font = '11px sans-serif'; ctx.textAlign = 'right';
+    ctx.fillText((i * 0.3).toFixed(1), pad.l - 6, y + 4);
+  }
+  ctx.strokeStyle = '#ef4444'; ctx.setLineDash([6,3]); ctx.lineWidth = 1.5;
+  const yc = pad.t + ch * (1 - 1.0 / 1.5);
+  ctx.beginPath(); ctx.moveTo(pad.l, yc); ctx.lineTo(pad.l + cw, yc); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#ef4444'; ctx.font = '10px sans-serif'; ctx.textAlign = 'left';
+  ctx.fillText('파손 임계 D=1.0', pad.l + 4, yc - 4);
+  ctx.beginPath(); ctx.strokeStyle = '#6366f1'; ctx.lineWidth = 2.5;
+  damage.forEach((d, i) => {
+    const x = pad.l + cw * (i / (N - 1 || 1));
+    const y = pad.t + ch * (1 - d / 1.5);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+  ctx.fillStyle = '#1e293b'; ctx.font = '11px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText('반복 횟수 (회)', pad.l + cw/2, H - 8);
+  const finalD = damage[N-1];
+  const res = document.getElementById('ball-result');
+  res.style.display = 'block';
+  res.innerHTML = `낙하 에너지 E = <strong>${(E*1000).toFixed(1)} mJ</strong> | 임계 에너지 ${(Ecrit*1000).toFixed(1)} mJ | ${N}회 후 누적 손상 D = <strong style="color:${finalD>=1?'#ef4444':'#16a34a'}">${finalD.toFixed(3)}</strong> ${finalD >= 1 ? '⚠️ 파손 위험' : '✅ 안전'}`;
+}
+
+/* ===== Bending 시뮬레이션 ===== */
+function runBend() {
+  const R = parseFloat(document.getElementById('bend-r').value);
+  const t = parseFloat(document.getElementById('bend-t').value);
+  const target = parseFloat(document.getElementById('bend-target').value) * 10000;
+  const strain = t / (2 * R);
+  const C = 0.5, mExp = 2.5;
+  const Nf = C * Math.pow(strain / 0.005, -mExp);
+  const canvas = document.getElementById('bend-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth || 600;
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  const pad = {l:60, r:20, t:20, b:40};
+  const cw = W - pad.l - pad.r, ch = H - pad.t - pad.b;
+  const radii = Array.from({length: 40}, (_, i) => 0.5 + i * 0.5);
+  const nfs = radii.map(r => C * Math.pow((t/(2*r)) / 0.005, -mExp));
+  const logMin = 2, logMax = 7;
+  ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1;
+  for (let i = logMin; i <= logMax; i++) {
+    const y = pad.t + ch * (1 - (i - logMin) / (logMax - logMin));
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + cw, y); ctx.stroke();
+    ctx.fillStyle = '#64748b'; ctx.font = '10px sans-serif'; ctx.textAlign = 'right';
+    ctx.fillText('10^' + i, pad.l - 5, y + 4);
+  }
+  ctx.strokeStyle = '#f59e0b'; ctx.setLineDash([6,3]); ctx.lineWidth = 1.5;
+  const logT = Math.log10(Math.max(100, Math.min(1e7, target)));
+  const yt = pad.t + ch * (1 - (logT - logMin) / (logMax - logMin));
+  ctx.beginPath(); ctx.moveTo(pad.l, yt); ctx.lineTo(pad.l + cw, yt); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#f59e0b'; ctx.font = '10px sans-serif'; ctx.textAlign = 'left';
+  ctx.fillText('목표 수명', pad.l + 4, yt - 4);
+  ctx.beginPath(); ctx.strokeStyle = '#8b5cf6'; ctx.lineWidth = 2.5;
+  radii.forEach((r, i) => {
+    const logN = Math.log10(Math.max(100, Math.min(1e7, nfs[i])));
+    const x = pad.l + cw * (i / (radii.length - 1));
+    const y = pad.t + ch * (1 - (logN - logMin) / (logMax - logMin));
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+  ctx.fillStyle = '#1e293b'; ctx.font = '11px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText('굽힘 반경 R (mm)', pad.l + cw/2, H - 8);
+  const safeR = radii.find(r => C * Math.pow((t/(2*r))/0.005, -mExp) >= target);
+  const res = document.getElementById('bend-result');
+  res.style.display = 'block';
+  res.innerHTML = `변형률 ε = <strong>${(strain*100).toFixed(3)}%</strong> | 예상 피로 수명 Nf = <strong>${Nf.toLocaleString('ko', {maximumFractionDigits:0})} 회</strong> | 목표 달성 최소 R: <strong style="color:#8b5cf6">${safeR ? safeR.toFixed(1)+'mm' : '범위 초과'}</strong>`;
+}
+
+/* ===== 열충격 시뮬레이션 ===== */
+function runTherm() {
+  const Tmin = parseFloat(document.getElementById('therm-tmin').value);
+  const Tmax = parseFloat(document.getElementById('therm-tmax').value);
+  const N = parseInt(document.getElementById('therm-n').value);
+  const dT = Tmax - Tmin;
+  const dTref = 100, mExp = 2.5;
+  const damagePerCycle = Math.pow(dT / dTref, mExp) / 1000;
+  const pts = Math.min(N, 200);
+  const cyclePoints = Array.from({length: pts}, (_, i) => Math.round(i * N / (pts - 1)));
+  const damages = cyclePoints.map(n => n * damagePerCycle);
+  const canvas = document.getElementById('therm-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth || 600;
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  const pad = {l:55, r:20, t:20, b:40};
+  const cw = W - pad.l - pad.r, ch = H - pad.t - pad.b;
+  const maxD = Math.max(1.5, damages[damages.length-1] * 1.1);
+  ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1;
+  for (let i = 0; i <= 5; i++) {
+    const y = pad.t + ch * (1 - i/5);
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + cw, y); ctx.stroke();
+    ctx.fillStyle = '#64748b'; ctx.font = '11px sans-serif'; ctx.textAlign = 'right';
+    ctx.fillText((maxD * i/5).toFixed(2), pad.l - 5, y + 4);
+  }
+  ctx.strokeStyle = '#ef4444'; ctx.setLineDash([6,3]); ctx.lineWidth = 1.5;
+  const yc = pad.t + ch * (1 - 1.0 / maxD);
+  ctx.beginPath(); ctx.moveTo(pad.l, yc); ctx.lineTo(pad.l + cw, yc); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#ef4444'; ctx.font = '10px sans-serif'; ctx.textAlign = 'left';
+  ctx.fillText('파손 D=1.0', pad.l + 4, yc - 4);
+  ctx.beginPath(); ctx.strokeStyle = '#f97316'; ctx.lineWidth = 2.5;
+  damages.forEach((d, i) => {
+    const x = pad.l + cw * (cyclePoints[i] / N);
+    const y = pad.t + ch * (1 - Math.min(d, maxD) / maxD);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+  ctx.fillStyle = '#1e293b'; ctx.font = '11px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText('사이클 수', pad.l + cw/2, H - 8);
+  const failCycle = damagePerCycle > 0 ? Math.ceil(1.0 / damagePerCycle) : Infinity;
+  const finalD = damages[damages.length - 1];
+  const res = document.getElementById('therm-result');
+  res.style.display = 'block';
+  res.innerHTML = `ΔT = <strong>${dT}°C</strong> | 사이클당 손상 <strong>${damagePerCycle.toExponential(2)}</strong> | ${N}회 후 D = <strong style="color:${finalD>=1?'#ef4444':'#16a34a'}">${finalD.toFixed(3)}</strong> | 예상 파손 사이클: <strong>${failCycle < 100000 ? failCycle.toLocaleString()+'회' : '안전 범위'}</strong>`;
+}
+
+/* ===== 내습성 시뮬레이션 ===== */
+function runHumid() {
+  const Tval = parseFloat(document.getElementById('humid-temp').value);
+  const rh = parseFloat(document.getElementById('humid-rh').value);
+  const hrs = parseFloat(document.getElementById('humid-time').value);
+  const thick = parseFloat(document.getElementById('humid-thick').value);
+  const D0 = 1e-8, Ea = 0.45, kB = 8.617e-5;
+  const T = Tval + 273.15;
+  const D = D0 * Math.exp(-Ea / (kB * T)) * (rh / 85);
+  const Cs = 1.0;
+  const tSec = hrs * 3600;
+  const pts = 60;
+  const xmax = thick * 1e-6;
+  const xs = Array.from({length: pts}, (_, i) => i * xmax / (pts - 1));
+  function erfc(x) {
+    const t2 = 1 / (1 + 0.3275911 * Math.abs(x));
+    const p = t2 * (0.254829592 + t2 * (-0.284496736 + t2 * (1.421413741 + t2 * (-1.453152027 + t2 * 1.061405429))));
+    const val = 1 - p * Math.exp(-x * x);
+    return x >= 0 ? val : 2 - val;
+  }
+  const concs = xs.map(x => Cs * erfc(x / (2 * Math.sqrt(D * tSec))));
+  const canvas = document.getElementById('humid-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth || 600;
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  const pad = {l:55, r:20, t:20, b:40};
+  const cw = W - pad.l - pad.r, ch = H - pad.t - pad.b;
+  ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1;
+  for (let i = 0; i <= 5; i++) {
+    const y = pad.t + ch * (1 - i/5);
+    const xg = pad.l + cw * (i/5);
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + cw, y); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(xg, pad.t); ctx.lineTo(xg, pad.t + ch); ctx.stroke();
+    ctx.fillStyle = '#64748b'; ctx.font = '11px sans-serif'; ctx.textAlign = 'right';
+    ctx.fillText((i/5).toFixed(1), pad.l - 5, y + 4);
+    ctx.textAlign = 'center';
+    ctx.fillText((thick * i/5).toFixed(0) + 'μm', xg, H - 8);
+  }
+  const grad = ctx.createLinearGradient(pad.l, 0, pad.l + cw, 0);
+  grad.addColorStop(0, 'rgba(59,130,246,0.25)');
+  grad.addColorStop(1, 'rgba(59,130,246,0)');
+  ctx.beginPath();
+  xs.forEach((x, i) => {
+    const px = pad.l + cw * (x / xmax);
+    const py = pad.t + ch * (1 - concs[i]);
+    i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+  });
+  ctx.lineTo(pad.l + cw, pad.t + ch); ctx.lineTo(pad.l, pad.t + ch);
+  ctx.closePath(); ctx.fillStyle = grad; ctx.fill();
+  ctx.beginPath(); ctx.strokeStyle = '#3b82f6'; ctx.lineWidth = 2.5;
+  xs.forEach((x, i) => {
+    const px = pad.l + cw * (x / xmax);
+    const py = pad.t + ch * (1 - concs[i]);
+    i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+  });
+  ctx.stroke();
+  ctx.fillStyle = '#1e293b'; ctx.font = '11px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText('깊이 (μm)', pad.l + cw/2, H - 24);
+  const depthHalf = xs.find(x => Cs * erfc(x / (2 * Math.sqrt(D * tSec))) <= 0.5);
+  const res = document.getElementById('humid-result');
+  res.style.display = 'block';
+  res.innerHTML = `확산계수 D = <strong>${D.toExponential(2)} m²/s</strong> | ${hrs}hr 후 50% 침투 깊이: <strong style="color:#3b82f6">${depthHalf ? (depthHalf*1e6).toFixed(2)+'μm' : '>'+thick+'μm'}</strong> | ${thick}μm 투과: <strong style="color:${concs[pts-1]>0.01?'#ef4444':'#16a34a'}">${concs[pts-1]>0.01?'⚠️ 침투':'✅ 차단'}</strong>`;
+}
+
 // 초기 VD 실행
-window.addEventListener('load', () => { runVD(); runEL(); });
+window.addEventListener('load', () => { runVD(); runEL(); runBall(); runBend(); runTherm(); runHumid(); });
 </script>
 <!-- ===== /품잔팀 시뮬레이션 섹션 ===== -->
 
