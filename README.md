@@ -86,5 +86,35 @@ ai-seminar-2026/
 
 - [awe_2026_LA](https://github.com/waterfirst/awe_2026_LA) — AWE 2026 출장 원본 자료
 
+## 3차 세미나 추가 자료
+
+### 📚 실습 핸드북
+- **[web_db_gpt_guide.md](./web_db_gpt_guide.md)** — 프런트/백엔드·DB 핵심 정리 및 사내 GPT 엔터프라이즈 단계별 구현 가이드
+  - 프런트엔드 (HTML/CSS/JS, React, R Shiny, Streamlit)
+  - 백엔드 (FastAPI 추천, Express/Spring Boot)
+  - 데이터베이스 (SQL, NoSQL, Vector DB)
+  - 사내 GPT 엔터프라이즈 Step 1-4 실습 가이드
+
+- **[DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)** — 배포 & 운영 가이드
+  - 로컬 개발 환경 5분 빠른 시작
+  - Docker 프로덕션 배포
+  - API 명세 및 트러블슈팅
+
+### 💻 실행 가능한 코드
+- **backend/** — FastAPI 백엔드 (main.py + requirements.txt + Dockerfile)
+  - POST /ask-gpt 엔드포인트
+  - SQLite 데이터베이스 자동 초기화
+  - OpenAI API 연동
+
+- **frontend/** — Streamlit 프런트엔드 (app.py + requirements.txt + Dockerfile)
+  - 채팅 UI (입력창 + 응답 표시)
+  - 대화 이력 조회
+  - 백엔드 헬스 체크
+
+- **docker-compose.yml** — 한 번에 배포 가능한 통합 설정
+- **.env.example** — 환경변수 템플릿 (OpenAI API 키 설정)
+
+---
+
 ## 3차 — 클로드 특별강의
 - `claude-masterclass-2026.html` : Chat/Cowork/Code·MCP·키메라(클로드+GPT+제미나이)·에이전트 실전(실리콘네스트 구축)·스킬/헌법/키관리

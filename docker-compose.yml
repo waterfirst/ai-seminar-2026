@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # FastAPI 백엔드 (포트 8000)
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  gpt-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      # OpenAI API 키 (env 파일에서 읽음)
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DATABASE_URL=sqlite:///./gpt_history.db
+      - LOG_LEVEL=info
+    volumes:
+      # 데이터베이스 파일 보존 (컨테이너 종료 후에도 유지)
+      - ./backend/data:/app/data
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # Streamlit 프런트엔드 (포트 80)
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  gpt-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:8501"  # 로컬: http://localhost
+    environment:
+      - STREAMLIT_SERVER_PORT=8501
+      - STREAMLIT_SERVER_ADDRESS=0.0.0.0
+      - STREAMLIT_SERVER_HEADLESS=true
+      - BACKEND_URL=http://gpt-backend:8000
+    depends_on:
+      gpt-backend:
+        condition: service_healthy
+    restart: always
+
+networks:
+  default:
+    name: gpt-network
+    driver: bridge
+
+volumes:
+  backend_data:
+    driver: local
