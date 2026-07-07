@@ -100,6 +100,17 @@ ai-seminar-2026/
   - Docker 프로덕션 배포
   - API 명세 및 트러블슈팅
 
+- **[token-frugal-agent-playbook-2026.md](./token-frugal-agent-playbook-2026.md)** — 토큰을 아끼는 AI 에이전트 운영 전략
+  - 회사 전체 토큰 부족 사태의 구조적 원인
+  - 큰 모델/작은 모델/스크립트 분업 원칙
+  - 메모리 설계, 루프 브레이크, fallback SOP
+  - 3차 세미나 보강용 발표 골격과 체크리스트
+
+- **[token-frugal-agent-playbook-2026.html](./token-frugal-agent-playbook-2026.html)** — 밝은 배경 기본의 세미나 발표용 페이지
+  - 금단현상 카툰을 인트로 훅으로 배치
+  - 토큰 누수 원인, 운영 원칙, 조직 실행안을 카드형으로 재구성
+  - 임원/연구원 발표에 바로 쓸 수 있는 시각 자료
+
 ### 💻 실행 가능한 코드
 - **backend/** — FastAPI 백엔드 (main.py + requirements.txt + Dockerfile)
   - POST /ask-gpt 엔드포인트
