@@ -1009,6 +1009,174 @@ codex exec --attempts 5 --ask-for-approval never \
   </div>
 </div>
 
+<!-- FastAPI 포트가 죽는 문제 -->
+<div style="margin-bottom:32px">
+  <h2 style="font-size:1.15rem;font-weight:700;margin-bottom:14px">1️⃣ FastAPI를 사내 IP로 띄우면 포트가 자꾸 죽거나 바뀌는 문제</h2>
+  <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:20px 22px">
+    <p style="margin:0 0 12px;font-size:0.95rem;line-height:1.8;color:#7c2d12">
+      품질팀에서 많이 겪는 문제다. <code>uvicorn --reload</code>로 띄우면 프로세스가 재시작되면서 포트가 점유된 채 남거나,
+      사내 보안 프로그램/방화벽/절전 모드 때문에 접속이 끊기는 경우가 많다.
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:#fff;border:1px solid #fde68a;border-radius:10px;padding:16px">
+        <h3 style="margin:0 0 10px;font-size:1rem;color:#92400e">문제 원인</h3>
+        <ul style="margin:0;padding-left:18px;font-size:0.9rem;line-height:1.8;color:#78350f">
+          <li><code>--reload</code>가 개발용 재기동 프로세스를 하나 더 띄움</li>
+          <li>기존 uvicorn 프로세스가 종료되지 않고 남음</li>
+          <li>보안 프로그램이 포트를 다시 차단</li>
+          <li>노트북 절전/화면 잠금 이후 네트워크 바인딩이 꼬임</li>
+        </ul>
+      </div>
+      <div style="background:#fff;border:1px solid #bfdbfe;border-radius:10px;padding:16px">
+        <h3 style="margin:0 0 10px;font-size:1rem;color:#1d4ed8">해결책</h3>
+        <ul style="margin:0;padding-left:18px;font-size:0.9rem;line-height:1.8;color:#1e3a8a">
+          <li><b>실사용 배포는 <code>--reload</code> 없이</b> 실행</li>
+          <li>포트 충돌 시 기존 프로세스를 먼저 kill</li>
+          <li><b>고정 포트 표준</b>을 팀에서 정함 (예: 8502, 8512, 8522)</li>
+          <li>Windows 방화벽 인바운드 허용 규칙 생성</li>
+          <li>절전 모드 해제 또는 전원 옵션 조정</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:16px;background:#1e1e2e;color:#cdd6f4;border-radius:10px;padding:16px 20px;font-family:monospace;font-size:0.84rem;line-height:1.85">
+      <span style="color:#a6e3a1"># 개발 중</span><br>
+      uvicorn main:app --host 0.0.0.0 --port 8502 --reload<br><br>
+      <span style="color:#a6e3a1"># 실제 공유용(권장)</span><br>
+      uvicorn main:app --host 0.0.0.0 --port 8502<br><br>
+      <span style="color:#a6e3a1"># 포트 점유 프로세스 확인 (Windows PowerShell)</span><br>
+      netstat -ano | findstr :8502<br>
+      taskkill /PID &lt;PID&gt; /F
+    </div>
+    <p style="margin:12px 0 0;font-size:0.88rem;color:#555">
+      <b>실무 팁:</b> 품질팀 내부 공유용이면 “앱마다 포트 하나”보다, 아래 Nginx로 <code>/app1</code>, <code>/app2</code> 형태로 묶는 게 훨씬 덜 불안정하다.
+    </p>
+  </div>
+</div>
+
+<!-- Nginx 설명 -->
+<div style="margin-bottom:32px">
+  <h2 style="font-size:1.15rem;font-weight:700;margin-bottom:14px">2️⃣ 같은 포트에서 <code>/</code> 경로로 여러 앱 배포 — Nginx로 관리</h2>
+  <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:20px 22px">
+    <p style="margin:0 0 12px;font-size:0.95rem;line-height:1.8;color:#1e3a8a">
+      FastAPI 8502, Streamlit 8501, 또 다른 앱 8600… 이런 식으로 포트를 계속 열면 공유도 어렵고 충돌도 많다.
+      이때 <b>Nginx를 프론트 문지기(reverse proxy)</b>로 세우면, 동료들은 <b>포트 하나(예: 80)</b>만 보고,
+      내부적으로는 서로 다른 앱으로 나눠 보낼 수 있다.
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:#fff;border:1px solid #dbeafe;border-radius:10px;padding:16px">
+        <h3 style="margin:0 0 10px;font-size:1rem;color:#1d4ed8">Nginx 역할</h3>
+        <ul style="margin:0;padding-left:18px;font-size:0.9rem;line-height:1.8;color:#1e3a8a">
+          <li>외부 요청을 받아 내부 앱으로 전달</li>
+          <li>하나의 포트(80/443) 뒤에 여러 서비스 연결</li>
+          <li><code>/report</code>, <code>/chat</code>, <code>/dashboard</code> 식으로 경로 분기</li>
+          <li>정적 파일/압축/접속 로그 관리</li>
+        </ul>
+      </div>
+      <div style="background:#fff;border:1px solid #d1fae5;border-radius:10px;padding:16px">
+        <h3 style="margin:0 0 10px;font-size:1rem;color:#047857">장점</h3>
+        <ul style="margin:0;padding-left:18px;font-size:0.9rem;line-height:1.8;color:#065f46">
+          <li>동료는 주소 하나만 기억하면 됨</li>
+          <li>앱 포트가 바뀌어도 Nginx 설정만 손보면 됨</li>
+          <li>사내 공유용 서비스 구조가 훨씬 안정적</li>
+          <li>나중에 인증/접근통제도 확장 가능</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:16px;background:#1e1e2e;color:#cdd6f4;border-radius:10px;padding:16px 20px;font-family:monospace;font-size:0.84rem;line-height:1.85;overflow:auto">
+      <span style="color:#a6e3a1"># Ubuntu 설치</span><br>
+      sudo apt update<br>
+      sudo apt install nginx -y<br><br>
+      <span style="color:#a6e3a1"># 상태 확인</span><br>
+      sudo systemctl status nginx<br><br>
+      <span style="color:#a6e3a1"># 부팅시 자동 시작</span><br>
+      sudo systemctl enable nginx
+    </div>
+    <div style="margin-top:16px;background:#1e1e2e;color:#cdd6f4;border-radius:10px;padding:16px 20px;font-family:monospace;font-size:0.82rem;line-height:1.8;overflow:auto">
+server {
+    listen 80;
+    server_name _;
+
+    location /report/ {
+        proxy_pass http://127.0.0.1:8502/;
+    }
+
+    location /chat/ {
+        proxy_pass http://127.0.0.1:8501/;
+    }
+
+    location /dashboard/ {
+        proxy_pass http://127.0.0.1:8600/;
+    }
+}
+    </div>
+    <p style="margin:12px 0 0;font-size:0.88rem;color:#555">
+      이렇게 해두면 동료는 <code>http://내IP/report/</code>, <code>/chat/</code>, <code>/dashboard/</code> 로 접속한다.
+    </p>
+  </div>
+</div>
+
+<!-- CUBIC DB -->
+<div style="margin-bottom:32px">
+  <h2 style="font-size:1.15rem;font-weight:700;margin-bottom:14px">3️⃣ CUBIC DB에서 SQL로 가져와 코드 만들고 보고서 쓰는 법</h2>
+  <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:20px 22px">
+    <p style="margin:0 0 12px;font-size:0.95rem;line-height:1.8;color:#4c1d95">
+      품질팀 실무에서는 결국 “DB에서 뽑아와서 정리하고, 보고서로 남기는 것”이 핵심이다.
+      가장 안정적인 흐름은 <b>SQL로 먼저 필요한 데이터만 좁게 가져오고</b>, 그 다음 Python/판다스로 가공해서
+      Streamlit/FastAPI/보고서로 넘기는 방식이다.
+    </p>
+    <div style="background:#fff;border:1px solid #e9d5ff;border-radius:10px;padding:16px;margin-bottom:16px">
+      <h3 style="margin:0 0 10px;font-size:1rem;color:#6d28d9">권장 흐름</h3>
+      <div style="font-size:0.9rem;line-height:1.8;color:#5b21b6">
+        ① SQL로 필요한 컬럼만 조회 → ② Python으로 전처리 → ③ 집계/시각화 → ④ Markdown/PPT/HTML 보고서 생성
+      </div>
+    </div>
+    <div style="margin-top:16px;background:#1e1e2e;color:#cdd6f4;border-radius:10px;padding:16px 20px;font-family:monospace;font-size:0.82rem;line-height:1.8;overflow:auto">
+SELECT lot_id,
+       product_name,
+       defect_code,
+       defect_qty,
+       inspect_time
+FROM cubic_quality_result
+WHERE inspect_time &gt;= DATE '2026-07-01'
+  AND process_name = '최종검사'
+  AND line_name = 'A라인';
+    </div>
+    <div style="margin-top:16px;background:#1e1e2e;color:#cdd6f4;border-radius:10px;padding:16px 20px;font-family:monospace;font-size:0.82rem;line-height:1.8;overflow:auto">
+import pandas as pd
+from sqlalchemy import create_engine
+
+engine = create_engine("oracle+cx_oracle://id:pw@host:1521/SERVICE")
+
+query = """
+SELECT lot_id, product_name, defect_code, defect_qty, inspect_time
+FROM cubic_quality_result
+WHERE inspect_time &gt;= DATE '2026-07-01'
+"""
+
+df = pd.read_sql(query, engine)
+
+summary = (
+    df.groupby("defect_code", as_index=False)["defect_qty"]
+      .sum()
+      .sort_values("defect_qty", ascending=False)
+)
+
+print(summary.head(10))
+    </div>
+    <div style="margin-top:16px;background:#fff;border:1px solid #ddd6fe;border-radius:10px;padding:16px">
+      <h3 style="margin:0 0 10px;font-size:1rem;color:#6d28d9">보고서까지 이어지는 예</h3>
+      <ul style="margin:0;padding-left:18px;font-size:0.9rem;line-height:1.8;color:#5b21b6">
+        <li><b>일일 불량 요약</b>: 상위 defect code, 라인별 불량률, 전일 대비 변화</li>
+        <li><b>주간 품질 리포트</b>: 제품군별 불량 트렌드, 공정별 hotspot, 조치 필요 라인</li>
+        <li><b>AI 활용</b>: SQL 결과를 Claude/Codex에 넣어 “관리자 보고용 5줄 요약” 자동 생성</li>
+      </ul>
+    </div>
+    <p style="margin:12px 0 0;font-size:0.88rem;color:#555">
+      <b>실무 팁:</b> DB에서 처음부터 다 끌어오지 말고, 날짜·라인·공정·제품을 SQL에서 먼저 좁혀야 속도도 빠르고 토큰도 덜 든다.
+    </p>
+  </div>
+</div>
+
 <!-- Wave 구조 다이어그램 -->
 <div style="margin-bottom:32px">
   <h2 style="font-size:1.15rem;font-weight:700;margin-bottom:14px">🌐 사내 Wave 구조</h2>
