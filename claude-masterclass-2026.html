@@ -1337,6 +1337,61 @@ sudo journalctl -u myapp -f</pre>
   </div>
 </div>
 
+<!-- 저장소 PC를 서버로 전환해야 하는 이유 -->
+<div style="margin-bottom:32px">
+  <h2 style="font-size:1.3rem;font-weight:700;border-bottom:2px solid var(--a,#4f46e5);padding-bottom:8px;margin-bottom:18px">8️⃣ 왜 “저장소 PC”를 “품질팀 서버”로 전환해야 하나</h2>
+  <div style="background:#f8fafc;border:1px solid #dbe4f0;border-radius:12px;padding:22px 24px">
+    <p style="margin:0 0 14px;font-size:0.96rem;line-height:1.8;color:#374151">
+      현재 품질팀 내에는 <b>18TB 하드디스크 2개가 달린 DB용 PC</b>가 있고, Windows 상태에서 CUBIC 서버의 수명데이터를 원격 저장하고 있다.
+      그런데 지금처럼 “그냥 큰 저장소”로만 쓰면, 데이터는 쌓여도 팀의 분석 역량은 그만큼 커지지 않는다.
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:#fff;border:1px solid #fde68a;border-radius:10px;padding:16px">
+        <h3 style="margin:0 0 10px;font-size:1rem;color:#92400e">지금 상태: 저장소</h3>
+        <ul style="margin:0;padding-left:18px;font-size:0.9rem;line-height:1.8;color:#78350f">
+          <li>파일은 쌓이지만 활용은 사람 손에 의존</li>
+          <li>검색/집계/시각화가 느림</li>
+          <li>자동 보고·자동 분석이 없음</li>
+          <li>“큰 창고” 역할은 하지만 시스템은 아님</li>
+        </ul>
+      </div>
+      <div style="background:#fff;border:1px solid #bbf7d0;border-radius:10px;padding:16px">
+        <h3 style="margin:0 0 10px;font-size:1rem;color:#15803d">서버로 전환 시: 팀 플랫폼</h3>
+        <ul style="margin:0;padding-left:18px;font-size:0.9rem;line-height:1.8;color:#166534">
+          <li>웹 조회 / 조건 검색 / 대시보드 제공</li>
+          <li>일일/주간 자동 리포트 생성</li>
+          <li>품질팀 공용 URL로 서비스화</li>
+          <li>장기 데이터 기반 AI 분석 가능</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:18px;background:#fff;border:1px solid #dbeafe;border-radius:10px;padding:16px">
+      <h3 style="margin:0 0 10px;font-size:1rem;color:#1d4ed8">서버로 쓰면 생기는 실제 장점</h3>
+      <ul style="margin:0;padding-left:18px;font-size:0.9rem;line-height:1.85;color:#1e3a8a">
+        <li><b>저장소 → 서비스</b> : 단순 보관이 아니라 조회/분석/보고 시스템이 됨</li>
+        <li><b>장기 추세 분석</b> : 6개월, 1년, 3년 단위 품질 변화 비교 가능</li>
+        <li><b>자동화</b> : 새벽 배치, 일일 보고서, 관리자 요약 자동 생성 가능</li>
+        <li><b>공용화</b> : 담당자 개인 PC가 아니라 팀 자산으로 운영 가능</li>
+        <li><b>AI 활용</b> : “최근 1년 A라인 수명 열화 요약” 같은 질문이 가능해짐</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:16px;background:#1e1e2e;color:#cdd6f4;border-radius:10px;padding:16px 20px;font-family:monospace;font-size:0.82rem;line-height:1.8;overflow:auto">
+저장소 PC → 서버 전환 후 기대 흐름
+1. CUBIC 수명데이터 자동 적재
+2. 팀 서버 DB로 정규화 저장
+3. 불량/수명/라인별 집계
+4. 대시보드 + SQL 조회 + 보고서 자동 생성
+5. 장기 데이터 기반 AI 요약/이상 탐지
+    </div>
+
+    <p style="margin:12px 0 0;font-size:0.88rem;color:#555">
+      <b>핵심 메시지:</b> 지금의 18TB×2 PC는 그냥 큰 하드가 아니라, 제대로 운영만 붙이면 <b>품질팀 장기 데이터 플랫폼</b>이 될 수 있다.
+    </p>
+  </div>
+</div>
+
 <div class=foot style="text-align:center;color:var(--mut,#888);font-size:0.82rem;padding:20px 0">
 사내 서비스 배포 가이드 · AI 세미나 3차 부록 · 사내 Wave 환경 기준
 </div>
