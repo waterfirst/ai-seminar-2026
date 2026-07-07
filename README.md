@@ -2,15 +2,15 @@
 
 삼성디스플레이 품질팀 실무자 대상 AI 실무 교육 자료 모음입니다.
 
-🔗 **메인 (2차 세미나)**: https://waterfirst.github.io/ai-seminar-2026/
+🔗 **메인 (3차 세미나 본편)**: https://waterfirst.github.io/ai-seminar-2026/
 
 ---
 
 ## 세미나 자료 목록
 
-### 3차 세미나 — Claude Code 심화 & 토큰 최적화 (2026.07) `index3.html`
+### 3차 세미나 본편 — Claude Code 심화 & 토큰 최적화 (2026.07) `index.html`
 **대상**: 품질팀 실무자  
-**링크**: https://waterfirst.github.io/ai-seminar-2026/index3.html  
+**링크**: https://waterfirst.github.io/ai-seminar-2026/  
 **접속**: 비밀번호 `0000`
 
 주요 내용:
@@ -19,20 +19,6 @@
 - CLAUDE.md 작성법과 메모리 파일 관리
 - AI 에이전트 운영 5원칙 (VFF · 마지막 1cm · 토큰 설계)
 - 실전 절약 측정: `rtk gain` 명령 활용
-
----
-
-### 2차 세미나 — AI 도구 완전 가이드 (2026.06) `index.html`
-**대상**: 품질팀 실무자  
-**링크**: https://waterfirst.github.io/ai-seminar-2026/  
-**접속**: 비밀번호 `0000`
-
-주요 내용:
-- Google Gemini / AI Studio / NotebookLM 실전 활용
-- Antigravity (Google 바이브코딩 도구)
-- OpenAI Codex 기업 활용 사례 (Virgin Atlantic, Ramp, CyberAgent)
-- 삼성 AI 대전환 최신 뉴스 (2026.06 기준)
-- AI 도구 종합 비교표
 
 ---
 
@@ -68,9 +54,11 @@ AWE 센싱 교육 자료 및 주요 전시 부스 분석.
 
 ```
 ai-seminar-2026/
-├── index3.html       # 3차 세미나 — Claude Code 심화 & 토큰 최적화 (비밀번호: 0000)
-├── index.html        # 2차 세미나 — AI 도구 완전 가이드 (비밀번호: 0000)
+├── index.html        # 3차 세미나 본편 — Claude Code 심화 & 토큰 최적화 (비밀번호: 0000)
 ├── index2.html       # 1차 세미나 — AI가 바꾸는 연구개발
+├── claude-masterclass-2026.html   # 3차 확장자료(어두운 톤)
+├── token-frugal-agent-playbook-2026.html   # 3차 보강자료(밝은 톤)
+├── index3.html       # 3차 구버전/중복 후보
 ├── ml-with-prompts.html    # ML + 프롬프트 사례 연구
 ├── awe_report.html         # AWE 2026 출장 보고서
 ├── zoom_guide.html         # Zoom 사용 가이드
@@ -87,6 +75,12 @@ ai-seminar-2026/
 - [awe_2026_LA](https://github.com/waterfirst/awe_2026_LA) — AWE 2026 출장 원본 자료
 
 ## 3차 세미나 추가 자료
+
+### 📌 3차 세미나 페이지 구조 요약
+- **본편(메인)**: `index.html`
+- **확장자료(어두운 톤)**: `claude-masterclass-2026.html`
+- **보강자료(밝은 톤)**: `token-frugal-agent-playbook-2026.html`
+- **구버전/정리 대상**: `index3.html`
 
 ### 📚 실습 핸드북
 - **[web_db_gpt_guide.md](./web_db_gpt_guide.md)** — 프런트/백엔드·DB 핵심 정리 및 사내 GPT 엔터프라이즈 단계별 구현 가이드
@@ -128,4 +122,4 @@ ai-seminar-2026/
 ---
 
 ## 3차 — 클로드 특별강의
-- `claude-masterclass-2026.html` : Chat/Cowork/Code·MCP·키메라(클로드+GPT+제미나이)·에이전트 실전(실리콘네스트 구축)·스킬/헌법/키관리
+- `claude-masterclass-2026.html` : 3차 세미나 **확장자료**. Chat/Cowork/Code·MCP·키메라(클로드+GPT+제미나이)·에이전트 실전(실리콘네스트 구축)·스킬/헌법/키관리
