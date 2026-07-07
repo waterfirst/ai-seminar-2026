@@ -1207,6 +1207,136 @@ print(summary.head(10))
   </ul>
 </div>
 
+<!-- 서버 PC 구축 필요성 -->
+<div style="margin-bottom:32px">
+  <h2 style="font-size:1.3rem;font-weight:700;border-bottom:2px solid var(--a,#4f46e5);padding-bottom:8px;margin-bottom:18px">4️⃣ 품질팀 서버 PC가 왜 필요한가</h2>
+  <div style="background:#f8fafc;border:1px solid #dbe4f0;border-radius:12px;padding:22px 24px">
+    <p style="margin:0 0 14px;font-size:0.96rem;line-height:1.8;color:#374151">
+      개인 PC 배포는 빠르게 시작하기엔 좋지만, 팀 서비스가 되면 한계가 분명하다.
+      특히 품질팀은 <b>반복 조회·자동 보고·장기 데이터 보관</b>이 중요하기 때문에, 결국 팀 서버가 있어야 서비스가 자산으로 남는다.
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:#fff;border:1px solid #dbeafe;border-radius:10px;padding:16px">
+        <h3 style="margin:0 0 10px;font-size:1rem;color:#1d4ed8">개인 PC의 한계</h3>
+        <ul style="margin:0;padding-left:18px;font-size:0.9rem;line-height:1.8;color:#1e3a8a">
+          <li>PC를 끄면 서비스 종료</li>
+          <li>포트/IP 문제 반복</li>
+          <li>담당자 부재 시 중단</li>
+          <li>로그·백업·접근제어가 약함</li>
+        </ul>
+      </div>
+      <div style="background:#fff;border:1px solid #d1fae5;border-radius:10px;padding:16px">
+        <h3 style="margin:0 0 10px;font-size:1rem;color:#047857">팀 서버의 장점</h3>
+        <ul style="margin:0;padding-left:18px;font-size:0.9rem;line-height:1.8;color:#065f46">
+          <li>고정 주소로 안정 운영</li>
+          <li>매일 배치/자동 보고 가능</li>
+          <li>여러 앱을 한 곳에서 통합 운영</li>
+          <li>팀 자산으로 인수인계 가능</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 서버 PC 만드는 법 -->
+<div style="margin-bottom:32px">
+  <h2 style="font-size:1.3rem;font-weight:700;border-bottom:2px solid var(--a,#4f46e5);padding-bottom:8px;margin-bottom:18px">5️⃣ 서버 PC 만드는 법 — Ubuntu 기준</h2>
+  <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:22px 24px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:#fff;border:1px solid #dbeafe;border-radius:10px;padding:16px">
+        <h3 style="margin:0 0 10px;font-size:1rem;color:#1d4ed8">하드웨어 권장</h3>
+        <ul style="margin:0;padding-left:18px;font-size:0.9rem;line-height:1.8;color:#1e3a8a">
+          <li>CPU: i5 / Ryzen 5 이상</li>
+          <li>RAM: 16GB 이상 (권장 32GB)</li>
+          <li>SSD: 500GB 이상 (권장 1TB)</li>
+          <li>유선 LAN, 가능하면 UPS</li>
+        </ul>
+      </div>
+      <div style="background:#fff;border:1px solid #dbeafe;border-radius:10px;padding:16px">
+        <h3 style="margin:0 0 10px;font-size:1rem;color:#1d4ed8">OS/기본 패키지</h3>
+        <div style="font-size:0.9rem;line-height:1.8;color:#1e3a8a">
+          Ubuntu LTS 설치 후:
+          <pre style="margin-top:8px;background:#1e1e2e;color:#cdd6f4;border-radius:8px;padding:12px 14px;overflow:auto">sudo apt update && sudo apt upgrade -y
+sudo apt install -y curl git vim htop net-tools ufw nginx
+sudo apt install -y python3-pip python3-venv
+sudo apt install -y docker.io docker-compose-v2
+sudo systemctl enable docker nginx</pre>
+        </div>
+      </div>
+    </div>
+    <p style="margin:14px 0 0;font-size:0.88rem;color:#555">
+      <b>핵심:</b> 사내망에서 고정 IP를 받고, Nginx + FastAPI + Python 배치 + DB 저장 구조를 기본 골격으로 잡는 것이 가장 현실적이다.
+    </p>
+  </div>
+</div>
+
+<!-- 서버 관리 방법 -->
+<div style="margin-bottom:32px">
+  <h2 style="font-size:1.3rem;font-weight:700;border-bottom:2px solid var(--a,#4f46e5);padding-bottom:8px;margin-bottom:18px">6️⃣ 서버 관리 방법</h2>
+  <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:22px 24px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:#fff;border:1px solid #e9d5ff;border-radius:10px;padding:16px">
+        <h3 style="margin:0 0 10px;font-size:1rem;color:#6d28d9">운영 원칙</h3>
+        <ul style="margin:0;padding-left:18px;font-size:0.9rem;line-height:1.8;color:#5b21b6">
+          <li>서비스는 터미널이 아니라 <b>systemd</b>로 실행</li>
+          <li>앱 앞단은 <b>Nginx</b>로 통합</li>
+          <li>접속 로그 / 에러 로그 / 배치 로그 저장</li>
+          <li>백업 스케줄 필수</li>
+        </ul>
+      </div>
+      <div style="background:#fff;border:1px solid #e9d5ff;border-radius:10px;padding:16px">
+        <h3 style="margin:0 0 10px;font-size:1rem;color:#6d28d9">관리 명령 예</h3>
+        <pre style="margin:0;background:#1e1e2e;color:#cdd6f4;border-radius:8px;padding:12px 14px;overflow:auto">sudo systemctl start myapp
+sudo systemctl stop myapp
+sudo systemctl restart myapp
+sudo systemctl status myapp
+
+sudo journalctl -u myapp -f</pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CUBIC 장기 보관 -->
+<div style="margin-bottom:32px">
+  <h2 style="font-size:1.3rem;font-weight:700;border-bottom:2px solid var(--a,#4f46e5);padding-bottom:8px;margin-bottom:18px">7️⃣ CUBIC DB는 3개월만 저장 — 품질팀 서버가 있으면 장기 데이터 보관 가능</h2>
+  <div style="background:#ecfeff;border:1px solid #bae6fd;border-radius:12px;padding:22px 24px">
+    <p style="margin:0 0 14px;font-size:0.96rem;line-height:1.8;color:#0f172a">
+      품질팀 입장에서 이게 서버의 가장 큰 명분 중 하나다. <b>CUBIC DB가 3개월 데이터만 보관</b>한다면,
+      장기 트렌드 분석·공정 변경 전후 비교·제품군별 반복 불량 추적이 구조적으로 어렵다.
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:#fff;border:1px solid #bae6fd;border-radius:10px;padding:16px">
+        <h3 style="margin:0 0 10px;font-size:1rem;color:#0369a1">문제</h3>
+        <ul style="margin:0;padding-left:18px;font-size:0.9rem;line-height:1.8;color:#075985">
+          <li>3개월 지나면 과거 데이터가 사라짐</li>
+          <li>분기/반기/연간 비교가 어려움</li>
+          <li>개선 효과를 장기적으로 증명하기 어려움</li>
+        </ul>
+      </div>
+      <div style="background:#fff;border:1px solid #bbf7d0;border-radius:10px;padding:16px">
+        <h3 style="margin:0 0 10px;font-size:1rem;color:#15803d">서버가 있으면 가능</h3>
+        <ul style="margin:0;padding-left:18px;font-size:0.9rem;line-height:1.8;color:#166534">
+          <li>매일 CUBIC에서 추출 → 팀 서버 DB 적재</li>
+          <li>6개월·1년·3년 장기 보관</li>
+          <li>불량 코드/라인/제품별 장기 추세 분석</li>
+          <li>AI 요약과 자동 보고의 품질 향상</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:16px;background:#1e1e2e;color:#cdd6f4;border-radius:10px;padding:16px 20px;font-family:monospace;font-size:0.82rem;line-height:1.8;overflow:auto">
+매일 새벽 배치 예:
+1. CUBIC DB SQL 조회
+2. 품질팀 서버 PostgreSQL/SQLite에 적재
+3. 전일 불량 요약 생성
+4. 주간/월간 누적 리포트 자동 갱신
+    </div>
+    <p style="margin:12px 0 0;font-size:0.88rem;color:#555">
+      <b>한 줄 요약:</b> 팀 서버는 단순 배포용이 아니라, <b>품질팀 장기 데이터 자산을 쌓는 저장소</b> 역할을 한다.
+    </p>
+  </div>
+</div>
+
 <div class=foot style="text-align:center;color:var(--mut,#888);font-size:0.82rem;padding:20px 0">
 사내 서비스 배포 가이드 · AI 세미나 3차 부록 · 사내 Wave 환경 기준
 </div>
