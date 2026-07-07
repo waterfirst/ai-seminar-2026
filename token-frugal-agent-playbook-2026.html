@@ -612,9 +612,77 @@
         <div class="card danger">
           <h3>루프에 반드시 들어가야 할 것</h3>
           <div class="step"><div class="step-no">A</div><p>종료 조건</p></div>
+          <details class="fold">
+            <summary>실시예 보기</summary>
+            <div class="fold-body">
+              AI에게 “적당히 끝내”라고 맡기면 일찍 손을 떼거나, 반대로 끝없이 반복할 수 있다. 그래서 끝나는 기준을 사람이 먼저 박아줘야 한다.
+              <pre>예시 1) 보고서 루프
+- 종료 조건:
+  - 1페이지 요약 완료
+  - 핵심 메시지 3개 포함
+  - 오탈자 검사 완료
+
+예시 2) 코드 수정 루프
+- 종료 조건:
+  - 테스트 8개 모두 통과
+  - lint 에러 0개
+  - 변경 파일 수 5개 이하
+</pre>
+            </div>
+          </details>
           <div class="step"><div class="step-no">B</div><p>반복 상한</p></div>
+          <details class="fold">
+            <summary>실시예 보기</summary>
+            <div class="fold-body">
+              잘 안 풀리는 문제에서 루프가 계속 맴돌지 않게 “몇 번까지만 해라”를 명시해야 한다. 상한은 품질보다 실패 폭주를 막는 안전장치다.
+              <pre>예시 1) 디버깅 루프
+- 최대 4회까지만 수정·재실행
+- 4회 안에 해결 못 하면 원인 요약 후 중단
+
+예시 2) 초안 개선 루프
+- 문체 수정은 최대 3번 반복
+- 그 이후엔 대안 2개만 제시하고 사람 판단 대기
+</pre>
+            </div>
+          </details>
           <div class="step"><div class="step-no">C</div><p>예산 상한</p></div>
+          <details class="fold">
+            <summary>실시예 보기</summary>
+            <div class="fold-body">
+              루프는 품질만 보다가 토큰을 과도하게 태우기 쉽다. 그래서 비용 또는 토큰 사용량 기준 상한을 같이 걸어야 한다.
+              <pre>예시 1) 리서치 루프
+- 최대 150k 토큰
+- 20분 이내
+- 초과 시 "현재까지 수집한 핵심만 요약"으로 종료
+
+예시 2) 에이전트 코딩 작업
+- 하루 예산: $8
+- 모델별 한도:
+  - 고급 모델: $5
+  - 일반 모델: $3
+- 초과 시 스크립트/일반 모델 모드로 자동 다운그레이드
+</pre>
+            </div>
+          </details>
           <div class="step"><div class="step-no">D</div><p>같은 실패 반복 시 차단기</p></div>
+          <details class="fold">
+            <summary>실시예 보기</summary>
+            <div class="fold-body">
+              가장 조용한 실패는 “똑같이 틀리는데 계속 도는 것”이다. 에러 메시지나 실패 패턴이 같으면 멈추게 해야 한다.
+              <pre>예시 1) 테스트 실패 차단기
+- 같은 테스트가 2회 연속 동일 에러면 중단
+- 로그 요약 + 원인 추정 + 사람 확인 요청
+
+예시 2) 배포 실패 차단기
+- 같은 배포 단계에서 2회 연속 실패하면 자동 중지
+- 환경변수/권한/네트워크 점검 체크리스트만 출력
+
+예시 3) 문서 생성 차단기
+- 출력 형식 오류가 3회 연속이면
+  JSON 강제 템플릿으로 전환하거나 작업 종료
+</pre>
+            </div>
+          </details>
         </div>
       </div>
       <div class="quote" style="margin-top:18px">
