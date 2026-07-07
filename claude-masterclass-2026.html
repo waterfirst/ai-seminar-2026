@@ -1392,6 +1392,73 @@ sudo journalctl -u myapp -f</pre>
   </div>
 </div>
 
+<!-- 비개발자도 Codex 도움으로 서버 운영 가능한가 -->
+<div style="margin-bottom:32px">
+  <h2 style="font-size:1.3rem;font-weight:700;border-bottom:2px solid var(--a,#4f46e5);padding-bottom:8px;margin-bottom:18px">9️⃣ 프로그래머가 아닌 일반인도 Codex 도움으로 서버 운영이 가능한가</h2>
+  <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:22px 24px">
+    <p style="margin:0 0 14px;font-size:0.96rem;line-height:1.8;color:#14532d">
+      <b>가능하다.</b> 다만 “모든 걸 혼자 직접 코딩”하는 방식이 아니라,
+      <b>Codex를 운영 보조자</b>로 두고 사람이 체크리스트 기반으로 승인하는 방식이어야 현실적이다.
+      즉 비개발자에게 필요한 건 프로그래밍 언어 숙련보다 <b>작업 순서와 검증 습관</b>이다.
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:#fff;border:1px solid #bbf7d0;border-radius:10px;padding:16px">
+        <h3 style="margin:0 0 10px;font-size:1rem;color:#15803d">Codex가 대신해줄 수 있는 것</h3>
+        <ul style="margin:0;padding-left:18px;font-size:0.9rem;line-height:1.8;color:#166534">
+          <li>Ubuntu 설치 후 기본 패키지 명령 정리</li>
+          <li>Nginx / FastAPI / Docker 설치 명령 작성</li>
+          <li>systemd 서비스 파일 생성</li>
+          <li>로그 확인 명령, 재시작 명령 정리</li>
+          <li>에러 로그를 읽고 수정 방향 제안</li>
+        </ul>
+      </div>
+      <div style="background:#fff;border:1px solid #fde68a;border-radius:10px;padding:16px">
+        <h3 style="margin:0 0 10px;font-size:1rem;color:#92400e">사람이 꼭 해야 하는 것</h3>
+        <ul style="margin:0;padding-left:18px;font-size:0.9rem;line-height:1.8;color:#78350f">
+          <li>IP/포트/경로 같은 실제 운영값 확인</li>
+          <li>보안/권한/사내 정책 최종 판단</li>
+          <li>배포 후 실제 접속 테스트</li>
+          <li>중요 데이터 백업 여부 확인</li>
+          <li>“이대로 운영해도 되나” 최종 승인</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:18px;background:#fff;border:1px solid #dbeafe;border-radius:10px;padding:16px">
+      <h3 style="margin:0 0 10px;font-size:1rem;color:#1d4ed8">비개발자 운영 추천 방식</h3>
+      <div style="font-size:0.92rem;line-height:1.9;color:#1e3a8a">
+        ① 하고 싶은 일을 한국어로 명확히 적는다<br>
+        ② Codex에게 설치/수정/점검 명령을 받는다<br>
+        ③ 그대로 실행하지 말고 체크리스트로 검토한다<br>
+        ④ 한 번에 하나씩 적용한다<br>
+        ⑤ 접속 확인 / 로그 확인 / 재시작 확인까지 끝내고 넘어간다
+      </div>
+    </div>
+
+    <div style="margin-top:16px;background:#1e1e2e;color:#cdd6f4;border-radius:10px;padding:16px 20px;font-family:monospace;font-size:0.82rem;line-height:1.8;overflow:auto">
+예시 프롬프트:
+"우분투 서버에서 FastAPI 앱을 systemd로 등록하고,
+Nginx로 /report 경로에 연결하고 싶다.
+비개발자도 따라할 수 있게
+1) 명령어
+2) 설정 파일
+3) 확인 방법
+4) 문제 생기면 볼 로그
+순서로 써줘"
+    </div>
+
+    <div style="margin-top:16px;background:#fff;border:1px solid #ddd6fe;border-radius:10px;padding:16px">
+      <h3 style="margin:0 0 10px;font-size:1rem;color:#6d28d9">현실적인 결론</h3>
+      <ul style="margin:0;padding-left:18px;font-size:0.9rem;line-height:1.8;color:#5b21b6">
+        <li>비개발자도 <b>초기 구축과 일상 운영</b>은 충분히 가능</li>
+        <li>다만 보안/네트워크/대형 장애는 도움받는 체계 필요</li>
+        <li>즉 “프로그래머가 아니면 불가능”이 아니라, <b>Codex + 체크리스트 + 작은 범위 운영</b>이면 가능</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
 <div class=foot style="text-align:center;color:var(--mut,#888);font-size:0.82rem;padding:20px 0">
 사내 서비스 배포 가이드 · AI 세미나 3차 부록 · 사내 Wave 환경 기준
 </div>
