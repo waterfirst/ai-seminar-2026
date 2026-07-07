@@ -2,15 +2,16 @@
 
 삼성디스플레이 품질팀 실무자 대상 AI 실무 교육 자료 모음입니다.
 
-🔗 **메인 (3차 세미나 본편)**: https://waterfirst.github.io/ai-seminar-2026/
+🔗 **메인 진입 URL**: https://waterfirst.github.io/ai-seminar-2026/  
+🔗 **실제 3차 메인 본편**: https://waterfirst.github.io/ai-seminar-2026/token-frugal-agent-playbook-2026.html
 
 ---
 
 ## 세미나 자료 목록
 
-### 3차 세미나 본편 — Claude Code 심화 & 토큰 최적화 (2026.07) `index.html`
+### 3차 세미나 본편 — 토큰을 아끼는 AI 에이전트 운영 전략 (2026.07) `token-frugal-agent-playbook-2026.html`
 **대상**: 품질팀 실무자  
-**링크**: https://waterfirst.github.io/ai-seminar-2026/  
+**링크**: https://waterfirst.github.io/ai-seminar-2026/token-frugal-agent-playbook-2026.html  
 **접속**: 비밀번호 `0000`
 
 주요 내용:
@@ -19,6 +20,17 @@
 - CLAUDE.md 작성법과 메모리 파일 관리
 - AI 에이전트 운영 5원칙 (VFF · 마지막 1cm · 토큰 설계)
 - 실전 절약 측정: `rtk gain` 명령 활용
+
+---
+
+### 3차 세미나 진입 페이지 `index.html`
+**성격**: 루트 URL 유지용 리다이렉트 페이지  
+**링크**: https://waterfirst.github.io/ai-seminar-2026/
+
+설명:
+- 기존 공유 링크를 유지
+- 자동으로 밝은 톤 메인 본편으로 이동
+- 메인/확장자료 수동 링크도 함께 제공
 
 ---
 
@@ -54,10 +66,10 @@ AWE 센싱 교육 자료 및 주요 전시 부스 분석.
 
 ```
 ai-seminar-2026/
-├── index.html        # 3차 세미나 본편 — Claude Code 심화 & 토큰 최적화 (비밀번호: 0000)
+├── index.html        # 3차 세미나 진입 페이지(메인 본편으로 자동 이동)
 ├── index2.html       # 1차 세미나 — AI가 바꾸는 연구개발
 ├── claude-masterclass-2026.html   # 3차 확장자료(어두운 톤)
-├── token-frugal-agent-playbook-2026.html   # 3차 보강자료(밝은 톤)
+├── token-frugal-agent-playbook-2026.html   # 3차 메인 본편(밝은 톤)
 ├── index3.html       # 3차 구버전/중복 후보
 ├── ml-with-prompts.html    # ML + 프롬프트 사례 연구
 ├── awe_report.html         # AWE 2026 출장 보고서
@@ -77,9 +89,9 @@ ai-seminar-2026/
 ## 3차 세미나 추가 자료
 
 ### 📌 3차 세미나 페이지 구조 요약
-- **본편(메인)**: `index.html`
+- **진입 URL**: `index.html`
+- **실제 메인 본편(밝은 톤)**: `token-frugal-agent-playbook-2026.html`
 - **확장자료(어두운 톤)**: `claude-masterclass-2026.html`
-- **보강자료(밝은 톤)**: `token-frugal-agent-playbook-2026.html`
 - **구버전/정리 대상**: `index3.html`
 
 ### 📚 실습 핸드북

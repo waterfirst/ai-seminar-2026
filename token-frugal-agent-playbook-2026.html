@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 3차 세미나 보강 — 토큰을 아끼는 AI 에이전트 운영 전략</title>
+  <title>AI 3차 세미나 — 토큰을 아끼는 AI 에이전트 운영 전략</title>
   <style>
     :root{
       --bg:#f6f8fc;
@@ -276,9 +276,10 @@
 </head>
 <body>
   <nav class="nav">
-    <span class="brand">AI 세미나 3차 보강</span>
-    <a href="index.html">3차 메인</a>
+    <span class="brand">AI 세미나 3차 메인</span>
+    <a href="index.html">진입 페이지</a>
     <a href="claude-masterclass-2026.html">3차 확장자료</a>
+    <a href="#overview">전체 구성</a>
     <a href="#s1">오늘의 사건</a>
     <a href="#s2">왜 터지나</a>
     <a href="#s3">운영 원칙</a>
@@ -289,12 +290,13 @@
 
   <section class="hero">
     <div class="hero-card">
-      <div class="badge">삼성디스플레이 품질팀 · 2026.07 · 밝은 배경 기본</div>
+      <div class="badge">삼성디스플레이 품질팀 · 2026.07 · 3차 세미나 메인</div>
       <h1>토큰을 아끼는 <br>AI 에이전트 운영 전략</h1>
       <p class="hero-sub">
         오늘 회사에서 Codex가 <b>회사 전체 토큰 부족</b>으로 전면 금지되었다.
         아마 많은 분들이 “갑자기 손이 묶인 느낌”, “이제 이걸 다시 손으로 해야 하나?” 같은 감각을 느꼈을 것이다.
         이 자료는 “AI를 덜 쓰자”가 아니라, <b>같은 성과를 더 적은 토큰으로 내고, 갑자기 막혀도 우리 일이 안 멈추게 만드는 운영 방식</b>을 같이 고민해보자는 제안이다.
+        오늘 3차 세미나는 이 페이지를 시작점으로 보고, 필요한 상세 설명은 뒤의 확장자료와 실습 핸드북으로 이어진다.
       </p>
 
       <div class="hero-grid">
@@ -330,6 +332,40 @@
   </section>
 
   <main class="wrap">
+    <section class="section" id="overview">
+      <div class="section-label">Map</div>
+      <h2>이번 3차 세미나 전체 구성</h2>
+      <p class="lead">이 페이지를 메인 본편으로 보고, 아래 자료들을 필요에 따라 이어서 보면 된다. 즉 “밝은 메인 → 깊이 있는 확장 → 실습/배포 자료” 구조다.</p>
+      <div class="grid-3">
+        <div class="card hl">
+          <h3>1. 메인 본편</h3>
+          <p><b>현재 페이지</b>다. 오늘 사건, 토큰 관리, 운영 원칙, fallback, 체크리스트를 한 번에 본다.</p>
+        </div>
+        <div class="card">
+          <h3>2. 확장자료</h3>
+          <p><a href="claude-masterclass-2026.html"><b>클로드 마스터클래스</b></a><br>에이전트, MCP, 키메라, 배포, Codex 비교 같은 심화 내용을 별도 페이지로 둔다.</p>
+        </div>
+        <div class="card success">
+          <h3>3. 실습 자료</h3>
+          <p><a href="web_db_gpt_guide.md"><b>실습 핸드북</b></a>, <a href="DEPLOYMENT_GUIDE.md"><b>배포 가이드</b></a>로 바로 내려가도록 연결한다.</p>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-top:16px">
+        <div class="card warning">
+          <h3>함께 볼 자료</h3>
+          <ul>
+            <li><a href="claude-masterclass-2026.html">3차 확장자료 — 클로드 마스터클래스</a></li>
+            <li><a href="web_db_gpt_guide.md">실습 핸드북</a></li>
+            <li><a href="DEPLOYMENT_GUIDE.md">배포 & 운영 가이드</a></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>정리 대상</h3>
+          <p><code>index3.html</code>은 3차 구버전/중복 후보로 보고, 앞으로는 이 페이지를 기준으로 관리하는 게 덜 헷갈린다.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="s1">
       <div class="section-label">Today</div>
       <h2>오늘 사건이 보여준 것</h2>
@@ -571,7 +607,7 @@
         </p>
       </div>
       <div class="footer">
-        삼성디스플레이 품질팀 AI 세미나 3차 보강자료 · Token-Frugal Agent Playbook · 2026-07-07
+        삼성디스플레이 품질팀 AI 세미나 3차 메인 · Token-Frugal Agent Playbook · 2026-07-07
       </div>
     </section>
   </main>
