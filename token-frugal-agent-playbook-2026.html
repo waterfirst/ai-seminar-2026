@@ -476,6 +476,7 @@
             <li>예외 판단</li>
             <li>최종 검토</li>
           </ul>
+          <p style="margin:10px 0 0;color:var(--muted)">비싼 Claude를 모든 타이핑과 반복 수정까지 맡기기보다, <b>판단·설계·최종 검토</b>에만 집중시키는 편이 토큰 효율이 좋다.</p>
         </div>
         <div class="card success">
           <h3>원칙 2. 작은 모델은 반복에</h3>
@@ -485,6 +486,7 @@
             <li>질문응답</li>
             <li>가벼운 변환</li>
           </ul>
+          <p style="margin:10px 0 0;color:var(--muted)">빠른 Codex류 모델은 <b>코드 초안, 반복 실행, 타이핑, 병렬 시도</b> 같은 손발 역할에 붙이는 것이 가장 싸고 빠르다.</p>
         </div>
         <div class="card">
           <h3>원칙 3. 결정론적 일은 스크립트로</h3>
@@ -550,6 +552,15 @@
       <div class="card warning" style="margin-top:16px">
         <h3>핵심 메시지</h3>
         <p>“무조건 좋은 모델”이 아니라, <b>작업 특성에 맞는 가장 싼 실행 경로</b>를 찾는 조직이 결국 이긴다.</p>
+      </div>
+      <div class="card success" style="margin-top:16px">
+        <h3>실무 전략 — 퍼스트 코덱스, 라스트 클로드</h3>
+        <p><b>처음 손대는 초안·타이핑·반복 실행은 Codex</b>에 맡기고, <b>방향 결정·예외 판단·최종 품질 보증은 Claude</b>가 맡는 구조가 토큰과 속도를 동시에 잡기 쉽다.</p>
+        <ul>
+          <li>Codex: 코드 초안, 빠른 수정, 병렬 시도</li>
+          <li>Claude: 아키텍처 판단, 통합, 최종 설명</li>
+          <li>결론: “최고 모델 하나”보다 <b>역할 분담된 조합</b>이 더 오래 간다</li>
+        </ul>
       </div>
     </section>
 
