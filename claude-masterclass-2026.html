@@ -424,6 +424,10 @@ gh secret set MOLIT_API_KEY -R repo  # ✅ 암호화 저장</pre>
 <div class=card style="margin-top:14px">
 <h3 style="margin-top:0">실무 데이터 팁 — 엑셀은 와이드보다 롱포맷</h3>
 <p>토큰 절약은 모델 선택만의 문제가 아니다. <b>데이터 구조를 어떻게 넘기느냐</b>도 크다. 월별 컬럼이 계속 늘어나는 와이드포맷보다, <b>date / line / item / value</b>처럼 세운 롱포맷이 AI 요약·비교·이상치 탐지에 훨씬 유리하다.</p>
+<figure style="margin:14px 0">
+<img src="images/wide-vs-long-format-kor.png" alt="와이드포맷과 롱포맷 비교 그림" style="width:100%;border-radius:14px;border:1px solid rgba(15,23,42,.12);box-shadow:0 10px 28px rgba(15,23,42,.08)">
+<figcaption style="margin-top:8px;font-size:.92rem;color:var(--mut,#666)">와이드포맷은 열이 늘어나고, 롱포맷은 필요한 행만 좁혀 전달하기 쉬워 AI 작업과 토큰 절약에 유리하다. 개념 참고: <a href="https://www.statology.org/long-vs-wide-data/" style="color:var(--bl)" target=_blank rel="noopener">Statology — Long vs Wide Data</a></figcaption>
+</figure>
 <ul>
 <li>와이드포맷은 컬럼명이 길게 늘어나 프롬프트가 비대해진다</li>
 <li>롱포맷은 필터·집계 후 필요한 행만 넘기기 쉽다</li>

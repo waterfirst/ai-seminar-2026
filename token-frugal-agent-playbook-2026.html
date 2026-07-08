@@ -485,6 +485,10 @@
         <div class="card warning">
           <h3>원칙 5. 엑셀은 와이드보다 롱포맷</h3>
           <p>AI에게 표를 읽히거나 가공시킬 때는 <b>열이 끝없이 늘어나는 와이드포맷보다, 항목·날짜·값으로 세운 롱포맷이 훨씬 효율적</b>이다.</p>
+          <figure style="margin:14px 0">
+            <img src="images/wide-vs-long-format-kor.png" alt="와이드포맷과 롱포맷 비교 그림" style="width:100%;border-radius:14px;border:1px solid rgba(15,23,42,.12);box-shadow:0 10px 28px rgba(15,23,42,.08)">
+            <figcaption style="margin-top:8px;font-size:.92rem;color:var(--muted)">와이드포맷은 열이 계속 늘어나고, 롱포맷은 필요한 행만 좁혀 전달하기 쉬워 AI 작업과 토큰 절약에 유리하다. 개념 참고: <a href="https://www.statology.org/long-vs-wide-data/" target="_blank" rel="noopener">Statology — Long vs Wide Data</a></figcaption>
+          </figure>
           <ul>
             <li>와이드포맷: 월별 컬럼이 계속 늘어나 프롬프트가 길어진다</li>
             <li>롱포맷: <code>date / line / item / value</code> 구조로 재사용이 쉽다</li>
