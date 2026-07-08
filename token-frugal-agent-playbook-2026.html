@@ -565,48 +565,48 @@
     <section class="section" id="special-multi-agent">
       <div class="section-label">Special Edition</div>
       <h2>특별편 — Codex 단독 vs 멀티에이전트 실사례</h2>
-      <p class="lead">이번 특별편은 말로만 “멀티에이전트가 좋다”를 주장하지 않고, <b>KOSPI 대결 운영 방식 자체</b>를 실사례로 보여준다. 핵심은 단순하다. <b>시가는 Codex 단독</b>, <b>종가는 멀티에이전트</b>, 그리고 이 결과를 <b>Claude와 매일 비교·채점·복기</b>하는 구조다.</p>
+      <p class="lead">이번 특별편은 말로만 “멀티에이전트가 좋다”를 주장하지 않고, <b>세미나 자료 제작·정리·배포 과정</b>을 실사례로 보여준다. 핵심은 단순하다. <b>단순 수정은 단독 에이전트</b>, <b>자료 수집·정리·배포는 멀티에이전트</b>, 그리고 마지막에는 <b>사람이 구조와 메시지를 확인</b>하는 것이다.</p>
 
       <figure style="margin:18px 0 8px">
         <img src="images/multi-agent-special-2026.svg" alt="Codex 단독과 멀티에이전트 실사례 비교 요약 이미지" style="width:100%;border-radius:20px;border:1px solid rgba(15,23,42,.12);box-shadow:0 16px 40px rgba(15,23,42,.08)">
-        <figcaption style="margin-top:8px;font-size:.92rem;color:var(--muted)">이제 멀티에이전트의 대표 사례는 세미나 문안이 아니라 <b>실전 KOSPI 대결 운영</b>이다. <b>시가와 종가를 같은 방식으로 처리하지 않고 분리</b>하는 것이 핵심이다.</figcaption>
+        <figcaption style="margin-top:8px;font-size:.92rem;color:var(--muted)">이제 멀티에이전트의 대표 사례는 <b>세미나 자료를 실제로 다듬고 배포하는 운영 흐름</b>이다. <b>가벼운 일과 무거운 일을 같은 방식으로 처리하지 않는 것</b>이 핵심이다.</figcaption>
       </figure>
 
       <div class="grid-2" style="margin-top:18px">
         <div class="card hl">
-          <h3>실험 1 — 시가는 Codex 단독</h3>
+          <h3>실험 1 — 단순 수정은 Codex 단독</h3>
           <ul>
-            <li><b>Codex 단독</b>: 시가 <code>7210</code>, 장전 종가 <code>7180</code>, <b>543 tokens</b>, 2.87초</li>
-            <li><b>멀티에이전트</b>: 시가 <code>7250</code>, 장전 종가 <code>7230</code>, <b>3487 tokens</b>, 약 19.6초</li>
-            <li>시가 차이 <b>40p</b>, 장전 종가 차이 <b>50p</b>로 크지 않았다</li>
+            <li>문구 한두 줄 수정, 접기 추가, 색상/배치 미세 조정은 <b>Codex 단독</b>이 가장 빠르다</li>
+            <li>파일 위치 파악 → 수정 → 미리보기 확인까지 한 흐름으로 끝내기 좋다</li>
+            <li>이 단계에서 멀티에이전트를 붙이면 오히려 설명 비용과 컨텍스트 비용이 커진다</li>
           </ul>
-          <p style="margin:10px 0 0;color:var(--muted)">결론: <b>시가 전에는 Codex 단독이 더 경제적</b>이었다. 장이 열리기 전에는 breadth·수급이 없어서 멀티에이전트 이득이 아직 작았다.</p>
+          <p style="margin:10px 0 0;color:var(--muted)">결론: <b>작고 명확한 작업은 단독 에이전트가 더 경제적</b>이다. 역할이 뚜렷하지 않은데 여러 모델을 붙이면 오히려 토큰만 늘어난다.</p>
         </div>
 
         <div class="card success">
-          <h3>실험 2 — 종가는 멀티에이전트</h3>
+          <h3>실험 2 — 자료 제작은 멀티에이전트</h3>
           <ul>
-            <li><b>Gemini</b>: 최신 거시·시장·섹터 시그널을 좁게 수집</li>
-            <li><b>Z AI</b>: 숫자 중심 리스크를 짧게 정리</li>
-            <li><b>Codex</b>: breadth·수급·뉴스를 합쳐 최종 종가를 제출</li>
+            <li><b>Gemini</b>: 최신 뉴스·사례·외부 참고자료를 좁게 수집</li>
+            <li><b>Z AI</b>: 초안 문장, 요약, 비교 문안을 짧고 싸게 생성</li>
+            <li><b>Codex</b>: HTML/MD 반영, 구조 정리, 중복 제거, 최종 배포를 담당</li>
           </ul>
-          <p style="margin:10px 0 0;color:var(--muted)">종가는 장중 정보가 붙으면서 해석 변수가 많아진다. 그래서 <b>최신 탐색·숫자 요약·최종 판단을 분리</b>하는 멀티에이전트 쪽이 더 설득력이 있다.</p>
+          <p style="margin:10px 0 0;color:var(--muted)">여러 자료를 모으고, 설명 톤을 맞추고, 실제 페이지에 반영해 배포해야 할 때는 <b>탐색·초안·통합을 분리</b>하는 멀티에이전트가 더 자연스럽다.</p>
         </div>
 
         <div class="card warning">
           <h3>실무 운영형 멀티에이전트 예</h3>
           <ol style="margin:0;padding-left:18px">
-            <li>07:30 — <b>Codex 단독</b>으로 시가 제출</li>
-            <li>09:05 / 10:30 — 장중 모니터링과 시가 채점</li>
-            <li>12:30 — <b>Gemini + Z AI + Codex</b>로 종가 제출</li>
-            <li>16:30 / 19:00 — Claude와 비교 채점, 복기, 다음 규칙 수정</li>
+            <li><b>Gemini</b>가 최신 사례와 바깥 변화를 먼저 긁어온다</li>
+            <li><b>Z AI</b>가 초안 문장과 짧은 요약 후보를 만든다</li>
+            <li><b>Codex</b>가 실제 HTML/MD를 수정하고 구조를 정리한다</li>
+            <li>마지막에 <b>사람</b>이 순서, 메시지, 회사 설명 톤을 확인하고 배포한다</li>
           </ol>
         </div>
 
         <div class="card danger">
           <h3>왜 이 특별편이 중요한가</h3>
-          <p>이 사례의 포인트는 “항상 멀티에이전트”가 아니라, <b>같은 작업 안에서도 단계별로 방식이 달라져야 한다</b>는 것이다. 시가 전엔 단독이 더 싸고, 종가 쪽은 멀티가 더 자연스럽다.</p>
-          <p style="margin:10px 0 0;color:var(--muted)">즉 핵심은 <b>모델 수를 늘리는 것</b>이 아니라, <b>시가와 종가를 같은 방식으로 처리하지 않는 설계 감각</b>이다.</p>
+          <p>이 사례의 포인트는 “항상 멀티에이전트”가 아니라, <b>같은 작업 안에서도 단계별로 방식이 달라져야 한다</b>는 것이다. 단순 수정은 단독이 낫고, 조사·정리·배포는 분업이 더 자연스럽다.</p>
+          <p style="margin:10px 0 0;color:var(--muted)">즉 핵심은 <b>모델 수를 늘리는 것</b>이 아니라, <b>어떤 단계에 어떤 모델을 넣을지 설계하는 감각</b>이다.</p>
         </div>
       </div>
 
@@ -614,12 +614,12 @@
         <summary>실제 사용 규칙 요약 보기</summary>
         <div class="fold-body">
           <ul>
-            <li><b>Codex</b>: 시가 제출, 최종 판단, 종가 최종 합성, 채점·복기</li>
-            <li><b>Gemini</b>: 종가용 최신 거시·시장·섹터 시그널 수집</li>
-            <li><b>Z AI</b>: 종가용 숫자 리스크 요약</li>
-            <li><b>Claude</b>: 대결 상대이자 외부 기준선 역할</li>
+            <li><b>Codex</b>: 파일 수정, 구조 정리, 최종 반영, 배포</li>
+            <li><b>Gemini</b>: 최신 자료 탐색, 링크 확인, 외부 사례 수집</li>
+            <li><b>Z AI</b>: 짧은 초안, 설명 문구, 대안 표현 생성</li>
+            <li><b>사람</b>: 종료 판단, 핵심 메시지 확정, 대외 배포 승인</li>
           </ul>
-          <p style="margin:10px 0 0">즉 이 특별편의 대표 예시는 <b>“시가는 Codex 단독, 종가는 멀티에이전트, 저녁에는 Claude와 비교 복기”</b>다. 이게 바로 <b>한 작업을 단계별로 다르게 설계한 멀티에이전트 운영</b>이다.</p>
+          <p style="margin:10px 0 0">즉 이 특별편의 대표 예시는 <b>“단순 수정은 단독, 자료 제작은 멀티, 마지막 판단은 사람”</b>이다. 이게 바로 <b>한 작업을 단계별로 다르게 설계한 멀티에이전트 운영</b>이다.</p>
         </div>
       </details>
     </section>
