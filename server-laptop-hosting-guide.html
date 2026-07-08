@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>서버 노트북에서 HTML/FastAPI 호스팅하는 방법</title>
+  <style>
+    :root{
+      --bg:#f8fafc; --card:#fff; --ink:#0f172a; --mut:#475569; --line:#e2e8f0;
+      --pri:#2563eb; --ok:#15803d; --warn:#d97706; --vio:#7c3aed;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,Segoe UI,Apple SD Gothic Neo,Noto Sans KR,sans-serif;background:linear-gradient(180deg,#f8fafc 0,#eef4ff 100%);color:var(--ink);line-height:1.72}
+    .wrap{max-width:1120px;margin:0 auto;padding:32px 20px 60px}
+    .hero,.section,.card{background:#fff}
+    .hero{border:1px solid #dbeafe;border-radius:24px;padding:28px;box-shadow:0 18px 44px rgba(37,99,235,.08)}
+    .section{margin-top:26px;border:1px solid var(--line);border-radius:22px;padding:24px}
+    .grid-2,.grid-3{display:grid;gap:16px}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .card{border:1px solid var(--line);border-radius:18px;padding:18px}
+    .blue{background:#eff6ff;border-color:#bfdbfe}
+    .green{background:#f0fdf4;border-color:#bbf7d0}
+    .amber{background:#fff7ed;border-color:#fed7aa}
+    .vio{background:#faf5ff;border-color:#ddd6fe}
+    h1{font-size:clamp(2rem,4vw,3rem);line-height:1.15;margin:12px 0}
+    h2{font-size:1.55rem;margin:8px 0 12px}
+    h3{font-size:1.08rem;margin:0 0 10px}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-weight:800;font-size:.82rem}
+    .lead{font-size:1.05rem;color:#334155}
+    .nav{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+    .nav a{padding:9px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);text-decoration:none;color:var(--ink);font-size:.92rem}
+    .label{font-size:.82rem;font-weight:800;color:var(--pri);letter-spacing:.08em;text-transform:uppercase}
+    ul{margin:0;padding-left:18px}
+    li{margin:6px 0}
+    .code{background:#0f172a;color:#e2e8f0;border-radius:16px;padding:16px 18px;overflow:auto;font:500 .92rem/1.7 ui-monospace,SFMono-Regular,Menlo,monospace}
+    .note{font-size:.9rem;color:#64748b}
+    .pill{display:inline-block;padding:4px 9px;border-radius:999px;background:#e2e8f0;font-size:.8rem;font-weight:700;color:#334155}
+    a{color:var(--pri);text-decoration:none}
+    @media (max-width:860px){.grid-2,.grid-3{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <span class="badge">삼성디스플레이 품질팀 실전 가이드</span>
+      <h1>서버 노트북에서 HTML/FastAPI 호스팅하는 방법</h1>
+      <p class="lead">핸드폰 서버는 실험용으로는 좋지만, 실제 내부 공유와 교육용 페이지 배포는 <b>서버 노트북</b>이 훨씬 안정적이다. 이 문서는 <b>정적 HTML</b>, <b>FastAPI</b>, <b>Ubuntu+Nginx</b>, <b>Windows</b> 기준으로 가장 현실적인 운영 방법을 정리한다.</p>
+      <div class="nav">
+        <a href="index.html">← 3차 세미나 메인</a>
+        <a href="phone-server-guide.html">핸드폰 서버 가이드</a>
+        <a href="#s1">왜 노트북인가</a>
+        <a href="#s2">가장 쉬운 방법</a>
+        <a href="#s3">FastAPI</a>
+        <a href="#s4">Ubuntu+Nginx</a>
+        <a href="#s5">Windows</a>
+      </div>
+    </section>
+
+    <section class="section" id="s1">
+      <div class="label">Why</div>
+      <h2>왜 서버 노트북이 더 현실적인가</h2>
+      <div class="grid-3">
+        <div class="card blue"><h3>안정성</h3><ul><li>전원 연결 고정 가능</li><li>발열·배터리 이슈가 핸드폰보다 적음</li><li>장시간 서비스 유지가 쉬움</li></ul></div>
+        <div class="card green"><h3>관리성</h3><ul><li>파일 관리가 편함</li><li>로그·백업·권한 분리가 쉬움</li><li>Nginx/FastAPI/DB까지 확장 가능</li></ul></div>
+        <div class="card vio"><h3>공유성</h3><ul><li>사내망에서 여러 명 접근 가능</li><li>HTML/리포트/대시보드 운영 가능</li><li>팀 서버로 가기 전 입문용으로 좋음</li></ul></div>
+      </div>
+    </section>
+
+    <section class="section" id="s2">
+      <div class="label">Quick Start</div>
+      <h2>가장 쉬운 방법: 정적 HTML 즉시 공유</h2>
+      <div class="grid-2">
+        <div class="card green">
+          <h3>Python 내장 서버</h3>
+          <div class="code">cd /path/to/html-files
+python -m http.server 8080</div>
+          <p class="note">브라우저 접속: <code>http://노트북IP:8080/파일명.html</code></p>
+        </div>
+        <div class="card amber">
+          <h3>언제 이 방법을 쓰나</h3>
+          <ul>
+            <li>세미나 자료 공유</li>
+            <li>내부 HTML 문서 검토</li>
+            <li>임시 데모</li>
+            <li>사내망에서 빠른 확인</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="s3">
+      <div class="label">FastAPI</div>
+      <h2>FastAPI로 서버 노트북에서 호스팅</h2>
+      <p class="note">정적 HTML만이 아니라, 나중에 API·검색·파일다운로드까지 붙일 계획이면 FastAPI가 좋다.</p>
+      <div class="grid-2">
+        <div class="card blue">
+          <h3>추천 구조</h3>
+          <ul>
+            <li><span class="pill">FastAPI</span> 앱 하나로 정적 파일 서빙</li>
+            <li><span class="pill">/</span> 기본 페이지 연결</li>
+            <li>추후 <span class="pill">/api</span> 경로 추가 가능</li>
+          </ul>
+        </div>
+        <div class="card green">
+          <h3>장점</h3>
+          <ul>
+            <li>HTML 가이드 + API를 한 앱에서 운영 가능</li>
+            <li>나중에 검색/DB/업로드 기능 붙이기 쉬움</li>
+            <li>Uvicorn + Nginx로 확장 가능</li>
+          </ul>
+        </div>
+      </div>
+      <div class="code" style="margin-top:16px">pip install fastapi uvicorn
+
+uvicorn fastapi_host:app --host 0.0.0.0 --port 8765</div>
+      <p class="note">접속 예: <code>http://노트북IP:8765/phone-server-guide.html</code></p>
+    </section>
+
+    <section class="section" id="s4">
+      <div class="label">Ubuntu</div>
+      <h2>Ubuntu 기준 정식 운영: Nginx</h2>
+      <div class="grid-2">
+        <div class="card green">
+          <h3>설치</h3>
+          <div class="code">sudo apt update
+sudo apt install nginx -y
+sudo systemctl enable nginx
+sudo systemctl start nginx</div>
+        </div>
+        <div class="card blue">
+          <h3>배포</h3>
+          <div class="code">sudo cp server-laptop-hosting-guide.html /var/www/html/
+sudo cp phone-server-guide.html /var/www/html/
+sudo systemctl restart nginx</div>
+        </div>
+      </div>
+      <div class="card amber" style="margin-top:16px">
+        <h3>Nginx가 좋은 이유</h3>
+        <ul>
+          <li>80/443 포트 고정 운영</li>
+          <li>여러 HTML 문서를 한곳에서 관리</li>
+          <li>나중에 FastAPI 앞단 reverse proxy로 연결 가능</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="s5">
+      <div class="label">Windows</div>
+      <h2>Windows 노트북에서도 가능</h2>
+      <div class="grid-2">
+        <div class="card blue">
+          <h3>가장 쉬운 방법</h3>
+          <div class="code">cd C:\path\to\html-files
+python -m http.server 8080</div>
+          <p class="note">같은 와이파이에서 <code>http://노트북IP:8080</code> 접속</p>
+        </div>
+        <div class="card vio">
+          <h3>조금 더 본격적으로</h3>
+          <ul>
+            <li>WSL + Ubuntu + Nginx</li>
+            <li>Windows 방화벽 포트 허용</li>
+            <li>고정 IP 또는 DHCP 예약 설정</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card amber" style="margin-top:16px">
+        <h3>Windows 운영 시 주의</h3>
+        <ul>
+          <li>방화벽이 포트를 막을 수 있음</li>
+          <li>절전모드 진입 시 서비스 중단 가능</li>
+          <li>공용 운영은 결국 Ubuntu나 VM 쪽이 더 편함</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
