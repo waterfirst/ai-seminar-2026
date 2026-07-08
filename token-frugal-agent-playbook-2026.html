@@ -312,11 +312,11 @@
     <span class="brand">AI 세미나 3차 메인</span>
     <a href="index.html">진입 페이지</a>
     <a href="claude-masterclass-2026.html">3차 확장자료</a>
-    <a href="#overview">전체 구성</a>
     <a href="#s1">오늘의 사건</a>
-    <a href="#s2">왜 터지나</a>
-    <a href="#s3">운영 원칙</a>
+    <a href="#s2">토큰 누수</a>
     <a href="#s4">조직 설계</a>
+    <a href="#special-multi-agent">실사례</a>
+    <a href="#s3">운영 원칙</a>
     <a href="#s5">메모리·루프</a>
     <a href="#s6">실행안</a>
   </nav>
@@ -367,48 +367,46 @@
   <main class="wrap">
     <section class="section" id="overview">
       <div class="section-label">Map</div>
-      <h2>이번 3차 세미나 전체 구성</h2>
-      <p class="lead">이 페이지를 메인 본편으로 보고, 아래 자료들을 필요에 따라 이어서 보면 된다. 즉 “밝은 메인 → 깊이 있는 확장 → 실습/배포 자료” 구조다.</p>
-      <div class="grid-3">
+      <h2>이 페이지는 이렇게 보면 된다</h2>
+      <p class="lead">메인페이지는 한 번에 다 담으려고 하기보다, <b>문제 인식 → 구조 설계 → 실사례 → 실행안</b> 순서로 읽으면 자연스럽다. 세부 가이드는 필요한 사람만 뒤로 내려가면 된다.</p>
+      <div class="grid-2">
         <div class="card hl">
-          <h3>1. 메인 본편</h3>
-          <p><b>현재 페이지</b>다. 오늘 사건, 토큰 관리, 운영 원칙, fallback, 체크리스트를 한 번에 본다.</p>
+          <h3>1. 먼저 볼 흐름</h3>
+          <ol style="margin:0;padding-left:18px">
+            <li><b>오늘 사건</b> — 왜 이 세미나가 필요한가</li>
+            <li><b>토큰 누수</b> — 어디서 비용이 새는가</li>
+            <li><b>조직 설계</b> — 어떤 모델을 어디에 쓸 것인가</li>
+            <li><b>실사례</b> — 실제로 돌려보니 뭐가 쌌는가</li>
+            <li><b>실행안</b> — 품질팀은 무엇부터 할 것인가</li>
+          </ol>
         </div>
         <div class="card">
-          <h3>2. 확장자료</h3>
-          <p><a href="claude-masterclass-2026.html"><b>클로드 마스터클래스</b></a><br>에이전트, MCP, 키메라, 배포, Codex 비교 같은 심화 내용을 별도 페이지로 둔다.</p>
-        </div>
-        <div class="card success">
-          <h3>3. 실습 자료</h3>
-          <p><a href="web_db_gpt_guide.md"><b>실습 핸드북</b></a>, <a href="DEPLOYMENT_GUIDE.md"><b>배포 가이드</b></a>로 바로 내려가도록 연결한다.</p>
+          <h3>2. 이 페이지의 결론</h3>
+          <p>핵심 메시지는 단순하다. <b>큰 모델은 판단에만, 작은 모델은 반복에, 결정론적 일은 스크립트로</b>. 그리고 실제 실험 결과까지 보면 <b>“싼 초안은 Z AI, 최신 탐색은 Gemini, 비싼 판단은 Codex”</b>가 현재 가장 실용적이다.</p>
         </div>
       </div>
       <div class="grid-2" style="margin-top:16px">
         <div class="card warning">
-          <h3>함께 볼 자료</h3>
-          <ul>
-            <li><a href="claude-masterclass-2026.html">3차 확장자료 — 클로드 마스터클래스</a></li>
-            <li><a href="phone-server-guide.html">핸드폰을 서버로 만드는 방법 — 상세가이드</a></li>
-            <li><a href="server-laptop-hosting-guide.html">서버 노트북에서 HTML/FastAPI 호스팅하는 방법</a></li>
-            <li><a href="web_db_gpt_guide.md">실습 핸드북</a></li>
-            <li><a href="DEPLOYMENT_GUIDE.md">배포 & 운영 가이드</a></li>
-          </ul>
+          <h3>메인에 남기고, 상세는 접는다</h3>
+          <p>핸드폰 서버, 서버 노트북, 배포 실습, DB 가이드는 중요하지만 모두 메인에 길게 펼치면 흐름이 깨진다. 메인에는 <b>판단 기준과 운영 원칙</b>을 남기고, 상세 절차는 확장자료/가이드로 넘기는 편이 낫다.</p>
         </div>
         <div class="card">
-          <h3>정리 대상</h3>
-          <p><code>index3.html</code>은 3차 구버전/중복 후보로 보고, 앞으로는 이 페이지를 기준으로 관리하는 게 덜 헷갈린다.</p>
+          <h3>확장자료는 여기로</h3>
+          <ul>
+            <li><a href="claude-masterclass-2026.html">3차 확장자료 — 클로드 마스터클래스</a></li>
+            <li><a href="phone-server-guide.html">핸드폰을 서버로 만드는 방법</a></li>
+            <li><a href="server-laptop-hosting-guide.html">서버 노트북 HTML/FastAPI 호스팅</a></li>
+            <li><a href="web_db_gpt_guide.md">실습 핸드북</a> / <a href="DEPLOYMENT_GUIDE.md">배포 가이드</a></li>
+          </ul>
         </div>
       </div>
-      <div class="card success" style="margin-top:16px">
-        <h3>핸드폰 서버 핵심 정리</h3>
-        <ul>
-          <li><b>안드로이드 + Termux</b> 조합은 작은 내부 서버, 데모, 학습용으로 충분히 써볼 만하다.</li>
-          <li>할 수 있는 일은 <b>정적 HTML 공유, 간단한 Python/FastAPI 서버, 같은 와이파이 내부 접속</b> 정도다.</li>
-          <li>하지만 <b>발열, 배터리, 절전모드, 백그라운드 제한</b> 때문에 팀 공용 핵심 서버로 쓰기엔 불안정하다.</li>
-          <li>그래서 현실적인 운영 순서는 <b>핸드폰으로 개념 실험 → 서버 노트북에서 HTML/FastAPI 호스팅 → 팀 서버/VM으로 확장</b>이다.</li>
-          <li>핵심은 “핸드폰이 팀 서버를 대체한다”가 아니라, <b>서버 개념을 가장 싸게 체험하는 입문 장비</b>라는 점이다.</li>
-        </ul>
-      </div>
+      <details class="fold" style="margin-top:16px">
+        <summary>부록 성격의 자료 한 번에 보기</summary>
+        <div class="fold-body">
+          <p><b>핸드폰 서버</b>는 개념 실험용, <b>서버 노트북</b>은 부서 내부 공유용, <b>정식 팀 서버</b>는 장기 운영용으로 보는 것이 자연스럽다. 메인 세미나에서는 이 세 단계를 “운영 성숙도” 관점으로만 이해하고, 실제 설치 절차는 각 가이드 문서로 넘긴다.</p>
+          <p style="margin:10px 0 0"><code>index3.html</code> 같은 구버전/중복 페이지는 앞으로 메인페이지 기준으로 정리해 혼선을 줄이는 것이 좋다.</p>
+        </div>
+      </details>
     </section>
 
     <section class="section" id="s1">
