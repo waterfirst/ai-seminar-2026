@@ -399,6 +399,16 @@
           <p><code>index3.html</code>은 3차 구버전/중복 후보로 보고, 앞으로는 이 페이지를 기준으로 관리하는 게 덜 헷갈린다.</p>
         </div>
       </div>
+      <div class="card success" style="margin-top:16px">
+        <h3>핸드폰 서버 핵심 정리</h3>
+        <ul>
+          <li><b>안드로이드 + Termux</b> 조합은 작은 내부 서버, 데모, 학습용으로 충분히 써볼 만하다.</li>
+          <li>할 수 있는 일은 <b>정적 HTML 공유, 간단한 Python/FastAPI 서버, 같은 와이파이 내부 접속</b> 정도다.</li>
+          <li>하지만 <b>발열, 배터리, 절전모드, 백그라운드 제한</b> 때문에 팀 공용 핵심 서버로 쓰기엔 불안정하다.</li>
+          <li>그래서 현실적인 운영 순서는 <b>핸드폰으로 개념 실험 → 서버 노트북에서 HTML/FastAPI 호스팅 → 팀 서버/VM으로 확장</b>이다.</li>
+          <li>핵심은 “핸드폰이 팀 서버를 대체한다”가 아니라, <b>서버 개념을 가장 싸게 체험하는 입문 장비</b>라는 점이다.</li>
+        </ul>
+      </div>
     </section>
 
     <section class="section" id="s1">
