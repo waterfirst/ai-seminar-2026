@@ -1,30 +1,30 @@
 <svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="1600" height="900" fill="#F8FAFC"/>
   <rect x="40" y="40" width="1520" height="820" rx="28" fill="#FFFFFF" stroke="#D6E0F5"/>
-  <text x="90" y="110" fill="#0F172A" font-family="Arial, sans-serif" font-size="42" font-weight="700">3차 세미나 특별편 — 멀티에이전트 실사례</text>
-  <text x="90" y="150" fill="#475569" font-family="Arial, sans-serif" font-size="22">실험 기준: 2026-07-09 장전 / 삼성디스플레이 품질팀 실무 시나리오 / 밝은 배경 운영판</text>
+  <text x="90" y="110" fill="#0F172A" font-family="Arial, sans-serif" font-size="42" font-weight="700">3차 세미나 특별편 — 시가는 단독, 종가는 멀티에이전트</text>
+  <text x="90" y="150" fill="#475569" font-family="Arial, sans-serif" font-size="22">실험 기준: 2026-07-09 장전 / KOSPI 실전 대결 운영 / 삼성디스플레이 품질팀 적용판</text>
 
   <rect x="90" y="190" width="680" height="250" rx="22" fill="#EFF6FF" stroke="#BFDBFE"/>
-  <text x="120" y="235" fill="#1D4ED8" font-family="Arial, sans-serif" font-size="28" font-weight="700">A. 오늘 코스피 장전 예측</text>
+  <text x="120" y="235" fill="#1D4ED8" font-family="Arial, sans-serif" font-size="28" font-weight="700">A. 시가 — Codex 단독이 더 싸다</text>
   <rect x="120" y="260" width="290" height="145" rx="18" fill="#FFFFFF" stroke="#CBD5E1"/>
   <text x="145" y="295" fill="#0F172A" font-family="Arial, sans-serif" font-size="24" font-weight="700">Codex 단독</text>
   <text x="145" y="330" fill="#334155" font-family="Arial, sans-serif" font-size="20">시가 7210 / 장전 종가 7180</text>
   <text x="145" y="360" fill="#334155" font-family="Arial, sans-serif" font-size="20">543 tokens / 2.87초</text>
-  <text x="145" y="390" fill="#16A34A" font-family="Arial, sans-serif" font-size="19" font-weight="700">장전 시점 효율 우세</text>
+  <text x="145" y="390" fill="#16A34A" font-family="Arial, sans-serif" font-size="19" font-weight="700">장전 시가 제출용 기본 경로</text>
 
   <rect x="430" y="260" width="310" height="145" rx="18" fill="#FFFFFF" stroke="#CBD5E1"/>
   <text x="455" y="295" fill="#0F172A" font-family="Arial, sans-serif" font-size="24" font-weight="700">멀티에이전트</text>
   <text x="455" y="330" fill="#334155" font-family="Arial, sans-serif" font-size="20">시가 7250 / 장전 종가 7230</text>
   <text x="455" y="360" fill="#334155" font-family="Arial, sans-serif" font-size="20">3487 tokens / 약 19.6초</text>
-  <text x="455" y="390" fill="#DC2626" font-family="Arial, sans-serif" font-size="19" font-weight="700">차이는 작고 비용은 큼</text>
+  <text x="455" y="390" fill="#DC2626" font-family="Arial, sans-serif" font-size="19" font-weight="700">시가 전에는 과한 비용</text>
 
   <rect x="90" y="470" width="680" height="310" rx="22" fill="#F8FAFC" stroke="#E2E8F0"/>
-  <text x="120" y="515" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">B. 실무별 가장 싼 팀 편성</text>
-  <text x="120" y="560" fill="#334155" font-family="Arial, sans-serif" font-size="22">• 세미나 최신 자료: Gemini → Codex</text>
-  <text x="120" y="600" fill="#334155" font-family="Arial, sans-serif" font-size="22">• 세미나 문안/카드 초안: Z AI → Codex</text>
-  <text x="120" y="640" fill="#334155" font-family="Arial, sans-serif" font-size="22">• 코스피 장전 스캔: Gemini(좁게) → Codex</text>
-  <text x="120" y="680" fill="#334155" font-family="Arial, sans-serif" font-size="22">• 서버/FastAPI/systemd 예시: Z AI 기본, 배포 전만 Gemini 리뷰</text>
-  <text x="120" y="730" fill="#1E293B" font-family="Arial, sans-serif" font-size="22" font-weight="700">핵심: 최고 모델 하나보다, 역할 분담된 조합이 더 오래 간다.</text>
+  <text x="120" y="515" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">B. 종가 — 멀티에이전트가 더 자연스럽다</text>
+  <text x="120" y="560" fill="#334155" font-family="Arial, sans-serif" font-size="22">• Gemini: 장중 거시·시장·섹터 시그널 수집</text>
+  <text x="120" y="600" fill="#334155" font-family="Arial, sans-serif" font-size="22">• Z AI: 숫자 중심 리스크와 요약 정리</text>
+  <text x="120" y="640" fill="#334155" font-family="Arial, sans-serif" font-size="22">• Codex: breadth·수급·뉴스를 합쳐 최종 종가 제출</text>
+  <text x="120" y="680" fill="#334155" font-family="Arial, sans-serif" font-size="22">• 저녁: Claude와 비교 채점 + 복기 + 규칙 수정</text>
+  <text x="120" y="730" fill="#1E293B" font-family="Arial, sans-serif" font-size="22" font-weight="700">핵심: 시가와 종가를 같은 방식으로 처리하지 않는다.</text>
 
   <rect x="820" y="190" width="690" height="590" rx="22" fill="#FFFBEB" stroke="#FCD34D"/>
   <text x="850" y="235" fill="#B45309" font-family="Arial, sans-serif" font-size="28" font-weight="700">C. 이 특별편에서 확인한 운영 원칙</text>
@@ -33,18 +33,18 @@
   <text x="875" y="332" fill="#475569" font-family="Arial, sans-serif" font-size="18">장전 종가는 불확실성이 커서 멀티에이전트 이득이 작다.</text>
 
   <rect x="850" y="372" width="630" height="88" rx="16" fill="#FFFFFF" stroke="#FDE68A"/>
-  <text x="875" y="407" fill="#0F172A" font-family="Arial, sans-serif" font-size="23" font-weight="700">2. 최신 검색은 Gemini가 강하지만 넓게 쓰면 비싸다</text>
-  <text x="875" y="439" fill="#475569" font-family="Arial, sans-serif" font-size="18">검색 쿼리와 결과 개수를 좁혀야 한다.</text>
+  <text x="875" y="407" fill="#0F172A" font-family="Arial, sans-serif" font-size="23" font-weight="700">2. 종가는 장중 정보가 붙어 멀티에이전트 가치가 커진다</text>
+  <text x="875" y="439" fill="#475569" font-family="Arial, sans-serif" font-size="18">최신 탐색, 숫자 요약, 최종 판단을 분리하는 편이 낫다.</text>
 
   <rect x="850" y="479" width="630" height="88" rx="16" fill="#FFFFFF" stroke="#FDE68A"/>
-  <text x="875" y="514" fill="#0F172A" font-family="Arial, sans-serif" font-size="23" font-weight="700">3. 짧은 코드와 초안은 Z AI가 싸고 빠르다</text>
-  <text x="875" y="546" fill="#475569" font-family="Arial, sans-serif" font-size="18">다만 운영 직전에는 Gemini나 Codex 검토가 필요할 수 있다.</text>
+  <text x="875" y="514" fill="#0F172A" font-family="Arial, sans-serif" font-size="23" font-weight="700">3. Claude는 대결 상대이자 외부 기준선 역할을 한다</text>
+  <text x="875" y="546" fill="#475569" font-family="Arial, sans-serif" font-size="18">즉 예측 시스템 안에서도 비교축을 따로 둬야 한다.</text>
 
   <rect x="850" y="586" width="630" height="158" rx="16" fill="#FFFFFF" stroke="#FDE68A"/>
-  <text x="875" y="621" fill="#0F172A" font-family="Arial, sans-serif" font-size="23" font-weight="700">4. Codex는 현장 작업자보다 감독/최종판단자일 때 가장 효율적</text>
-  <text x="875" y="656" fill="#475569" font-family="Arial, sans-serif" font-size="18">작업 분해, 우선순위, 최종 통합, 배포 직전 검토에 가장 강하다.</text>
-  <text x="875" y="696" fill="#0F172A" font-family="Arial, sans-serif" font-size="24" font-weight="700">정리: “싼 초안은 Z AI, 최신 탐색은 Gemini,</text>
-  <text x="875" y="728" fill="#0F172A" font-family="Arial, sans-serif" font-size="24" font-weight="700">비싼 판단은 Codex”가 현재 최적 조합이다.</text>
+  <text x="875" y="621" fill="#0F172A" font-family="Arial, sans-serif" font-size="23" font-weight="700">4. 멀티에이전트란 “항상 여러 모델”이 아니라 단계별 분업이다</text>
+  <text x="875" y="656" fill="#475569" font-family="Arial, sans-serif" font-size="18">시가와 종가를 다르게 운영하는 것 자체가 핵심 설계다.</text>
+  <text x="875" y="696" fill="#0F172A" font-family="Arial, sans-serif" font-size="24" font-weight="700">정리: 시가는 Codex 단독, 종가는 멀티에이전트,</text>
+  <text x="875" y="728" fill="#0F172A" font-family="Arial, sans-serif" font-size="24" font-weight="700">저녁에는 Claude와 비교 복기한다.</text>
 
-  <text x="90" y="825" fill="#64748B" font-family="Arial, sans-serif" font-size="18">실험 요약 수치: Codex 단독 543 tokens vs 멀티에이전트 3487 tokens (장전 비교 기준)</text>
+  <text x="90" y="825" fill="#64748B" font-family="Arial, sans-serif" font-size="18">실험 요약 수치: Codex 단독 543 tokens vs 멀티에이전트 3487 tokens (2026-07-09 장전 비교 기준)</text>
 </svg>
