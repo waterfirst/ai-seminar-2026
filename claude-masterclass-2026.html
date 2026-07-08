@@ -421,6 +421,16 @@ gh secret set MOLIT_API_KEY -R repo  # ✅ 암호화 저장</pre>
 <div class=step><div class=n>4</div><div class=tx>AI 행동은 그대로, 토큰만 줄어든다 — <b>투명한 프록시</b></div></div>
 </div>
 
+<div class=card style="margin-top:14px">
+<h3 style="margin-top:0">실무 데이터 팁 — 엑셀은 와이드보다 롱포맷</h3>
+<p>토큰 절약은 모델 선택만의 문제가 아니다. <b>데이터 구조를 어떻게 넘기느냐</b>도 크다. 월별 컬럼이 계속 늘어나는 와이드포맷보다, <b>date / line / item / value</b>처럼 세운 롱포맷이 AI 요약·비교·이상치 탐지에 훨씬 유리하다.</p>
+<ul>
+<li>와이드포맷은 컬럼명이 길게 늘어나 프롬프트가 비대해진다</li>
+<li>롱포맷은 필터·집계 후 필요한 행만 넘기기 쉽다</li>
+<li>피벗은 엑셀/판다스에서 하고, AI에는 좁힌 결과만 주는 편이 싸고 안정적이다</li>
+</ul>
+</div>
+
 <h3>설치: settings.json 훅 등록</h3>
 <div class=card>
 <pre>{
