@@ -226,7 +226,7 @@ figcaption{font-size:12px;color:var(--mut);padding:8px 10px;text-align:center}
 <ul>
 <li>데이터: 공공데이터포털 실거래가 API + 네이버부동산/크롬 MCP + 지도 API</li>
 <li><b>GitHub Actions로 매일 09시 자동 갱신</b> (서버용 맥미니)</li>
-<li>핵심 통찰: 가중치 점수화(학교·주차·역거리…) = <b class=aqua>ETF 모멘텀 로직의 부동산 이식</b></li>
+<li>핵심 통찰: 가중치 점수화(학교·주차·역거리…) = <b class=aqua>도메인 규칙을 점수화해 자동판정으로 옮기는 설계</b></li>
 </ul>
 
 <h2 id=s5><span class=sec-no>05</span> 실전 케이스 ② — 에이전트가 만든 전 과정 <span style="font-size:13px;color:var(--am)">(오늘, 실제)</span></h2>
@@ -247,7 +247,7 @@ figcaption{font-size:12px;color:var(--mut);padding:8px 10px;text-align:center}
 <figure><img src="images/cm_report.png" alt="갈아타기 분석 리포트"><figcaption>③ 의사결정 리포트 (지도·실거래 추세·세금·자금 자동 분석)</figcaption></figure>
 </div>
 <p class=small>위 3개는 "채팅 대화"만으로 에이전트가 생성·배포한 실제 결과물 화면이다. (waterfirst.github.io/gyeonggi_south_apt)</p>
-<div class=q>여기에 더해 <b>손절 엔진</b>(ETFstyle 규칙, 매일 16:40 자동판정)·<b>ETF 모멘텀 CLI</b>까지 — 투자 시스템도 코드가 판정하고 사람이 집행.</div>
+<div class=q>여기에 더해 <b>품질 알림 엔진</b>(규칙 기반 자동판정, 매일 정시 점검)·<b>데이터 요약 CLI</b>까지 — 반복 시스템은 코드가 판정하고 사람이 최종 집행.</div>
 
 <h2 id=s6><span class=sec-no>06</span> 키메라 — 혼자보다 같이가 강하다</h2>
 <p class=lead>AI마다 강점이 다르다. <b>역할을 맞춰야</b> 1+1이 3이 된다. v2.2는 경쟁형·협업형을 <b>Claude가 작업 특성에 따라 선택</b>한다.</p>
@@ -261,7 +261,7 @@ figcaption{font-size:12px;color:var(--mut);padding:8px 10px;text-align:center}
 <div class=flow><b>Claude 초안</b> <span class=arr>→</span> <b>Gemini 실측</b> <span class=arr>→</span> <b>GPT-5.5 레드팀</b> <span class=arr>→</span> <b>Claude 수정</b> <span class=arr>→</span> 발송</div>
 <ul>
 <li>GPT-5.5가 클로드의 <b>"예수금 소진·반도체 둔화" 오판</b>을 잡아냄</li>
-<li>동시에 GPT의 <b>"코스피 9,200 비현실적" 오판</b>을 Gemini 실측(9,052)으로 클로드가 역기각</li>
+<li>동시에 GPT의 <b>"수치가 비현실적" 오판</b>을 Gemini 실측값으로 클로드가 역기각</li>
 <li>결론: <b>레드팀도 무오류가 아니다 → 최종 판정은 사람 + 실측</b></li>
 </ul>
 

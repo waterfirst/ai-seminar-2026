@@ -930,49 +930,49 @@ footer{padding:40px 0;text-align:center;color:var(--text2);font-size:0.85rem;bor
 
 </div>
 
-<!-- BONUS 1: AI로 코스피 예측 & 수명 예측 -->
+<!-- BONUS 1: AI 예측과 품질 수명 예측 -->
 <section class="section">
   <span class="section-label">Bonus 1</span>
   <h2>
-    <span class="ko">AI 예측의 실전: 코스피 & 수명</span>
-    <span class="en">AI Prediction in Practice: KOSPI & Lifespan</span>
+    <span class="ko">AI 예측의 실전: 운영 모니터링 & 수명</span>
+    <span class="en">AI Prediction in Practice: Monitoring & Lifespan</span>
   </h2>
   <p class="intro">
-    <span class="ko">AI가 실제로 미래를 예측할 수 있을까? 두 가지 실전 사례로 알아봅니다.</span>
-    <span class="en">Can AI actually predict the future? Two real-world examples.</span>
+    <span class="ko">AI가 실제로 미래를 예측하고 경고할 수 있을까? 두 가지 실전 사례로 알아봅니다.</span>
+    <span class="en">Can AI actually predict and warn about future outcomes? Two real-world examples.</span>
   </p>
 
-  <!-- 코스피 예측 -->
+  <!-- 운영 모니터링 -->
   <h3 style="margin:24px 0 16px">
-    <span class="ko">📈 사례 1: 코스피 방향 예측 시스템</span>
-    <span class="en">📈 Case 1: KOSPI Direction Prediction System</span>
+    <span class="ko">📈 사례 1: 운영 이상징후 조기감지 시스템</span>
+    <span class="en">📈 Case 1: Early Warning Monitoring System</span>
   </h3>
 
   <div class="cards">
     <div class="card" style="border-top:4px solid var(--blue)">
       <div class="card-icon">🔮</div>
-      <h3><span class="ko">상관분석 기반 예측</span><span class="en">Correlation-Based Prediction</span></h3>
-      <p><span class="ko">매일 새벽 6시, AI가 미국장 마감 데이터(S&P500, VIX, 마이크론, EWY, 환율)를 수집하고, 검증된 상관계수로 오늘 코스피 방향을 예측합니다.</span>
-      <span class="en">Every 6AM, AI collects US market data (S&P500, VIX, Micron, EWY, FX) and predicts today's KOSPI direction using validated correlations.</span></p>
+      <h3><span class="ko">상관분석 기반 조기경보</span><span class="en">Correlation-Based Early Warning</span></h3>
+      <p><span class="ko">매일 정해진 시각, AI가 설비 로그·수율 신호·불량률 변화·전일 이상 이벤트를 수집하고, 검증된 상관관계로 오늘의 리스크를 조기 경고합니다.</span>
+      <span class="en">At fixed times each day, AI collects equipment logs, yield signals, defect-rate changes, and prior anomalies to warn about today's risk using validated correlations.</span></p>
     </div>
     <div class="card" style="border-top:4px solid var(--green)">
       <div class="card-icon">📊</div>
       <h3><span class="ko">4가지 신호</span><span class="en">4 Signals</span></h3>
-      <p><span class="ko">• EWY→코스피: 상관 0.364<br>• VIX→코스피: 상관 -0.355<br>• 마이크론→하이닉스: 상관 0.403<br>• 원화강세 시 코스피 +1.13%<br><br>매일 저녁 적중률을 검증하고 기록합니다.</span>
-      <span class="en">• EWY→KOSPI: corr 0.364<br>• VIX→KOSPI: corr -0.355<br>• Micron→Hynix: corr 0.403<br>• KRW strong → KOSPI +1.13%<br><br>Hit rate verified and logged every evening.</span></p>
+      <p><span class="ko">• 전일 수율 변화<br>• 설비 알람 증가율<br>• 특정 공정 구간 불량 집중도<br>• 작업조건 편차 확대<br><br>매일 저녁 적중률을 검증하고 기록합니다.</span>
+      <span class="en">• Prior-day yield shift<br>• Equipment alarm increase rate<br>• Defect concentration by process step<br>• Work-condition variance expansion<br><br>Hit rate verified and logged every evening.</span></p>
     </div>
     <div class="card" style="border-top:4px solid var(--red)">
       <div class="card-icon">⚠️</div>
       <h3><span class="ko">한계와 교훈</span><span class="en">Limitations & Lessons</span></h3>
-      <p><span class="ko">• AI 예측은 확률이지 확정이 아님<br>• 상관관계 ≠ 인과관계<br>• ADR(등락비율) 60% 이하면 지수가 착시<br>• 데이터로 판단하되, 최종 결정은 사람이</span>
-      <span class="en">• AI prediction = probability, not certainty<br>• Correlation ≠ causation<br>• ADR below 60% = index illusion<br>• Data informs, humans decide</span></p>
+      <p><span class="ko">• AI 예측은 확률이지 확정이 아님<br>• 상관관계 ≠ 인과관계<br>• 경보가 많다고 모두 실제 사고는 아님<br>• 데이터로 판단하되, 최종 결정은 사람이</span>
+      <span class="en">• AI prediction = probability, not certainty<br>• Correlation ≠ causation<br>• Not every warning becomes a real incident<br>• Data informs, humans decide</span></p>
     </div>
   </div>
 
   <div class="demo-box">
     <div class="demo-label"><span class="ko">실제 운영 구조</span><span class="en">Actual Operating System</span></div>
-    <div class="prompt"><span class="ko">📱 텔레그램으로 매일 자동 알림:<br>• 06:00 미국장 마감 + 코스피 예측 (Gemini API, 무료)<br>• 09~15시 장중 급변동 감지 (bash + curl, 무료)<br>• 21:00 저녁 리포트 + 예측 검증 (Gemini API, 무료)<br>• 금요일 18:00 장단기 금리차 주간 점검</span>
-    <span class="en">📱 Daily auto-alerts via Telegram:<br>• 06:00 US market close + KOSPI prediction (Gemini API, free)<br>• 09~15h intraday spike detection (bash + curl, free)<br>• 21:00 Evening report + prediction verification (Gemini API, free)<br>• Fri 18:00 Yield curve weekly check</span></div>
+    <div class="prompt"><span class="ko">📱 텔레그램으로 매일 자동 알림:<br>• 06:00 전일 로그 요약 + 오늘 리스크 경보<br>• 09~15시 이상징후 급증 감지<br>• 21:00 저녁 리포트 + 경보 검증<br>• 금요일 18:00 주간 패턴 점검</span>
+    <span class="en">📱 Daily auto-alerts via Telegram:<br>• 06:00 prior-log summary + today's risk warning<br>• 09~15h anomaly spike detection<br>• 21:00 evening report + warning verification<br>• Fri 18:00 weekly pattern review</span></div>
     <div class="output"><span class="ko">💡 핵심: Claude($100/월)는 분석/보고서에만, 일상 모니터링은 Gemini(무료) + bash 스크립트로 비용 최적화</span>
     <span class="en">💡 Key: Claude ($100/mo) for analysis only, daily monitoring via Gemini (free) + bash scripts for cost optimization</span></div>
   </div>
@@ -1005,84 +1005,6 @@ footer{padding:40px 0;text-align:center;color:var(--text2);font-size:0.85rem;bor
   </div>
 </section>
 
-<!-- BONUS 2: ETF 모멘텀 히트맵 — AI 실전 투자 도구 -->
-<section class="section">
-  <span class="section-label">Bonus 2</span>
-  <h2>
-    <span class="ko">실전: AI로 만든 ETF 투자 도구</span>
-    <span class="en">Real Tool: AI-Built ETF Investment Tool</span>
-  </h2>
-  <p class="intro">
-    <span class="ko">"코드를 한 줄도 쓰지 않고" AI와 대화만으로 만든 실전 투자 도구</span>
-    <span class="en">A real investment tool built purely by chatting with AI — "without writing a single line of code"</span>
-  </p>
-
-  <div class="cards">
-    <div class="card" style="border-top:4px solid var(--accent)">
-      <div class="card-icon">🗺️</div>
-      <h3><span class="ko">ETF 모멘텀 히트맵</span><span class="en">ETF Momentum Heatmap</span></h3>
-      <p><span class="ko">공공데이터포털 API로 한국 ETF 100개의 모멘텀을 계산하고, 트리맵으로 시각화합니다.<br><br>• 크기 = 모멘텀 점수<br>• 색상 = 순위 변동 (빨강=상승, 파랑=하락)<br>• 클릭 = 상세 차트 (RSI, MACD, 스토캐스틱)</span>
-      <span class="en">Calculates momentum for 100 Korean ETFs via public API, visualized as a treemap.<br><br>• Size = momentum score<br>• Color = rank change (red=up, blue=down)<br>• Click = detailed chart (RSI, MACD, Stochastic)</span></p>
-    </div>
-    <div class="card" style="border-top:4px solid var(--purple)">
-      <div class="card-icon">🤖</div>
-      <h3><span class="ko">AI가 만든 것</span><span class="en">What AI Built</span></h3>
-      <p><span class="ko">• HTML 1,300줄 (외부 라이브러리 없음)<br>• Python CORS 프록시 71줄<br>• 모멘텀 계산 알고리즘<br>• 섹터 자동 분류<br>• 백테스트 엔진<br>• K-means 클러스터링<br><br>전부 <strong>Claude Opus 4.8</strong>과 대화로 완성</span>
-      <span class="en">• 1,300 lines HTML (zero dependencies)<br>• 71-line Python CORS proxy<br>• Momentum calculation algorithm<br>• Auto sector classification<br>• Backtest engine<br>• K-means clustering<br><br>All built by chatting with <strong>Claude Opus 4.8</strong></span></p>
-    </div>
-    <div class="card" style="border-top:4px solid var(--green)">
-      <div class="card-icon">💰</div>
-      <h3><span class="ko">실전 성과</span><span class="en">Real Results</span></h3>
-      <p><span class="ko">• 이 도구로 분석 → 6/1 리밸런싱 실행<br>• 95위(현대차) → 10위(200IT) 교체<br>• 83위(S&P500) → 2위(네트워크인프라) 교체<br>• <strong>2일 만에 +162만원 교체 효과</strong><br>• 모멘텀 등급: D등급 3개 → 0개 제거</span>
-      <span class="en">• Analysis → 6/1 rebalancing executed<br>• Rank 95 → 10 (Hyundai→200IT)<br>• Rank 83 → 2 (S&P500→Network Infra)<br>• <strong>+1.62M KRW swap effect in 2 days</strong><br>• Grade: 3 D-grades → 0 eliminated</span></p>
-    </div>
-  </div>
-
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <h4><span class="ko">아이디어</span><span class="en">Idea</span></h4>
-      <p><span class="ko">"ETF를 한눈에 비교하고 싶다"</span><span class="en">"Want to compare ETFs at a glance"</span></p>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <h4><span class="ko">AI 대화</span><span class="en">AI Chat</span></h4>
-      <p><span class="ko">Claude에게 설명 → 코드 생성</span><span class="en">Explain to Claude → code generated</span></p>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <h4><span class="ko">수정 반복</span><span class="en">Iterate</span></h4>
-      <p><span class="ko">"이거 안 됨" → AI가 수정</span><span class="en">"This doesn't work" → AI fixes</span></p>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <h4><span class="ko">실전 투자</span><span class="en">Real Investment</span></h4>
-      <p><span class="ko">데이터로 판단 → 실행</span><span class="en">Data-driven decision → execute</span></p>
-    </div>
-  </div>
-
-  <div class="alert green">
-    <span>🔗</span>
-    <div>
-      <p><span class="ko"><strong>🔗 실전 도구:</strong> <a href="https://waterfirst.github.io/etf-heatmap/" style="color:var(--accent)" target="_blank">waterfirst.github.io/etf-heatmap</a><br>비밀번호 입력 → 자동으로 ETF 모멘텀 계산 시작</span>
-      <span class="en"><strong>🔗 Live Tool:</strong> <a href="https://waterfirst.github.io/etf-heatmap/" style="color:var(--accent)" target="_blank">waterfirst.github.io/etf-heatmap</a><br>Enter password → automatic ETF momentum calculation</span></p>
-    </div>
-  </div>
-
-  <div class="quote-box">
-    <div class="name"><span class="ko">메시지</span><span class="en">Message</span></div>
-    <p><span class="ko">"도메인 전문가 + AI = 실전 도구. 코드를 몰라도 됩니다. 방향만 잡아주면 AI가 만듭니다. 여러분의 25년 경험이 AI의 연료입니다."</span>
-    <span class="en">"Domain expert + AI = real tools. No coding needed. Just give direction, AI builds it. Your 25 years of experience is AI's fuel."</span></p>
-  </div>
-
-  <div style="text-align:center;margin:32px 0">
-    <a href="etf-investment-ai.html" style="display:inline-block;padding:16px 32px;background:var(--purple);color:#fff;border-radius:12px;font-size:1.1rem;font-weight:700;text-decoration:none;box-shadow:var(--shadow)">
-      <span class="ko">📊 실전 체험: AI ETF 투자 도구 만들기 →</span>
-      <span class="en">📊 Hands-on: Building an AI ETF Investment Tool →</span>
-    </a>
-  </div>
-</section>
-
 <!-- BONUS 3: AI로 연구하기 — 실전 검증 방법론 -->
 <section class="section">
   <span class="section-label">Bonus 3</span>
@@ -1091,8 +1013,8 @@ footer{padding:40px 0;text-align:center;color:var(--text2);font-size:0.85rem;bor
     <span class="en">Research with AI — Real Verification Methodology</span>
   </h2>
   <p class="intro">
-    <span class="ko">가설을 세우고, AI로 데이터를 분석하고, 결과를 사전 등록으로 검증한다. 검은 월요일 KOSPI 사례로 배우는 과학적 AI 활용법.</span>
-    <span class="en">Form a hypothesis, analyze data with AI, validate with pre-registration. Scientific AI methodology via the Black Monday KOSPI case.</span>
+    <span class="ko">가설을 세우고, AI로 데이터를 분석하고, 결과를 사전 등록으로 검증한다. 품질 데이터 사례로 배우는 과학적 AI 활용법.</span>
+    <span class="en">Form a hypothesis, analyze data with AI, validate with pre-registration. Scientific AI methodology through quality-data cases.</span>
   </p>
 
   <div class="cards">
@@ -1110,9 +1032,9 @@ footer{padding:40px 0;text-align:center;color:var(--text2);font-size:0.85rem;bor
     </div>
     <div class="card" style="border-top:4px solid var(--red)">
       <div class="card-icon">🌊</div>
-      <h3><span class="ko">검은 월요일 물리 모델</span><span class="en">Black Monday Physics Model</span></h3>
-      <p><span class="ko">유체역학·전자기학으로 주식시장을 모델링. KOSPI -8.3% vs S&P -3.1% — 왜 3.5배 차이가 나는가? <strong>RC 임피던스 부정합</strong>이 답.</span>
-      <span class="en">Modeling stock market with fluid dynamics & EM theory. KOSPI -8.3% vs S&P -3.1% — why 3.5× gap? <strong>RC impedance mismatch</strong> is the answer.</span></p>
+      <h3><span class="ko">품질 이상징후 물리 모델</span><span class="en">Physics Model for Quality Anomalies</span></h3>
+      <p><span class="ko">유체역학·전자기학 비유로 공정 변동을 모델링. 왜 어떤 날은 작은 교란이 크게 증폭되는가? <strong>RC 임피던스 부정합</strong> 같은 구조적 설명이 실무 해석에 도움을 준다.</span>
+      <span class="en">Model process variation using analogies from fluid dynamics and electromagnetics. Why do small disturbances amplify on some days? Structural explanations like <strong>RC impedance mismatch</strong> help practical interpretation.</span></p>
     </div>
   </div>
 

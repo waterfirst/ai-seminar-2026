@@ -43,3 +43,8 @@ def token_page():
 @app.get("/claude-masterclass-2026.html")
 def claude_page():
     return FileResponse(BASE_DIR / "claude-masterclass-2026.html")
+
+
+@app.get("/quality-team-ai-practical-seminar.html")
+def quality_team_ai_page():
+    return FileResponse(BASE_DIR / "quality-team-ai-practical-seminar.html")

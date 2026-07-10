@@ -314,9 +314,10 @@
     <a href="claude-masterclass-2026.html">3차 확장자료</a>
     <a href="#s1">오늘의 사건</a>
     <a href="#s2">토큰 누수</a>
+    <a href="#s-real">실전 조치</a>
+    <a href="#s3">운영 원칙</a>
     <a href="#s4">조직 설계</a>
     <a href="#special-multi-agent">실사례</a>
-    <a href="#s3">운영 원칙</a>
     <a href="#s5">메모리·루프</a>
     <a href="#s6">실행안</a>
   </nav>
@@ -375,8 +376,11 @@
           <ol style="margin:0;padding-left:18px">
             <li><b>오늘 사건</b> — 왜 이 세미나가 필요한가</li>
             <li><b>토큰 누수</b> — 어디서 비용이 새는가</li>
+            <li><b>실전 조치</b> — 오늘 실제로 아낀 방법(MCP·Skill·RTK)</li>
+            <li><b>운영 원칙</b> — 개인이 당장 지킬 5원칙</li>
             <li><b>조직 설계</b> — 어떤 모델을 어디에 쓸 것인가</li>
             <li><b>실사례</b> — 실제로 돌려보니 뭐가 쌌는가</li>
+            <li><b>메모리·루프</b> — 기억은 파일로, 루프엔 브레이크</li>
             <li><b>실행안</b> — 품질팀은 무엇부터 할 것인가</li>
           </ol>
         </div>
@@ -454,9 +458,60 @@
           <h3>5. 조직 예산 정책 부재</h3>
           <p>중요 업무와 덜 중요한 실험이 같은 풀에서 경쟁한다. 결국 몇 명의 헤비 유저가 공용 한도를 먼저 써버린다.</p>
         </div>
+        <div class="card danger">
+          <h3>6. 안 쓰는 MCP 커넥터</h3>
+          <p>Figma·Notion·Canva 같은 커넥터는 <b>한 번도 안 써도</b> 매 세션 '도구 설명서'가 통째로 실려 시작하자마자 컨텍스트를 수만 토큰 선점한다. Codex도 켜둔 <code>mcp_servers</code>만큼 그대로 비용이다.</p>
+        </div>
         <div class="card warning">
           <h3>결론</h3>
           <p>토큰 부족은 단순히 “사용량이 많아서”가 아니라, <b>어디에 어떤 모델을 어떻게 쓰는지에 대한 정책이 없어서</b> 생긴다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="s-real">
+      <div class="section-label">Real Fixes</div>
+      <h2>실전 — 오늘 우리가 실제로 토큰을 아낀 5가지</h2>
+      <p class="lead">이건 이론이 아니라 <b>오늘 토큰 부족을 직접 겪고 바로 적용한 조치</b>다. 순서가 중요하다. 프롬프트를 줄이기 전에, <b>매 세션 자동으로 실리는 것</b>부터 줄여야 한다.</p>
+      <div class="grid-2">
+        <div class="card danger">
+          <h3>1. 안 쓰는 MCP 커넥터부터 끈다 <span style="color:var(--red)">(효과 최대)</span></h3>
+          <p>Figma·Canva·Notion·Asana 같은 커넥터는 <b>한 번도 안 써도</b> 매 세션 '도구 설명서(스키마)'가 통째로 실린다. 대화 한 마디 하기 전에 컨텍스트 절반이 차는 주범이다.</p>
+          <ul>
+            <li>실제 쓰는 <b>1~2개만 남기고 전부 OFF</b></li>
+            <li>Claude=앱 커넥터 설정 / Codex=<code>mcp_servers</code>에서 제거</li>
+            <li>MCP가 나쁜 게 아니라 <b>“안 쓰는데 켜둔 것”</b>이 문제</li>
+          </ul>
+        </div>
+        <div class="card success">
+          <h3>2. 명령 출력은 자동 압축 (RTK 훅)</h3>
+          <p><code>git·grep·cat·ls</code> 결과를 통째로 모델에 넣지 말고, <b>RTK(Rust Token Killer)</b>가 걸러 60~90% 압축해 넘긴다. 훅으로 걸어두면 자동 적용된다.</p>
+          <pre style="margin:10px 0 0;padding:12px 14px;background:#f4f7ff;border:1px solid #dbe4ff;border-radius:12px;font-size:.82rem;overflow:auto;font-family:'Fira Code','Consolas',monospace">rtk init -g   # 훅 설치
+rtk gain      # 절약률 확인</pre>
+        </div>
+        <div class="card hl">
+          <h3>3. 기억은 '짧은 파일'로</h3>
+          <p>대화에 맥락을 쌓지 말고 파일로 빼되, <b>그 파일도 계속 짧게 유지</b>해야 한다. 세션 시작마다 통째로 로딩되기 때문이다.</p>
+          <ul>
+            <li><code>now.md</code>는 '당장 할 일'만, 역사는 <code>diary</code>·아카이브로</li>
+            <li>오늘 실측: now 8.3K→2.4K, diary 32K→13.7K로 축소</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>4. 스킬·명령은 필요할 때만 로드</h3>
+          <p>모든 설명·규칙을 항상 프롬프트에 넣지 말고, <b>트리거될 때만 불러오는 스킬(Skill)/슬래시 명령</b>으로 분리한다. 상시 컨텍스트가 줄어든다.</p>
+          <ul>
+            <li>“항상 붙는 설명” → “필요할 때만 로드”로 전환</li>
+            <li>세션 기본 무게가 가벼워져 오래 버틴다</li>
+          </ul>
+        </div>
+        <div class="card warning">
+          <h3>5. 산출물은 영구 경로에 저장</h3>
+          <p>에이전트가 만든 파일을 <b>임시 작업폴더</b>에 두면 다음 세션에 사라져, 같은 걸 다시 만들며 토큰을 또 태운다. 결과는 고정 경로에 저장한다.</p>
+        </div>
+        <div class="card success">
+          <h3>핵심 순서</h3>
+          <p><b>① 자동으로 실리는 것(커넥터·메모리·상시 도구) → ② 명령 출력 압축 → ③ 그다음 프롬프트</b> 순으로 줄여라. 대부분은 ③만 신경 쓰다 ①에서 새는 걸 놓친다.</p>
         </div>
       </div>
     </section>
@@ -881,7 +936,7 @@
         </p>
       </div>
       <div class="footer">
-        삼성디스플레이 품질팀 AI 세미나 3차 메인 · Token-Frugal Agent Playbook · 2026-07-07
+        삼성디스플레이 품질팀 AI 세미나 3차 메인 · Token-Frugal Agent Playbook · 2026-07-10
       </div>
     </section>
   </main>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>품질팀 AI 실무 세미나</title>
+  <style>
+    :root{
+      --bg:#f8fafc; --card:#ffffff; --ink:#0f172a; --muted:#475569; --line:#e2e8f0;
+      --pri:#2563eb; --pri2:#1d4ed8; --ok:#16a34a; --amber:#f59e0b; --vio:#7c3aed;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,Segoe UI,Apple SD Gothic Neo,Noto Sans KR,sans-serif;background:linear-gradient(180deg,#f8fafc 0%,#eef4ff 100%);color:var(--ink);line-height:1.7}
+    .wrap{max-width:1160px;margin:0 auto;padding:32px 20px 72px}
+    .hero,.section,.card{background:var(--card)}
+    .hero{border:1px solid #dbeafe;border-radius:28px;padding:32px;box-shadow:0 20px 60px rgba(37,99,235,.08)}
+    .section{margin-top:24px;border:1px solid var(--line);border-radius:24px;padding:24px}
+    .grid-2,.grid-3,.grid-4{display:grid;gap:16px}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .card{border:1px solid var(--line);border-radius:18px;padding:18px}
+    .blue{background:#eff6ff;border-color:#bfdbfe}
+    .green{background:#f0fdf4;border-color:#bbf7d0}
+    .amber{background:#fff7ed;border-color:#fed7aa}
+    .vio{background:#faf5ff;border-color:#ddd6fe}
+    h1{font-size:clamp(2.1rem,4vw,3.3rem);line-height:1.12;margin:12px 0 10px}
+    h2{font-size:1.62rem;margin:6px 0 12px}
+    h3{font-size:1.06rem;margin:0 0 8px}
+    p{margin:0 0 12px}
+    .badge{display:inline-block;padding:6px 12px;border-radius:999px;background:#dbeafe;color:var(--pri2);font-weight:800;font-size:.82rem}
+    .lead{font-size:1.06rem;color:#334155}
+    .nav{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+    .nav a{padding:9px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);text-decoration:none;color:var(--ink);font-size:.92rem}
+    .label{font-size:.82rem;font-weight:800;color:var(--pri);letter-spacing:.08em;text-transform:uppercase}
+    ul{margin:0;padding-left:18px}
+    li{margin:6px 0}
+    .code{background:#0f172a;color:#e2e8f0;border-radius:16px;padding:16px 18px;overflow:auto;font:500 .92rem/1.7 ui-monospace,SFMono-Regular,Menlo,monospace}
+    .pill{display:inline-block;padding:4px 9px;border-radius:999px;background:#e2e8f0;font-size:.8rem;font-weight:700;color:#334155}
+    .big{font-size:1.14rem;font-weight:800}
+    .foot{margin-top:20px;color:#64748b;font-size:.92rem}
+    a{color:var(--pri);text-decoration:none}
+    @media (max-width:900px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <span class="badge">삼성디스플레이 품질팀 실전</span>
+      <h1>품질팀 AI 실무 세미나</h1>
+      <p class="lead"><b>검색형 AI를 넘어서, 일하는 AI 팀 만들기.</b> 품질팀이 실제로 자주 부딪히는 문서, 데이터, 보고서, 법령, 서버, 반복업무를 AI와 MCP, 멀티에이전트로 어떻게 줄일지 실무형으로 정리했다.</p>
+      <div class="nav">
+        <a href="#s1">왜 필요한가</a>
+        <a href="#s2">검색형 AI의 한계</a>
+        <a href="#s3">MCP</a>
+        <a href="#s3b">웹앱 vs MCP</a>
+        <a href="#s4">실무 사례</a>
+        <a href="#s5">멀티에이전트</a>
+        <a href="#s6">토큰 절약</a>
+        <a href="#s7">팀 서버</a>
+        <a href="#s8">도입 로드맵</a>
+      </div>
+    </section>
+
+    <section class="section" id="s1">
+      <div class="label">Why Now</div>
+      <h2>왜 지금 품질팀에 AI가 필요한가</h2>
+      <div class="grid-3">
+        <div class="card blue"><h3>문서 병목</h3><ul><li>보고서 초안</li><li>고객 대응 문안</li><li>긴 PDF/HWP 정리</li></ul></div>
+        <div class="card green"><h3>데이터 병목</h3><ul><li>엑셀 정리</li><li>SQL 초안</li><li>장기 데이터 누적</li></ul></div>
+        <div class="card vio"><h3>판단 병목</h3><ul><li>법규/기준서 확인</li><li>최신 정보 확인</li><li>반복 질의 응답</li></ul></div>
+      </div>
+      <p class="foot">핵심은 “AI가 똑똑하냐”가 아니라 “품질팀 일을 실제로 줄여주냐”다.</p>
+    </section>
+
+    <section class="section" id="s2">
+      <div class="label">Limit</div>
+      <h2>검색형 AI만 쓰면 생기는 문제</h2>
+      <div class="grid-2">
+        <div class="card amber">
+          <h3>자주 생기는 실패</h3>
+          <ul>
+            <li>그럴듯하게 틀림</li>
+            <li>옛날 통계를 최신처럼 말함</li>
+            <li>규정/법령을 안 읽고 아는 척함</li>
+            <li>표와 공문서 구조를 잘 못 읽음</li>
+          </ul>
+        </div>
+        <div class="card blue">
+          <h3>결론</h3>
+          <p class="big">AI를 더 말 잘하게 만드는 것보다, <br>AI가 직접 확인해야 할 자료에 닿게 만드는 구조가 중요하다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="s3">
+      <div class="label">MCP</div>
+      <h2>MCP와 연결형 AI</h2>
+      <div class="grid-4">
+        <div class="card green"><h3>법령</h3><p>법제처 API로 법령 검색, 본문 확인, 변경 감시</p></div>
+        <div class="card blue"><h3>공문서</h3><p>kordoc으로 HWP/HWPX/PDF/엑셀을 AI가 읽을 수 있게 변환</p></div>
+        <div class="card vio"><h3>통계</h3><p>KOSIS, 공공데이터를 실시간 조회</p></div>
+        <div class="card amber"><h3>특허</h3><p>KIPRIS 기반 특허·상표 검색으로 이름/아이디어 확인</p></div>
+      </div>
+      <div class="code">AI가 "기억으로 대답"하지 않고
+필요한 자료를 직접 확인하게 만드는 연결 규칙 = MCP</div>
+
+      <div class="grid-2" style="margin-top:16px">
+        <div class="card blue">
+          <h3>품질팀 기준으로 MCP가 필요한 이유</h3>
+          <ul>
+            <li>품질팀은 "질문"보다 <b>확인</b>이 중요하다</li>
+            <li>법규, 기준서, 공문, 통계, 특허를 <b>원문 기준</b>으로 봐야 한다</li>
+            <li>엑셀/HWP/PDF를 매번 사람이 열어보는 시간이 오래 걸린다</li>
+            <li>AI가 직접 자료를 읽게 하면 반복 설명과 복붙이 줄어든다</li>
+          </ul>
+        </div>
+        <div class="card green">
+          <h3>품질팀에서 바로 체감되는 효과</h3>
+          <ul>
+            <li>기준서 비교 속도 상승</li>
+            <li>법규 변경 추적 자동화</li>
+            <li>고객사/사내 문서 액션 아이템 추출</li>
+            <li>특허/상표 선행 확인 시간 단축</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3>품질팀용 MCP 상세 가이드</h3>
+        <div class="grid-3">
+          <div class="card green">
+            <h3>1단계 — 먼저 읽게 만들기</h3>
+            <ul>
+              <li><b>kordoc</b>으로 HWP/HWPX/PDF/엑셀을 읽게 한다</li>
+              <li>회의자료, 공문, 고객 문서를 Markdown 형태로 바꾼다</li>
+              <li>이 단계만 해도 "요약/액션 추출/비교"가 가능해진다</li>
+            </ul>
+          </div>
+          <div class="card blue">
+            <h3>2단계 — 공식 출처에 닿게 만들기</h3>
+            <ul>
+              <li><b>korean_law</b>로 법제처 원문 확인</li>
+              <li><b>korean_stats</b>로 KOSIS 통계 확인</li>
+              <li><b>korean_patent</b>로 특허/상표 선행 확인</li>
+              <li>중요 숫자와 규정은 기억이 아니라 원문 기준으로 간다</li>
+            </ul>
+          </div>
+          <div class="card amber">
+            <h3>3단계 — 반복 업무를 자동화하기</h3>
+            <ul>
+              <li>법령 변경 감시</li>
+              <li>문서 업로드 시 자동 요약</li>
+              <li>월간 보고서 초안 자동 생성</li>
+              <li>특정 키워드(안전, 화학, 개인정보) 포함 문서만 추출</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:16px">
+        <div class="card vio">
+          <h3>품질팀 실전 예시 A — 법규 변경 감시</h3>
+          <ul>
+            <li>대상: 산업안전보건법, 화학물질관리법, 개인정보보호법</li>
+            <li>MCP 흐름: 법령 검색 → 본문 조회 → 변경 조문 비교 → 영향 요약</li>
+            <li>결과: "어느 조문이 바뀌었고 우리 팀이 뭘 봐야 하는지"를 3줄로 받는다</li>
+          </ul>
+        </div>
+        <div class="card amber">
+          <h3>품질팀 실전 예시 B — HWP 공문 처리</h3>
+          <ul>
+            <li>대상: 협력사 공문, 사내 기준서, 회의자료</li>
+            <li>MCP 흐름: kordoc 변환 → 액션 아이템 추출 → 담당별 분류</li>
+            <li>결과: "누가 무엇을 언제까지 해야 하는지" 자동 정리</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3>품질팀 도입 순서</h3>
+        <div class="code">1. kordoc부터 붙인다
+2. korean_law / korean_stats / korean_patent를 붙인다
+3. 읽기 전용으로 먼저 쓴다
+4. 익숙해지면 자동 요약/감시로 확장한다
+5. 마지막에 팀 서버와 연결한다</div>
+        <p class="foot">처음부터 다 자동화하려고 하지 말고, <b>읽기 → 확인 → 비교 → 감시</b> 순서로 올라가는 것이 가장 안전하고 실용적이다.</p>
+      </div>
+    </section>
+
+    <section class="section" id="s3b">
+      <div class="label">Web App vs MCP</div>
+      <h2>웹앱을 만들 것인가, MCP를 만들 것인가</h2>
+      <div class="grid-2">
+        <div class="card blue">
+          <h3>핵심 비유</h3>
+          <p><b>웹앱</b>은 인간이 들어가서 직접 쓰는 <b>독립된 방</b>이고,</p>
+          <p><b>MCP</b>는 AI 비서에게 쥐여주는 <b>전문 도구 세트</b>다.</p>
+        </div>
+        <div class="card green">
+          <h3>품질팀 실무 기준 한 줄 판단</h3>
+          <p><b>사람 여러 명이 직접 들어가 보는 화면</b>이 필요하면 웹앱,</p>
+          <p><b>AI가 문맥을 읽고 바로 실행</b>하게 만들려면 MCP가 더 강하다.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px;overflow:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:.95rem">
+          <thead>
+            <tr style="background:#eff6ff">
+              <th style="text-align:left;padding:12px;border:1px solid #dbeafe">구분</th>
+              <th style="text-align:left;padding:12px;border:1px solid #dbeafe">웹앱</th>
+              <th style="text-align:left;padding:12px;border:1px solid #dbeafe">MCP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:12px;border:1px solid #e2e8f0"><b>사용자 인터페이스 (UI)</b></td>
+              <td style="padding:12px;border:1px solid #e2e8f0">개발자가 만든 자체 웹 페이지 / 앱 화면</td>
+              <td style="padding:12px;border:1px solid #e2e8f0">AI 대화창 (Claude, Cursor, Codex 등)</td>
+            </tr>
+            <tr>
+              <td style="padding:12px;border:1px solid #e2e8f0"><b>조작 주체</b></td>
+              <td style="padding:12px;border:1px solid #e2e8f0">인간이 직접 클릭하고 입력</td>
+              <td style="padding:12px;border:1px solid #e2e8f0">AI가 문맥을 파악해 직접 호출</td>
+            </tr>
+            <tr>
+              <td style="padding:12px;border:1px solid #e2e8f0"><b>데이터 연동 방식</b></td>
+              <td style="padding:12px;border:1px solid #e2e8f0">클라우드 API 중심, 로그인 필요</td>
+              <td style="padding:12px;border:1px solid #e2e8f0">로컬 PC/사내망 파일, DB와 표준화된 통로로 연결 가능</td>
+            </tr>
+            <tr>
+              <td style="padding:12px;border:1px solid #e2e8f0"><b>컨텍스트 활용</b></td>
+              <td style="padding:12px;border:1px solid #e2e8f0">이전 대화나 나의 상황을 모름</td>
+              <td style="padding:12px;border:1px solid #e2e8f0">기존 대화, 로컬 가이드라인, 파일 맥락을 반영 가능</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid-2" style="margin-top:16px">
+        <div class="card amber">
+          <h3>예시: 코드 스타일 검사기</h3>
+          <ul>
+            <li><b>웹앱</b>: 로그인 → 코드 붙여넣기 → 버튼 클릭 → 결과 확인</li>
+            <li><b>MCP</b>: UI 없이 규칙(Resource) + 검사 기능(Tool)만 연결</li>
+            <li>그 다음부터는 Claude/Cursor/Codex가 코드를 보며 자동으로 규칙을 적용</li>
+          </ul>
+        </div>
+        <div class="card vio">
+          <h3>품질팀에서의 선택 기준</h3>
+          <ul>
+            <li><b>웹앱</b>: 팀원이 직접 보는 대시보드, 리포트 화면, 공용 포털</li>
+            <li><b>MCP</b>: 법령 조회, 문서 파싱, DB 조회, 보고서 초안화, 내부 규칙 적용</li>
+            <li>현실적으론 <b>웹앱 + MCP를 같이 쓰는 구조</b>가 가장 강함</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:16px">
+        <div class="card green">
+          <h3>품질팀 예시 1 — 불량/수율 대시보드</h3>
+          <p><b>웹앱이 더 어울리는 경우</b></p>
+          <ul>
+            <li>여러 명이 같이 보는 화면</li>
+            <li>Lot별 추이, 불량 Pareto, 기간 비교</li>
+            <li>회의 때 바로 띄우는 공용 화면</li>
+          </ul>
+          <p class="foot">즉, <b>사람이 직접 보고 클릭하는 공용 화면</b>은 웹앱이 강하다.</p>
+        </div>
+        <div class="card blue">
+          <h3>품질팀 예시 2 — 기준서/법규 확인</h3>
+          <p><b>MCP가 더 어울리는 경우</b></p>
+          <ul>
+            <li>“산안법에서 보호구 관련 조문 보여줘”</li>
+            <li>“이번 개정에서 바뀐 조문만 요약해줘”</li>
+            <li>“이 HWP 공문에서 우리 팀 액션 아이템만 뽑아줘”</li>
+          </ul>
+          <p class="foot">즉, <b>AI가 문맥을 읽고 자료를 직접 확인해야 하는 일</b>은 MCP가 강하다.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3>품질팀 기준으로 가장 현실적인 구조</h3>
+        <div class="code">웹앱 = 팀이 직접 보는 공용 대시보드
+MCP = AI가 직접 쓰는 내부 도구
+
+예:
+- 웹앱: CUBIC 장기 데이터 추이 화면
+- MCP: "최근 3개월 수율 저하 원인 후보 정리", "고객 대응 문안 초안", "법령 변경 감시"</div>
+        <p class="foot">결론적으로 품질팀은 <b>웹앱과 MCP 중 하나만 고르는 것이 아니라</b>, 화면은 웹앱으로 만들고 그 뒤의 판단/검색/초안화는 MCP로 붙이는 쪽이 가장 강하다.</p>
+      </div>
+    </section>
+
+    <section class="section" id="s4">
+      <div class="label">Use Cases</div>
+      <h2>품질팀에서 바로 쓰는 실무 사례</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>문서/보고</h3>
+          <ul>
+            <li>주간 보고서 초안</li>
+            <li>고객사 질의응답 문안</li>
+            <li>긴 공문서/규정 요약</li>
+            <li>기준서 전후 비교</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>데이터/자동화</h3>
+          <ul>
+            <li>엑셀 롱포맷 변환</li>
+            <li>SQL 초안 생성</li>
+            <li>반복 리포트 자동화</li>
+            <li>장기 데이터 축적 서버 운영</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="s5">
+      <div class="label">Formation</div>
+      <h2>멀티에이전트 포메이션</h2>
+      <div class="grid-4">
+        <div class="card blue"><h3>Codex</h3><p><span class="pill">감독</span></p><ul><li>지휘</li><li>최종 판단</li><li>통합/배포</li></ul></div>
+        <div class="card green"><h3>Gemini</h3><p><span class="pill">수집기</span></p><ul><li>최신 검색</li><li>웹/유튜브 탐색</li><li>출처 확인</li></ul></div>
+        <div class="card amber"><h3>Z AI</h3><p><span class="pill">초안기</span></p><ul><li>짧은 코드</li><li>SQL</li><li>표/정리</li></ul></div>
+        <div class="card vio"><h3>Grok</h3><p><span class="pill">비주얼/보조</span></p><ul><li>이미지</li><li>voice</li><li>대안 시각</li></ul></div>
+      </div>
+      <p class="foot"><b>AI 하나</b>보다 <b>AI 팀</b>을 감독처럼 배치하는 사람이 더 강하다.</p>
+    </section>
+
+    <section class="section" id="s6">
+      <div class="label">Token</div>
+      <h2>토큰 절약 실전 원칙</h2>
+      <div class="grid-3">
+        <div class="card blue"><h3>데이터 형식</h3><ul><li>와이드포맷보다 롱포맷</li><li>중복 컬럼 줄이기</li></ul></div>
+        <div class="card green"><h3>모델 분업</h3><ul><li>싼 모델로 초안</li><li>비싼 모델은 최종판단만</li></ul></div>
+        <div class="card amber"><h3>검색 절제</h3><ul><li>검색은 좁게</li><li>필요할 때만 최신성 확인</li></ul></div>
+      </div>
+    </section>
+
+    <section class="section" id="s7">
+      <div class="label">Server</div>
+      <h2>왜 품질팀 안에 서버가 필요하나</h2>
+      <div class="grid-2">
+        <div class="card green">
+          <h3>서버가 있을 때 좋은 점</h3>
+          <ul>
+            <li>CUBIC DB 3개월 한계 보완</li>
+            <li>장기 데이터 보관</li>
+            <li>여러 명이 같은 대시보드/리포트 사용</li>
+            <li>사내 HTML/리포트/FAQ 배포</li>
+          </ul>
+        </div>
+        <div class="card blue">
+          <h3>현실적인 시작점</h3>
+          <ul>
+            <li>서버 노트북 + HTML 호스팅</li>
+            <li>FastAPI로 내부 도구 올리기</li>
+            <li>Nginx로 여러 페이지를 /경로 단위 운영</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="s8">
+      <div class="label">Roadmap</div>
+      <h2>도입 로드맵</h2>
+      <div class="grid-3">
+        <div class="card amber"><h3>1단계: 개인 생산성</h3><ul><li>요약</li><li>검색</li><li>보고서 초안</li></ul></div>
+        <div class="card green"><h3>2단계: 팀 공용화</h3><ul><li>템플릿</li><li>문서 자동화</li><li>데이터 정리</li></ul></div>
+        <div class="card vio"><h3>3단계: 팀 AI 포털</h3><ul><li>서버 운영</li><li>법령 감시</li><li>장기 데이터 보관</li></ul></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="label">Conclusion</div>
+      <h2>결론</h2>
+      <div class="card blue">
+        <p class="big">AI는 검색창이 아니다.</p>
+        <p class="big">AI는 품질팀의 실무 보조 인력 묶음이다.</p>
+        <p class="big">승부는 모델 1개가 아니라 오케스트레이션이다.</p>
+      </div>
+      <p class="foot">배포 기준: 서버노트북 HTML 페이지 / 밝은 톤 / 회사 동료 설명형</p>
+    </section>
+  </div>
+</body>
+</html>
