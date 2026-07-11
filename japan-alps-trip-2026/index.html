@@ -1,562 +1,856 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2026 일본 알프스 여행 가이드</title>
-  <meta name="description" content="나고야·마쓰모토·가미코치·알펜루트·가나자와 3박 4일 일본 알프스 여행 가이드" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>일본 알프스 여행 가이드북 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css"/>
+<style>
+:root {
+  --ink:#1a1814; --ink-soft:#3d3a34; --ink-muted:#7a7570;
+  --paper:#f8f5f0; --paper-warm:#f0ebe2; --paper-deep:#e8e0d4;
+  --red:#c94c2a; --red-light:#f0d4cc;
+  --navy:#2a3d6b; --navy-light:#d0d8ec;
+  --green:#3a5a3a; --green-light:#d4e4d4;
+  --gold:#b8860b; --gold-light:#f5e8c0;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--paper);color:var(--ink);line-height:1.7;overflow-x:hidden;}
+
+/* ── TAB SYSTEM ── */
+.tab-bar{
+  position:sticky;top:0;z-index:200;
+  background:var(--navy);
+  display:flex;overflow-x:auto;scrollbar-width:none;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.tab-bar::-webkit-scrollbar{display:none;}
+.tab-btn{
+  flex-shrink:0;padding:.75rem 1.3rem;
+  color:rgba(255,255,255,.55);font-size:12px;font-weight:500;
+  border:none;background:none;cursor:pointer;white-space:nowrap;
+  border-bottom:2px solid transparent;transition:all .2s;
+}
+.tab-btn:hover{color:#fff;}
+.tab-btn.active{color:#fff;border-bottom-color:#e8a882;}
+.page{display:none;min-height:80vh;}
+.page.active{display:block;}
+
+/* ── LAYOUT ── */
+.wrap{max-width:1060px;margin:0 auto;padding:0 1.4rem;}
+.sec{padding:3.5rem 0;}
+.sec-alt{background:var(--paper-warm);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+@media(max-width:700px){.two-col,.three-col{grid-template-columns:1fr;}}
+
+/* ── COVER ── */
+.cover{
+  min-height:100vh;background:var(--navy);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;padding:3rem 2rem;text-align:center;
+}
+.cover::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 1px,transparent 40px),
+    repeating-linear-gradient(-45deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 1px,transparent 40px);
+}
+.cover-eyebrow{font-size:11px;letter-spacing:.25em;color:rgba(255,255,255,.45);margin-bottom:1.5rem;}
+.cover-title{font-family:'Noto Serif KR',serif;font-size:clamp(2.8rem,7vw,5rem);font-weight:700;color:#fff;line-height:1.1;margin-bottom:.5rem;}
+.cover-title span{color:#e8a882;}
+.cover-sub{font-size:1rem;color:rgba(255,255,255,.5);margin-bottom:2.5rem;}
+.cover-route{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-bottom:2.5rem;}
+.c-city{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:.3rem .9rem;border-radius:2rem;font-size:12px;font-weight:500;}
+.c-arr{color:rgba(255,255,255,.35);}
+.cover-meta{display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;}
+.cm{text-align:center;}
+.cm-label{display:block;font-size:10px;letter-spacing:.15em;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:2px;}
+.cm-val{font-size:14px;font-weight:500;color:rgba(255,255,255,.9);}
+.cover-cta{margin-top:2.5rem;}
+.cta-btn{
+  background:#e8a882;color:var(--navy);border:none;
+  padding:.7rem 2rem;border-radius:2rem;font-size:13px;font-weight:700;
+  cursor:pointer;transition:opacity .2s;
+}
+.cta-btn:hover{opacity:.85;}
+
+/* ── SECTION LABEL ── */
+.slabel{display:inline-flex;align-items:center;gap:.5rem;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);font-weight:500;margin-bottom:.6rem;}
+.slabel::before{content:'';display:block;width:20px;height:1px;background:var(--red);}
+.stitle{font-family:'Noto Serif KR',serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:700;line-height:1.2;color:var(--ink);margin-bottom:.4rem;}
+.sdesc{font-size:14px;color:var(--ink-soft);max-width:580px;line-height:1.8;margin-bottom:1.5rem;}
+
+/* ── DAY HERO ── */
+.day-hero{background:var(--navy);padding:1.8rem 0;}
+.dh-inner{max-width:1060px;margin:0 auto;padding:0 1.4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.dh-num{font-family:'Noto Serif KR',serif;font-size:3.5rem;font-weight:700;color:rgba(255,255,255,.1);line-height:1;}
+.dh-txt h2{font-family:'Noto Serif KR',serif;font-size:1.4rem;font-weight:700;color:#fff;}
+.dh-txt p{font-size:12px;color:rgba(255,255,255,.5);margin-top:3px;}
+.dh-tags{display:flex;gap:.5rem;flex-wrap:wrap;}
+.dh-tag{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);border-radius:2rem;padding:.25rem .75rem;font-size:11px;}
+
+/* ── TIMELINE ── */
+.timeline{position:relative;padding-left:1.8rem;}
+.timeline::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:1px;background:var(--paper-deep);}
+.ti{position:relative;margin-bottom:1.6rem;padding-left:1.3rem;}
+.ti::before{content:'';position:absolute;left:-1.8rem;top:6px;width:8px;height:8px;border-radius:50%;background:var(--red);border:2px solid var(--paper);}
+.ti-time{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--red);margin-bottom:1px;}
+.ti-place{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.ti-desc{font-size:13px;color:var(--ink-muted);line-height:1.6;}
+.ti-tip{display:inline-flex;align-items:center;gap:4px;font-size:11px;background:var(--gold-light);color:#7a5a00;padding:2px 8px;border-radius:3px;margin-top:4px;}
+
+/* ── CARDS ── */
+.card{background:var(--paper);border:1px solid var(--paper-deep);border-radius:6px;padding:1.1rem 1.3rem;margin-bottom:.9rem;}
+.card-l{border-left:3px solid var(--red);}
+.card-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:.5rem;}
+.card-body{font-size:13px;color:var(--ink-soft);line-height:1.7;}
+.irow{display:flex;align-items:baseline;gap:.7rem;padding:.5rem 0;border-bottom:1px solid var(--paper-deep);}
+.irow:last-child{border-bottom:none;}
+.ilabel{font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--ink-muted);text-transform:uppercase;min-width:76px;}
+.ival{font-size:13px;color:var(--ink-soft);}
+
+/* ── BUDGET CARDS ── */
+.budget-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem;}
+@media(max-width:600px){.budget-grid{grid-template-columns:1fr;}}
+.bcard{background:var(--navy);border-radius:8px;padding:1.1rem 1.3rem;}
+.bcard-label{font-size:10px;letter-spacing:.12em;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:4px;}
+.bcard-val{font-size:1.5rem;font-weight:700;color:#e8a882;}
+.bcard-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px;}
+
+/* ── TABLE ── */
+.gtable{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:1rem;}
+.gtable th{background:var(--navy);color:rgba(255,255,255,.9);padding:.5rem .9rem;text-align:left;font-size:11px;font-weight:500;letter-spacing:.05em;}
+.gtable td{padding:.55rem .9rem;border-bottom:1px solid var(--paper-deep);color:var(--ink-soft);}
+.gtable tr:nth-child(even) td{background:rgba(0,0,0,.02);}
+
+/* ── BADGES ── */
+.badge{display:inline-block;padding:2px 7px;border-radius:3px;font-size:11px;font-weight:700;}
+.b-red{background:var(--red-light);color:var(--red);}
+.b-navy{background:var(--navy-light);color:var(--navy);}
+.b-green{background:var(--green-light);color:var(--green);}
+.b-gold{background:var(--gold-light);color:var(--gold);}
+
+/* ── WARN / INFO ── */
+.warn{background:#fff8e8;border:1px solid #e8c84a;border-left:3px solid #c9960a;border-radius:4px;padding:.8rem 1rem;font-size:13px;color:#5a4000;margin-bottom:.9rem;}
+.info{background:#eef4ff;border:1px solid #b0c8f0;border-left:3px solid #2a5bad;border-radius:4px;padding:.8rem 1rem;font-size:13px;color:#1a3060;margin-bottom:.9rem;}
+
+/* ── TRANSPORT ── */
+.tstep{display:flex;align-items:center;gap:.7rem;padding:.6rem 0;border-bottom:1px solid var(--paper-deep);font-size:13px;}
+.tstep:last-child{border-bottom:none;}
+.ticon{width:30px;height:30px;min-width:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;}
+.t-plane{background:var(--navy-light);color:var(--navy);}
+.t-train{background:var(--green-light);color:var(--green);}
+.t-bus{background:var(--red-light);color:var(--red);}
+.t-cable{background:var(--gold-light);color:var(--gold);}
+.tinfo{flex:1;}
+.tmain{font-weight:700;color:var(--ink);}
+.tsub{color:var(--ink-muted);font-size:11px;}
+.ttime{font-size:12px;font-weight:700;color:var(--navy);}
+
+/* ── CHECKLIST ── */
+.cklist{list-style:none;}
+.cklist li{display:flex;align-items:flex-start;gap:.7rem;padding:.45rem 0;border-bottom:1px solid var(--paper-deep);font-size:13px;color:var(--ink-soft);}
+.cklist li:last-child{border-bottom:none;}
+.cbox{width:15px;height:15px;min-width:15px;border:1.5px solid var(--ink-muted);border-radius:3px;margin-top:2px;}
+
+/* ── FOOD ── */
+.food-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.8rem;margin-top:.8rem;}
+.fcard{background:var(--paper);border:1px solid var(--paper-deep);border-radius:6px;padding:.9rem;text-align:center;}
+.femoji{font-size:24px;display:block;margin-bottom:.3rem;}
+.fname{font-size:12px;font-weight:700;color:var(--ink);}
+.fplace{font-size:11px;color:var(--ink-muted);margin-top:2px;}
+
+/* ── MAP ── */
+#map{width:100%;height:500px;border-radius:8px;border:1px solid rgba(255,255,255,.1);}
+.map-legend{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1rem;}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.7);}
+.leg-dot{width:11px;height:11px;border-radius:50%;}
+.leg-line{width:28px;height:2px;border-top:2px dashed;}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);color:rgba(255,255,255,.5);text-align:center;padding:2.5rem 1.4rem;font-size:12px;}
+footer strong{color:rgba(255,255,255,.8);}
+
+/* ── DIVIDER ── */
+.divider{display:flex;align-items:center;gap:1rem;margin:2rem 0;color:var(--ink-muted);font-size:11px;letter-spacing:.1em;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--paper-deep);}
+</style>
 </head>
 <body>
-  <header class="hero">
+
+<!-- ══════════════ TAB BAR ══════════════ -->
+<nav class="tab-bar" id="tabBar">
+  <button class="tab-btn active" onclick="showPage('cover')">🏠 홈</button>
+  <button class="tab-btn" onclick="showPage('map')">🗺 전체 지도</button>
+  <button class="tab-btn" onclick="showPage('day1')">Day 1 · 나고야</button>
+  <button class="tab-btn" onclick="showPage('day2')">Day 2 · 가미코치</button>
+  <button class="tab-btn" onclick="showPage('day3')">Day 3 · 알펜루트</button>
+  <button class="tab-btn" onclick="showPage('day4')">Day 4 · 가나자와</button>
+  <button class="tab-btn" onclick="showPage('info')">교통·맛집·팁</button>
+  <button class="tab-btn" onclick="showPage('check')">체크리스트</button>
+  <button class="tab-btn" onclick="showPage('jpn')">🇯🇵 여행 일본어</button>
+</nav>
+
+<!-- ══════════════════════════════════════
+     PAGE: COVER
+══════════════════════════════════════ -->
+<div id="page-cover" class="page active">
+  <div class="cover">
+    <div class="cover-eyebrow">Private Travel Guidebook · 2026</div>
+    <div class="cover-title">일본 <span>알프스</span> 여행</div>
+    <div class="cover-sub">Nagoya · Kamikōchi · Alpine Route · Kanazawa</div>
+    <div class="cover-route">
+      <span class="c-city">✈ 인천 ICN</span><span class="c-arr">→</span>
+      <span class="c-city">나고야 NGO</span><span class="c-arr">→</span>
+      <span class="c-city">마쓰모토</span><span class="c-arr">→</span>
+      <span class="c-city">가미코치</span><span class="c-arr">→</span>
+      <span class="c-city">시나노오마치</span><span class="c-arr">→</span>
+      <span class="c-city">알펜루트</span><span class="c-arr">→</span>
+      <span class="c-city">도야마</span><span class="c-arr">→</span>
+      <span class="c-city">가나자와</span><span class="c-arr">→</span>
+      <span class="c-city">고마쓰 KMQ ✈</span>
+    </div>
+    <div class="cover-meta">
+      <div class="cm"><span class="cm-label">출발</span><span class="cm-val">2026. 07. 22</span></div>
+      <div class="cm"><span class="cm-label">귀국</span><span class="cm-val">2026. 07. 25</span></div>
+      <div class="cm"><span class="cm-label">기간</span><span class="cm-val">3박 4일</span></div>
+      <div class="cm"><span class="cm-label">항공</span><span class="cm-val">KE741 / KMQ→SEL</span></div>
+      <div class="cm"><span class="cm-label">인원</span><span class="cm-val">2명</span></div>
+    </div>
+    <div class="cover-cta">
+      <button class="cta-btn" onclick="showPage('map')">전체 루트 지도 보기 →</button>
+    </div>
+  </div>
+
+  <!-- 일정 요약 -->
+  <div class="sec wrap">
+    <div class="slabel">Overview</div>
+    <div class="stitle">전체 일정</div>
+    <div class="budget-grid">
+      <div class="bcard"><div class="bcard-label">숙박비 (3박·1인)</div><div class="bcard-val">₩240,000</div><div class="bcard-sub">마쓰모토·오마치·가나자와</div></div>
+      <div class="bcard"><div class="bcard-label">교통비 (1인)</div><div class="bcard-val">₩260,000</div><div class="bcard-sub">항공 제외 · 알펜루트 포함</div></div>
+      <div class="bcard"><div class="bcard-label">식비 (1인·추가)</div><div class="bcard-val" style="color:#86efac;">별도</div><div class="bcard-sub">예상 5,000~8,000엔/일</div></div>
+    </div>
+    <table class="gtable">
+      <thead><tr><th>날짜</th><th>이동</th><th>하이라이트</th><th>숙박</th></tr></thead>
+      <tbody>
+        <tr><td><strong>7/22 수</strong></td><td>NGO → 나고야 → 마쓰모토</td><td>나고야성, 히츠마부시, 특급 시나노 이동</td><td>마쓰모토</td></tr>
+        <tr><td><strong>7/23 목</strong></td><td>마쓰모토 → 가미코치 → 시나노오마치</td><td>다이쇼이케, 갓파바시, 묘진 연못</td><td>시나노오마치</td></tr>
+        <tr><td><strong>7/24 금</strong></td><td>오기자와 → 알펜루트 관통 → 도야마 → 가나자와</td><td>구로베댐, 무로도, 다테야마, 도야마 도착</td><td>가나자와</td></tr>
+        <tr><td><strong>7/25 토</strong></td><td>가나자와 → 고마쓰 KMQ</td><td>아침 일찍 공항 이동 → KMQ 10:15 귀국</td><td>귀국</td></tr>
+      </tbody>
+    </table>
+    <div class="warn">⚠️ <strong>성수기 주의:</strong> 7월 말 일본 여름 성수기. 가미코치 버스·알펜루트 구간권·호텔 모두 최소 2개월 전 예약 필수.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: MAP
+══════════════════════════════════════ -->
+<div id="page-map" class="page">
+  <div style="background:var(--navy);padding:2rem 0;">
     <div class="wrap">
-      <p class="eyebrow">2026.07.22 ~ 2026.07.25</p>
-      <h1>일본 알프스 여행 가이드</h1>
-      <p class="lead">
-        인천 → 나고야 → 마쓰모토 → 가미코치 → 알펜루트 → 도야마 → 가나자와 → 고마쓰
-      </p>
-      <div class="hero-cards">
-        <div class="hero-card">
-          <span>동행</span>
-          <strong>박상욱과 2인</strong>
+      <div class="slabel" style="color:#e8a882;">Route Map</div>
+      <div class="stitle" style="color:#fff;margin-bottom:.4rem;">전체 여행 루트</div>
+      <div class="sdesc" style="color:rgba(255,255,255,.6);margin-bottom:1.2rem;">마커를 클릭하면 상세 정보가 표시됩니다. 점선은 이동 동선입니다.</div>
+      <div id="map"></div>
+      <div class="map-legend">
+        <div class="leg-item"><span class="leg-dot" style="background:#e8a882;"></span>관광지</div>
+        <div class="leg-item"><span class="leg-dot" style="background:#7dd3fc;"></span>공항</div>
+        <div class="leg-item"><span class="leg-dot" style="background:#86efac;"></span>자연명소</div>
+        <div class="leg-item"><span class="leg-dot" style="background:#fcd34d;"></span>교통거점</div>
+        <div class="leg-item"><span class="leg-line" style="border-color:#e8a882;"></span>Day 1</div>
+        <div class="leg-item"><span class="leg-line" style="border-color:#86efac;"></span>Day 2</div>
+        <div class="leg-item"><span class="leg-line" style="border-color:#c4b5fd;"></span>Day 3</div>
+        <div class="leg-item"><span class="leg-line" style="border-color:#fcd34d;"></span>Day 4</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: DAY 1
+══════════════════════════════════════ -->
+<div id="page-day1" class="page">
+  <div class="day-hero">
+    <div class="dh-inner">
+      <div style="display:flex;align-items:center;gap:1.2rem;">
+        <div class="dh-num">01</div>
+        <div class="dh-txt"><h2>나고야 간단 관광 → 마쓰모토 이동</h2><p>2026년 7월 22일 (수) · NGO 12:30 도착</p></div>
+      </div>
+      <div class="dh-tags"><span class="dh-tag">나고야성</span><span class="dh-tag">히츠마부시</span><span class="dh-tag">특급 시나노</span></div>
+    </div>
+  </div>
+  <div class="sec wrap">
+    <div class="two-col">
+      <div>
+        <div class="slabel">Day 1 타임라인</div>
+        <div class="stitle">나고야 → 마쓰모토</div>
+        <div class="sdesc">공항 도착 후 나고야 핵심 명소만 간단히 보고, 저녁에 특급열차로 마쓰모토로 이동합니다.</div>
+        <div class="timeline">
+          <div class="ti"><div class="ti-time">12:30</div><div class="ti-place">✈ NGO 나고야 공항 도착</div><div class="ti-desc">KE741 착륙 · 메이테츠 뮤스카이 탑승 → 나고야역 28분, 870엔</div></div>
+          <div class="ti"><div class="ti-time">13:30</div><div class="ti-place">🧳 나고야역 코인로커 짐 보관</div><div class="ti-desc">호텔 체크인 없이 짐만 보관 후 관광 출발</div></div>
+          <div class="ti"><div class="ti-time">14:00</div><div class="ti-place">🏯 나고야성 (名古屋城)</div><div class="ti-desc">일본 3대 성 · 금빛 샤치호코 · 외관 및 정원 산책 위주로 간단 관람<br>9:00-16:30 (입장 마감 16:00)</div><span class="ti-tip">⏱ 약 1시간</span></div>
+          <div class="ti"><div class="ti-time">15:30</div><div class="ti-place">🛍 오스 상점가 간단 산책</div><div class="ti-desc">400년 역사 복고풍 상점가 · 길거리 음식 맛보기 · 분위기 체험</div><span class="ti-tip">⏱ 약 1시간</span></div>
+          <div class="ti"><div class="ti-time">17:00</div><div class="ti-place">🐟 저녁 — 히츠마부시</div><div class="ti-desc">나고야 필수 명물 장어덮밥 · 나고야역 근처 식당 이용</div></div>
+          <div class="ti"><div class="ti-time">18:30</div><div class="ti-place">🚃 나고야 → 마쓰모토 (특급 시나노)</div><div class="ti-desc">JR 특급 시나노 탑승 · 약 2시간 30분 · 자유석 약 6,000엔</div><span class="ti-tip">💡 지정석 사전 예약 권장</span></div>
+          <div class="ti"><div class="ti-time">21:00</div><div class="ti-place">🏨 마쓰모토 호텔 체크인</div><div class="ti-desc">마쓰모토역 도보권 내 숙소 · 다음날 가미코치 이른 출발 대비 휴식</div></div>
         </div>
-        <div class="hero-card">
-          <span>가는편</span>
-          <strong>KE741 10:35 → 12:30</strong>
+      </div>
+      <div>
+        <div class="card card-l">
+          <div class="card-title">🚃 나고야 → 마쓰모토 이동 정보</div>
+          <div class="card-body">
+            <div class="irow"><span class="ilabel">열차</span><span class="ival">JR 특급 시나노 (しなの)</span></div>
+            <div class="irow"><span class="ilabel">소요시간</span><span class="ival">약 2시간 30분</span></div>
+            <div class="irow"><span class="ilabel">요금</span><span class="ival">자유석 약 6,000엔</span></div>
+            <div class="irow"><span class="ilabel">추천 출발</span><span class="ival">18:30 ~ 19:00 탑승</span></div>
+          </div>
         </div>
-        <div class="hero-card">
-          <span>귀국편</span>
-          <strong>고마쓰 KMQ 10:15</strong>
+        <div class="card card-l">
+          <div class="card-title">🍱 나고야 명물 음식</div>
+          <div class="food-grid">
+            <div class="fcard"><span class="femoji">🐟</span><div class="fname">히츠마부시</div><div class="fplace">장어덮밥 · 必食</div></div>
+            <div class="fcard"><span class="femoji">🥩</span><div class="fname">미소카츠</div><div class="fplace">된장 돈까스</div></div>
+            <div class="fcard"><span class="femoji">🍤</span><div class="fname">텐무스</div><div class="fplace">새우튀김 주먹밥</div></div>
+            <div class="fcard"><span class="femoji">🍗</span><div class="fname">데바사키</div><div class="fplace">나고야식 닭날개</div></div>
+          </div>
+        </div>
+        <div class="card card-l">
+          <div class="card-title">📍 마쓰모토 숙박</div>
+          <div class="card-body">
+            <div class="irow"><span class="ilabel">추천 위치</span><span class="ival">마쓰모토역 도보 5분 이내</span></div>
+            <div class="irow"><span class="ilabel">다음날 버스</span><span class="ival">마쓰모토역 → 가미코치 약 1.5시간</span></div>
+          </div>
         </div>
       </div>
     </div>
-  </header>
+  </div>
+</div>
 
-  <main class="wrap">
-    <section class="photo-grid">
-      <article class="photo-card photo-nagoya">
-        <div class="photo-overlay">
-          <p class="photo-kicker">Day 1</p>
-          <h2>나고야 도착</h2>
-          <p>도시 감각 + 첫 식사 + 열차 이동</p>
-        </div>
-      </article>
-      <article class="photo-card photo-kamikochi">
-        <div class="photo-overlay">
-          <p class="photo-kicker">Day 2</p>
-          <h2>가미코치</h2>
-          <p>강과 숲, 가벼운 트레킹의 하이라이트</p>
-        </div>
-      </article>
-      <article class="photo-card photo-alps">
-        <div class="photo-overlay">
-          <p class="photo-kicker">Day 3</p>
-          <h2>알펜루트</h2>
-          <p>구로베댐 · 무로도 · 케이블카 환승</p>
-        </div>
-      </article>
-    </section>
-
-    <section class="card">
-      <h2>한눈에 보는 여행 흐름</h2>
-      <div class="route">
-        <span>인천</span>
-        <span>나고야</span>
-        <span>마쓰모토</span>
-        <span>가미코치</span>
-        <span>알펜루트</span>
-        <span>도야마</span>
-        <span>가나자와</span>
-        <span>고마쓰</span>
+<!-- ══════════════════════════════════════
+     PAGE: DAY 2
+══════════════════════════════════════ -->
+<div id="page-day2" class="page">
+  <div class="day-hero">
+    <div class="dh-inner">
+      <div style="display:flex;align-items:center;gap:1.2rem;">
+        <div class="dh-num">02</div>
+        <div class="dh-txt"><h2>가미코치 → 시나노오마치</h2><p>2026년 7월 23일 (목) · 마쓰모토 출발</p></div>
       </div>
-      <p class="muted">
-        핵심은 2일차 가미코치 자연 트레킹, 3일차 알펜루트 완전 관통, 마지막 날 고마쓰 공항 이동 시간 관리입니다.
-      </p>
-    </section>
-
-    <section class="card route-board">
-      <div class="route-board-copy">
-        <p class="section-kicker">Route map</p>
-        <h2>동선 지도</h2>
-        <p class="muted">
-          이번 여행은 <strong>중부 산악권을 가로지르는 횡단형 루트</strong>입니다.
-          나고야에서 진입해 마쓰모토·가미코치·알펜루트를 지나 호쿠리쿠 쪽 가나자와와 고마쓰로 빠지는 흐름입니다.
-        </p>
-        <div class="route-badges">
-          <span>공항 진입: 나고야 NGO</span>
-          <span>산악 하이라이트: 가미코치 · 무로도</span>
-          <span>도시 마감: 가나자와</span>
-          <span>출국: 고마쓰 KMQ</span>
-        </div>
-      </div>
-
-      <div class="route-map-shell">
-        <svg viewBox="0 0 980 560" class="route-map-svg" aria-label="일본 알프스 여행 동선 지도">
-          <defs>
-            <linearGradient id="seaGrad" x1="0" x2="1" y1="0" y2="1">
-              <stop offset="0%" stop-color="#eef7ff" />
-              <stop offset="100%" stop-color="#dceeff" />
-            </linearGradient>
-            <linearGradient id="landGrad" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stop-color="#ffffff" />
-              <stop offset="100%" stop-color="#f5f9ff" />
-            </linearGradient>
-            <linearGradient id="routeGrad" x1="0" x2="1" y1="0" y2="0">
-              <stop offset="0%" stop-color="#ff8b5f" />
-              <stop offset="50%" stop-color="#4f8cff" />
-              <stop offset="100%" stop-color="#34c5aa" />
-            </linearGradient>
-            <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#93b8ff" flood-opacity="0.22"/>
-            </filter>
-          </defs>
-
-          <rect x="0" y="0" width="980" height="560" rx="32" fill="url(#seaGrad)" />
-
-          <path
-            d="M160 92
-               C220 74, 264 80, 320 120
-               C358 146, 388 192, 416 248
-               C436 289, 470 322, 524 346
-               C600 381, 656 394, 730 420
-               C772 434, 804 446, 842 462
-               C854 468, 872 478, 876 494
-               C852 498, 816 490, 782 478
-               C734 460, 688 438, 634 430
-               C570 420, 512 398, 462 366
-               C414 336, 372 298, 336 252
-               C302 208, 274 170, 232 144
-               C196 122, 166 116, 142 120
-               C134 112, 138 100, 160 92 Z"
-            fill="url(#landGrad)"
-            stroke="#d7e7ff"
-            stroke-width="3"
-            filter="url(#softShadow)"
-          />
-
-          <g opacity="0.85">
-            <text x="185" y="74" class="map-region">나고야</text>
-            <text x="322" y="110" class="map-region">마쓰모토</text>
-            <text x="410" y="198" class="map-region">가미코치</text>
-            <text x="520" y="298" class="map-region">알펜루트</text>
-            <text x="626" y="370" class="map-region">가나자와</text>
-            <text x="785" y="450" class="map-region">고마쓰</text>
-          </g>
-
-          <path
-            d="M196 120
-               C245 120, 284 122, 320 142
-               C360 164, 392 207, 420 244
-               C454 290, 490 326, 554 356
-               C598 376, 646 394, 702 418
-               C756 441, 794 458, 836 479"
-            fill="none"
-            stroke="url(#routeGrad)"
-            stroke-width="12"
-            stroke-linecap="round"
-            stroke-dasharray="14 10"
-          />
-
-          <g class="map-stop">
-            <circle cx="196" cy="120" r="18" fill="#ff8b5f" />
-            <circle cx="196" cy="120" r="30" fill="rgba(255,139,95,0.16)" />
-            <text x="196" y="126" text-anchor="middle" class="map-stop-text">1</text>
-          </g>
-          <g class="map-stop">
-            <circle cx="320" cy="142" r="18" fill="#ffb24f" />
-            <circle cx="320" cy="142" r="30" fill="rgba(255,178,79,0.16)" />
-            <text x="320" y="148" text-anchor="middle" class="map-stop-text">2</text>
-          </g>
-          <g class="map-stop">
-            <circle cx="420" cy="244" r="18" fill="#4f8cff" />
-            <circle cx="420" cy="244" r="30" fill="rgba(79,140,255,0.16)" />
-            <text x="420" y="250" text-anchor="middle" class="map-stop-text">3</text>
-          </g>
-          <g class="map-stop">
-            <circle cx="554" cy="356" r="18" fill="#3fa7ff" />
-            <circle cx="554" cy="356" r="30" fill="rgba(63,167,255,0.16)" />
-            <text x="554" y="362" text-anchor="middle" class="map-stop-text">4</text>
-          </g>
-          <g class="map-stop">
-            <circle cx="702" cy="418" r="18" fill="#3aa0d8" />
-            <circle cx="702" cy="418" r="30" fill="rgba(58,160,216,0.16)" />
-            <text x="702" y="424" text-anchor="middle" class="map-stop-text">5</text>
-          </g>
-          <g class="map-stop">
-            <circle cx="836" cy="479" r="18" fill="#34c5aa" />
-            <circle cx="836" cy="479" r="30" fill="rgba(52,197,170,0.16)" />
-            <text x="836" y="485" text-anchor="middle" class="map-stop-text">6</text>
-          </g>
-
-          <g class="map-legend">
-            <rect x="42" y="404" width="248" height="110" rx="20" fill="rgba(255,255,255,0.90)" stroke="#d7e7ff"/>
-            <text x="62" y="438" class="legend-title">정차 포인트</text>
-            <text x="62" y="466" class="legend-row">1 나고야(진입)</text>
-            <text x="62" y="490" class="legend-row">2 마쓰모토(중간 거점)</text>
-            <text x="62" y="514" class="legend-row">3 가미코치 → 4 무로도/알펜루트</text>
-          </g>
-        </svg>
-      </div>
-    </section>
-
-    <section class="card google-route-panel">
-      <div class="google-route-head">
-        <div>
-          <p class="section-kicker">Google Maps</p>
-          <h2>구간별 길찾기 바로가기</h2>
-        </div>
-        <p class="muted">각 버튼은 구글지도로 바로 열리도록 연결했습니다. 현지에서는 이것이 가장 실전적입니다.</p>
-      </div>
-      <div class="google-route-grid">
-        <article class="google-route-card">
-          <div class="route-step">Day 1</div>
-          <h3>나고야역 → 마쓰모토역</h3>
-          <p>첫날 핵심 이동. 공항 도착 지연이 있으면 이 구간 확보가 최우선입니다.</p>
-          <div class="route-actions">
-            <a href="https://www.google.com/maps/search/?api=1&query=Nagoya+Station" target="_blank" rel="noopener">나고야역 열기</a>
-            <a href="https://www.google.com/maps/search/?api=1&query=Matsumoto+Station" target="_blank" rel="noopener">마쓰모토역 열기</a>
-          </div>
-        </article>
-        <article class="google-route-card">
-          <div class="route-step">Day 2</div>
-          <h3>마쓰모토 → 가미코치 버스터미널</h3>
-          <p>둘째날 핵심. 실제로는 버스·환승 조합이므로 위치 저장이 중요합니다.</p>
-          <div class="route-actions">
-            <a href="https://www.google.com/maps/search/?api=1&query=Matsumoto+Station" target="_blank" rel="noopener">출발지 열기</a>
-            <a href="https://www.google.com/maps/search/?api=1&query=Kamikochi+Bus+Terminal" target="_blank" rel="noopener">가미코치 열기</a>
-          </div>
-        </article>
-        <article class="google-route-card">
-          <div class="route-step">Day 3</div>
-          <h3>가미코치권 → 무로도/알펜루트 → 가나자와</h3>
-          <p>여행의 메인 스테이지. 산악 구간이라 실제 대중교통 시간표와 함께 보는 것이 좋습니다.</p>
-          <div class="route-actions">
-            <a href="https://www.google.com/maps/search/?api=1&query=Murodo+Station+Toyama" target="_blank" rel="noopener">무로도 열기</a>
-            <a href="https://www.google.com/maps/search/?api=1&query=Kanazawa+Station" target="_blank" rel="noopener">가나자와역 열기</a>
-          </div>
-        </article>
-        <article class="google-route-card">
-          <div class="route-step">Day 4</div>
-          <h3>가나자와역 → 고마쓰공항</h3>
-          <p>귀국일 생명선입니다. 전날 밤 이 링크를 저장해 두는 것을 권장합니다.</p>
-          <div class="route-actions">
-            <a href="https://www.google.com/maps/search/?api=1&query=Kanazawa+Station" target="_blank" rel="noopener">가나자와역 열기</a>
-            <a href="https://www.google.com/maps/search/?api=1&query=Komatsu+Airport" target="_blank" rel="noopener">고마쓰공항 열기</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="grid two">
-      <article class="card highlight">
-        <h2>이번 여행의 핵심</h2>
-        <ul class="clean">
-          <li><strong>첫날:</strong> 도착 후 무리하지 않고 나고야 핵심만 보고 마쓰모토로 이동</li>
-          <li><strong>둘째날:</strong> 가미코치 자연 풍경을 여유 있게 즐기기</li>
-          <li><strong>셋째날:</strong> 알펜루트 완전 관통이 메인 이벤트</li>
-          <li><strong>넷째날:</strong> 귀국일은 관광보다 공항 이동 안정성이 우선</li>
-        </ul>
-      </article>
-      <article class="card highlight soft">
-        <h2>운영 원칙</h2>
-        <ul class="clean">
-          <li><strong>짐:</strong> 환승이 많으므로 최대한 가볍게</li>
-          <li><strong>시간:</strong> 버스/열차는 전날 밤 다시 확인</li>
-          <li><strong>체력:</strong> 가미코치와 알펜루트 사이에 무리한 추가 일정 금지</li>
-          <li><strong>날씨:</strong> 무로도는 한여름에도 춥다</li>
-        </ul>
-      </article>
-    </section>
-
-    <section class="grid two">
-      <article class="card">
-        <h2>항공 정보</h2>
-        <ul class="clean">
-          <li><strong>출국:</strong> 7/22(수) KE741 인천 10:35 → 나고야 12:30</li>
-          <li><strong>귀국:</strong> 7/25(토) 고마쓰(KMQ) 10:15 → 인천</li>
-          <li><strong>포인트:</strong> 귀국일은 여유가 적으므로 07:30 버스 기준으로 움직이기</li>
-        </ul>
-      </article>
-      <article class="card">
-        <h2>예산 감각</h2>
-        <ul class="clean">
-          <li><strong>숙박:</strong> 약 24만 원 / 1인</li>
-          <li><strong>교통:</strong> 약 26만 원 / 1인</li>
-          <li><strong>식비:</strong> 1일 5,000~8,000엔 예상</li>
-          <li><strong>현금:</strong> 최소 30,000엔 이상 권장</li>
-        </ul>
-      </article>
-    </section>
-
-    <section class="card">
-      <h2>일정 상세</h2>
-      <div class="timeline">
-        <article>
-          <div class="day">Day 1 · 7/22 수</div>
-          <h3>나고야 도착 → 나고야성 → 히츠마부시 → 마쓰모토 이동</h3>
-          <p>도착 후 나고야 시내에서 첫 일정 소화. 대표 식사 후 특급 시나노로 마쓰모토 이동.</p>
-          <ul>
-            <li>추천: 나고야성, 오스/사카에 주변 가벼운 산책</li>
-            <li>숙박: 마쓰모토</li>
-          </ul>
-        </article>
-        <article>
-          <div class="day">Day 2 · 7/23 목</div>
-          <h3>마쓰모토 → 가미코치</h3>
-          <p>다이쇼이케, 갓파바시, 묘진연못 중심의 풍경 감상. 무리한 산행보다 이동 리듬과 체력 보존이 중요.</p>
-          <ul>
-            <li>핵심 포인트: 다이쇼이케 · 갓파바시 · 묘진연못</li>
-            <li>숙박: 시나노오마치</li>
-          </ul>
-        </article>
-        <article>
-          <div class="day">Day 3 · 7/24 금</div>
-          <h3>알펜루트 완전 관통 → 도야마 → 가나자와</h3>
-          <p>오기자와에서 시작해 구로베댐, 무로도, 다테야마를 지나 도야마로 내려온 뒤 가나자와로 이동.</p>
-          <ul>
-            <li>핵심 포인트: 구로베댐 · 무로도 설벽 풍경 · 케이블카/로프웨이 환승</li>
-            <li>숙박: 가나자와</li>
-          </ul>
-        </article>
-        <article>
-          <div class="day">Day 4 · 7/25 토</div>
-          <h3>겐로쿠엔(선택) → 07:30 버스 → 고마쓰 공항</h3>
-          <p>아침 동선은 매우 빡빡합니다. 전날 짐 정리 완료가 사실상 필수입니다.</p>
-          <ul>
-            <li>우선순위: 버스 탑승 실패 방지</li>
-            <li>여유 시: 겐로쿠엔 짧은 산책</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>날짜별 상세 동선</h2>
-      <div class="day-plan">
-        <article class="plan-card">
-          <div class="plan-head">
-            <span>7/22 수</span>
-            <h3>인천 → 나고야 → 마쓰모토</h3>
-          </div>
-          <div class="plan-rows">
-            <div class="plan-row"><strong>오전</strong><span>인천공항 출발, 나고야 도착</span></div>
-            <div class="plan-row"><strong>점심</strong><span>나고야역 또는 사카에권에서 히츠마부시/미소카츠</span></div>
-            <div class="plan-row"><strong>오후</strong><span>나고야성 또는 시내 짧은 산책 후 짐 정리</span></div>
-            <div class="plan-row"><strong>저녁</strong><span>특급 시나노로 마쓰모토 이동, 숙소 체크인</span></div>
-          </div>
-        </article>
-        <article class="plan-card">
-          <div class="plan-head">
-            <span>7/23 목</span>
-            <h3>마쓰모토 → 가미코치 → 시나노오마치</h3>
-          </div>
-          <div class="plan-rows">
-            <div class="plan-row"><strong>아침</strong><span>일찍 출발해 버스/환승 루트로 가미코치 이동</span></div>
-            <div class="plan-row"><strong>오전</strong><span>다이쇼이케 → 갓파바시 중심 동선</span></div>
-            <div class="plan-row"><strong>점심</strong><span>가미코치 내 간단식 또는 도시락 형태로 해결</span></div>
-            <div class="plan-row"><strong>오후</strong><span>묘진연못까지 여유 있게 보고 시나노오마치 이동</span></div>
-          </div>
-        </article>
-        <article class="plan-card">
-          <div class="plan-head">
-            <span>7/24 금</span>
-            <h3>알펜루트 완전 관통 → 가나자와</h3>
-          </div>
-          <div class="plan-rows">
-            <div class="plan-row"><strong>아침</strong><span>오기자와 출발, 구로베댐 방향 진입</span></div>
-            <div class="plan-row"><strong>오전</strong><span>전기버스·케이블카·로프웨이 환승</span></div>
-            <div class="plan-row"><strong>점심</strong><span>무로도 또는 이동 중 휴게 포인트에서 간단식</span></div>
-            <div class="plan-row"><strong>저녁</strong><span>도야마 경유 후 가나자와 도착, 저녁 산책</span></div>
-          </div>
-        </article>
-        <article class="plan-card">
-          <div class="plan-head">
-            <span>7/25 토</span>
-            <h3>가나자와 → 고마쓰공항 → 인천</h3>
-          </div>
-          <div class="plan-rows">
-            <div class="plan-row"><strong>이른 아침</strong><span>전날 짐 정리 완료 상태에서 체크아웃 준비</span></div>
-            <div class="plan-row"><strong>07:30 전후</strong><span>가나자와역 버스 탑승</span></div>
-            <div class="plan-row"><strong>공항</strong><span>고마쓰공항 도착 후 체크인</span></div>
-            <div class="plan-row"><strong>귀국</strong><span>시간 남으면 짧은 정리, 쇼핑보다 탑승 안정 우선</span></div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>교통 가이드</h2>
-      <div class="transport-grid">
-        <article class="transport-card">
-          <h3>구간 1 · 나고야 → 마쓰모토</h3>
-          <p>첫날 핵심은 공항 도착 후 시내 동선 과욕을 줄이고, 저녁 열차 이동을 안정적으로 마치는 것입니다.</p>
-          <ul>
-            <li>추천: 나고야역 기준 이동 계획</li>
-            <li>열차: 특급 시나노 계열 확인</li>
-            <li>주의: 도착 지연 시 관광보다 열차 확보 우선</li>
-          </ul>
-        </article>
-        <article class="transport-card">
-          <h3>구간 2 · 마쓰모토 → 가미코치</h3>
-          <p>기차+버스 환승 성격이 강하므로 출발 시간을 늦추지 않는 것이 중요합니다.</p>
-          <ul>
-            <li>아침형 동선 권장</li>
-            <li>비 오면 우산보다 가벼운 우비가 편함</li>
-            <li>현금/교통권 미리 준비</li>
-          </ul>
-        </article>
-        <article class="transport-card">
-          <h3>구간 3 · 알펜루트 관통</h3>
-          <p>이 여행의 메인 구간입니다. 환승 수가 많아서 짐이 무거우면 체감 난도가 급상승합니다.</p>
-          <ul>
-            <li>구로베댐 · 무로도 대기시간 고려</li>
-            <li>간식과 물은 미리 확보</li>
-            <li>상층부 체감온도 대비 필수</li>
-          </ul>
-        </article>
-        <article class="transport-card">
-          <h3>구간 4 · 가나자와 → 고마쓰공항</h3>
-          <p>마지막 날은 변수 관리가 전부입니다. 버스 정류장 위치와 탑승 시간만 확실하면 훨씬 편합니다.</p>
-          <ul>
-            <li>전날 밤 탑승 위치 지도 저장</li>
-            <li>체크아웃 시간 여유 확보</li>
-            <li>공항 도착 후 여유 있게 이동</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>식당 추천</h2>
-      <div class="food-grid">
-        <article class="food-card">
-          <div class="food-badge">나고야</div>
-          <h3>히츠마부시</h3>
-          <p>첫날 대표 메뉴로 가장 여행 느낌이 납니다. 공항 도착 후 한 끼로 만족감이 높습니다.</p>
-          <ul>
-            <li>추천 타이밍: Day 1 점심</li>
-            <li>포인트: 대기시간 길 수 있으니 너무 유명한 곳 1곳만 보지 말기</li>
-          </ul>
-        </article>
-        <article class="food-card">
-          <div class="food-badge">나고야</div>
-          <h3>미소카츠 / 데바사키</h3>
-          <p>히츠마부시가 부담되면 대안으로 좋습니다. 이동 전 가볍게 먹기에도 무난합니다.</p>
-          <ul>
-            <li>추천 타이밍: Day 1 저녁 전후</li>
-            <li>포인트: 역 근처 식당 위주로 잡기</li>
-          </ul>
-        </article>
-        <article class="food-card">
-          <div class="food-badge">가미코치</div>
-          <h3>간단식 / 카페형 식사</h3>
-          <p>둘째날은 뷰가 핵심이므로 긴 식사보다 짧고 효율적인 식사가 더 좋습니다.</p>
-          <ul>
-            <li>추천 타이밍: Day 2 점심</li>
-            <li>포인트: 샌드위치·카레·소바류가 운영상 편함</li>
-          </ul>
-        </article>
-        <article class="food-card">
-          <div class="food-badge">가나자와</div>
-          <h3>해산물 덮밥 / 카이센동</h3>
-          <p>셋째날 저녁 보상 식사로 가장 만족도가 높습니다. 가나자와 감성이 살아납니다.</p>
-          <ul>
-            <li>추천 타이밍: Day 3 저녁</li>
-            <li>포인트: 역 주변 또는 오미초 시장권 검토</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section class="grid two">
-      <article class="card">
-        <h2>핵심 스팟 바로가기</h2>
-        <ul class="clean">
-          <li><a href="https://maps.google.com/?q=Nagoya+Castle" target="_blank" rel="noopener">나고야성 지도 열기</a></li>
-          <li><a href="https://maps.google.com/?q=Taisho+Pond+Kamikochi" target="_blank" rel="noopener">다이쇼이케 지도 열기</a></li>
-          <li><a href="https://maps.google.com/?q=Kappa+Bashi+Kamikochi" target="_blank" rel="noopener">갓파바시 지도 열기</a></li>
-          <li><a href="https://maps.google.com/?q=Kurobe+Dam" target="_blank" rel="noopener">구로베댐 지도 열기</a></li>
-          <li><a href="https://maps.google.com/?q=Kenrokuen+Garden" target="_blank" rel="noopener">겐로쿠엔 지도 열기</a></li>
-        </ul>
-      </article>
-      <article class="card">
-        <h2>이동 운영 팁</h2>
-        <ul class="clean">
-          <li><strong>1일차:</strong> 공항 도착 지연 시 나고야 시내 체류 시간을 줄이고 열차 우선</li>
-          <li><strong>2일차:</strong> 가미코치는 버스 시간과 날씨 확인이 가장 중요</li>
-          <li><strong>3일차:</strong> 알펜루트는 환승이 많아 짐은 가볍게 유지</li>
-          <li><strong>4일차:</strong> 가나자와역 → 고마쓰공항 버스 위치를 전날 저장</li>
-        </ul>
-      </article>
-    </section>
-
-    <section class="grid two">
-      <article class="card">
-        <h2>반드시 챙길 준비물</h2>
-        <ul class="check">
-          <li>여권 / 항공권 / 숙소 예약 정보</li>
-          <li>현금 30,000엔 이상</li>
-          <li>경량 패딩 또는 바람막이</li>
-          <li>편한 운동화 또는 트레킹화</li>
-          <li>보조배터리 / 충전기 / 멀티어댑터</li>
-          <li>작은 우산 또는 우비</li>
-        </ul>
-      </article>
-      <article class="card">
-        <h2>주의사항</h2>
-        <ul class="clean">
-          <li>7월 말 성수기라 교통/숙박 예약 지연은 위험</li>
-          <li>무로도는 한여름에도 5~15°C 가능</li>
-          <li>가미코치에서는 ATM 접근성이 떨어짐</li>
-          <li>알펜루트는 날씨와 대기시간 변수 고려 필요</li>
-        </ul>
-      </article>
-    </section>
-
-    <section class="card">
-      <h2>여행 전 추천 준비</h2>
-      <div class="prep-grid">
-        <article>
-          <h3>모바일</h3>
-          <p>구글맵 오프라인 저장, 숙소 캡처, 열차/버스 시간표 캡처를 미리 끝내면 현지에서 훨씬 편합니다.</p>
-        </article>
-        <article>
-          <h3>복장</h3>
-          <p>도시 기준 옷차림 + 상층부 방풍용 겉옷 조합이 효율적입니다. 무로도용 얇은 보온층은 필수입니다.</p>
-        </article>
-        <article>
-          <h3>현금/결제</h3>
-          <p>대도시는 카드가 편하지만, 산악 구간과 버스 이동을 생각하면 현금 비중을 충분히 가져가는 것이 안전합니다.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>출발 전 마지막 체크리스트</h2>
-      <div class="grid two">
-        <ul class="check">
-          <li>항공 e-ticket 저장</li>
-          <li>숙소 주소/체크인 시간 캡처</li>
-          <li>알펜루트/버스 예약 확인</li>
-          <li>일본 유심 또는 로밍 준비</li>
-        </ul>
-        <ul class="check">
-          <li>첫날 열차 시간 다시 확인</li>
-          <li>귀국일 버스 출발 위치 지도 저장</li>
-          <li>우천 시 대체 동선 생각해두기</li>
-          <li>짐은 전날 밤 미리 정리</li>
-        </ul>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="wrap">
-      <p>Built for Waterfirst · Japan Alps Trip Guide 2026</p>
+      <div class="dh-tags"><span class="dh-tag">해발 1500m</span><span class="dh-tag">다이쇼이케</span><span class="dh-tag">갓파바시</span></div>
     </div>
-  </footer>
+  </div>
+  <div class="sec wrap">
+    <div class="two-col">
+      <div>
+        <div class="slabel">Day 2 타임라인</div>
+        <div class="stitle">가미코치</div>
+        <div class="sdesc">마쓰모토에서 버스로 입산. 청정 고원을 하루 만끽한 뒤 저녁에 시나노오마치로 이동.</div>
+        <div class="warn">⚠️ <strong>이동 주의:</strong> 가미코치는 일반 차량 진입 불가. 버스·택시로만 입산 가능. 성수기 버스 사전 예약 필수!</div>
+        <div class="timeline">
+          <div class="ti"><div class="ti-time">07:30</div><div class="ti-place">🚌 마쓰모토 → 가미코치 버스</div><div class="ti-desc">마쓰모토역 버스터미널 출발 · 신시마시마역 경유 · 약 1시간 30분</div><span class="ti-tip">사전 예약 필수</span></div>
+          <div class="ti"><div class="ti-time">09:00</div><div class="ti-place">🏔 가미코치 버스터미널 도착</div><div class="ti-desc">짐 보관소(1F) 이용 · ATM 없음 — 현금 미리 준비 · 방충 스프레이 권장</div></div>
+          <div class="ti"><div class="ti-time">09:15</div><div class="ti-place">🌊 다이쇼이케 연못 (大正池)</div><div class="ti-desc">야케다케 화산 활동으로 형성 · 호타카 연봉이 수면에 비치는 절경 · 물안개 명소</div><span class="ti-tip">⏱ 약 30분</span></div>
+          <div class="ti"><div class="ti-time">10:00</div><div class="ti-place">🌲 다시로이케 → 갓파바시 산책</div><div class="ti-desc">아즈사강 따라 완만한 숲길 · 약 3.8km · 갓파바시 목조다리에서 호타카 연봉 전경</div><span class="ti-tip">📍 최고 포토스팟</span></div>
+          <div class="ti"><div class="ti-time">12:30</div><div class="ti-place">🍜 점심 — 가미코치 식당</div><div class="ti-desc">갓파바시 주변 레스토랑 · 도쿠사와 방면 롯지 카레 추천</div></div>
+          <div class="ti"><div class="ti-time">14:00</div><div class="ti-place">⛩ 묘진 연못 (明神池) 산책</div><div class="ti-desc">갓파바시 → 묘진 지구 편도 2.5km · 신사·연못·자작나무 숲 · 야생동물 관찰</div><span class="ti-tip">⏱ 왕복 약 2시간</span></div>
+          <div class="ti"><div class="ti-time">16:30</div><div class="ti-place">🚌 가미코치 → 시나노오마치 이동</div><div class="ti-desc">신시마시마역 → 열차 환승 → 오마치 · 약 1시간 30분</div></div>
+          <div class="ti"><div class="ti-time">18:30</div><div class="ti-place">🏨 시나노오마치 체크인</div><div class="ti-desc">오기자와역 인근 숙소 권장 · 이튿날 알펜루트 이른 출발 대비</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="card card-l">
+          <div class="card-title">🗺 추천 산책 코스</div>
+          <div class="card-body">
+            <div class="irow"><span class="ilabel">★ 기본</span><span class="ival">다이쇼이케 → 갓파바시 (3.8km, 2.5h)</span></div>
+            <div class="irow"><span class="ilabel">연장</span><span class="ival">갓파바시 → 묘진이케 (+2.5km, 1h)</span></div>
+            <div class="irow"><span class="ilabel">합계</span><span class="ival">약 8.8km · 4~5시간</span></div>
+          </div>
+        </div>
+        <div class="card card-l">
+          <div class="card-title">☁ 7월 가미코치 날씨</div>
+          <div class="card-body">
+            <div class="irow"><span class="ilabel">기온</span><span class="ival">낮 23°C · 아침저녁 15°C</span></div>
+            <div class="irow"><span class="ilabel">복장</span><span class="ival">얇은 겉옷 필수 · 방수 트레킹화</span></div>
+            <div class="irow"><span class="ilabel">주의</span><span class="ival">갑작스러운 소나기 대비 우의</span></div>
+          </div>
+        </div>
+        <div class="card card-l">
+          <div class="card-title">⚠ 가미코치 주의사항</div>
+          <div class="card-body">
+            <ul style="list-style:none;font-size:13px;color:var(--ink-soft);">
+              <li style="padding:4px 0;border-bottom:1px solid var(--paper-deep);">🚫 자가용 진입 불가</li>
+              <li style="padding:4px 0;border-bottom:1px solid var(--paper-deep);">💴 ATM 없음 — 현금 충분히</li>
+              <li style="padding:4px 0;border-bottom:1px solid var(--paper-deep);">🦟 여름 벌레 많음 — 방충제 필수</li>
+              <li style="padding:4px 0;">🐒 원숭이 출몰 — 음식 주의</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: DAY 3
+══════════════════════════════════════ -->
+<div id="page-day3" class="page">
+  <div class="day-hero">
+    <div class="dh-inner">
+      <div style="display:flex;align-items:center;gap:1.2rem;">
+        <div class="dh-num">03</div>
+        <div class="dh-txt"><h2>알펜루트 완전 관통 — 오마치 → 도야마</h2><p>2026년 7월 24일 (금) · 시나노오마치 출발</p></div>
+      </div>
+      <div class="dh-tags"><span class="dh-tag">나가노→도야마 횡단</span><span class="dh-tag">구로베댐</span><span class="dh-tag">해발 2450m 무로도</span></div>
+    </div>
+  </div>
+  <div class="sec wrap">
+    <div class="two-col">
+      <div>
+        <div class="slabel">Day 3 타임라인</div>
+        <div class="stitle">알펜루트 관통</div>
+        <div class="sdesc">오기자와에서 구로베댐 → 무로도 → 다테야마 순서로 나가노→도야마 완전 관통. 6종 교통수단을 갈아타는 장대한 하루.</div>
+        <div class="info">💡 <strong>관통 방향:</strong> 오기자와(나가노) → 구로베댐 → 로프웨이 → 무로도 → 고원버스 → 다테야마(도야마) 순서</div>
+        <div class="timeline">
+          <div class="ti"><div class="ti-time">07:00</div><div class="ti-place">🚌 시나노오마치 → 오기자와역</div><div class="ti-desc">버스 또는 택시로 약 20~30분 · 알펜루트 나가노측 입구</div></div>
+          <div class="ti"><div class="ti-time">07:30</div><div class="ti-place">🚌 간덴터널 전기버스 탑승</div><div class="ti-desc">오기자와 → 구로베댐 · 댐 건설 터널을 달리는 전기버스 · 16분</div></div>
+          <div class="ti"><div class="ti-time">08:00</div><div class="ti-place">💧 구로베 댐 & 구로베 호수</div><div class="ti-desc">일본 최고 높이 186m 아치형 댐 · 댐 위 산책로 20분 · 에메랄드빛 호수</div><span class="ti-tip">⏱ 약 1시간</span></div>
+          <div class="ti"><div class="ti-time">09:00</div><div class="ti-place">🚡 구로베 케이블카 → 구로베다이라</div><div class="ti-desc">전 노선 지하를 달리는 특이한 케이블카 · 5분</div></div>
+          <div class="ti"><div class="ti-time">09:15</div><div class="ti-place">🚠 다테야마 로프웨이 → 다이칸보</div><div class="ti-desc">'움직이는 전망대' · 7분간 360도 북알프스 파노라마</div><span class="ti-tip">📍 최고 절경</span></div>
+          <div class="ti"><div class="ti-time">09:30</div><div class="ti-place">🚇 터널 트롤리버스 → 무로도</div><div class="ti-desc">다이칸보 → 무로도(해발 2,450m) · 10분</div></div>
+          <div class="ti"><div class="ti-time">09:45</div><div class="ti-place">🏔 무로도 고원 — 알펜루트 정점</div><div class="ti-desc">미쿠리가이케 연못 산책 1시간 · 지옥다니 유황지대 · 뇌조 관찰 기회<br>기온 15°C 이하 — 방한복 필수!</div></div>
+          <div class="ti"><div class="ti-time">11:30</div><div class="ti-place">🍛 무로도 점심</div><div class="ti-desc">호텔 다테야마 레스토랑 · 구로베 카레 추천</div></div>
+          <div class="ti"><div class="ti-time">13:00</div><div class="ti-place">🚌 고원버스 → 비조다이라 (도야마 방향)</div><div class="ti-desc">무로도에서 하산 시작 · 50분 · 수령 1,000년 삼나무 숲 잠시 산책 옵션</div></div>
+          <div class="ti"><div class="ti-time">14:00</div><div class="ti-place">🚡 다테야마 케이블카 → 다테야마역</div><div class="ti-desc">7분 하강 · 알펜루트 도야마측 출구 도착 · 관통 완료!</div></div>
+          <div class="ti"><div class="ti-time">15:30</div><div class="ti-place">🚃 다테야마 → 도야마역 (도야마 전철)</div><div class="ti-desc">약 1시간 15분 · 도야마역에서 가나자와행 특급 환승</div></div>
+          <div class="ti"><div class="ti-time">17:30</div><div class="ti-place">🏨 가나자와 도착 & 체크인</div><div class="ti-desc">도야마 → 가나자와 특급 약 40분 · 저녁은 가나자와 해산물로</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="card card-l">
+          <div class="card-title">🎫 관통 순서 (나가노→도야마)</div>
+          <div class="card-body">
+            <div class="tstep"><div class="ticon t-bus">🚌</div><div class="tinfo"><div class="tmain">간덴터널 전기버스</div><div class="tsub">오기자와 → 구로베댐</div></div><div class="ttime">16분</div></div>
+            <div class="tstep"><div class="ticon t-train">🚡</div><div class="tinfo"><div class="tmain">구로베 케이블카</div><div class="tsub">구로베호수 → 구로베다이라</div></div><div class="ttime">5분</div></div>
+            <div class="tstep"><div class="ticon t-cable">🚠</div><div class="tinfo"><div class="tmain">다테야마 로프웨이</div><div class="tsub">구로베다이라 → 다이칸보</div></div><div class="ttime">7분</div></div>
+            <div class="tstep"><div class="ticon t-bus">🚇</div><div class="tinfo"><div class="tmain">터널 트롤리버스</div><div class="tsub">다이칸보 → 무로도</div></div><div class="ttime">10분</div></div>
+            <div class="tstep"><div class="ticon t-bus">🚌</div><div class="tinfo"><div class="tmain">고원버스 (하산)</div><div class="tsub">무로도 → 비조다이라</div></div><div class="ttime">50분</div></div>
+            <div class="tstep"><div class="ticon t-train">🚃</div><div class="tinfo"><div class="tmain">다테야마 케이블카</div><div class="tsub">비조다이라 → 다테야마역</div></div><div class="ttime">7분</div></div>
+            <div class="tstep"><div class="ticon t-train">🚃</div><div class="tinfo"><div class="tmain">도야마 전철</div><div class="tsub">다테야마역 → 도야마역</div></div><div class="ttime">75분</div></div>
+          </div>
+        </div>
+        <div class="card card-l">
+          <div class="card-title">❄ 무로도 날씨 (7월)</div>
+          <div class="card-body">
+            <div class="irow"><span class="ilabel">기온</span><span class="ival">낮 최고 15°C / 아침 5°C</span></div>
+            <div class="irow"><span class="ilabel">복장</span><span class="ival">경량 패딩 or 방풍 재킷 필수</span></div>
+            <div class="irow"><span class="ilabel">선글라스</span><span class="ival">자외선 반사 강함 — 필수</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: DAY 4
+══════════════════════════════════════ -->
+<div id="page-day4" class="page">
+  <div class="day-hero">
+    <div class="dh-inner">
+      <div style="display:flex;align-items:center;gap:1.2rem;">
+        <div class="dh-num">04</div>
+        <div class="dh-txt"><h2>가나자와 아침 산책 & 귀국</h2><p>2026년 7월 25일 (토) · KMQ 10:15 출발</p></div>
+      </div>
+      <div class="dh-tags"><span class="dh-tag">일본 3대 정원</span><span class="dh-tag">이른 아침 산책</span><span class="dh-tag">KMQ 10:15 귀국</span></div>
+    </div>
+  </div>
+  <div class="sec wrap">
+    <div class="two-col">
+      <div>
+        <div class="slabel">Day 4 타임라인</div>
+        <div class="stitle">가나자와 → 고마쓰</div>
+        <div class="sdesc">10:15 출발이라 가나자와 체류 시간이 매우 짧습니다. 08:15 공항 도착 역산 기준으로 07:30 가나자와 출발 필수. 아침 일찍 겐로쿠엔 한 곳만 가능합니다.</div>
+        <div class="warn">⚠️ <strong>시간 촉박:</strong> KMQ 10:15 출발 → 2시간 전 08:15 공항 도착 필요 → 가나자와역 <strong>07:30 출발 버스 탑승</strong> 필수. 전날 밤 짐 정리 완료 권장.</div>
+        <div class="timeline">
+          <div class="ti"><div class="ti-time">06:30</div><div class="ti-place">🌅 기상 & 호텔 체크아웃</div><div class="ti-desc">전날 밤 짐 완전 정리 · 아침 식사는 호텔 or 편의점 간단히</div></div>
+          <div class="ti"><div class="ti-time">07:00</div><div class="ti-place">🌸 겐로쿠엔 이른 아침 산책 (선택)</div><div class="ti-desc">개원 07:00 — 바로 입장 가능 · 관광객 없는 고요한 아침 정원 · 입장 320엔<br>※ 시간 여유 있을 때만. 07:20엔 반드시 출발</div><span class="ti-tip">⏱ 최대 20분</span></div>
+          <div class="ti"><div class="ti-time">07:30</div><div class="ti-place">🚌 가나자와역 → 고마쓰 공항 (리무진 버스)</div><div class="ti-desc">가나자와역 버스터미널 출발 · 약 40분 · 1,100엔<br>이 버스를 절대 놓치면 안 됩니다</div><span class="ti-tip">⚠️ 이 버스 반드시 탑승!</span></div>
+          <div class="ti"><div class="ti-time">08:15</div><div class="ti-place">🛫 고마쓰 공항 (KMQ) 도착</div><div class="ti-desc">체크인 · 보안검사 · 출국심사 · 탑승구 이동<br>소규모 공항이라 빠르지만 여유 없음</div></div>
+          <div class="ti"><div class="ti-time">10:15</div><div class="ti-place">✈ 고마쓰 KMQ → 인천 귀국</div><div class="ti-desc">고마쓰 공항 출발 · 약 2시간 비행 · 인천 도착</div></div>
+        </div>
+        <div class="info" style="margin-top:1rem;">💡 <strong>가나자와 관광을 더 즐기려면:</strong> 전날(Day 3) 가나자와 도착 후 저녁 식사 전에 히가시 차야가이 야간 산책 추천 (18~19시, 조명이 아름다움)</div>
+      </div>
+      <div>
+        <div class="card card-l">
+          <div class="card-title">✈ 귀국 비행 정보</div>
+          <div class="card-body">
+            <div class="irow"><span class="ilabel">출발</span><span class="ival" style="font-weight:700;color:var(--red);">KMQ 10:15</span></div>
+            <div class="irow"><span class="ilabel">공항 도착</span><span class="ival">08:15 (2시간 전)</span></div>
+            <div class="irow"><span class="ilabel">버스 출발</span><span class="ival" style="font-weight:700;color:var(--red);">가나자와역 07:30</span></div>
+            <div class="irow"><span class="ilabel">소요시간</span><span class="ival">버스 40분 → KMQ</span></div>
+          </div>
+        </div>
+        <div class="card card-l">
+          <div class="card-title">⏱ 역산 타임테이블</div>
+          <div class="card-body" style="font-size:13px;">
+            <div class="irow"><span class="ilabel" style="color:var(--red);">10:15</span><span class="ival">KMQ 출발 ✈</span></div>
+            <div class="irow"><span class="ilabel" style="color:var(--red);">08:15</span><span class="ival">공항 도착 (체크인)</span></div>
+            <div class="irow"><span class="ilabel" style="color:var(--red);">07:30</span><span class="ival">가나자와역 버스 출발 🚌</span></div>
+            <div class="irow"><span class="ilabel">07:00</span><span class="ival">겐로쿠엔 입장 (선택)</span></div>
+            <div class="irow"><span class="ilabel">06:30</span><span class="ival">기상 & 체크아웃</span></div>
+          </div>
+        </div>
+        <div class="card card-l">
+          <div class="card-title">🦀 Day 3 저녁에 즐길 것</div>
+          <div class="card-body">
+            <div class="food-grid">
+              <div class="fcard"><span class="femoji">🦀</span><div class="fname">카니동</div><div class="fplace">게살덮밥</div></div>
+              <div class="fcard"><span class="femoji">🐟</span><div class="fname">노도구로</div><div class="fplace">흑목어 구이</div></div>
+              <div class="fcard"><span class="femoji">🍵</span><div class="fname">말차 스위츠</div><div class="fplace">차야가이</div></div>
+              <div class="fcard"><span class="femoji">🍻</span><div class="fname">히가시 차야</div><div class="fplace">야간 산책</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: INFO
+══════════════════════════════════════ -->
+<div id="page-info" class="page">
+  <div class="sec wrap">
+    <div class="slabel">Transport & Food & Tips</div>
+    <div class="stitle">교통·맛집·필수 팁</div>
+
+    <div class="two-col" style="margin-bottom:2rem;">
+      <div>
+        <div class="card card-l">
+          <div class="card-title">✈ 항공 정보</div>
+          <div class="card-body">
+            <div class="tstep"><div class="ticon t-plane">✈</div><div class="tinfo"><div class="tmain">인천 → 나고야 (NGO)</div><div class="tsub">KE741 · 10:35→12:30 (1h 55m)</div></div></div>
+            <div class="tstep"><div class="ticon t-plane">✈</div><div class="tinfo"><div class="tmain">고마쓰 (KMQ) → 인천</div><div class="tsub">7/25 (토) 10:15 출발</div></div></div>
+          </div>
+        </div>
+        <div class="card card-l">
+          <div class="card-title">🚃 주요 구간 교통</div>
+          <div class="card-body">
+            <div class="tstep"><div class="ticon t-train">✈</div><div class="tinfo"><div class="tmain">NGO → 나고야역</div><div class="tsub">메이테츠 뮤스카이 28분</div></div><div class="ttime">870엔</div></div>
+            <div class="tstep"><div class="ticon t-train">🚃</div><div class="tinfo"><div class="tmain">나고야 → 마쓰모토</div><div class="tsub">특급 시나노 약 2.5시간</div></div><div class="ttime">~6,000엔</div></div>
+            <div class="tstep"><div class="ticon t-bus">🚌</div><div class="tinfo"><div class="tmain">마쓰모토 → 가미코치</div><div class="tsub">버스 약 1.5시간</div></div><div class="ttime">~2,800엔</div></div>
+            <div class="tstep"><div class="ticon t-bus">🚌</div><div class="tinfo"><div class="tmain">알펜루트 관통 전구간</div><div class="tsub">오기자와 → 도야마 방향</div></div><div class="ttime">~12,000엔</div></div>
+            <div class="tstep"><div class="ticon t-train">🚃</div><div class="tinfo"><div class="tmain">도야마 → 가나자와</div><div class="tsub">특급 약 40분</div></div><div class="ttime">~2,500엔</div></div>
+            <div class="tstep"><div class="ticon t-bus">🚌</div><div class="tinfo"><div class="tmain">가나자와 → 고마쓰 공항</div><div class="tsub">리무진 버스 약 40분</div></div><div class="ttime">1,100엔</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="warn">⚠️ <strong>사전 예약 필수:</strong><br>· 나고야↔가미코치 버스 (성수기 조기 매진)<br>· 알펜루트 구간권<br>· 호텔 3곳 (2개월 전 예약 권장)<br>· 특급 시나노 지정석</div>
+        <div class="warn">⚠️ <strong>무로도 방한 장비:</strong><br>· 해발 2,450m — 7월에도 아침 5°C<br>· 경량 패딩 or 방풍 재킷 필수<br>· 선글라스 · 방수 트레킹화</div>
+        <div class="info">💡 <strong>현금 준비:</strong> 가미코치 내 ATM 없음. 나고야에서 환전. 1인 최소 30,000엔 현금 권장.</div>
+        <div class="card card-l">
+          <div class="card-title">🌡 도시별 7월 날씨</div>
+          <div class="card-body">
+            <div class="irow"><span class="ilabel">나고야</span><span class="ival">☀ 35°C · 습함</span></div>
+            <div class="irow"><span class="ilabel">가미코치</span><span class="ival">⛅ 23°C · 시원 · 소나기 주의</span></div>
+            <div class="irow"><span class="ilabel">무로도</span><span class="ival">❄ 15°C↓ · 방한 필수</span></div>
+            <div class="irow"><span class="ilabel">가나자와</span><span class="ival">☀ 33°C · 맑음</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider">지역별 필수 먹거리</div>
+    <table class="gtable">
+      <thead><tr><th>도시</th><th>음식</th><th>설명</th><th>예산</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge b-navy">나고야</span></td><td>히츠마부시</td><td>장어를 3가지 방식으로 즐기는 나고야 명물</td><td>3,000~5,000엔</td></tr>
+        <tr><td><span class="badge b-navy">나고야</span></td><td>미소카츠</td><td>붉은 된장 소스 나고야식 돈까스</td><td>1,500~2,500엔</td></tr>
+        <tr><td><span class="badge b-green">가미코치</span></td><td>산장 카레</td><td>도쿠사와 롯지 명물 · 하이킹 후 최고</td><td>1,200~1,500엔</td></tr>
+        <tr><td><span class="badge b-red">다테야마</span></td><td>구로베댐 카레</td><td>댐 건설 당시 노동자들의 카레 재현</td><td>1,000~1,500엔</td></tr>
+        <tr><td><span class="badge b-gold">가나자와</span></td><td>카니동</td><td>일본해 최고급 게살 덮밥 · 오미초 시장</td><td>2,000~4,000엔</td></tr>
+        <tr><td><span class="badge b-gold">가나자와</span></td><td>노도구로</td><td>흑목어 — '흰살 생선의 왕'</td><td>3,000~6,000엔</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: CHECKLIST
+══════════════════════════════════════ -->
+<div id="page-check" class="page">
+  <div class="sec wrap">
+    <div class="slabel">Packing Checklist</div>
+    <div class="stitle">출발 전 체크리스트</div>
+    <div class="sdesc">산악지대 + 여름 도시 조합의 특수한 여행. 빠진 것이 없는지 확인하세요.</div>
+    <div class="two-col">
+      <div>
+        <div style="font-size:12px;font-weight:700;color:var(--ink-muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:.6rem;">서류 & 예약</div>
+        <ul class="cklist">
+          <li><span class="cbox"></span>여권 (유효기간 6개월 이상)</li>
+          <li><span class="cbox"></span>항공권 확인서 (KE741 / KMQ)</li>
+          <li><span class="cbox"></span>숙소 예약 확인 3곳 (마쓰모토·오마치·가나자와)</li>
+          <li><span class="cbox"></span>가미코치 버스 예약 확인</li>
+          <li><span class="cbox"></span>알펜루트 구간권 예약/구매</li>
+          <li><span class="cbox"></span>특급 시나노 지정석 예약</li>
+          <li><span class="cbox"></span>IC카드 (Suica) 충전</li>
+          <li><span class="cbox"></span>엔화 환전 (1인 최소 30,000엔)</li>
+          <li><span class="cbox"></span>일본 유심 or 포켓와이파이</li>
+          <li><span class="cbox"></span>해외여행자보험 가입</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;color:var(--ink-muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:.6rem;">의류 & 장비</div>
+        <ul class="cklist">
+          <li><span class="cbox"></span>경량 패딩 or 방풍 재킷 (무로도 필수)</li>
+          <li><span class="cbox"></span>방수 트레킹화 or 방수 운동화</li>
+          <li><span class="cbox"></span>선글라스 (설원 자외선 대비)</li>
+          <li><span class="cbox"></span>우의 or 접이식 우산</li>
+          <li><span class="cbox"></span>방충 스프레이 (가미코치 여름)</li>
+          <li><span class="cbox"></span>자외선 차단제 SPF50+</li>
+          <li><span class="cbox"></span>보조배터리</li>
+          <li><span class="cbox"></span>작은 배낭 (당일 하이킹용)</li>
+          <li><span class="cbox"></span>물통 or 텀블러</li>
+          <li><span class="cbox"></span>편안한 걷기용 신발 (시내용)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: JAPANESE
+══════════════════════════════════════ -->
+<div id="page-jpn" class="page">
+  <div class="sec wrap">
+    <div class="slabel">Travel Japanese</div>
+    <div class="stitle">여행 일본어</div>
+    <div class="sdesc">현지에서 바로 쓸 수 있는 필수 표현들. 발음은 한국어로 읽으면 됩니다.</div>
+
+    <!-- 카테고리 필터 -->
+    <div id="jpn-cats" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem;">
+      <button class="jcat-btn active" onclick="filterJpn('all')">전체</button>
+      <button class="jcat-btn" onclick="filterJpn('basic')">기본 인사</button>
+      <button class="jcat-btn" onclick="filterJpn('transport')">교통</button>
+      <button class="jcat-btn" onclick="filterJpn('food')">식당·음식</button>
+      <button class="jcat-btn" onclick="filterJpn('shop')">쇼핑</button>
+      <button class="jcat-btn" onclick="filterJpn('hotel')">숙소</button>
+      <button class="jcat-btn" onclick="filterJpn('trouble')">긴급·곤란</button>
+      <button class="jcat-btn" onclick="filterJpn('nature')">자연·관광</button>
+    </div>
+
+    <div id="jpn-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:.9rem;"></div>
+  </div>
+</div>
+
+<footer>
+  <div style="font-size:18px;margin-bottom:.6rem;">🗾</div>
+  <strong>일본 알프스 여행 가이드북 2026</strong><br>
+  나고야 · 가미코치 · 다테야마 · 가나자와 · 3박 4일<br>
+  <span style="font-size:11px;opacity:.5;">2026.07.22 – 2026.07.25 · KE741 / KMQ 10:15 → SEL</span>
+</footer>
+
+<!-- ══════════════ SCRIPTS ══════════════ -->
+<style>
+.jcat-btn{
+  padding:.35rem .9rem;border-radius:2rem;border:1px solid var(--paper-deep);
+  background:var(--paper);color:var(--ink-soft);font-size:12px;font-family:inherit;
+  cursor:pointer;transition:all .15s;
+}
+.jcat-btn.active,.jcat-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
+.jcard{
+  background:var(--paper);border:1px solid var(--paper-deep);border-radius:8px;
+  padding:1rem 1.1rem;border-left:3px solid var(--red);
+}
+.jcard-cat{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:.4rem;}
+.jcard-kr{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:.3rem;}
+.jcard-jp{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:.2rem;}
+.jcard-read{font-size:13px;color:var(--red);margin-bottom:.3rem;}
+.jcard-note{font-size:11px;color:var(--ink-muted);font-style:italic;}
+</style>
+<script>
+var phrases = [
+  // 기본 인사
+  {cat:'basic',kr:'안녕하세요',jp:'こんにちは',read:'곤니치와',note:'낮 인사. 아침은 おはようございます(오하요 고자이마스)'},
+  {cat:'basic',kr:'감사합니다',jp:'ありがとうございます',read:'아리가토 고자이마스',note:'가게·식당 등 어디서나 사용'},
+  {cat:'basic',kr:'죄송합니다 / 실례합니다',jp:'すみません',read:'스미마센',note:'길 물을 때, 직원 부를 때 모두 사용'},
+  {cat:'basic',kr:'괜찮습니다 / 됐어요',jp:'大丈夫です',read:'다이죠부데스',note:'권유 거절, 걱정 말라는 표현'},
+  {cat:'basic',kr:'잘 모르겠습니다',jp:'わかりません',read:'와카리마센',note:''},
+  {cat:'basic',kr:'한국어 할 수 있나요?',jp:'韓国語できますか？',read:'강코쿠고 데키마스카?',note:''},
+  {cat:'basic',kr:'영어 할 수 있나요?',jp:'英語できますか？',read:'에이고 데키마스카?',note:''},
+  {cat:'basic',kr:'천천히 말해 주세요',jp:'ゆっくり話してください',read:'윳쿠리 하나시테 쿠다사이',note:''},
+  // 교통
+  {cat:'transport',kr:'~역은 어디인가요?',jp:'〜駅はどこですか？',read:'〜에키와 도코데스카?',note:'예: 마쓰모토역 → 松本駅(마쓰모토에키)'},
+  {cat:'transport',kr:'~행 버스는 몇 번인가요?',jp:'〜行きのバスは何番ですか？',read:'〜유키노 바스와 난반데스카?',note:''},
+  {cat:'transport',kr:'이 표를 한 장 주세요',jp:'この切符を1枚ください',read:'코노 킵뿌오 이치마이 쿠다사이',note:''},
+  {cat:'transport',kr:'가미코치까지 얼마예요?',jp:'上高地まで、いくらですか？',read:'카미코치 마데 이쿠라데스카?',note:''},
+  {cat:'transport',kr:'다음 역은 어디예요?',jp:'次の駅はどこですか？',read:'쯔기노 에키와 도코데스카?',note:''},
+  {cat:'transport',kr:'이 버스가 맞나요?',jp:'このバスで合っていますか？',read:'코노 바스데 앗테이마스카?',note:'목적지를 가리키며 확인할 때'},
+  {cat:'transport',kr:'짐을 맡길 수 있나요?',jp:'荷物を預けられますか？',read:'니모쓰오 아즈케라레마스카?',note:'코인로커, 짐 보관'},
+  // 식당·음식
+  {cat:'food',kr:'1명(2명)인데 앉을 수 있나요?',jp:'1人(2人)ですが、いいですか？',read:'히토리(후타리)데스가, 이이데스카?',note:'식당 입구에서'},
+  {cat:'food',kr:'이것 주세요',jp:'これをください',read:'코레오 쿠다사이',note:'메뉴 가리키며 주문'},
+  {cat:'food',kr:'이것은 무엇인가요?',jp:'これは何ですか？',read:'코레와 난데스카?',note:''},
+  {cat:'food',kr:'맛있어요!',jp:'おいしい！',read:'오이시이!',note:'현지인이 가장 좋아하는 반응'},
+  {cat:'food',kr:'계산해 주세요',jp:'お会計をお願いします',read:'오카이케이오 오네가이시마스',note:''},
+  {cat:'food',kr:'카드로 계산해도 되나요?',jp:'カードで払えますか？',read:'카도데 하라에마스카?',note:''},
+  {cat:'food',kr:'물 주세요',jp:'お水をください',read:'오미즈오 쿠다사이',note:'일본 식당은 보통 무료'},
+  {cat:'food',kr:'매운 것 빼고 해주세요',jp:'辛いのは抜きでお願いします',read:'카라이노와 누키데 오네가이시마스',note:''},
+  // 쇼핑
+  {cat:'shop',kr:'이것 얼마예요?',jp:'これはいくらですか？',read:'코레와 이쿠라데스카?',note:''},
+  {cat:'shop',kr:'좀 더 작은 것 있나요?',jp:'もっと小さいのはありますか？',read:'못토 치이사이노와 아리마스카?',note:''},
+  {cat:'shop',kr:'면세 됩니까?',jp:'免税できますか？',read:'멘제이 데키마스카?',note:'5,000엔 이상 구매 시 면세 가능'},
+  {cat:'shop',kr:'봉투에 넣어 주세요',jp:'袋に入れてください',read:'후쿠로니 이레테 쿠다사이',note:''},
+  {cat:'shop',kr:'이것으로 할게요',jp:'これにします',read:'코레니 시마스',note:'결정할 때'},
+  {cat:'shop',kr:'선물 포장 해주세요',jp:'プレゼント用に包んでください',read:'프레젠토요니 쓰쓴데 쿠다사이',note:''},
+  // 숙소
+  {cat:'hotel',kr:'체크인 부탁합니다',jp:'チェックインをお願いします',read:'쳇쿠인오 오네가이시마스',note:''},
+  {cat:'hotel',kr:'예약한 ○○입니다',jp:'予約した○○です',read:'요야쿠시타 ○○데스',note:'예약자 이름 말하기'},
+  {cat:'hotel',kr:'방에 와이파이 있나요?',jp:'部屋にWi-Fiはありますか？',read:'헤야니 와이화이와 아리마스카?',note:''},
+  {cat:'hotel',kr:'체크아웃은 몇 시인가요?',jp:'チェックアウトは何時ですか？',read:'쳇쿠아우토와 난지데스카?',note:''},
+  {cat:'hotel',kr:'짐을 잠시 맡겨도 될까요?',jp:'少し荷物を預かっていただけますか？',read:'스코시 니모쓰오 아즈캇테 이타다케마스카?',note:'체크아웃 후 관광할 때'},
+  // 긴급·곤란
+  {cat:'trouble',kr:'도와주세요!',jp:'助けてください！',read:'타스케테 쿠다사이!',note:'긴급 상황'},
+  {cat:'trouble',kr:'경찰을 불러 주세요',jp:'警察を呼んでください',read:'케이사쓰오 욘데 쿠다사이',note:''},
+  {cat:'trouble',kr:'병원에 가고 싶어요',jp:'病院に行きたいです',read:'뵤인니 이키타이데스',note:''},
+  {cat:'trouble',kr:'지갑을 잃어버렸어요',jp:'財布をなくしました',read:'사이후오 나쿠시마시타',note:''},
+  {cat:'trouble',kr:'여기가 어디예요?',jp:'ここはどこですか？',read:'코코와 도코데스카?',note:'길을 잃었을 때'},
+  {cat:'trouble',kr:'배가 아파요',jp:'お腹が痛いです',read:'오나카가 이타이데스',note:'몸 상태 표현'},
+  // 자연·관광
+  {cat:'nature',kr:'사진 찍어도 될까요?',jp:'写真を撮ってもいいですか？',read:'샤신오 톳테모 이이데스카?',note:''},
+  {cat:'nature',kr:'같이 사진 찍어 주세요',jp:'一緒に写真を撮ってください',read:'잇쇼니 샤신오 톳테 쿠다사이',note:''},
+  {cat:'nature',kr:'저기까지 몇 분 걸리나요?',jp:'あそこまで何分かかりますか？',read:'아소코마데 난뿐 카카리마스카?',note:''},
+  {cat:'nature',kr:'화장실은 어디인가요?',jp:'トイレはどこですか？',read:'토이레와 도코데스카?',note:'가장 자주 쓰이는 표현'},
+  {cat:'nature',kr:'날씨가 좋네요',jp:'いい天気ですね',read:'이이 텐키데스네',note:'대화 시작 표현'},
+  {cat:'nature',kr:'경치가 정말 아름다워요',jp:'景色がとても素晴らしいです',read:'케시키가 토테모 스바라시이데스',note:''},
+];
+
+function renderJpn(filter) {
+  var grid = document.getElementById('jpn-grid');
+  var catNames = {basic:'기본 인사',transport:'교통',food:'식당·음식',shop:'쇼핑',hotel:'숙소',trouble:'긴급·곤란',nature:'자연·관광'};
+  var filtered = filter === 'all' ? phrases : phrases.filter(function(p){return p.cat===filter;});
+  grid.innerHTML = filtered.map(function(p){
+    return '<div class="jcard" data-cat="'+p.cat+'">'
+      +'<div class="jcard-cat">'+catNames[p.cat]+'</div>'
+      +'<div class="jcard-kr">'+p.kr+'</div>'
+      +'<div class="jcard-jp">'+p.jp+'</div>'
+      +'<div class="jcard-read">📢 '+p.read+'</div>'
+      +(p.note?'<div class="jcard-note">'+p.note+'</div>':'')
+      +'</div>';
+  }).join('');
+}
+
+function filterJpn(cat) {
+  document.querySelectorAll('.jcat-btn').forEach(function(b){b.classList.remove('active');});
+  event.target.classList.add('active');
+  renderJpn(cat);
+}
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('page-' + id).classList.add('active');
+  var m = {cover:0,map:1,day1:2,day2:3,day3:4,day4:5,info:6,check:7,jpn:8};
+  var btns = document.querySelectorAll('.tab-btn');
+  if (btns[m[id]]) btns[m[id]].classList.add('active');
+  window.scrollTo(0,0);
+  if (id === 'map' && !window._mapInit) initMap();
+  if (id === 'jpn' && !window._jpnInit) { window._jpnInit = true; renderJpn('all'); }
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.js"></script>
+<script>
+var _mapInit = false;
+function initMap() {
+  if (window._mapInit) return;
+  window._mapInit = true;
+
+  var map = L.map('map', {zoomControl:true, scrollWheelZoom:false}).setView([36.3, 137.5], 7);
+
+  // 한글 타일 — CartoDB Light with Korean labels via OSM
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© OpenStreetMap © CARTO',
+    subdomains: 'abcd',
+    maxZoom: 19
+  }).addTo(map);
+
+  function mk(color) {
+    return L.divIcon({
+      className:'',
+      html:'<div style="width:14px;height:14px;border-radius:50%;background:'+color+';border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4);"></div>',
+      iconSize:[14,14], iconAnchor:[7,7]
+    });
+  }
+
+  var dayColors = ['#e8a882','#86efac','#c4b5fd','#fcd34d'];
+
+  var spots = [
+    {lat:34.8585,lng:136.8028,name:'나고야 공항 (NGO)',desc:'KE741 도착 · 7/22 12:30',color:'#7dd3fc',day:1},
+    {lat:35.1814,lng:136.9066,name:'나고야성',desc:'일본 3대 성 · Day 1',color:'#e8a882',day:1},
+    {lat:36.2380,lng:137.9720,name:'마쓰모토 (Day1 숙박)',desc:'특급 시나노 이동 · 가미코치 베이스',color:'#e8a882',day:1},
+    {lat:36.2476,lng:137.6200,name:'가미코치 上高地',desc:'해발 1500m 청정 고원 · Day 2',color:'#86efac',day:2},
+    {lat:36.2360,lng:137.5940,name:'다이쇼이케 大正池',desc:'화산 형성 연못 · 절경 포토스팟 · Day 2',color:'#86efac',day:2},
+    {lat:36.2960,lng:137.8500,name:'시나노오마치 (Day2 숙박)',desc:'알펜루트 출발 베이스 · Day 2',color:'#86efac',day:2},
+    {lat:36.5710,lng:137.6620,name:'오기자와 信濃大町 (알펜루트 입구)',desc:'나가노측 출발점 · Day 3',color:'#fcd34d',day:3},
+    {lat:36.5644,lng:137.6510,name:'구로베 댐 黒部ダム',desc:'일본 최고 186m 댐 · Day 3',color:'#c4b5fd',day:3},
+    {lat:36.5835,lng:137.5965,name:'무로도 室堂 (해발 2450m)',desc:'알펜루트 최고 지점 · Day 3',color:'#c4b5fd',day:3},
+    {lat:36.5718,lng:137.6190,name:'다테야마역 立山駅',desc:'알펜루트 도야마측 출구 · Day 3',color:'#fcd34d',day:3},
+    {lat:36.6959,lng:137.2133,name:'도야마역 富山駅',desc:'알펜루트 완주 · Day 3',color:'#fcd34d',day:3},
+    {lat:36.5613,lng:136.6562,name:'가나자와 겐로쿠엔 兼六園',desc:'일본 3대 정원 · Day 4',color:'#fcd34d',day:4},
+    {lat:36.3944,lng:136.4072,name:'고마쓰 공항 (KMQ)',desc:'귀국 · 7/25',color:'#7dd3fc',day:4}
+  ];
+
+  spots.forEach(function(s) {
+    L.marker([s.lat,s.lng],{icon:mk(s.color)}).addTo(map)
+      .bindPopup(
+        '<div style="font-family:\'Noto Sans KR\',sans-serif;min-width:170px;">'
+        +'<div style="font-weight:700;font-size:13px;margin-bottom:4px;color:#1a1814;">'+s.name+'</div>'
+        +'<div style="font-size:12px;color:#666;margin-bottom:6px;">'+s.desc+'</div>'
+        +'<span style="display:inline-block;padding:2px 7px;border-radius:3px;background:#e8f0ff;color:#2a3d6b;font-size:10px;font-weight:700;">Day '+s.day+'</span>'
+        +'</div>',
+        {maxWidth:210}
+      );
+  });
+
+  // 날짜별 동선 색상
+  var routes = [
+    {pts:[[34.8585,136.8028],[35.1814,136.9066],[36.2380,137.9720]],color:'#e8a882',label:'Day 1'},
+    {pts:[[36.2380,137.9720],[36.2476,137.6200],[36.2360,137.5940],[36.2476,137.6200],[36.2960,137.8500]],color:'#86efac',label:'Day 2'},
+    {pts:[[36.2960,137.8500],[36.5710,137.6620],[36.5644,137.6510],[36.5835,137.5965],[36.5718,137.6190],[36.6959,137.2133],[36.5613,136.6562]],color:'#c4b5fd',label:'Day 3'},
+    {pts:[[36.5613,136.6562],[36.3944,136.4072]],color:'#fcd34d',label:'Day 4'}
+  ];
+
+  routes.forEach(function(r) {
+    L.polyline(r.pts, {color:r.color, weight:3, opacity:.85, dashArray:'8,6'}).addTo(map);
+  });
+
+  // 화살표 방향 표시 (중간 지점에 레이블)
+  var dayLabels = [
+    {lat:35.7, lng:137.5, label:'DAY 1', color:'#e8a882'},
+    {lat:36.27, lng:137.7, label:'DAY 2', color:'#86efac'},
+    {lat:36.57, lng:137.55, label:'DAY 3', color:'#c4b5fd'},
+    {lat:36.5, lng:136.55, label:'DAY 4', color:'#fcd34d'}
+  ];
+
+  dayLabels.forEach(function(d) {
+    L.marker([d.lat, d.lng], {
+      icon: L.divIcon({
+        className:'',
+        html:'<div style="background:'+d.color+';color:#1a1814;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,.3);">'+d.label+'</div>',
+        iconAnchor:[20,10]
+      }),
+      interactive:false
+    }).addTo(map);
+  });
+
+  map.fitBounds([[34.5,136.0],[37.0,138.5]], {padding:[20,20]});
+}
+</script>
 </body>
 </html>
