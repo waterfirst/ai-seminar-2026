@@ -25,6 +25,81 @@ body {
 
 .hero { padding: 72px 0 40px; }
 
+.photo-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.photo-card {
+  min-height: 280px;
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,0.45);
+}
+
+.photo-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.02);
+}
+
+.photo-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(9,31,53,0.08), rgba(9,31,53,0.72));
+}
+
+.photo-overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 22px;
+  color: #fff;
+  z-index: 2;
+}
+
+.photo-kicker {
+  margin: 0 0 6px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  opacity: 0.92;
+}
+
+.photo-overlay h2 {
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.photo-overlay p {
+  margin: 0;
+  opacity: 0.92;
+}
+
+.photo-nagoya::before {
+  background:
+    linear-gradient(135deg, rgba(255,185,122,0.55), rgba(255,135,135,0.30)),
+    url("https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=1200&q=80");
+}
+
+.photo-kamikochi::before {
+  background:
+    linear-gradient(135deg, rgba(103,219,184,0.35), rgba(66,153,225,0.30)),
+    url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80");
+}
+
+.photo-alps::before {
+  background:
+    linear-gradient(135deg, rgba(143,180,255,0.35), rgba(37,99,235,0.22)),
+    url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80");
+}
+
 .eyebrow {
   color: var(--brand);
   font-weight: 800;
@@ -94,6 +169,14 @@ main { padding-bottom: 52px; }
   margin-bottom: 18px;
 }
 
+.highlight {
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(241,247,255,0.98));
+}
+
+.highlight.soft {
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(247,251,255,0.98));
+}
+
 h2 {
   margin: 0 0 14px;
   font-size: 1.4rem;
@@ -132,6 +215,76 @@ h3 {
   border-radius: 18px;
   padding: 18px;
   background: linear-gradient(180deg, #ffffff, #f9fbff);
+}
+
+.day-plan,
+.transport-grid,
+.food-grid,
+.prep-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.day-plan {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.plan-card,
+.transport-card,
+.food-card,
+.prep-grid article {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 18px;
+  background: linear-gradient(180deg, #ffffff, #f9fbff);
+}
+
+.plan-head {
+  margin-bottom: 12px;
+}
+
+.plan-head span {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--brand);
+  font-weight: 800;
+  padding: 6px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+.plan-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.plan-row:last-child {
+  border-bottom: 0;
+}
+
+.transport-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.food-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.food-badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--brand);
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.prep-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .map-hero {
@@ -249,8 +402,16 @@ ul.check li::before {
 }
 
 @media (max-width: 820px) {
+  .photo-grid,
   .hero-cards,
   .grid.two {
+    grid-template-columns: 1fr;
+  }
+
+  .day-plan,
+  .transport-grid,
+  .food-grid,
+  .prep-grid {
     grid-template-columns: 1fr;
   }
 
