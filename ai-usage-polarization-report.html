@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>중간이 사라진다 · 조직 AI 역량 격차 리포트</title>
+<style>
+  :root {
+    --page:#f4f6f8; --surface:#ffffff; --surface-2:#fbfcfd; --ink:#0e1116; --ink-2:#4c525b;
+    --muted:#878d96; --grid:#e7eaee; --axis:#c8cdd4; --leader:#2a78d6; --leader-soft:rgba(42,120,214,0.12);
+    --laggard:#e34948; --laggard-soft:rgba(227,73,72,0.12); --middle:#9aa1ab;
+    --ridge-old:#a9c8f2; --ridge-mid:#4f92e2; --ridge-new:#1f5fb0; --border:rgba(14,17,22,0.10);
+    --shadow:0 1px 2px rgba(14,17,22,.05),0 8px 24px rgba(14,17,22,.06); --radius:16px;
+    --font:"Apple SD Gothic Neo","Pretendard",-apple-system,"Segoe UI",system-ui,"Malgun Gothic",sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --page:#0b0c0e; --surface:#17191c; --surface-2:#1c1f23; --ink:#f4f6f8; --ink-2:#b9bfc8;
+      --muted:#868b93; --grid:#292c31; --axis:#3a3e44; --leader:#3987e5; --leader-soft:rgba(57,135,229,0.16);
+      --laggard:#e66767; --laggard-soft:rgba(230,103,103,0.16); --middle:#7d838c;
+      --ridge-old:#28457a; --ridge-mid:#3987e5; --ridge-new:#8fbaf3; --border:rgba(255,255,255,0.10);
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="light"] {
+    --page:#f4f6f8;--surface:#ffffff;--surface-2:#fbfcfd;--ink:#0e1116;--ink-2:#4c525b;
+    --muted:#878d96;--grid:#e7eaee;--axis:#c8cdd4;--leader:#2a78d6;--leader-soft:rgba(42,120,214,0.12);
+    --laggard:#e34948;--laggard-soft:rgba(227,73,72,0.12);--middle:#9aa1ab;
+    --ridge-old:#a9c8f2;--ridge-mid:#4f92e2;--ridge-new:#1f5fb0;--border:rgba(14,17,22,0.10);
+    --shadow:0 1px 2px rgba(14,17,22,.05),0 8px 24px rgba(14,17,22,.06);
+  }
+  :root[data-theme="dark"] {
+    --page:#0b0c0e;--surface:#17191c;--surface-2:#1c1f23;--ink:#f4f6f8;--ink-2:#b9bfc8;
+    --muted:#868b93;--grid:#292c31;--axis:#3a3e44;--leader:#3987e5;--leader-soft:rgba(57,135,229,0.16);
+    --laggard:#e66767;--laggard-soft:rgba(230,103,103,0.16);--middle:#7d838c;
+    --ridge-old:#28457a;--ridge-mid:#3987e5;--ridge-new:#8fbaf3;--border:rgba(255,255,255,0.10);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.4);
+  }
+
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--page); color:var(--ink); font-family:var(--font); line-height:1.55; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:920px; margin:0 auto; padding:clamp(20px,4vw,44px) clamp(16px,4vw,32px) 72px; }
+
+  .topbar { display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:34px; }
+  .eyebrow { font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:600; }
+  .toggle { border:1px solid var(--border); background:var(--surface); color:var(--ink-2); border-radius:999px; padding:8px 14px; font:inherit; font-size:13px; cursor:pointer; display:flex; align-items:center; gap:7px; transition:border-color .2s; }
+  .toggle:hover { border-color:var(--axis); }
+  .toggle:focus-visible { outline:2px solid var(--leader); outline-offset:2px; }
+
+  h1 { font-size:clamp(28px,5vw,44px); line-height:1.12; letter-spacing:-.02em; margin:0 0 14px; text-wrap:balance; font-weight:800; }
+  h1 .accent { color:var(--leader); }
+  .lede { font-size:clamp(15px,2vw,18px); color:var(--ink-2); max-width:62ch; margin:0 0 8px; }
+
+  .kpis { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:34px 0 8px; }
+  @media (max-width:600px){ .kpis{ grid-template-columns:1fr; } }
+  .kpi { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px 18px 16px; box-shadow:var(--shadow); }
+  .kpi .lbl { font-size:12.5px; color:var(--muted); font-weight:600; margin-bottom:8px; }
+  .kpi .val { font-size:34px; font-weight:800; letter-spacing:-.02em; line-height:1; font-variant-numeric:tabular-nums; }
+  .kpi .sub { font-size:12.5px; color:var(--ink-2); margin-top:8px; display:flex; align-items:center; gap:6px; }
+  .kpi.leader .val { color:var(--leader); }
+  .kpi.laggard .val { color:var(--laggard); }
+  .kpi.gini .val { color:var(--ink); }
+  .chip { font-size:11px; font-weight:700; padding:2px 7px; border-radius:6px; }
+  .chip.up { color:var(--leader); background:var(--leader-soft); }
+  .chip.flat { color:var(--muted); background:var(--grid); }
+  .chip.warn { color:var(--laggard); background:var(--laggard-soft); }
+
+  /* timeline control */
+  .timeline { display:flex; align-items:center; gap:14px; flex-wrap:wrap; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:14px 18px; box-shadow:var(--shadow); margin-top:22px; }
+  .play-btn { display:inline-flex; align-items:center; gap:8px; border:none; background:var(--leader); color:#fff; border-radius:999px; padding:9px 18px; font:inherit; font-size:14px; font-weight:700; cursor:pointer; transition:filter .15s, transform .1s; flex:none; }
+  .play-btn:hover { filter:brightness(1.06); }
+  .play-btn:active { transform:scale(.97); }
+  .play-btn:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+  .tl-label { font-size:12.5px; color:var(--muted); font-weight:600; letter-spacing:.02em; flex:none; }
+  .ychips { display:flex; gap:6px; flex:none; }
+  .ychip { border:1px solid var(--border); background:transparent; color:var(--ink-2); border-radius:999px; padding:6px 13px; font:inherit; font-size:13px; cursor:pointer; font-variant-numeric:tabular-nums; transition:all .15s; }
+  .ychip:hover { border-color:var(--axis); }
+  .ychip.on { background:var(--leader); color:#fff; border-color:var(--leader); font-weight:700; }
+  .scrub { flex:1; min-width:120px; accent-color:var(--leader); height:4px; cursor:pointer; }
+  .scrub:focus-visible { outline:2px solid var(--leader); outline-offset:4px; }
+
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px clamp(16px,3vw,26px) 22px; box-shadow:var(--shadow); margin-top:22px; position:relative; }
+  .card h2 { font-size:20px; font-weight:750; letter-spacing:-.01em; margin:0 0 4px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .yrbadge { font-size:12px; font-weight:800; color:#fff; background:var(--leader); border-radius:7px; padding:2px 9px; font-variant-numeric:tabular-nums; letter-spacing:.02em; }
+  .card .desc { font-size:14px; color:var(--ink-2); margin:0 0 6px; max-width:60ch; }
+  .stepno { font-size:11.5px; font-weight:700; letter-spacing:.1em; color:var(--leader); text-transform:uppercase; margin-bottom:10px; }
+  .chartbox { position:relative; margin-top:12px; }
+  svg { display:block; width:100%; height:auto; overflow:visible; }
+  .takeaway { margin-top:16px; padding:12px 14px; border-radius:10px; background:var(--surface-2); border:1px solid var(--border); font-size:13.5px; color:var(--ink-2); display:flex; gap:9px; align-items:flex-start; }
+  .takeaway b { color:var(--ink); font-weight:700; }
+  .takeaway .mk { color:var(--leader); font-weight:800; flex:none; }
+
+  .ax { fill:var(--muted); font-size:12px; font-family:var(--font); }
+  .ax-strong { fill:var(--ink-2); font-size:12px; font-weight:600; font-family:var(--font); }
+  .gridline { stroke:var(--grid); stroke-width:1; }
+  .baseline { stroke:var(--axis); stroke-width:1; }
+  .dlabel { fill:var(--ink); font-size:12px; font-weight:700; font-family:var(--font); font-variant-numeric:tabular-nums; }
+
+  .legend { display:flex; flex-wrap:wrap; gap:14px 18px; margin-top:2px; }
+  .legend .item { display:flex; align-items:center; gap:7px; font-size:12.5px; color:var(--ink-2); }
+  .legend .sw { width:12px; height:12px; border-radius:4px; flex:none; }
+
+  .tt { position:absolute; pointer-events:none; z-index:10; opacity:0; transform:translate(-50%,-120%); background:var(--ink); color:var(--surface); padding:8px 10px; border-radius:9px; font-size:12px; line-height:1.45; white-space:nowrap; box-shadow:0 6px 20px rgba(0,0,0,.25); transition:opacity .12s; }
+  .tt b { font-weight:700; }
+  .tt .tt-k { opacity:.7; }
+  @media (prefers-color-scheme:dark){ .tt{ background:#e9ebee; color:#111; } }
+  :root[data-theme="dark"] .tt{ background:#e9ebee; color:#111; }
+  :root[data-theme="light"] .tt{ background:#0e1116; color:#fff; }
+
+  details { margin-top:16px; }
+  summary { cursor:pointer; font-size:13px; color:var(--muted); font-weight:600; }
+  summary:hover { color:var(--ink-2); }
+  table.data { width:100%; border-collapse:collapse; margin-top:12px; font-size:13px; font-variant-numeric:tabular-nums; }
+  table.data th, table.data td { text-align:right; padding:7px 10px; border-bottom:1px solid var(--border); }
+  table.data th:first-child, table.data td:first-child { text-align:left; }
+  table.data thead th { color:var(--muted); font-weight:600; }
+
+  footer { margin-top:40px; font-size:12.5px; color:var(--muted); line-height:1.7; }
+  .hover-mark { cursor:pointer; }
+
+  @media (prefers-reduced-motion:no-preference){
+    .grow-in { animation:grow .7s cubic-bezier(.2,.7,.3,1) both; }
+    @keyframes grow { from{ opacity:0; transform:translateY(8px);} to{opacity:1;transform:none;} }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <span class="eyebrow">조직 AI 역량 리포트 · 목업 (합성 데이터)</span>
+    <button class="toggle" id="themeBtn" aria-label="테마 전환">
+      <span id="themeIcon">◐</span><span id="themeLabel">테마</span>
+    </button>
+  </div>
+
+  <h1>중간이 사라진다<span class="accent">.</span><br>AI 활용의 <span class="accent">계급화</span></h1>
+  <p class="lede">같은 회사, 같은 직무인데 산출량이 벌어진다. 엑셀 노가다(L0)부터 멀티에이전트 설계(L7)까지 — 조직의 AI 역량 분포가 어떻게 <b>양극화</b>되고 굳어지는지, <b>▶ 재생</b>을 눌러 2024→2026 시간의 흐름으로 지켜보라.</p>
+
+  <div class="kpis">
+    <div class="kpi leader">
+      <div class="lbl">상위 10% 산출량 (2년)</div>
+      <div class="val">2.75<span style="font-size:20px">×</span></div>
+      <div class="sub"><span class="chip up">▲ 급증</span> 지수 100 → 275</div>
+    </div>
+    <div class="kpi laggard">
+      <div class="lbl">하위 10% 산출량 (2년)</div>
+      <div class="val">0.98<span style="font-size:20px">×</span></div>
+      <div class="sub"><span class="chip flat">— 정체</span> 지수 100 → 98</div>
+    </div>
+    <div class="kpi gini">
+      <div class="lbl">지니계수 (AI 레버리지)</div>
+      <div class="val" id="giniKpi">0.47</div>
+      <div class="sub"><span class="chip warn">▲ 불평등 심화</span> 0.22 → 0.47</div>
+    </div>
+  </div>
+
+  <!-- ===== TIMELINE CONTROL ===== -->
+  <div class="timeline" role="group" aria-label="연도별 재생 컨트롤">
+    <button class="play-btn" id="playBtn"><span id="playIcon">▶</span><span id="playTxt">재생</span></button>
+    <span class="tl-label">연도별 변화</span>
+    <div class="ychips" id="ychips">
+      <button class="ychip" data-i="0">2024</button>
+      <button class="ychip" data-i="1">2025</button>
+      <button class="ychip on" data-i="2">2026</button>
+    </div>
+    <input class="scrub" id="scrub" type="range" min="0" max="200" value="200" step="1" aria-label="연도 스크러버">
+  </div>
+
+  <!-- ===== CHART 1 ===== -->
+  <section class="card grow-in">
+    <div class="stepno">지금 우리 조직</div>
+    <h2>AI 성숙도 8단계 인원 분포 <span class="yrbadge activeYr">2026</span></h2>
+    <p class="desc">전 직원을 L0~L7로 분류한 스냅샷. 재생하면 막대가 실시간으로 변하며 <b>가운데(L3·L4)가 꺼지고 양 끝이 솟는</b> 과정이 보인다.</p>
+    <div class="legend" style="margin-top:12px">
+      <span class="item"><span class="sw" style="background:var(--laggard)"></span>지체군 L0–L2</span>
+      <span class="item"><span class="sw" style="background:var(--middle)"></span>중간군 L3–L4</span>
+      <span class="item"><span class="sw" style="background:var(--leader)"></span>선도군 L5–L7</span>
+    </div>
+    <div class="chartbox" id="box-dist"><div class="tt" id="tt-dist"></div></div>
+    <div class="takeaway"><span class="mk">↳</span><div><b>중간이 함몰</b>된다. 2024년 26%에 달하던 L2가 꺼지고, 사람들은 지체군에 머물거나 선도군으로 도약할 뿐 어중간한 중간에 오래 남지 않는다.</div></div>
+    <details>
+      <summary>데이터 표 보기</summary>
+      <div style="overflow-x:auto"><table class="data" id="tbl-dist"></table></div>
+    </details>
+  </section>
+
+  <!-- ===== CHART 2 ===== -->
+  <section class="card grow-in">
+    <div class="stepno">양극화 · 킬러 차트</div>
+    <h2>3년간 분포의 변화 — 하나의 봉우리가 둘로 <span class="yrbadge activeYr">2026</span></h2>
+    <p class="desc">해마다 분포를 겹쳐 본다. 재생하면 현재 연도의 능선이 <b>또렷하게 강조</b>된다. 2024년의 완만한 단봉(單峰)이 2026년 <b>쌍봉(雙峰)</b>으로 갈라진다.</p>
+    <div class="chartbox" id="box-ridge"><div class="tt" id="tt-ridge"></div></div>
+    <div class="takeaway"><span class="mk">↳</span><div>분포가 <b>bimodal</b>로 분화 중. 위쪽(2024)은 가운데가 볼록하지만, 앞쪽(2026)은 가운데가 꺼지고 양끝이 솟는다.</div></div>
+  </section>
+
+  <!-- ===== CHART 3 ===== -->
+  <section class="card grow-in">
+    <div class="stepno">격차 확대 · K자</div>
+    <h2>상위 10% vs 하위 10% — 벌어지는 가위 <span class="yrbadge activeYr">2026</span></h2>
+    <p class="desc">같은 직무 내 산출량을 시작 시점 100으로 지수화. 재생하면 시간의 흐름을 따라 두 선이 왼쪽에서 오른쪽으로 <b>실제로 벌어지며 그려진다</b>.</p>
+    <div class="legend" style="margin-top:12px">
+      <span class="item"><span class="sw" style="background:var(--leader)"></span>상위 10% (선도군)</span>
+      <span class="item"><span class="sw" style="background:var(--laggard)"></span>하위 10% (지체군)</span>
+    </div>
+    <div class="chartbox" id="box-scissor"><div class="tt" id="tt-scissor"></div></div>
+    <div class="takeaway"><span class="mk">↳</span><div>2년 만에 <b>2.8배 격차</b>. 격차는 선형이 아니라 복리로 벌어진다 — AI를 쓸수록 다음 AI를 더 잘 쓰기 때문.</div></div>
+  </section>
+
+  <!-- ===== CHART 4 ===== -->
+  <section class="card grow-in">
+    <div class="stepno">계급화 · 정량 증거</div>
+    <h2>로렌츠 곡선과 지니계수 — 산출량의 불평등 <span class="yrbadge activeYr">2026</span></h2>
+    <p class="desc">소득 불평등 경제학의 도구를 그대로 빌려 왔다. 재생하면 곡선이 완전 평등선에서 <b>점점 아래로 휘며</b> 지니계수가 커진다. 그 면적이 곧 불평등의 크기다.</p>
+    <div class="chartbox" id="box-lorenz"><div class="tt" id="tt-lorenz"></div></div>
+    <div class="takeaway"><span class="mk">↳</span><div>지니계수 <b>0.22 → 0.47</b>. 상위 10%가 전체 AI 레버리지 산출의 <b>29%</b>를 차지. "노력이 부족해서"가 아니라 구조가 계급화되고 있다는 신호.</div></div>
+  </section>
+
+  <footer>
+    ※ 모든 수치는 전략 설명을 위한 <b>합성(예시) 데이터</b>입니다. 실제 도입 시 ①AI 성숙도 5~8단계 정의 → ②설문·사용로그 수집(빈도·업무 AI 관여율·산출 지표) → ③동일 시점 2~3회 반복 측정 → 위 차트로 매핑하세요.<br>
+    측정축: L0 수작업 · L1 호기심 · L2 상시질의 · L3 워크플로 통합 · L4 커스터마이징 · L5 자동화 빌더 · L6 에이전트 활용 · L7 시스템 아키텍트
+  </footer>
+</div>
+
+<script>
+"use strict";
+// ---------- data ----------
+const LEVELS = [
+  {id:"L0", name:"수작업",        tools:"Excel·검색·복붙"},
+  {id:"L1", name:"호기심·단발",    tools:"무료 챗봇"},
+  {id:"L2", name:"상시 질의",      tools:"ChatGPT+·Claude"},
+  {id:"L3", name:"워크플로 통합",  tools:"M365 Copilot·Notion AI"},
+  {id:"L4", name:"커스터마이징",   tools:"GPTs·Projects·RAG"},
+  {id:"L5", name:"자동화 빌더",    tools:"Zapier·n8n·Dify"},
+  {id:"L6", name:"에이전트 활용",  tools:"Claude Code·Cursor·Manus"},
+  {id:"L7", name:"시스템 아키텍트",tools:"LangGraph·MCP·플랫폼"},
+];
+const YEARS = [2024, 2025, 2026];
+const DIST = {
+  2024:[14,22,26,18,10,6,3,1],
+  2025:[12,18,22,16,12,10,7,3],
+  2026:[16,18,11,7,6,12,18,12],
+};
+const GINI = [0.22, 0.34, 0.47];
+const LOR = { // cumulative output % at deciles (x = 0..100 step 10)
+  2024:[0, 4,   9,   15,  22,   31,   42,   54,   68,   83,   100],
+  2025:[0, 2.7, 6.5, 11,  16.5, 24,   33.5, 45,   59.5, 77,   100],
+  2026:[0, 1.5, 4,   7,   11,   17,   25,   36,   51,   71,   100],
+};
+const LORX = [0,10,20,30,40,50,60,70,80,90,100];
+const SCISSOR = {
+  q:["시작","+3M","+6M","+9M","+12M","+15M","+18M","+21M","현재"],
+  leader :[100,111,126,145,168,196,229,258,275],
+  laggard:[100,101, 99,102, 99,101,100, 99, 98],
+};
+const classOf = i => i<=2 ? "laggard" : i<=4 ? "middle" : "leader";
+const CLASS_VAR = {laggard:"var(--laggard)", middle:"var(--middle)", leader:"var(--leader)"};
+
+const NS="http://www.w3.org/2000/svg";
+const el=(t,a={})=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e;};
+const lin=(d0,d1,r0,r1)=>v=>r0+(r1-r0)*((v-d0)/(d1-d0));
+const lerp=(a,b,f)=>a+(b-a)*f;
+
+function smooth(pts){
+  if(pts.length<2)return "";
+  let d=`M${pts[0][0]},${pts[0][1]}`;
+  for(let i=0;i<pts.length-1;i++){
+    const p0=pts[i-1]||pts[i], p1=pts[i], p2=pts[i+1], p3=pts[i+2]||p2;
+    const c1x=p1[0]+(p2[0]-p0[0])/6, c1y=p1[1]+(p2[1]-p0[1])/6;
+    const c2x=p2[0]-(p3[0]-p1[0])/6, c2y=p2[1]-(p3[1]-p1[1])/6;
+    d+=` C${c1x},${c1y} ${c2x},${c2y} ${p2[0]},${p2[1]}`;
+  }
+  return d;
+}
+function tip(ttEl, box, evt, html){
+  ttEl.innerHTML=html; ttEl.style.opacity=1;
+  const r=box.getBoundingClientRect();
+  ttEl.style.left=(evt.clientX-r.left)+"px";
+  ttEl.style.top =(evt.clientY-r.top)+"px";
+}
+const hide=t=>t.style.opacity=0;
+
+const charts = {}; // holds per-chart update() closures
+
+// ---------- Chart 1: distribution bars ----------
+(function(){
+  const W=720,H=420,m={t:44,r:26,b:84,l:16};
+  const AXTOOL=["Excel·검색","무료 챗봇","ChatGPT·Claude","Copilot·Notion","GPTs·RAG","Zapier·n8n","Cursor·Manus","LangGraph·MCP"];
+  const box=document.getElementById("box-dist"), tt=document.getElementById("tt-dist");
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"AI 성숙도 단계별 인원 분포"});
+  const iw=W-m.l-m.r, ih=H-m.t-m.b, maxV=28;
+  const bw=iw/8, x=i=>m.l+i*bw, y=lin(0,maxV,m.t+ih,m.t);
+  for(let g=0;g<=25;g+=5){
+    svg.appendChild(el("line",{x1:m.l,x2:m.l+iw,y1:y(g),y2:y(g),class:"gridline"}));
+    const tx=el("text",{x:m.l+iw+4,y:y(g)+4,class:"ax","text-anchor":"start"});tx.textContent=g+"%";svg.appendChild(tx);
+  }
+  const zones=[["지체군",0,2,"var(--laggard)"],["중간군",3,4,"var(--middle)"],["선도군",5,7,"var(--leader)"]];
+  zones.forEach(([lbl,a,b,c])=>{
+    const cx=(x(a)+x(b)+bw)/2;
+    const t=el("text",{x:cx,y:m.t-22,"text-anchor":"middle",fill:c,"font-size":12,"font-weight":700,"font-family":"inherit"});
+    t.textContent=lbl; svg.appendChild(t);
+  });
+  const pad=bw*0.22, w=bw-pad*2, base=m.t+ih;
+  const rects=[], labels=[];
+  LEVELS.forEach((lv,i)=>{
+    const bx=x(i)+pad, cls=classOf(i);
+    const rect=el("rect",{x:bx,y:base,width:w,height:0,rx:5,fill:CLASS_VAR[cls],class:"hover-mark"});
+    svg.appendChild(rect); rects.push(rect);
+    const vl=el("text",{x:bx+w/2,y:base-7,"text-anchor":"middle",class:"dlabel"});svg.appendChild(vl);labels.push(vl);
+    const xl=el("text",{x:bx+w/2,y:base+18,"text-anchor":"middle",class:"ax-strong"});xl.textContent=lv.id;svg.appendChild(xl);
+    const xn=el("text",{x:bx+w/2,y:base+33,"text-anchor":"middle",class:"ax","font-size":"10.5"});xn.textContent=lv.name;svg.appendChild(xn);
+    const xt=el("text",{x:bx+w/2,y:base+49,"text-anchor":"middle",class:"ax","font-size":"9",fill:"var(--muted)"});xt.textContent=AXTOOL[i];svg.appendChild(xt);
+    let curV=0;
+    const on=(e)=>tip(tt,box,e,`<b>${lv.id} · ${lv.name}</b><br><span class="tt-k">주력 도구</span> ${lv.tools}<br><span class="tt-k">비중</span> <b>${curV.toFixed(0)}%</b>`);
+    rect.addEventListener("mousemove",on); rect.addEventListener("mouseenter",on); rect.addEventListener("mouseleave",()=>hide(tt));
+    rect._setV=v=>curV=v;
+  });
+  svg.appendChild(el("line",{x1:m.l,x2:m.l+iw,y1:base,y2:base,class:"baseline"}));
+  box.appendChild(svg);
+
+  charts.distUpdate = (dist)=>{
+    dist.forEach((v,i)=>{
+      const by=y(v), bh=base-by;
+      rects[i].setAttribute("y",by); rects[i].setAttribute("height",Math.max(bh,0));
+      rects[i]._setV(v);
+      labels[i].setAttribute("y",by-7); labels[i].textContent=Math.round(v)+"%";
+    });
+  };
+  const tbl=document.getElementById("tbl-dist");
+  let h="<thead><tr><th>단계</th><th>명칭</th>";YEARS.forEach(y=>h+=`<th>${y}</th>`);h+="</tr></thead><tbody>";
+  LEVELS.forEach((lv,i)=>{h+=`<tr><td>${lv.id}</td><td style="text-align:left">${lv.name}</td><td>${DIST[2024][i]}%</td><td>${DIST[2025][i]}%</td><td>${DIST[2026][i]}%</td></tr>`;});
+  h+="</tbody>"; tbl.innerHTML=h;
+})();
+
+// ---------- Chart 2: ridgeline ----------
+(function(){
+  const W=720,H=420,m={t:20,r:20,b:44,l:64};
+  const box=document.getElementById("box-ridge"), tt=document.getElementById("tt-ridge");
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"2024~2026 분포 변화 릿지라인"});
+  const iw=W-m.l-m.r, ih=H-m.t-m.b, amp=88, maxV=26;
+  const xs=i=>m.l+(iw*(i/7));
+  LEVELS.forEach((lv,i)=>{ const t=el("text",{x:xs(i),y:H-24,"text-anchor":"middle",class:"ax-strong"});t.textContent=lv.id;svg.appendChild(t); });
+  const gx=el("text",{x:m.l,y:H-8,class:"ax","text-anchor":"start","font-size":"11"});
+  gx.textContent="← 지체군                     AI 성숙도 단계                     선도군 →";svg.appendChild(gx);
+
+  const colors=["var(--ridge-old)","var(--ridge-mid)","var(--ridge-new)"];
+  const ridges=[];
+  YEARS.forEach((yr,ri)=>{
+    const bsl=m.t+(ih-40)*(ri/2)+40, yv=lin(0,maxV,bsl,bsl-amp);
+    const pts=DIST[yr].map((v,i)=>[xs(i),yv(v)]);
+    const dLine=smooth(pts), area=`M${xs(0)},${bsl} `+dLine.slice(1)+` L${xs(7)},${bsl} Z`;
+    const areaEl=el("path",{d:area,fill:colors[ri],"fill-opacity":0.5,stroke:"none"});
+    const lineEl=el("path",{d:dLine,fill:"none",stroke:colors[ri],"stroke-width":2.5});
+    svg.appendChild(el("line",{x1:xs(0),x2:xs(7),y1:bsl,y2:bsl,stroke:"var(--grid)","stroke-width":1}));
+    svg.appendChild(areaEl); svg.appendChild(lineEl);
+    const yl=el("text",{x:m.l-12,y:bsl-4,"text-anchor":"end",fill:colors[ri],"font-size":15,"font-weight":800});
+    yl.textContent=yr; svg.appendChild(yl);
+    DIST[yr].forEach((v,i)=>{
+      const c=el("circle",{cx:xs(i),cy:yv(v),r:9,fill:"transparent",class:"hover-mark"});
+      const on=(e)=>tip(tt,box,e,`<b>${yr} · ${LEVELS[i].id}</b> ${LEVELS[i].name}<br><span class="tt-k">비중</span> <b>${v}%</b>`);
+      c.addEventListener("mousemove",on);c.addEventListener("mouseenter",on);c.addEventListener("mouseleave",()=>hide(tt));
+      svg.appendChild(c);
+    });
+    ridges.push({areaEl,lineEl,yl});
+  });
+  const base2026=m.t+(ih-40)*(2/2)+40;
+  const ann=el("text",{x:xs(3.5),y:base2026-6,"text-anchor":"middle",fill:"var(--laggard)","font-size":11.5,"font-weight":700});
+  ann.textContent="↑ 중간층 공동화"; svg.appendChild(ann);
+  box.appendChild(svg);
+
+  charts.ridgeUpdate = (active)=>{
+    ridges.forEach((r,ri)=>{
+      const on=(ri===active);
+      r.areaEl.setAttribute("fill-opacity", on?0.72:0.28);
+      r.lineEl.setAttribute("stroke-width", on?3.4:1.6);
+      r.lineEl.setAttribute("stroke-opacity", on?1:0.55);
+      r.yl.setAttribute("opacity", on?1:0.5);
+    });
+  };
+})();
+
+// ---------- Chart 3: scissors (progressive reveal) ----------
+(function(){
+  const W=720,H=380,m={t:24,r:70,b:44,l:44};
+  const box=document.getElementById("box-scissor"), tt=document.getElementById("tt-scissor");
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"상위 vs 하위 산출량 지수 추이"});
+  const iw=W-m.l-m.r, ih=H-m.t-m.b, n=SCISSOR.q.length;
+  const x=i=>m.l+iw*(i/(n-1)), y=lin(80,290,m.t+ih,m.t);
+  for(let g=100;g<=275;g+=50){
+    svg.appendChild(el("line",{x1:m.l,x2:m.l+iw,y1:y(g),y2:y(g),class:"gridline"}));
+    const t=el("text",{x:m.l-8,y:y(g)+4,"text-anchor":"end",class:"ax"});t.textContent=g;svg.appendChild(t);
+  }
+  SCISSOR.q.forEach((q,i)=>{ if(i%2===0||i===n-1){const t=el("text",{x:x(i),y:m.t+ih+22,"text-anchor":"middle",class:"ax"});t.textContent=q;svg.appendChild(t);} });
+  svg.appendChild(el("line",{x1:m.l,x2:m.l+iw,y1:m.t+ih,y2:m.t+ih,class:"baseline"}));
+
+  // clip-reveal group
+  const clipId="scissorClip";
+  const defs=el("defs"); const clip=el("clipPath",{id:clipId});
+  const clipRect=el("rect",{x:0,y:0,width:W,height:H}); clip.appendChild(clipRect); defs.appendChild(clip); svg.appendChild(defs);
+  const g=el("g",{"clip-path":`url(#${clipId})`}); svg.appendChild(g);
+
+  const upPts=SCISSOR.leader.map((v,i)=>[x(i),y(v)]);
+  const loPts=SCISSOR.laggard.map((v,i)=>[x(i),y(v)]);
+  const gap=`M${upPts.map(p=>p.join(",")).join(" L")} L${loPts.slice().reverse().map(p=>p.join(",")).join(" L")} Z`;
+  g.appendChild(el("path",{d:gap,fill:"var(--laggard-soft)"}));
+  g.appendChild(el("path",{d:smooth(upPts),fill:"none",stroke:"var(--leader)","stroke-width":2.5}));
+  g.appendChild(el("path",{d:smooth(loPts),fill:"none",stroke:"var(--laggard)","stroke-width":2.5}));
+  const endL=Object.assign(el("text",{x:x(n-1)+8,y:y(SCISSOR.leader[n-1])+4,fill:"var(--leader)","font-size":13,"font-weight":800,opacity:0}),{textContent:"275"});
+  const endS=Object.assign(el("text",{x:x(n-1)+8,y:y(SCISSOR.laggard[n-1])+4,fill:"var(--laggard)","font-size":13,"font-weight":800,opacity:0}),{textContent:"98"});
+  svg.appendChild(endL); svg.appendChild(endS);
+  [["leader","var(--leader)","상위 10%"],["laggard","var(--laggard)","하위 10%"]].forEach(([k,c,lbl])=>{
+    SCISSOR[k].forEach((v,i)=>{
+      const dot=el("circle",{cx:x(i),cy:y(v),r:3.5,fill:c,stroke:"var(--surface)","stroke-width":1.5});
+      const hit=el("circle",{cx:x(i),cy:y(v),r:12,fill:"transparent",class:"hover-mark"});
+      const on=(e)=>tip(tt,box,e,`<b>${lbl}</b> · ${SCISSOR.q[i]}<br><span class="tt-k">산출 지수</span> <b>${v}</b>`);
+      hit.addEventListener("mousemove",on);hit.addEventListener("mouseenter",on);hit.addEventListener("mouseleave",()=>hide(tt));
+      g.appendChild(dot);g.appendChild(hit);
+    });
+  });
+  box.appendChild(svg);
+  charts.scissorUpdate = (f)=>{
+    const ff=Math.max(0,Math.min(1,f));
+    clipRect.setAttribute("width", m.l+iw*ff+14);
+    const o=Math.max(0,(ff-0.9)/0.1); endL.setAttribute("opacity",o); endS.setAttribute("opacity",o);
+  };
+})();
+
+// ---------- Chart 4: lorenz (morphing) ----------
+(function(){
+  const W=560,H=440,m={t:20,r:24,b:52,l:52};
+  const box=document.getElementById("box-lorenz"), tt=document.getElementById("tt-lorenz");
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"로렌츠 곡선"});
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const x=v=>m.l+iw*(v/100), y=v=>m.t+ih-ih*(v/100);
+  for(let gv=0;gv<=100;gv+=25){
+    svg.appendChild(el("line",{x1:x(gv),x2:x(gv),y1:m.t,y2:m.t+ih,class:"gridline"}));
+    svg.appendChild(el("line",{x1:m.l,x2:m.l+iw,y1:y(gv),y2:y(gv),class:"gridline"}));
+    const tx=el("text",{x:x(gv),y:m.t+ih+20,"text-anchor":"middle",class:"ax"});tx.textContent=gv;svg.appendChild(tx);
+    if(gv>0){const ty=el("text",{x:m.l-8,y:y(gv)+4,"text-anchor":"end",class:"ax"});ty.textContent=gv;svg.appendChild(ty);}
+  }
+  const axx=el("text",{x:m.l+iw/2,y:H-14,"text-anchor":"middle",class:"ax-strong"});axx.textContent="누적 인원 비율 (%)";svg.appendChild(axx);
+  const axy=el("text",{x:16,y:m.t+ih/2,"text-anchor":"middle",class:"ax-strong",transform:`rotate(-90 16 ${m.t+ih/2})`});axy.textContent="누적 산출량 비율 (%)";svg.appendChild(axy);
+  svg.appendChild(el("line",{x1:x(0),y1:y(0),x2:x(100),y2:y(100),stroke:"var(--axis)","stroke-width":2,"stroke-dasharray":"5 5"}));
+  const dl=el("text",{x:x(78),y:y(88),fill:"var(--muted)","font-size":11.5});dl.textContent="완전 평등선";svg.appendChild(dl);
+
+  const areaEl=el("path",{fill:"var(--leader-soft)"}); svg.appendChild(areaEl);
+  const curveEl=el("path",{fill:"none",stroke:"var(--leader)","stroke-width":2.75}); svg.appendChild(curveEl);
+  const gt=el("text",{x:x(52),y:y(30),"text-anchor":"middle",fill:"var(--leader)","font-size":15,"font-weight":800});svg.appendChild(gt);
+  const gt2=el("text",{x:x(52),y:y(30)+16,"text-anchor":"middle",fill:"var(--ink-2)","font-size":11});gt2.textContent="(면적 = 지니계수)";svg.appendChild(gt2);
+  const dots=[];
+  for(let i=1;i<LORX.length;i++){
+    const dot=el("circle",{r:3.5,fill:"var(--leader)",stroke:"var(--surface)","stroke-width":1.5});
+    const hit=el("circle",{r:12,fill:"transparent",class:"hover-mark"});
+    svg.appendChild(dot);svg.appendChild(hit);dots.push({dot,hit,i});
+  }
+  svg.appendChild(el("line",{x1:m.l,x2:m.l+iw,y1:m.t+ih,y2:m.t+ih,class:"baseline"}));
+  svg.appendChild(el("line",{x1:m.l,x2:m.l,y1:m.t,y2:m.t+ih,class:"baseline"}));
+  box.appendChild(svg);
+
+  charts.lorenzUpdate = (lor, gini)=>{
+    const pts=LORX.map((xx,i)=>[x(xx),y(lor[i])]);
+    areaEl.setAttribute("d",`M${pts.map(p=>p.join(",")).join(" L")} L${x(100)},${y(100)} L${x(0)},${y(0)} Z`);
+    curveEl.setAttribute("d",smooth(pts));
+    gt.textContent=`G = ${gini.toFixed(2)}`;
+    dots.forEach(({dot,hit,i})=>{
+      const px=x(LORX[i]), py=y(lor[i]);
+      dot.setAttribute("cx",px);dot.setAttribute("cy",py);
+      hit.setAttribute("cx",px);hit.setAttribute("cy",py);
+      const on=(e)=>tip(tt,box,e,`하위 <b>${LORX[i]}%</b> 인원이<br>전체 산출의 <b>${lor[i].toFixed(1)}%</b> 차지`);
+      hit.onmousemove=on;hit.onmouseenter=on;hit.onmouseleave=()=>hide(tt);
+    });
+  };
+})();
+
+// ---------- shared timeline engine ----------
+(function(){
+  const giniKpi=document.getElementById("giniKpi");
+  const badges=document.querySelectorAll(".activeYr");
+  const ychips=[...document.querySelectorAll(".ychip")];
+  const scrub=document.getElementById("scrub");
+  const playBtn=document.getElementById("playBtn"), playIcon=document.getElementById("playIcon"), playTxt=document.getElementById("playTxt");
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let pos=2, raf=null, playing=false;
+
+  function render(p){
+    pos=p;
+    const a=Math.max(0,Math.min(2,Math.floor(p))), b=Math.min(2,a+1), f=p-a;
+    const dist=DIST[YEARS[a]].map((v,i)=>lerp(v,DIST[YEARS[b]][i],f));
+    const lor =LOR[YEARS[a]].map((v,i)=>lerp(v,LOR[YEARS[b]][i],f));
+    const gini=lerp(GINI[a],GINI[b],f);
+    charts.distUpdate(dist);
+    charts.lorenzUpdate(lor,gini);
+    charts.scissorUpdate(p/2);
+    const nearest=Math.round(p);
+    charts.ridgeUpdate(nearest);
+    giniKpi.textContent=gini.toFixed(2);
+    const yr=YEARS[nearest];
+    badges.forEach(b=>b.textContent=yr);
+    ychips.forEach((c,i)=>c.classList.toggle("on", i===nearest));
+    scrub.value=Math.round(p*100);
+  }
+  const ease=k=>k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;
+  function tweenTo(target,dur,cb){
+    cancelAnimationFrame(raf);
+    const start=pos, t0=performance.now();
+    (function fr(now){
+      const k=Math.min(1,(now-t0)/dur);
+      render(start+(target-start)*ease(k));
+      if(k<1) raf=requestAnimationFrame(fr); else cb&&cb();
+    })(performance.now());
+  }
+  function setPlaying(on){ playing=on; playIcon.textContent=on?"⏸":"▶"; playTxt.textContent=on?"재생 중":"재생"; }
+  function play(){
+    if(playing){ cancelAnimationFrame(raf); setPlaying(false); return; }
+    setPlaying(true); render(0);
+    tweenTo(1,1000,()=>setTimeout(()=>tweenTo(2,1000,()=>setPlaying(false)),700));
+  }
+  playBtn.addEventListener("click",play);
+  ychips.forEach((c,i)=>c.addEventListener("click",()=>{ cancelAnimationFrame(raf); setPlaying(false); tweenTo(i,600); }));
+  scrub.addEventListener("input",()=>{ cancelAnimationFrame(raf); setPlaying(false); render(scrub.value/100); });
+
+  render(2);
+  if(!reduce) setTimeout(play,600);
+})();
+
+// ---------- theme toggle ----------
+(function(){
+  const btn=document.getElementById("themeBtn"), icon=document.getElementById("themeIcon"), lab=document.getElementById("themeLabel");
+  const sys=()=>matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+  let cur=document.documentElement.getAttribute("data-theme")||sys();
+  const apply=t=>{document.documentElement.setAttribute("data-theme",t);cur=t;icon.textContent=t==="dark"?"☾":"☀";lab.textContent=t==="dark"?"다크":"라이트";};
+  apply(cur);
+  btn.addEventListener("click",()=>apply(cur==="dark"?"light":"dark"));
+})();
+</script>
+</body>
+</html>

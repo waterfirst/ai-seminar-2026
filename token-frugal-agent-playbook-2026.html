@@ -386,6 +386,47 @@
       color:var(--muted);
       font-size:.86rem;
     }
+    .embed-shell{
+      margin-top:18px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:14px;
+      box-shadow:var(--shadow);
+    }
+    .embed-toolbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+    .embed-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .embed-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:#f8fbff;
+      color:var(--blue);
+      font-weight:800;
+      font-size:.88rem;
+    }
+    .report-frame{
+      width:100%;
+      height:880px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:#fff;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.4);
+    }
     .news-img{width:100%;height:190px;object-fit:cover;border-radius:13px;margin-bottom:14px;border:1px solid var(--line)}
     .link-list{display:flex;flex-direction:column;gap:9px;margin-top:16px}
     .case-link{display:block;padding:13px 16px;background:#f7f9ff;border:1px solid var(--line);border-radius:12px;font-weight:750}
@@ -526,6 +567,19 @@
       </div>
       <div class="quote" style="margin-top:16px">
         이 세미나의 출발점은 “어떤 모델이 제일 좋나?”가 아니다. <b>AI 사용의 양극화를 줄이려면, 상위권의 작업 방식을 토큰 효율적인 팀 표준으로 바꿔야 한다.</b>
+      </div>
+      <div class="embed-shell">
+        <div class="embed-toolbar">
+          <div>
+            <h3 style="margin:0 0 4px;font-size:1.08rem">보충 리포트 원문 · 애니메이션 포함</h3>
+            <p style="margin:0;color:var(--muted);font-size:.9rem">원문 표현과 시간축 애니메이션을 최대한 살리기 위해, 별도 리포트를 그대로 앞부분에 임베드했다.</p>
+          </div>
+          <div class="embed-actions">
+            <a class="embed-btn" href="ai-usage-polarization-report.html" target="_blank" rel="noopener">↗ 원문만 크게 보기</a>
+            <a class="embed-btn" href="#overview">세미나 본편으로 내려가기</a>
+          </div>
+        </div>
+        <iframe class="report-frame" src="ai-usage-polarization-report.html" title="AI 활용 양극화 리포트 원문 애니메이션"></iframe>
       </div>
     </section>
 
