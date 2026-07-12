@@ -489,6 +489,84 @@
     #img-modal.open{display:flex}
     #img-modal img{max-width:96vw;max-height:92vh;object-fit:contain;border-radius:12px;box-shadow:0 22px 70px #000}
     #img-modal span{position:absolute;right:24px;top:14px;color:#fff;font-size:2rem}
+    #pw-gate{
+      position:fixed;
+      inset:0;
+      z-index:11000;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      background:linear-gradient(180deg, rgba(6,10,20,.78) 0%, rgba(8,12,24,.92) 100%);
+      backdrop-filter:blur(10px);
+    }
+    #pw-gate.open{display:flex}
+    .pw-box{
+      width:min(92vw,420px);
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:22px;
+      box-shadow:0 28px 80px rgba(0,0,0,.28);
+      padding:24px 22px 20px;
+      text-align:center;
+    }
+    .pw-box h3{
+      margin:0 0 10px;
+      font-size:1.25rem;
+    }
+    .pw-box p{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-size:.95rem;
+      line-height:1.6;
+    }
+    .pw-input{
+      width:100%;
+      box-sizing:border-box;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px 16px;
+      font:inherit;
+      font-size:1.1rem;
+      text-align:center;
+      letter-spacing:.18em;
+      outline:none;
+      background:#fbfdff;
+    }
+    .pw-input:focus{
+      border-color:var(--blue);
+      box-shadow:0 0 0 4px rgba(44,108,255,.12);
+    }
+    .pw-actions{
+      display:flex;
+      gap:10px;
+      margin-top:12px;
+    }
+    .pw-btn{
+      flex:1;
+      border:none;
+      border-radius:14px;
+      padding:12px 14px;
+      font:inherit;
+      font-weight:800;
+      cursor:pointer;
+    }
+    .pw-btn.primary{
+      background:linear-gradient(135deg,var(--blue),var(--violet));
+      color:#fff;
+    }
+    .pw-btn.secondary{
+      background:#eef3ff;
+      color:var(--blue);
+      border:1px solid #d8e4ff;
+    }
+    .pw-msg{
+      min-height:1.2em;
+      margin-top:10px;
+      font-size:.88rem;
+      color:#cf334d;
+      font-weight:700;
+    }
     @media (max-width:920px){
       .hero{padding:36px 18px 24px}
       .hero-card{padding:26px}
@@ -590,6 +668,18 @@
   <div id="splash" onclick="closeSplash()" aria-label="세미나 시작 화면">
     <img src="images/genie_splash.png" alt="지니의 황금램프 AI 세미나 스플래시">
     <div class="splash-copy"><b>램프를 문지르자<br>일하는 방식이 바뀌었다</b><span>AI 3차 세미나 · 공유가 토큰을 아낀다</span><small>클릭하거나 잠시 기다리면 시작합니다</small></div>
+  </div>
+  <div id="pw-gate" role="dialog" aria-modal="true" aria-label="비밀번호 입력">
+    <div class="pw-box">
+      <h3>세미나 입장</h3>
+      <p>비밀번호를 입력하면 다음으로 넘어갑니다.</p>
+      <input id="pw-input" class="pw-input" type="password" inputmode="numeric" autocomplete="off" placeholder="" aria-label="비밀번호 입력">
+      <div class="pw-actions">
+        <button class="pw-btn secondary" type="button" id="pw-clear">지우기</button>
+        <button class="pw-btn primary" type="button" id="pw-submit">입장</button>
+      </div>
+      <div class="pw-msg" id="pw-msg"></div>
+    </div>
   </div>
   <nav class="nav" id="topNav">
     <span class="brand">AI 세미나 3차 메인</span>
@@ -1498,8 +1588,41 @@ README에는 다시 실행할 때 꼭 필요한 사실만 반영해라."</pre></
   </main>
 <div id="img-modal" role="dialog" aria-label="이미지 확대 보기"><span>×</span><img id="img-modal-img" src="" alt=""></div>
 <script>
-  function closeSplash(){const s=document.getElementById('splash');if(!s)return;s.classList.add('hide');setTimeout(()=>s.remove(),750)}
+  const pwGate=document.getElementById('pw-gate');
+  const pwInput=document.getElementById('pw-input');
+  const pwSubmit=document.getElementById('pw-submit');
+  const pwClear=document.getElementById('pw-clear');
+  const pwMsg=document.getElementById('pw-msg');
+  function openPasswordGate(){
+    if(!pwGate)return;
+    pwGate.classList.add('open');
+    if(pwInput){
+      pwInput.value='';
+      setTimeout(()=>pwInput.focus(),120);
+    }
+    if(pwMsg) pwMsg.textContent='';
+    document.body.style.overflow='hidden';
+  }
+  function unlockPage(){
+    if(pwGate) pwGate.classList.remove('open');
+    document.body.style.overflow='';
+  }
+  function checkPassword(){
+    if(!pwInput) return;
+    if(pwInput.value==='1111'){
+      if(pwMsg) pwMsg.textContent='';
+      unlockPage();
+      return;
+    }
+    if(pwMsg) pwMsg.textContent='비밀번호가 맞지 않습니다.';
+    pwInput.value='';
+    pwInput.focus();
+  }
+  function closeSplash(){const s=document.getElementById('splash');if(!s)return;s.classList.add('hide');setTimeout(()=>{s.remove();openPasswordGate()},750)}
   setTimeout(closeSplash,5200);
+  if(pwSubmit) pwSubmit.addEventListener('click',checkPassword);
+  if(pwClear) pwClear.addEventListener('click',()=>{if(pwInput) pwInput.value=''; if(pwMsg) pwMsg.textContent=''; pwInput.focus();});
+  if(pwInput) pwInput.addEventListener('keydown',e=>{if(e.key==='Enter') checkPassword();});
   const topNav=document.getElementById('topNav');
   const navToggle=document.getElementById('navToggle');
   const navLinks=document.querySelectorAll('#navLinks a');
