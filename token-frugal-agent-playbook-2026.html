@@ -43,6 +43,13 @@
     .brand{
       font-weight:900;color:var(--blue);margin-right:8px;font-size:.95rem;
     }
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      flex:1;
+    }
     .nav a{
       color:var(--muted);
       font-size:.84rem;
@@ -50,6 +57,20 @@
       border-radius:999px;
     }
     .nav a:hover{background:var(--surface-2);color:var(--text)}
+    .nav-toggle{
+      display:none;
+      margin-left:auto;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--text);
+      border-radius:12px;
+      padding:9px 12px;
+      font:inherit;
+      font-size:.88rem;
+      font-weight:800;
+      cursor:pointer;
+      box-shadow:var(--shadow);
+    }
 
     .hero{
       max-width:1100px;
@@ -302,9 +323,18 @@
       font-size:.84rem;
       padding:28px 0 10px;
     }
-    #splash{position:fixed;inset:0;z-index:9999;background:#090712;display:grid;place-items:center;cursor:pointer;transition:opacity .7s ease}
+    #splash{position:fixed;inset:0;z-index:9999;background:#090712;display:grid;place-items:center;cursor:pointer;transition:opacity .7s ease;overflow:hidden}
     #splash.hide{opacity:0;pointer-events:none}
-    #splash img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.82}
+    #splash img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%;opacity:.82}
+    #splash::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 50% 30%, rgba(44,108,255,.16), transparent 34%),
+        linear-gradient(180deg, rgba(1,5,14,.18) 0%, rgba(2,6,18,.32) 42%, rgba(2,6,18,.58) 100%);
+      pointer-events:none;
+    }
     .splash-copy{
       position:relative;
       z-index:2;
@@ -460,20 +490,62 @@
     #img-modal img{max-width:96vw;max-height:92vh;object-fit:contain;border-radius:12px;box-shadow:0 22px 70px #000}
     #img-modal span{position:absolute;right:24px;top:14px;color:#fff;font-size:2rem}
     @media (max-width:920px){
-      .hero-grid,.grid-2,.grid-3,.checklist,.stat-grid{grid-template-columns:1fr}
+      .hero{padding:36px 18px 24px}
+      .hero-card{padding:26px}
+      .hero-grid,.grid-2,.grid-3,.checklist,.stat-grid,.polar-kpis{grid-template-columns:1fr}
+      .split-hero{grid-template-columns:1fr}
+      .report-frame{height:760px}
+    }
+    @media (max-width:1024px){
+      .nav{
+        align-items:flex-start;
+        padding:12px 16px;
+      }
+      .nav-toggle{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+      }
+      .nav-links{
+        width:100%;
+        display:none;
+        flex-direction:column;
+        align-items:stretch;
+        gap:6px;
+        padding-top:8px;
+      }
+      .nav.open .nav-links{display:flex}
+      .nav.open .nav-toggle{background:var(--blue);color:#fff;border-color:var(--blue)}
+      .nav a{
+        display:block;
+        width:100%;
+        background:#fff;
+        border:1px solid var(--line);
+        border-radius:12px;
+        padding:10px 12px;
+      }
     }
     @media (max-width:640px){
       #splash{
-        align-items:end;
+        align-items:stretch;
         padding:0;
       }
       #splash img{
-        object-position:center center;
+        width:100%;
+        height:100%;
+        object-fit:contain;
+        object-position:center 42%;
+        transform:scale(1.06);
+        opacity:.96;
       }
       .splash-copy{
         width:100%;
-        padding:22px 18px max(34px, env(safe-area-inset-bottom));
-        background:linear-gradient(180deg, rgba(0,0,0,.08) 0%, rgba(0,0,0,.32) 22%, rgba(0,0,0,.68) 100%);
+        display:flex;
+        flex-direction:column;
+        justify-content:flex-end;
+        min-height:100dvh;
+        padding:24px 18px max(34px, env(safe-area-inset-bottom));
+        background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.12) 34%, rgba(0,0,0,.70) 100%);
       }
       .splash-copy b{
         font-size:clamp(1.7rem, 9vw, 2.5rem);
@@ -489,6 +561,28 @@
         margin-top:16px;
         font-size:.8rem;
       }
+      .brand{font-size:.88rem}
+      .section{padding:34px 0 6px}
+      .section h2{font-size:1.5rem}
+      .section .lead,.hero-sub,.card p,.card li,.story{font-size:.92rem}
+      .card{padding:18px}
+      .report-frame{height:680px}
+    }
+    @media (min-width:641px) and (max-width:1024px){
+      #splash{
+        place-items:center;
+      }
+      #splash img{
+        object-fit:cover;
+        object-position:center 30%;
+      }
+      .splash-copy{
+        width:min(86vw,760px);
+        padding:28px 24px 32px;
+      }
+      .splash-copy b{
+        font-size:clamp(2.1rem, 5.8vw, 3.4rem);
+      }
     }
   </style>
 </head>
@@ -497,24 +591,27 @@
     <img src="images/genie_splash.png" alt="지니의 황금램프 AI 세미나 스플래시">
     <div class="splash-copy"><b>램프를 문지르자<br>일하는 방식이 바뀌었다</b><span>AI 3차 세미나 · 공유가 토큰을 아낀다</span><small>클릭하거나 잠시 기다리면 시작합니다</small></div>
   </div>
-  <nav class="nav">
+  <nav class="nav" id="topNav">
     <span class="brand">AI 세미나 3차 메인</span>
-    <a href="index.html">진입 페이지</a>
-    <a href="claude-masterclass-2026.html">3차 확장자료</a>
-    <a href="#polarization">AI 양극화</a>
-    <a href="#s1">오늘의 사건</a>
-    <a href="#s2">토큰 누수</a>
-    <a href="#news-now">최근 AI 장면</a>
-    <a href="#culture">공유 문화</a>
-    <a href="#field-voice">현장 목소리</a>
-    <a href="#data-quality">데이터 품질</a>
-    <a href="#html-culture">문서 문화</a>
-    <a href="#s-real">실전 조치</a>
-    <a href="#s3">운영 원칙</a>
-    <a href="#s4">조직 설계</a>
-    <a href="#special-multi-agent">실사례</a>
-    <a href="#s5">메모리·루프</a>
-    <a href="#internal-cases">사내 사례</a>
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navLinks">☰ 메뉴</button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">진입 페이지</a>
+      <a href="claude-masterclass-2026.html">3차 확장자료</a>
+      <a href="#polarization">AI 양극화</a>
+      <a href="#s1">오늘의 사건</a>
+      <a href="#s2">토큰 누수</a>
+      <a href="#news-now">최근 AI 장면</a>
+      <a href="#culture">공유 문화</a>
+      <a href="#field-voice">현장 목소리</a>
+      <a href="#data-quality">데이터 품질</a>
+      <a href="#html-culture">문서 문화</a>
+      <a href="#s-real">실전 조치</a>
+      <a href="#s3">운영 원칙</a>
+      <a href="#s4">조직 설계</a>
+      <a href="#special-multi-agent">실사례</a>
+      <a href="#s5">메모리·루프</a>
+      <a href="#internal-cases">사내 사례</a>
+    </div>
   </nav>
 
   <section class="hero">
@@ -1403,6 +1500,28 @@ README에는 다시 실행할 때 꼭 필요한 사실만 반영해라."</pre></
 <script>
   function closeSplash(){const s=document.getElementById('splash');if(!s)return;s.classList.add('hide');setTimeout(()=>s.remove(),750)}
   setTimeout(closeSplash,5200);
+  const topNav=document.getElementById('topNav');
+  const navToggle=document.getElementById('navToggle');
+  const navLinks=document.querySelectorAll('#navLinks a');
+  function closeNav(){
+    if(!topNav||!navToggle)return;
+    topNav.classList.remove('open');
+    navToggle.setAttribute('aria-expanded','false');
+    navToggle.textContent='☰ 메뉴';
+  }
+  if(topNav&&navToggle){
+    navToggle.addEventListener('click',()=>{
+      const opened=topNav.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded',opened?'true':'false');
+      navToggle.textContent=opened?'✕ 닫기':'☰ 메뉴';
+    });
+    navLinks.forEach(link=>link.addEventListener('click',()=>{
+      if(window.innerWidth<=1024) closeNav();
+    }));
+    window.addEventListener('resize',()=>{
+      if(window.innerWidth>1024) closeNav();
+    });
+  }
   document.querySelectorAll('[data-internal-url="TODO"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();alert('발표 전에 사내 GitHub URL을 입력하세요.')}));
   const modal=document.getElementById('img-modal'), modalImg=document.getElementById('img-modal-img');
   document.querySelectorAll('main img').forEach(img=>img.addEventListener('click',()=>{modalImg.src=img.src;modalImg.alt=img.alt;modal.classList.add('open')}));
