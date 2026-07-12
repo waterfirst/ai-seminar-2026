@@ -57,6 +57,48 @@
       border-radius:999px;
     }
     .nav a:hover{background:var(--surface-2);color:var(--text)}
+    .prelisten{
+      max-width:1100px;
+      margin:18px auto 0;
+      padding:0 22px;
+    }
+    .prelisten-card{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+      background:linear-gradient(135deg,#f7fbff 0%,#eef4ff 100%);
+      border:1px solid #d8e5ff;
+      border-radius:18px;
+      padding:14px 16px;
+      box-shadow:0 12px 30px rgba(44,108,255,.08);
+    }
+    .prelisten-label{
+      font-size:.82rem;
+      font-weight:900;
+      letter-spacing:.08em;
+      color:var(--blue);
+      text-transform:uppercase;
+    }
+    .prelisten-text{
+      flex:1 1 360px;
+      color:var(--text);
+      font-size:.96rem;
+      font-weight:700;
+    }
+    .prelisten-link{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:900;
+      background:linear-gradient(135deg,var(--blue),var(--violet));
+      color:#fff;
+      box-shadow:0 10px 24px rgba(44,108,255,.22);
+    }
+    .prelisten-link:hover{filter:brightness(1.03)}
     .nav-toggle{
       display:none;
       margin-left:auto;
@@ -573,6 +615,7 @@
       .hero-grid,.grid-2,.grid-3,.checklist,.stat-grid,.polar-kpis{grid-template-columns:1fr}
       .split-hero{grid-template-columns:1fr}
       .report-frame{height:760px}
+      .prelisten{padding:0 18px}
     }
     @media (max-width:1024px){
       .nav{
@@ -645,6 +688,19 @@
       .section .lead,.hero-sub,.card p,.card li,.story{font-size:.92rem}
       .card{padding:18px}
       .report-frame{height:680px}
+      .prelisten-card{
+        align-items:flex-start;
+        border-radius:16px;
+        padding:14px;
+      }
+      .prelisten-text{
+        flex-basis:100%;
+        font-size:.9rem;
+      }
+      .prelisten-link{
+        width:100%;
+        justify-content:center;
+      }
     }
     @media (min-width:641px) and (max-width:1024px){
       #splash{
@@ -701,8 +757,17 @@
       <a href="#special-multi-agent">실사례</a>
       <a href="#s5">메모리·루프</a>
       <a href="#internal-cases">사내 사례</a>
+      <a href="ai-allocation-and-inequality-2026.html">의견서</a>
     </div>
   </nav>
+
+  <div class="prelisten">
+    <div class="prelisten-card">
+      <span class="prelisten-label">Audio Overview</span>
+      <div class="prelisten-text">혹시 먼저 세미나 자료를 접하신 분들은 이 걸 들어보세요.</div>
+      <a class="prelisten-link" href="https://notebooklm.google.com/notebook/3c1ad0a6-325a-4672-80c0-4a1b9a0a373d/artifact/d621bb07-9d24-42d2-975b-2462cd0ca226?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" target="_blank" rel="noopener noreferrer">오디오 개요 듣기 ↗</a>
+    </div>
+  </div>
 
   <section class="hero">
     <div class="hero-card">
