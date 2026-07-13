@@ -746,7 +746,6 @@
       <a href="#polarization">AI 양극화</a>
       <a href="#s1">오늘의 사건</a>
       <a href="#s2">토큰 누수</a>
-      <a href="#news-now">최근 AI 장면</a>
       <a href="#culture">공유 문화</a>
       <a href="#field-voice">현장 목소리</a>
       <a href="#data-quality">데이터 품질</a>
@@ -815,125 +814,24 @@
   </section>
 
   <main class="wrap">
-    <section class="section" id="polarization">
-      <div class="section-label">Why now</div>
-      <h2>AI는 모두를 비슷하게 올리지 않는다.<br>시간이 지나면 <b style="color:var(--blue)">중간이 사라지고</b> 상·하위가 벌어진다.</h2>
+    <section class="section" id="s1">
+      <div class="section-label">Today</div>
+      <h2>오늘 사건이 보여준 것</h2>
       <p class="lead">
-        오늘 토큰 부족 사건이 더 무서운 이유는 단순히 “불편하다”가 아니다. 이미 조직 안에서는 <b>AI를 루틴에 붙인 사람</b>과 <b>여전히 손으로 반복하는 사람</b>의 산출량 차이가 벌어지고 있다.
-        같은 팀, 같은 직무라도 시간이 지나면 차이는 누적되고, 결국 <b>상위 10%는 더 빨라지고 하위 10%는 제자리</b>에 머문다.
+        “회사 전체 토큰 부족으로 전면 금지”는 단순한 예산 이슈가 아니다.
+        이미 우리 업무 일부가 AI를 전제로 재구성되었다는 뜻이다.
+        그래서 차단 순간에는 생산성 저하만 오는 게 아니라,
+        <b>금단감·불안·작업 기억 부담 급증</b>까지 같이 온다.
       </p>
-      <div class="split-hero">
-        <div class="card hl">
-          <h3>보충 리포트에서 본 핵심 신호</h3>
-          <div class="polar-kpis">
-            <div class="polar-kpi">
-              <div class="k-lbl">상위 10%</div>
-              <b>2.75×</b>
-              <span>산출량 지수 100 → 275</span>
-            </div>
-            <div class="polar-kpi amber">
-              <div class="k-lbl">하위 10%</div>
-              <b>0.98×</b>
-              <span>사실상 정체 100 → 98</span>
-            </div>
-            <div class="polar-kpi red">
-              <div class="k-lbl">지니계수</div>
-              <b>0.47</b>
-              <span>불평등 0.22 → 0.47</span>
-            </div>
-          </div>
-          <p class="micro-note">
-            숫자 자체보다 중요한 건 방향이다. <b>조직 평균</b>보다 <b>분포의 벌어짐</b>을 봐야 한다. AI는 평균을 조금 올리는 기술이 아니라, 준비된 사람에게는 지렛대가 되고 준비 안 된 사람에겐 더 큰 격차를 만든다.
-          </p>
-        </div>
-        <div class="card warning">
-          <h3>품질팀 버전으로 번역하면</h3>
-          <div class="ladder">
-            <div class="ladder-row"><b>L0</b><p>엑셀 수작업, 캡처 붙이기, 반복 복붙. 속도는 사람 체력에 묶인다.</p></div>
-            <div class="ladder-row"><b>L3</b><p>프롬프트는 쓰지만 매번 처음부터 다시 설명한다. 결과는 나오지만 축적이 안 된다.</p></div>
-            <div class="ladder-row"><b>L5</b><p>파일·템플릿·스크립트로 기억을 외부화한다. 같은 일을 다시 할 때 훨씬 싸고 빨라진다.</p></div>
-            <div class="ladder-row"><b>L7</b><p>멀티에이전트, 루프, 검증 장치까지 붙인다. 사람이 매번 손대지 않아도 운영이 굴러간다.</p></div>
-          </div>
-        </div>
+      <div class="stat-grid">
+        <div class="stat"><b>1</b><span>오늘의 사건: 전면 금지</span></div>
+        <div class="stat"><b>4</b><span>핵심 문제: 비용·가용성·통제권·생산성</span></div>
+        <div class="stat"><b>3</b><span>대응 축: 모델·메모리·루프</span></div>
+        <div class="stat"><b>0</b><span>준비 없는 조직의 fallback 여유</span></div>
       </div>
-      <div class="grid-2" style="margin-top:16px">
-        <div class="card">
-          <h3>그래서 오늘 세미나가 필요한 이유</h3>
-          <p>토큰 절약은 비용 절감이 아니다. <b>AI 활용 상위권의 일하는 방식을 팀 전체의 기본값으로 내리는 작업</b>이다. 토큰이 막혔을 때 무너지는 사람을 줄이고, 작은 모델·스크립트·공유 메모리로도 굴러가는 팀을 만드는 게 목적이다.</p>
-        </div>
-        <div class="card danger">
-          <h3>그냥 각자 쓰게 두면 생기는 일</h3>
-          <ul>
-            <li>잘 쓰는 사람만 더 빨라지고 노하우는 개인에게 갇힌다</li>
-            <li>못 쓰는 사람은 “AI는 남의 일”이 되어버린다</li>
-            <li>모델 차단, 토큰 부족, 정책 변경 때 조직 생산성이 급락한다</li>
-            <li>결국 회사 안에서도 <b>AI 숙련 격차 = 성과 격차</b>가 된다</li>
-          </ul>
-        </div>
+      <div class="quote" style="margin-top:20px">
+        토큰이 떨어졌을 때 조직이 멈춘다면, 그 조직은 AI를 그냥 도구로 쓴 것이 아니라 이미 업무 신경계 일부를 외주화한 것이다.
       </div>
-      <div class="quote" style="margin-top:16px">
-        이 세미나의 출발점은 “어떤 모델이 제일 좋나?”가 아니다. <b>AI 사용의 양극화를 줄이려면, 상위권의 작업 방식을 토큰 효율적인 팀 표준으로 바꿔야 한다.</b>
-      </div>
-      <div class="embed-shell">
-        <div class="embed-toolbar">
-          <div>
-            <h3 style="margin:0 0 4px;font-size:1.08rem">보충 리포트 원문 · 애니메이션 포함</h3>
-            <p style="margin:0;color:var(--muted);font-size:.9rem">원문 표현과 시간축 애니메이션을 최대한 살리기 위해, 별도 리포트를 그대로 앞부분에 임베드했다.</p>
-          </div>
-          <div class="embed-actions">
-            <a class="embed-btn" href="ai-usage-polarization-report.html" target="_blank" rel="noopener">↗ 원문만 크게 보기</a>
-            <a class="embed-btn" href="#overview">세미나 본편으로 내려가기</a>
-          </div>
-        </div>
-        <iframe class="report-frame" src="ai-usage-polarization-report.html" title="AI 활용 양극화 리포트 원문 애니메이션"></iframe>
-      </div>
-    </section>
-
-    <section class="section" id="overview">
-      <div class="section-label">Map</div>
-      <h2>이 페이지는 이렇게 보면 된다</h2>
-      <p class="lead">메인페이지는 <b>문제 인식 → 공유 문화 → 데이터 품질 → 회사형 실전 방법 → 실제 사례</b> 순서로 천천히 읽는다. 품질팀 설명과 임원 설명에서 같은 페이지를 사용하되, 강조점만 다르게 가져간다.</p>
-      <div class="grid-2">
-        <div class="card hl">
-          <h3>1. 먼저 볼 흐름</h3>
-          <ol style="margin:0;padding-left:18px">
-            <li><b>오늘 사건</b> — 왜 이 세미나가 필요한가</li>
-            <li><b>토큰 누수</b> — 어디서 비용이 새는가</li>
-            <li><b>실전 조치</b> — PLAN·Skill·Python·README로 이어지는 회사형 흐름</li>
-            <li><b>운영 원칙</b> — 개인이 당장 지킬 5원칙</li>
-            <li><b>조직 설계</b> — 어떤 모델을 어디에 쓸 것인가</li>
-            <li><b>실사례</b> — 실제로 돌려보니 뭐가 쌌는가</li>
-            <li><b>메모리·루프</b> — 기억은 파일로, 루프엔 브레이크</li>
-            <li><b>사내 사례</b> — 외부에 공개하지 않고 링크로만 연결</li>
-          </ol>
-        </div>
-        <div class="card">
-          <h3>2. 이 페이지의 결론</h3>
-          <p>핵심 메시지는 단순하다. <b>큰 모델은 판단에만, 작은 모델은 반복에, 결정론적 일은 스크립트로</b>. 그리고 실제 실험 결과까지 보면 <b>“싼 초안은 Z AI, 최신 탐색은 Gemini, 비싼 판단은 Codex”</b>가 현재 가장 실용적이다.</p>
-        </div>
-      </div>
-      <div class="grid-2" style="margin-top:16px">
-        <div class="card warning">
-          <h3>메인에 남기고, 상세는 접는다</h3>
-          <p>핸드폰 서버, 서버 노트북, 배포 실습, DB 가이드는 중요하지만 모두 메인에 길게 펼치면 흐름이 깨진다. 메인에는 <b>판단 기준과 운영 원칙</b>을 남기고, 상세 절차는 확장자료/가이드로 넘기는 편이 낫다.</p>
-        </div>
-        <div class="card">
-          <h3>확장자료는 여기로</h3>
-          <ul>
-            <li><a href="claude-masterclass-2026.html">3차 확장자료 — 클로드 마스터클래스</a></li>
-            <li><a href="phone-server-guide.html">핸드폰을 서버로 만드는 방법</a></li>
-            <li><a href="server-laptop-hosting-guide.html">서버 노트북 HTML/FastAPI 호스팅</a></li>
-            <li><a href="web_db_gpt_guide.md">실습 핸드북</a> / <a href="DEPLOYMENT_GUIDE.md">배포 가이드</a></li>
-          </ul>
-        </div>
-      </div>
-      <details class="fold" style="margin-top:16px">
-        <summary>부록 성격의 자료 한 번에 보기</summary>
-        <div class="fold-body">
-          <p><b>핸드폰 서버</b>는 개념 실험용, <b>서버 노트북</b>은 부서 내부 공유용, <b>정식 팀 서버</b>는 장기 운영용으로 보는 것이 자연스럽다. 메인 세미나에서는 이 세 단계를 “운영 성숙도” 관점으로만 이해하고, 실제 설치 절차는 각 가이드 문서로 넘긴다.</p>
-          <p style="margin:10px 0 0"><code>index3.html</code> 같은 구버전/중복 페이지는 앞으로 메인페이지 기준으로 정리해 혼선을 줄이는 것이 좋다.</p>
-        </div>
-      </details>
     </section>
 
     <section class="section" id="two-audiences">
@@ -963,19 +861,6 @@
       <div class="card warning" style="margin-top:18px"><h3>여기서 토큰이 줄어드는 이유</h3><p>문제 정의가 고정되어 재질문이 줄고, PC가 전체 행을 계산해 데이터 토큰이 줄고, README가 환경 설명을 대신해 반복 설명이 줄고, Skill이 검증된 절차를 재사용해 시행착오가 줄어든다. <b>토큰 절약은 한 문장의 요령이 아니라 이 흐름 전체의 결과</b>다.</p></div>
     </section>
 
-    <section class="section" id="news-now">
-      <div class="section-label">Opening · 5 min</div>
-      <h2>램프 속 지니는 매달 더 강해진다</h2>
-      <p class="lead">요즘 SNS를 열면 어제의 최고 모델이 오늘은 구형이 되었다는 이야기가 반복된다. 중요한 것은 모델 순위가 아니다. 이제 한 사람이 모든 변화와 사용법을 따라잡는 방식 자체가 한계에 왔다는 사실이다.</p>
-      <div class="grid-2">
-        <div class="card hl"><img class="news-img" src="images/ai-future.png" alt="빠르게 진화하는 AI 생태계"><h3>GPT‑5.6 — 성능보다 비용 이야기가 커졌다</h3><p>최근 발표에서 코딩 효율과 비용 절감이 전면에 등장했다. SNS에서도 “무엇이 가장 똑똑한가”만큼 “같은 일을 얼마에 끝내는가”가 화제가 된다. 기업에서는 모델의 최고점보다 반복 가능한 경제성이 더 중요해지고 있다.</p><p style="margin-top:9px"><a href="https://www.theverge.com/ai-artificial-intelligence/963464/openai-gpt-5-6-codex-chatgpt-work" target="_blank" rel="noopener">관련 기사 보기 →</a></p></div>
-        <div class="card"><img class="news-img" src="images/ai_players.png" alt="주요 AI 모델 경쟁"><h3>Claude Fable 5 — 며칠 동안 일하는 에이전트</h3><p>긴 작업을 계획하고, 하위 에이전트에 나누고, 스스로 검사하는 모습이 소개되었다. 이제 질문에 답하는 챗봇보다 업무를 이어가는 에이전트가 관심의 중심이다. 그만큼 종료 조건·권한·비용 관리가 중요해졌다.</p><p style="margin-top:9px"><a href="https://www.anthropic.com/news/claude-fable-5-mythos-5" target="_blank" rel="noopener">공식 소개 보기 →</a></p></div>
-        <div class="card"><img class="news-img" src="images/vibe_coding_workflow.png" alt="바이브 코딩 작업 흐름"><h3>Grok Build — 터미널이 새로운 전쟁터가 되었다</h3><p>코딩 에이전트가 터미널에서 계획하고 검색하고 코드를 바꾸는 경쟁에 들어왔다. SNS에서는 여러 에이전트를 동시에 돌리는 영상이 회자되지만, 회사에서는 더 많은 에이전트보다 검증된 코드의 재사용이 먼저다.</p><p style="margin-top:9px"><a href="https://x.ai/news/grok-build-cli" target="_blank" rel="noopener">공식 발표 보기 →</a></p></div>
-        <div class="card success"><img class="news-img" src="images/china_ai_coding.png" alt="중국 오픈소스 AI 코딩 생태계"><h3>Qwen·DeepSeek·GLM — 공개가 생태계를 만든다</h3><p>중국 오픈웨이트 모델이 빠르게 파생되고 개선되는 장면은 공유의 힘을 보여준다. 모든 것을 공개하자는 뜻이 아니다. 사내에서도 보안 범위 안에서 코드·Skill·데이터 정의를 공유하면 같은 가속이 가능하다는 이야기다.</p><p style="margin-top:9px"><a href="https://huggingface.co/Qwen" target="_blank" rel="noopener">Qwen 생태계 보기 →</a></p></div>
-      </div>
-      <div class="quote" style="margin-top:20px">AI는 개인의 능력을 증폭한다. 그러나 공유 문화는 조직 전체의 능력을 증폭한다.</div>
-    </section>
-
     <section class="section" id="culture">
       <div class="section-label">Culture · 10 min</div>
       <h2>가장 큰 토큰 절약은 같은 코드를 두 번 만들지 않는 것이다</h2>
@@ -984,33 +869,6 @@
       <div class="grid-2" style="margin-top:16px"><div class="card hl"><h3>사내 Star는 인기투표가 아니다</h3><p>“다시 쓸 가치가 있다”는 발견 신호다. 평가는 Star 수 하나가 아니라 실제 재사용, 오류 수정, 개선 PR, 절약 시간과 함께 봐야 한다.</p></div><div class="card warning"><h3>GitHub 계정 1,000개의 한계</h3><p>작성·검토자는 GitHub에서 협업하고, 일반 사용자는 별도 카탈로그나 배포 페이지에서 결과를 보게 해야 한다. 동시에 현장 기여자에게 계정을 확대해야 공유가 일부 전문가의 일이 되지 않는다.</p></div></div>
       <p class="story" style="margin-top:20px">GitHub Enterprise의 비용은 코드를 보관하는 비용이 아니라 <b>이미 지불한 AI 토큰과 엔지니어 시간을 조직 자산으로 남기는 비용</b>으로 볼 수 있다. 정확한 계약 비용은 동일한 사용자·기간 기준으로 다시 확인하되, 경영 질문은 단순하다. “저장소 비용을 아끼느라 같은 코드를 계속 다시 만들고 있지는 않은가?”</p>
       <figure style="margin:26px 0 0"><img src="images/current-to-shared-ai-workflow-2026.jpg" alt="개인에게 흩어진 데이터와 앱을 조직 자산으로 전환하는 흐름" style="width:100%;border-radius:20px;border:1px solid var(--line);box-shadow:var(--shadow)"><figcaption style="margin-top:10px;color:var(--muted)">첨부한 현재 구조를 바탕으로 만든 전환 그림. 이미지를 클릭하면 크게 볼 수 있다.</figcaption></figure>
-    </section>
-
-    <section class="section" id="field-voice">
-      <div class="section-label">Field Voices · 10 min</div>
-      <h2>현장의 목소리를 먼저 듣는다 — 라이선스는 개인 소유가 아니라 공공재다</h2>
-      <p class="story">AI를 위에서 강하게 밀어붙일수록, 현장에서는 다른 온도가 감지된다. 사내 익명 게시판에는 이런 목소리가 올라온다. 이 말들을 불평이 아니라 <b>신호</b>로 읽어야 한다. 도구가 부족한 것이 아니라 <b>배분과 목적이 어긋나 있다는 신호</b>다.</p>
-      <div class="grid-2" style="margin-top:18px">
-        <div class="card warning"><h3>“오늘 전사 크레딧 소진됐대요”</h3><p>“써보려니 이미 끝났다.” 밖을 잘 모르는 임원이 몰아 쓰면 정작 실무자에게는 남지 않는다.</p></div>
-        <div class="card warning"><h3>“문제를 먼저 놓아야지”</h3><p>“Agent를 만들자를 먼저 정하고 문제를 찾으니, 뭐든 Agent로 해보려다 낭비가 생긴다.” — 해결책이 문제를 찾아다니는 구조.</p></div>
-        <div class="card warning"><h3>“자원이 뒷받침돼야 돌아가지”</h3><p>“개발만 하면 뭐하나, 쇼잉이지.” 크레딧·서버 없이 과제 수만 늘리면 전시행정이 된다.</p></div>
-        <div class="card warning"><h3>“필요한 데만 써야지”</h3><p>토큰당 과금 전환·예산 조기 소진 뉴스와 겹치며 ‘선별해서 몇 과제만’ 이라는 냉소가 퍼진다.</p></div>
-      </div>
-      <div class="quote" style="margin-top:20px">현장의 목소리를 경청하지 않으면, 아무리 좋은 도구도 ‘윗선의 실적용 장식’으로 소비된다.</div>
-
-      <h3 style="margin-top:28px">숫자로 본 배분의 현실</h3>
-      <div class="grid-3" style="margin-top:14px">
-        <div class="card"><h3>발표 30% vs 현실</h3><p>“2만 명 중 30%가 Codex를 쓴다”는 집계는 특정 부서 AI팀에 몰아준 결과다. 실제 한 파트에서는 <b>17명 중 3명</b>만 쓴다.</p></div>
-        <div class="card"><h3>1인 월 80만원</h3><p>Codex 크레딧 월 1만 개 ≈ <b>80만원 상당</b>이 소수에게 간다. 받은 사람의 개인 생산성으로만 소진되면 조직엔 남는 게 없다.</p></div>
-        <div class="card"><h3>GitHub 1인 40만원/년</h3><p>GitHub Enterprise는 1인당 연 40만원. 이건 코드 보관비가 아니라 <b>이미 쓴 토큰·시간을 자산으로 남기는 비용</b>이다.</p></div>
-      </div>
-
-      <h3 style="margin-top:28px">그래서 바꿔야 할 것 — 공공재로 재설계</h3>
-      <div class="grid-2" style="margin-top:14px">
-        <div class="card success"><h3>넓게 주고, 공공재로 쓰게</h3><ul><li>GitHub는 <b>50% 이상</b>, 개발 도구(Codex 등)는 <b>80% 이상</b> 되도록 넓게 배분</li><li>크레딧을 받은 사람은 개인용을 넘어 <b>부서 공공재</b>로 쓰는 것을 전제로</li><li>공공재로 만든 웹서비스는 GitHub에 올려 <b>모두가 나눠 쓰기</b></li></ul></div>
-        <div class="card hl"><h3>스타(⭐) 문화 = 책임과 보상</h3><ul><li>재사용된 코드·앱에 Star로 <b>발견 신호</b>를 남긴다</li><li>기여자에게 <b>보상</b>(평가·인정)을, 동시에 <b>책임</b>(유지·정확성)을</li><li>Star 수가 아니라 실제 재사용·개선 PR·절약 시간으로 평가</li></ul></div>
-      </div>
-      <p class="story" style="margin-top:18px">핵심은 도구를 더 사느냐가 아니다. <b>소수에게 몰린 라이선스를 공공재로 돌리고, 현장의 목소리를 경청해 “진짜 필요한 문제”에 리소스를 붙이는 것</b>이다. 그때 비로소 크레딧이 개인의 소비가 아니라 조직의 자산이 된다.</p>
     </section>
 
     <section class="section" id="data-quality">
@@ -1029,26 +887,6 @@
       <div class="grid-3" style="margin-top:20px"><div class="card"><h3>Markdown</h3><p>AI에게 시킨 일과 판단 기준을 사람이 읽고 버전 관리할 수 있는 원본으로 남긴다.</p></div><div class="card"><h3>Skill</h3><p>품질 검사, long-format 변환, 보고서 생성처럼 반복되는 방법을 필요할 때만 불러온다.</p></div><div class="card"><h3>HTML</h3><p>표·그래프·근거·링크를 한 흐름으로 설명하고, 같은 코드로 다시 생성한다.</p></div></div>
       <p class="story" style="margin-top:20px">최근에는 Codex를 이용해 엔지니어가 원하는 화면을 직접 만들고 배포하는 사례가 생겼다. 이것은 좋은 변화다. 다만 GitHub Pages는 정적 보고서에 적합하고, Streamlit·FastAPI·Vue·React는 실행 서버가 필요하다. 개인 Wave 단말기와 Nginx 포트 공유는 실험에는 유용하지만 공식 운영 경로가 될 수는 없다. 서버 설치법을 이 자리에서 설명하기보다, <b>검증된 작은 앱이 개인 PC를 벗어나 안전하게 올라갈 공용 경로가 필요하다</b>는 문제만 남기고자 한다.</p>
       <details class="fold"><summary>서버·배포 실습 자료 보기</summary><div class="fold-body"><a href="server-laptop-hosting-guide.html">서버 노트북 호스팅</a> · <a href="phone-server-guide.html">핸드폰 서버 실험</a> · <a href="DEPLOYMENT_GUIDE.md">배포 가이드</a> · <a href="web_db_gpt_guide.md">DB·GPT 실습</a></div></details>
-    </section>
-
-    <section class="section" id="s1">
-      <div class="section-label">Today</div>
-      <h2>오늘 사건이 보여준 것</h2>
-      <p class="lead">
-        “회사 전체 토큰 부족으로 전면 금지”는 단순한 예산 이슈가 아니다.
-        이미 우리 업무 일부가 AI를 전제로 재구성되었다는 뜻이다.
-        그래서 차단 순간에는 생산성 저하만 오는 게 아니라,
-        <b>금단감·불안·작업 기억 부담 급증</b>까지 같이 온다.
-      </p>
-      <div class="stat-grid">
-        <div class="stat"><b>1</b><span>오늘의 사건: 전면 금지</span></div>
-        <div class="stat"><b>4</b><span>핵심 문제: 비용·가용성·통제권·생산성</span></div>
-        <div class="stat"><b>3</b><span>대응 축: 모델·메모리·루프</span></div>
-        <div class="stat"><b>0</b><span>준비 없는 조직의 fallback 여유</span></div>
-      </div>
-      <div class="quote" style="margin-top:20px">
-        토큰이 떨어졌을 때 조직이 멈춘다면, 그 조직은 AI를 그냥 도구로 쓴 것이 아니라 이미 업무 신경계 일부를 외주화한 것이다.
-      </div>
     </section>
 
     <section class="section" id="s2">
@@ -1649,6 +1487,111 @@ README에는 다시 실행할 때 꼭 필요한 사실만 반영해라."</pre></
         삼성디스플레이 품질팀 AI 세미나 3차 메인 · Token-Frugal Agent Playbook · 2026-07-10
       </div>
     </section>
+
+    <section class="section" id="polarization">
+      <div class="section-label">Why now</div>
+      <h2>AI는 모두를 비슷하게 올리지 않는다.<br>시간이 지나면 <b style="color:var(--blue)">중간이 사라지고</b> 상·하위가 벌어진다.</h2>
+      <p class="lead">
+        오늘 토큰 부족 사건이 더 무서운 이유는 단순히 “불편하다”가 아니다. 이미 조직 안에서는 <b>AI를 루틴에 붙인 사람</b>과 <b>여전히 손으로 반복하는 사람</b>의 산출량 차이가 벌어지고 있다.
+        같은 팀, 같은 직무라도 시간이 지나면 차이는 누적되고, 결국 <b>상위 10%는 더 빨라지고 하위 10%는 제자리</b>에 머문다.
+      </p>
+      <div class="split-hero">
+        <div class="card hl">
+          <h3>보충 리포트에서 본 핵심 신호</h3>
+          <div class="polar-kpis">
+            <div class="polar-kpi">
+              <div class="k-lbl">상위 10%</div>
+              <b>2.75×</b>
+              <span>산출량 지수 100 → 275</span>
+            </div>
+            <div class="polar-kpi amber">
+              <div class="k-lbl">하위 10%</div>
+              <b>0.98×</b>
+              <span>사실상 정체 100 → 98</span>
+            </div>
+            <div class="polar-kpi red">
+              <div class="k-lbl">지니계수</div>
+              <b>0.47</b>
+              <span>불평등 0.22 → 0.47</span>
+            </div>
+          </div>
+          <p class="micro-note">
+            숫자 자체보다 중요한 건 방향이다. <b>조직 평균</b>보다 <b>분포의 벌어짐</b>을 봐야 한다. AI는 평균을 조금 올리는 기술이 아니라, 준비된 사람에게는 지렛대가 되고 준비 안 된 사람에겐 더 큰 격차를 만든다.
+          </p>
+        </div>
+        <div class="card warning">
+          <h3>품질팀 버전으로 번역하면</h3>
+          <div class="ladder">
+            <div class="ladder-row"><b>L0</b><p>엑셀 수작업, 캡처 붙이기, 반복 복붙. 속도는 사람 체력에 묶인다.</p></div>
+            <div class="ladder-row"><b>L3</b><p>프롬프트는 쓰지만 매번 처음부터 다시 설명한다. 결과는 나오지만 축적이 안 된다.</p></div>
+            <div class="ladder-row"><b>L5</b><p>파일·템플릿·스크립트로 기억을 외부화한다. 같은 일을 다시 할 때 훨씬 싸고 빨라진다.</p></div>
+            <div class="ladder-row"><b>L7</b><p>멀티에이전트, 루프, 검증 장치까지 붙인다. 사람이 매번 손대지 않아도 운영이 굴러간다.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-top:16px">
+        <div class="card">
+          <h3>그래서 오늘 세미나가 필요한 이유</h3>
+          <p>토큰 절약은 비용 절감이 아니다. <b>AI 활용 상위권의 일하는 방식을 팀 전체의 기본값으로 내리는 작업</b>이다. 토큰이 막혔을 때 무너지는 사람을 줄이고, 작은 모델·스크립트·공유 메모리로도 굴러가는 팀을 만드는 게 목적이다.</p>
+        </div>
+        <div class="card danger">
+          <h3>그냥 각자 쓰게 두면 생기는 일</h3>
+          <ul>
+            <li>잘 쓰는 사람만 더 빨라지고 노하우는 개인에게 갇힌다</li>
+            <li>못 쓰는 사람은 “AI는 남의 일”이 되어버린다</li>
+            <li>모델 차단, 토큰 부족, 정책 변경 때 조직 생산성이 급락한다</li>
+            <li>결국 회사 안에서도 <b>AI 숙련 격차 = 성과 격차</b>가 된다</li>
+          </ul>
+        </div>
+      </div>
+      <div class="quote" style="margin-top:16px">
+        이 세미나의 출발점은 “어떤 모델이 제일 좋나?”가 아니다. <b>AI 사용의 양극화를 줄이려면, 상위권의 작업 방식을 토큰 효율적인 팀 표준으로 바꿔야 한다.</b>
+      </div>
+      <div class="embed-shell">
+        <div class="embed-toolbar">
+          <div>
+            <h3 style="margin:0 0 4px;font-size:1.08rem">보충 리포트 원문 · 애니메이션 포함</h3>
+            <p style="margin:0;color:var(--muted);font-size:.9rem">원문 표현과 시간축 애니메이션을 최대한 살리기 위해, 별도 리포트를 그대로 앞부분에 임베드했다.</p>
+          </div>
+          <div class="embed-actions">
+            <a class="embed-btn" href="ai-usage-polarization-report.html" target="_blank" rel="noopener">↗ 원문만 크게 보기</a>
+            <a class="embed-btn" href="#topNav">세미나 본편으로 올라가기</a>
+          </div>
+        </div>
+        <iframe class="report-frame" src="ai-usage-polarization-report.html" title="AI 활용 양극화 리포트 원문 애니메이션"></iframe>
+      </div>
+
+      <div style="margin-top:34px;padding-top:8px;border-top:1px solid rgba(15,23,42,.08)">
+        <div class="section-label">Field Voices · 10 min</div>
+        <h2>현장의 목소리를 먼저 듣는다 — 라이선스는 개인 소유가 아니라 공공재다</h2>
+        <p class="story">AI를 위에서 강하게 밀어붙일수록, 현장에서는 다른 온도가 감지된다. 사내 익명 게시판에는 이런 목소리가 올라온다. 이 말들을 불평이 아니라 <b>신호</b>로 읽어야 한다. 도구가 부족한 것이 아니라 <b>배분과 목적이 어긋나 있다는 신호</b>다.</p>
+        <div class="grid-2" style="margin-top:18px">
+          <div class="card warning"><h3>“오늘 전사 크레딧 소진됐대요”</h3><p>“써보려니 이미 끝났다.” 밖을 잘 모르는 임원이 몰아 쓰면 정작 실무자에게는 남지 않는다.</p></div>
+          <div class="card warning"><h3>“문제를 먼저 놓아야지”</h3><p>“Agent를 만들자를 먼저 정하고 문제를 찾으니, 뭐든 Agent로 해보려다 낭비가 생긴다.” — 해결책이 문제를 찾아다니는 구조.</p></div>
+          <div class="card warning"><h3>“자원이 뒷받침돼야 돌아가지”</h3><p>“개발만 하면 뭐하나, 쇼잉이지.” 크레딧·서버 없이 과제 수만 늘리면 전시행정이 된다.</p></div>
+          <div class="card warning"><h3>“필요한 데만 써야지”</h3><p>토큰당 과금 전환·예산 조기 소진 뉴스와 겹치며 ‘선별해서 몇 과제만’ 이라는 냉소가 퍼진다.</p></div>
+        </div>
+        <div class="quote" style="margin-top:20px">현장의 목소리를 경청하지 않으면, 아무리 좋은 도구도 ‘윗선의 실적용 장식’으로 소비된다.</div>
+
+        <h3 style="margin-top:28px">숫자로 본 배분의 현실</h3>
+        <div class="grid-3" style="margin-top:14px">
+          <div class="card"><h3>발표 30% vs 현실</h3><p>“2만 명 중 30%가 Codex를 쓴다”는 집계는 특정 부서 AI팀에 몰아준 결과다. 실제 한 파트에서는 <b>17명 중 3명</b>만 쓴다.</p></div>
+          <div class="card"><h3>1인 월 80만원</h3><p>Codex 크레딧 월 1만 개 ≈ <b>80만원 상당</b>이 소수에게 간다. 받은 사람의 개인 생산성으로만 소진되면 조직엔 남는 게 없다.</p></div>
+          <div class="card"><h3>GitHub 1인 40만원/년</h3><p>GitHub Enterprise는 1인당 연 40만원. 이건 코드 보관비가 아니라 <b>이미 쓴 토큰·시간을 자산으로 남기는 비용</b>이다.</p></div>
+        </div>
+
+        <h3 style="margin-top:28px">그래서 바꿔야 할 것 — 공공재로 재설계</h3>
+        <div class="grid-2" style="margin-top:14px">
+          <div class="card success"><h3>넓게 주고, 공공재로 쓰게</h3><ul><li>GitHub는 <b>50% 이상</b>, 개발 도구(Codex 등)는 <b>80% 이상</b> 되도록 넓게 배분</li><li>크레딧을 받은 사람은 개인용을 넘어 <b>부서 공공재</b>로 쓰는 것을 전제로</li><li>공공재로 만든 웹서비스는 GitHub에 올려 <b>모두가 나눠 쓰기</b></li></ul></div>
+          <div class="card hl"><h3>스타(⭐) 문화 = 책임과 보상</h3><ul><li>재사용된 코드·앱에 Star로 <b>발견 신호</b>를 남긴다</li><li>기여자에게 <b>보상</b>(평가·인정)을, 동시에 <b>책임</b>(유지·정확성)을</li><li>Star 수가 아니라 실제 재사용·개선 PR·절약 시간으로 평가</li></ul></div>
+        </div>
+        <p class="story" style="margin-top:18px">핵심은 도구를 더 사느냐가 아니다. <b>소수에게 몰린 라이선스를 공공재로 돌리고, 현장의 목소리를 경청해 “진짜 필요한 문제”에 리소스를 붙이는 것</b>이다. 그때 비로소 크레딧이 개인의 소비가 아니라 조직의 자산이 된다.</p>
+      </div>
+    </section>
+
+    <div style="text-align:center;margin:22px 0 8px">
+      <a href="#topNav" style="color:var(--muted);font-size:.92rem;text-decoration:none;font-weight:700">이 페이지는 이렇게 보면 된다 ↑</a>
+    </div>
   </main>
 <div id="img-modal" role="dialog" aria-label="이미지 확대 보기"><span>×</span><img id="img-modal-img" src="" alt=""></div>
 <script>
