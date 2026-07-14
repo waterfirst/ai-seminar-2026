@@ -1006,6 +1006,12 @@ Cubic에서 조회한 A2PLR 데이터를 long format으로 정리하고
       <div class="card" style="margin-top:18px">
         <h3>2단계 — 자주 쓰는 방법은 SKILL.md로, 코딩 표준은 AGENTS.md로 분리한다</h3>
         <p>모든 프로젝트에서 같은 설명을 다시 입력하지 않는다. Cubic 조회, 날짜 범위, long-format 변환, 품질 검사처럼 반복되는 판단은 Skill에 남긴다. 반대로 코딩 표준은 AGENTS에 둔다. 예를 들어 프론트엔드라면 <b>RTK(Redux Toolkit)+Hooks, typed hooks, RTK Query 우선, legacy Redux 지양</b> 같은 규칙을 AGENTS에 한 번만 적어두면 된다.</p>
+        <div class="grid-3" style="margin-top:14px">
+          <div class="card success"><h3>RTK란?</h3><p>Redux를 더 짧고 안전하게 쓰기 위한 표준 도구 묶음이다. <code>createSlice</code>, <code>configureStore</code>로 보일러플레이트를 크게 줄인다.</p></div>
+          <div class="card hl"><h3>Hooks란?</h3><p><code>connect</code>, <code>mapStateToProps</code>, <code>mapDispatchToProps</code> 대신 <code>useAppSelector</code>, <code>useAppDispatch</code>로 필요한 상태와 액션만 바로 쓴다.</p></div>
+          <div class="card warning"><h3>RTK Query란?</h3><p>API 호출, 캐시, 로딩, 에러 상태를 한 번에 관리하는 방식이다. 직접 thunk를 많이 짜지 않아도 되어 코드와 설명이 함께 줄어든다.</p></div>
+        </div>
+        <details class="fold"><summary>발표할 때 이렇게 설명하면 된다</summary><div class="fold-body"><ul><li><b>RTK:</b> “기존 Redux를 덜 길고 덜 복잡하게 쓰게 해주는 표준 방식입니다.”</li><li><b>Hooks:</b> “예전 connect 문법 대신 필요한 상태를 컴포넌트 안에서 바로 꺼내 쓰는 방식입니다.”</li><li><b>RTK Query:</b> “API 호출 코드를 줄이고, 로딩·에러·캐시를 같이 관리해주는 도구입니다.”</li><li><b>왜 토큰이 줄어드나:</b> “코드가 짧아지고 반복 설명이 줄어 AI에게 보여줄 양도 줄어듭니다.”</li></ul><p><b>정확한 표현:</b> 항상 50%라고 단정하지 말고, <b>프로젝트에 따라 코드량이 크게 줄어든다</b>고 설명하는 편이 맞다.</p></div></details>
         <details class="fold"><summary>회사 데이터 분석용 SKILL.md 예시 펼쳐보기</summary><div class="fold-body"><pre>---
 name: cubic-long-format-report
 description: Cubic 조회 결과를 검증하고 long format HTML 보고서로 만들 때 사용
