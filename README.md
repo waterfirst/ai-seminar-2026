@@ -1,137 +1,82 @@
-# 삼성디스플레이 품질팀 AI 세미나 시리즈
+# AI Seminar 2026 — 대화에서 실행으로
 
-삼성디스플레이 품질팀 실무자 대상 AI 실무 교육 자료 모음입니다.
+챗팅 → 바이브 코딩 → 에이전트 → 에이전틱 워크로 이어지는 AI 세미나 시리즈입니다.
 
-🔗 **메인 진입 URL**: https://waterfirst.github.io/ai-seminar-2026/  
-🔗 **실제 3차 메인 본편**: https://waterfirst.github.io/ai-seminar-2026/token-frugal-agent-playbook-2026.html
+- **메인 허브**: https://waterfirst.github.io/ai-seminar-2026/
+- **4차 최신판**: https://waterfirst.github.io/ai-seminar-2026/fourth-seminar-2026.html
+- **최신 검증일**: 2026-08-18
 
----
+## 세미나 순서
 
-## 세미나 자료 목록
+| 차수 | 주제 | 날짜 | 파일 |
+|---|---|---:|---|
+| 1차 | AI가 바꾸는 연구개발 | 2026-06-13 | [`index2.html`](./index2.html) |
+| 2차 | 지금 당장 실무에 쓸 수 있는 AI 도구 완전 가이드 | 2026-06 | [`index1.html`](./index1.html) |
+| 3차 | 토큰을 아끼는 AI 에이전트 운영 전략 | 2026-07 | [`token-frugal-agent-playbook-2026.html`](./token-frugal-agent-playbook-2026.html) |
+| 4차 | AGI로 가는 길목, Agentic Work | 2026-08-18 | [`fourth-seminar-2026.html`](./fourth-seminar-2026.html) |
 
-### 3차 세미나 본편 — 토큰을 아끼는 AI 에이전트 운영 전략 (2026.07) `token-frugal-agent-playbook-2026.html`
-**대상**: 품질팀 실무자  
-**링크**: https://waterfirst.github.io/ai-seminar-2026/token-frugal-agent-playbook-2026.html  
-**접속**: 비밀번호 `0000`
+> 2차 자료는 삭제된 것이 아닙니다. 초기 파일명 재배치 때문에 **1차가 `index2.html`, 2차가 `index1.html`**로 저장되어 있었습니다. 루트 허브에서 올바른 순서로 다시 연결했습니다.
+>
+> 2차와 3차 발표 페이지의 기존 접속 코드는 `1111`입니다. 메인 허브와 4차 최신판은 바로 열립니다.
 
-주요 내용:
-- 토큰 비용 문제와 RTK(Rust Token Killer) 훅 시스템
-- Claude Code Hooks 설정 (PreToolUse / PostToolUse)
-- CLAUDE.md 작성법과 메모리 파일 관리
-- AI 에이전트 운영 5원칙 (VFF · 마지막 1cm · 토큰 설계)
-- 실전 절약 측정: `rtk gain` 명령 활용
+## 4차 세미나 구성
 
----
+- Chat → Vibe Coding → Agent → Agentic Work 진화 과정
+- AGI에 대한 과장 없는 능력 단계 구분
+- Model, Context, Skills, Tools, Orchestration, Governance 스택
+- Skills, MCP 2026-07-28, A2A v1.0, Computer Use, Memory, Evals
+- Stanford AI Index 2026, Microsoft WTI 2026, METR 최신 데이터
+- OLED/TFT 신뢰성 분석을 예로 든 제조·연구개발 멀티에이전트 구조
+- 자율성·도구 권한·사람 검토·에이전트 수를 조절하는 교육용 시뮬레이터
+- 대한민국 AI 기본법, KISA·NSA 지침 기반 에이전트 보안
+- 30일 도입 로드맵
 
-### 3차 세미나 진입 페이지 `index.html`
-**성격**: 루트 URL 유지용 리다이렉트 페이지  
-**링크**: https://waterfirst.github.io/ai-seminar-2026/
+## 편집 원칙
 
-설명:
-- 기존 공유 링크를 유지
-- 자동으로 밝은 톤 메인 본편으로 이동
-- 메인/확장자료 수동 링크도 함께 제공
+- 1·2·3차 본문은 발표 당시의 기록으로 보존합니다.
+- 빠르게 바뀌는 모델명·시장 정보는 4차 최신판에서 공식·원문 자료로 다시 검증합니다.
+- 최신 데이터와 과거 발표 내용을 혼동하지 않도록 각 기존 페이지에 아카이브 안내를 표시합니다.
+- 정적 GitHub Pages에서 별도 빌드 없이 실행되며 모바일·다크/라이트·인쇄를 지원합니다.
 
----
+## 주요 파일
 
-### 1차 세미나 — AI가 바꾸는 연구개발 (2026.05) `index2.html`
-**대상**: SDC 연구소 재료연구팀 연구원  
-**링크**: https://waterfirst.github.io/ai-seminar-2026/index2.html
-
-주요 내용:
-- 글로벌 AI 현황 및 기업 도입 사례
-- Gemini · Claude · ChatGPT 비교 분석
-- 연구개발 실무 적용 방법
-- AI 도구 실습 가이드
-
----
-
-### 사례 연구 — 프롬프트로 머신러닝하기 `ml-with-prompts.html`
-**링크**: https://waterfirst.github.io/ai-seminar-2026/ml-with-prompts.html
-
-코딩 없이 Claude 프롬프트만으로 머신러닝을 구현한 실제 사례 연구.  
-특성 중요도 분석, 교차 검증, 앙상블 모델 구현 과정 포함.
-
----
-
-### AWE USA 2026 출장 보고서 `awe_report.html`
-**링크**: https://waterfirst.github.io/ai-seminar-2026/awe_report.html
-
-Long Beach 전시회 AR/XR 기술 트렌드 현장 정리.  
-AWE 센싱 교육 자료 및 주요 전시 부스 분석.
-
----
-
-## 파일 구조
-
-```
+```text
 ai-seminar-2026/
-├── index.html        # 3차 세미나 진입 페이지(메인 본편으로 자동 이동)
-├── index2.html       # 1차 세미나 — AI가 바꾸는 연구개발
-├── claude-masterclass-2026.html   # 3차 확장자료(어두운 톤)
-├── token-frugal-agent-playbook-2026.html   # 3차 메인 본편(밝은 톤)
-├── index3.html       # 3차 구버전/중복 후보
-├── ml-with-prompts.html    # ML + 프롬프트 사례 연구
-├── awe_report.html         # AWE 2026 출장 보고서
-├── zoom_guide.html         # Zoom 사용 가이드
-├── ai-research-verification-2026.html
-├── etf-investment-ai.html
-├── images/           # 1차 세미나 이미지
-└── img/              # 2차 세미나 이미지
+├── index.html                              # 4부작 메인 허브
+├── index2.html                             # 1차 세미나
+├── index1.html                             # 2차 세미나
+├── token-frugal-agent-playbook-2026.html   # 3차 메인 본편
+├── claude-masterclass-2026.html            # 3차 확장자료
+├── index3.html                             # 3차 구버전 아카이브
+├── fourth-seminar-2026.html                # 4차 최신판 + 시뮬레이터
+├── PLAN.md                                 # 이번 개편 목적·완료 조건
+├── AGENTS.md                               # 저장소 작업 규칙
+├── images/                                 # 1·3차 이미지
+├── img/                                    # 2차 이미지
+├── backend/                                # 기존 FastAPI 실습
+└── frontend/                               # 기존 Streamlit 실습
 ```
 
----
+## 최신 근거 자료
 
-## 관련 저장소
+- [OpenAI — Build skills](https://learn.chatgpt.com/docs/build-skills)
+- [OpenAI — Agents SDK](https://developers.openai.com/api/docs/guides/agents)
+- [OpenAI — Using tools](https://developers.openai.com/api/docs/guides/tools)
+- [Stanford HAI — The 2026 AI Index Report](https://hai.stanford.edu/ai-index/2026-ai-index-report)
+- [Microsoft — 2026 Work Trend Index](https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization)
+- [METR — Task-Completion Time Horizons](https://metr.org/time-horizons/)
+- [MCP — 2026-07-28 Specification](https://blog.modelcontextprotocol.io/posts/2026-07-28/)
+- [A2A Protocol — Version 1.0](https://a2a-protocol.org/latest/announcing-1.0/)
+- [International AI Safety Report 2026](https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026)
+- [KISA — AI 보안 위협 대응 매뉴얼](https://www.kisa.or.kr/401/form?postSeq=3712)
+- [국가법령정보센터 — 인공지능 기본법](https://www.law.go.kr/lsInfoP.do?lsId=014820)
 
-- [awe_2026_LA](https://github.com/waterfirst/awe_2026_LA) — AWE 2026 출장 원본 자료
+## 로컬 확인
 
-## 3차 세미나 추가 자료
+정적 파일이므로 저장소 루트에서 간단한 HTTP 서버로 확인할 수 있습니다.
 
-### 📌 3차 세미나 페이지 구조 요약
-- **진입 URL**: `index.html`
-- **실제 메인 본편(밝은 톤)**: `token-frugal-agent-playbook-2026.html`
-- **확장자료(어두운 톤)**: `claude-masterclass-2026.html`
-- **구버전/정리 대상**: `index3.html`
+```bash
+python -m http.server 8000
+```
 
-### 📚 실습 핸드북
-- **[web_db_gpt_guide.md](./web_db_gpt_guide.md)** — 프런트/백엔드·DB 핵심 정리 및 사내 GPT 엔터프라이즈 단계별 구현 가이드
-  - 프런트엔드 (HTML/CSS/JS, React, R Shiny, Streamlit)
-  - 백엔드 (FastAPI 추천, Express/Spring Boot)
-  - 데이터베이스 (SQL, NoSQL, Vector DB)
-  - 사내 GPT 엔터프라이즈 Step 1-4 실습 가이드
-
-- **[DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)** — 배포 & 운영 가이드
-  - 로컬 개발 환경 5분 빠른 시작
-  - Docker 프로덕션 배포
-  - API 명세 및 트러블슈팅
-
-- **[token-frugal-agent-playbook-2026.md](./token-frugal-agent-playbook-2026.md)** — 토큰을 아끼는 AI 에이전트 운영 전략
-  - 회사 전체 토큰 부족 사태의 구조적 원인
-  - 큰 모델/작은 모델/스크립트 분업 원칙
-  - 메모리 설계, 루프 브레이크, fallback SOP
-  - 3차 세미나 보강용 발표 골격과 체크리스트
-
-- **[token-frugal-agent-playbook-2026.html](./token-frugal-agent-playbook-2026.html)** — 밝은 배경 기본의 세미나 발표용 페이지
-  - 금단현상 카툰을 인트로 훅으로 배치
-  - 토큰 누수 원인, 운영 원칙, 조직 실행안을 카드형으로 재구성
-  - 임원/연구원 발표에 바로 쓸 수 있는 시각 자료
-
-### 💻 실행 가능한 코드
-- **backend/** — FastAPI 백엔드 (main.py + requirements.txt + Dockerfile)
-  - POST /ask-gpt 엔드포인트
-  - SQLite 데이터베이스 자동 초기화
-  - OpenAI API 연동
-
-- **frontend/** — Streamlit 프런트엔드 (app.py + requirements.txt + Dockerfile)
-  - 채팅 UI (입력창 + 응답 표시)
-  - 대화 이력 조회
-  - 백엔드 헬스 체크
-
-- **docker-compose.yml** — 한 번에 배포 가능한 통합 설정
-- **.env.example** — 환경변수 템플릿 (OpenAI API 키 설정)
-
----
-
-## 3차 — 클로드 특별강의
-- `claude-masterclass-2026.html` : 3차 세미나 **확장자료**. Chat/Cowork/Code·MCP·키메라(클로드+GPT+제미나이)·에이전트 실전(실리콘네스트 구축)·스킬/헌법/키관리
+브라우저에서 `http://localhost:8000/`을 엽니다.
